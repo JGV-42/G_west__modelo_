@@ -1,0 +1,44 @@
+% sections/05_desarrollo_modelo.tex
+\section{Implementación de los modelos}
+
+% Este apartado es donde profundizas en la parte práctica de tu IA.
+% Podrías incluir:
+% - Preprocesamiento de datos avanzado: escalado, codificación de variables categóricas, ingeniería de características.
+% - División del dataset: explicar cómo se dividieron los datos en conjuntos de entrenamiento, validación y prueba.
+% - Arquitectura final del modelo: si es una red neuronal, un diagrama o una descripción detallada de las capas, neuronas y funciones de activación. Si es un modelo de árbol, cómo se configuró (número de estimadores, profundidad máxima, etc.).
+% - Proceso de entrenamiento: cómo se entrenó el modelo, cuánto tiempo tomó, hardware utilizado (GPU/CPU).
+% - Optimización de hiperparámetros: si utilizaste Grid Search, Random Search, o librerías como Optuna/Hyperopt.
+% - Manejo de sobreajuste (overfitting) o subajuste (underfitting).
+% - Ejemplos de código o pseudocódigo (si son relevantes y no demasiado extensos para el documento).
+
+% - Herramientas y librerías utilizadas (Python, scikit-learn, XGBoost, etc.).
+% - Mención opcional del entorno de ejecución (entorno local, servidor, etc.).
+% - Tiempo de entrenamiento aproximado, tamaño del dataset.
+
+El desarrollo y evaluación de los modelos predictivos se realizó íntegramente en \textbf{Python} y el entorno de ejecución fue local, en un equipo con procesador Intel Core i7 y 32 GB de RAM, lo que permitió realizar experimentos de forma eficiente con un conjunto de datos de tamaño considerable (\textasciitilde{}80.000 muestras).
+
+\medskip
+
+El preprocesamiento de datos se llevó a cabo mediante la librería \texttt{scikit-learn}, utilizando \texttt{Pipeline} y \texttt{ColumnTransformer} para combinar transformaciones numéricas y categóricas. En particular, las variables numéricas se imputaron con la mediana y se escalaron con \texttt{StandardScaler}, mientras que las variables categóricas se trataron mediante imputación por moda y codificación \textit{one-hot}. La función objetivo a predecir fue el carbono total (\texttt{CZ}) acumulado en cada parcela.
+
+\medskip
+
+Se implementaron y optimizaron diversos modelos de regresión supervisada, incluyendo:
+
+\begin{itemize}
+    \item \textbf{Modelos basados en árboles:} \texttt{RandomForestRegressor}, \texttt{XGBoost}, \texttt{LightGBM}, \texttt{CatBoost}, \texttt{GradientBoosting}, \texttt{AdaBoost} y \texttt{Bagging}.
+    \item \textbf{Modelos basados en instancias:} \texttt{KNeighborsRegressor}.
+    \item \textbf{Modelos de redes neuronales:} \texttt{MLPRegressor}.
+    \item \textbf{Modelos de soporte vectorial:} \texttt{SVR}.
+    \item \textbf{Modelos probabilísticos:} \texttt{BayesianRidge}.
+\end{itemize}
+
+La optimización de hiperparámetros se realizó mediante \texttt{RandomizedSearchCV}, con validación cruzada de 5 particiones y búsqueda en espacios definidos manualmente para cada modelo. Los modelos fueron evaluados en términos de \textbf{\(R^2\)} y \textbf{RMSE}, tanto en el conjunto de entrenamiento como en el de prueba.
+
+\medskip
+
+Con el objetivo de mejorar el rendimiento predictivo, se evaluaron además varias configuraciones de \texttt{StackingRegressor}, combinando distintos subconjuntos de modelos base (previamente entrenados) con diversos meta-modelos (\texttt{LinearRegression}, \texttt{Ridge}, \texttt{GradientBoosting}, \texttt{SVR}, \texttt{MLP}, entre otros). Estas combinaciones permitieron comparar sinergias entre modelos complementarios.
+
+\medskip
+
+El tiempo de entrenamiento varió según el modelo y la configuración de hiperparámetros. Gracias al uso de \texttt{n\_jobs=-1} se aprovechó el paralelismo multinúcleo para acelerar la optimización.

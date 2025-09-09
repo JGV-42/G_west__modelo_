@@ -1,0 +1,20 @@
+\begin{abstract}
+    Este artículo presenta un modelo de inteligencia artificial diseñado para predecir la cantidad de carbono capturado en proyectos de forestación y reforestación, a partir de variables estructurales, climáticas y espectrales. La motivación principal parte del hecho de que, durante su desarrollo, los árboles capturan dióxido de carbono ($CO_2$) en su biomasa; por tanto, modelar el crecimiento forestal permite inferir la cantidad de carbono absorbido a lo largo del tiempo.
+
+    \medskip
+
+    El modelo desarrollado responde a la siguiente pregunta: \textit{Dado un cultivo forestal con características concretas de vegetación, clima y terreno, ¿cuánto $CO_2$ contendrá pasados unos años?} Esta capacidad de predicción permite, además, integrarlo en marcos de optimización forestal, abordando cuestiones clave como:
+    
+    \begin{itemize}
+        \item ¿Qué especie plantar en un terreno específico para maximizar la captura de carbono?
+        \item ¿En qué terreno plantar una especie determinada para alcanzar mayor rendimiento en fijación de carbono?
+    \end{itemize}
+
+    \medskip
+
+    El modelo se entrena sobre datos reales multifuente: registros históricos del Inventario Forestal Nacional (IFN2, IFN3 e IFN4), variables climáticas derivadas de Copernicus y métricas espectrales procedentes de imágenes Landsat. Los datos estan limitados al territorio español, dando lugar a un modelo adaptado a las características ambientales y  orográficas del país. La estructura jerárquica del modelo por parcela, especie y clase diamétrica permite estimaciones a alta resolución espacial y taxonómica. Se implementaron y evaluaron distintos enfoques de aprendizaje supervisado, incluyendo modelos basados en árboles, redes neuronales y técnicas probabilísticas, seleccionando finalmente la opción con mejor rendimiento general.
+
+    \medskip
+
+    \textbf{Palabras clave:} créditos de carbono, inteligencia artificial, forestación, reforestación, modelado predictivo, cambio climático.
+\end{abstract}

@@ -1,0 +1,57 @@
+# Archivo .gitignore para proyectos de LaTeX
+
+# ----------------------------------------------------------------
+# Archivos de salida y compilación principal
+# ----------------------------------------------------------------
+*.aux
+*.log
+*.out
+*.toc       # Tabla de Contenidos
+*.lof       # Lista de Figuras
+*.lot       # Lista de Tablas
+*.fls
+*.fdb_latexmk
+*.synctex.gz # Archivo para sincronización entre editor y PDF
+
+# ----------------------------------------------------------------
+# Archivos de Bibliografía (BibTeX/Biber)
+# ----------------------------------------------------------------
+*.bbl
+*.bcf
+*.blg
+*.run.xml
+
+# ----------------------------------------------------------------
+# Archivos de Paquetes Específicos (Glosarios, Índices, etc.)
+# ----------------------------------------------------------------
+*.acn
+*.acr
+*.alg
+*.glg
+*.glo
+*.gls
+*.ist
+*.idx
+*.ind
+
+# ----------------------------------------------------------------
+# Archivos de editores y sistemas operativos
+# ----------------------------------------------------------------
+*~
+._*
+.DS_Store
+
+# ----------------------------------------------------------------
+# Directorios de salida
+# ----------------------------------------------------------------
+# Si configuras un directorio de salida (ej. 'out' o 'build')
+/out/
+/build/
+
+# ----------------------------------------------------------------
+# El PDF final (OPCIONAL)
+# ----------------------------------------------------------------
+# A menudo se ignora el PDF, ya que se puede generar desde los
+# archivos fuente. Descomenta la siguiente línea si NO quieres
+# incluir el PDF en tu repositorio.
+# *.pdf
