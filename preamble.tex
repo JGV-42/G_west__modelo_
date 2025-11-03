@@ -22,10 +22,12 @@
 \addto\captionsspanish{\renewcommand{\tablename}{Tabla}} % Para que las tablas no se llamen Cuadros
 \usepackage[utf8]{inputenc} %tildes en español
 
-\usepackage[shortlabels]{enumitem}
-\usepackage[backend=biber,style=numeric]{biblatex}
-\usepackage[shortlabels]{enumitem}
-\addbibresource{bibliografia/referencias.bib} %Import the bibliography file
+
+% --- QUEDARTE CON (BibTeX) ---
+\usepackage[numbers,sort&compress]{natbib}  % opcional pero recomendado
+\usepackage[hidelinks]{hyperref}            % carga después de natbib
+
+
 \usepackage{lipsum}% http://ctan.org/pkg/lipsum
 \usepackage{subcaption}
 \captionsetup{compatibility=false}
@@ -48,6 +50,10 @@
 \usepackage{multirow}
 \usepackage[skip=4pt plus1pt, indent=10pt]{parskip}
 \usepackage{color}
+\usepackage{tabularx} % 
+% \usepackage{cite}
+\usepackage{xr}
+\usepackage{csquotes}
 
 
 
@@ -179,3 +185,13 @@
 \ofoot*{} % Right footer
 \ifoot*{} % Left footer
 \cfoot*{\pagemark} % Centre footer
+
+
+
+% --- En preamble.tex ---
+\usepackage{authblk}           % autorías compactas en article
+\renewcommand\Authfont{\normalsize}
+\renewcommand\Affilfont{\small}
+\setlength{\affilsep}{0.25em}  % espacio entre autores y afiliaciones
+\renewcommand\Authand{, }      % separadores: coma
+\renewcommand\Authands{ y }    % antes del último: "y"

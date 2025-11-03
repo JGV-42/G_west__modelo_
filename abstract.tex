@@ -1,20 +1,15 @@
 \begin{abstract}
-    Este artículo presenta un modelo de inteligencia artificial diseñado para predecir la cantidad de carbono capturado en proyectos de forestación y reforestación, a partir de variables estructurales, climáticas y espectrales. La motivación principal parte del hecho de que, durante su desarrollo, los árboles capturan dióxido de carbono ($CO_2$) en su biomasa; por tanto, modelar el crecimiento forestal permite inferir la cantidad de carbono absorbido a lo largo del tiempo.
+Este trabajo presenta \textbf{GreenWest}, un modelo de inteligencia artificial diseñado para predecir la cantidad de carbono capturado en proyectos de forestación y reforestación en España. El modelo se entrena con datos multifuente: registros del \textbf{Inventario Forestal Nacional} (\textbf{IFN3–IFN4}, MITECO)~\cite{ifn}, variables climáticas derivadas de \textbf{Copernicus/ERA5-Land}~\cite{era5land} e índices espectrales procedentes de \textbf{imágenes Landsat} (Collection~2, Level~2, USGS)~\cite{landsatc2}. Estos datos se integran en una base de datos relacional jerárquica descrita en un trabajo complementario~\cite{greenwestdb}, que organiza la información por parcela, especie y clase diamétrica, manteniendo trazabilidad y coherencia estructural entre inventarios.
 
-    \medskip
+\medskip
 
-    El modelo desarrollado responde a la siguiente pregunta: \textit{Dado un cultivo forestal con características concretas de vegetación, clima y terreno, ¿cuánto $CO_2$ contendrá pasados unos años?} Esta capacidad de predicción permite, además, integrarlo en marcos de optimización forestal, abordando cuestiones clave como:
-    
-    \begin{itemize}
-        \item ¿Qué especie plantar en un terreno específico para maximizar la captura de carbono?
-        \item ¿En qué terreno plantar una especie determinada para alcanzar mayor rendimiento en fijación de carbono?
-    \end{itemize}
+El modelo desarrollado responde a la pregunta: \textit{Dado un cultivo forestal con características concretas de vegetación, clima y terreno, ¿cuánto CO$_2$ contendrá pasados unos años?} Esta capacidad predictiva permite su integración en marcos de optimización forestal, abordando cuestiones como la selección de especies o la asignación óptima de terrenos para maximizar la fijación de carbono.
 
-    \medskip
+\medskip
 
-    El modelo se entrena sobre datos reales multifuente: registros históricos del Inventario Forestal Nacional (IFN2, IFN3 e IFN4), variables climáticas derivadas de Copernicus y métricas espectrales procedentes de imágenes Landsat. Los datos estan limitados al territorio español, dando lugar a un modelo adaptado a las características ambientales y  orográficas del país. La estructura jerárquica del modelo por parcela, especie y clase diamétrica permite estimaciones a alta resolución espacial y taxonómica. Se implementaron y evaluaron distintos enfoques de aprendizaje supervisado, incluyendo modelos basados en árboles, redes neuronales y técnicas probabilísticas, seleccionando finalmente la opción con mejor rendimiento general.
+Se evaluaron múltiples enfoques de aprendizaje supervisado, destacando \textbf{CatBoost}~\cite{catboost} como el modelo con mejor rendimiento (\(R^2>0.80\), RMSE<15), con alta capacidad de generalización temporal mediante validación cruzada por grupos. Los resultados demuestran el potencial del enfoque para estimar la absorción futura de CO$_2$ y optimizar decisiones de gestión forestal sostenible, contribuyendo a la transición hacia una economía baja en emisiones~\cite{cmnucc1992,UNFCCC1997}.
 
-    \medskip
+\medskip
 
-    \textbf{Palabras clave:} créditos de carbono, inteligencia artificial, forestación, reforestación, modelado predictivo, cambio climático.
+\textbf{Palabras clave:} créditos de carbono, inteligencia artificial, forestación, reforestación, modelado predictivo, cambio climático.
 \end{abstract}
