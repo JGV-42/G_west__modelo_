@@ -1,80 +1,20 @@
 \section{Metodología}
 
-Esta sección describe el procedimiento seguido para entrenar y validar los modelos predictivos desarrollados. La metodología se fundamenta en la identificación de los factores que condicionan el crecimiento forestal y, por tanto, la capacidad de captura de carbono en un periodo determinado. Para ello, se ha trabajado sobre una base de datos específicamente estructurada para facilitar su uso en tareas de modelización ecológica y análisis predictivo.
+Esta sección describe el procedimiento seguido para el entrenamiento y validación de los modelos predictivos desarrollados. 
+La metodología se fundamenta en la identificación de los factores que determinan el crecimiento forestal y, en consecuencia, la capacidad de los ecosistemas para capturar carbono a lo largo del tiempo. 
+El enfoque integra información estructural, climática y espectral procedente del Inventario Forestal Nacional (IFN) y de otras fuentes ambientales, con el propósito de construir modelos robustos que permitan predecir el contenido de carbono acumulado en la biomasa viva.
 
 \medskip
 
-El carbono absorbido por los árboles se acumula en su biomasa a lo largo del tiempo. La cantidad almacenada depende del tamaño de los individuos, el cual está influenciado por múltiples variables ambientales y estructurales. Así, la estimación del carbono capturado entre dos momentos se realiza midiendo el crecimiento de los árboles y aplicando factores de conversión, considerando que aproximadamente el 50\% de la biomasa seca corresponde a carbono \cite{MITECO2020}.
+El carbono fijado por los árboles se acumula progresivamente en su biomasa, en función del tamaño y vigor de los individuos, los cuales están condicionados por variables ambientales, topográficas y de competencia intraespecífica. 
+Las condiciones meteorológicas, como la temperatura y la precipitación, inciden directamente en la fotosíntesis y en la disponibilidad hídrica; 
+la orientación, la pendiente y la altitud modifican la radiación incidente y el microclima local; 
+mientras que la densidad de árboles por unidad de superficie determina el nivel de competencia por los recursos, variando según la especie y su tolerancia ecológica \cite{IPCC2006, Buchholz2014}. 
 
 \medskip
 
-La base de datos empleada recoge características forestales, climáticas y espectrales a nivel de parcela, especie y clase diamétrica. Esta estructura relacional permite capturar la evolución del bosque entre inventarios y alimentar modelos capaces de predecir el contenido futuro de carbono a partir de observaciones pasadas. El conjunto de variables integradas satisface los principales requisitos ecológicos y estadísticos del problema, garantizando una representación suficiente del entorno forestal.
-
-\medskip
-
-El crecimiento de las especies arbóreas está condicionado por factores edáficos, climáticos, topográficos y de competencia intraespecífica. Las condiciones meteorológicas, como la temperatura o la precipitación, afectan a la fotosíntesis y la disponibilidad hídrica. La orientación, la pendiente y la altitud modifican la radiación recibida y la capacidad de retención de agua. A su vez, la densidad de árboles por superficie determina el nivel de competencia por los recursos, lo cual varía según la especie y su tolerancia ecológica \cite{IPCC2006, Buchholz2014}.
-
-\medskip
-
-A partir de estos principios, la base de datos recoge un conjunto diverso de variables que incluyen:
-
-\begin{itemize}
-    \item \textbf{Características del terreno:} textura, tipo de suelo, orientación, pendiente y elevación, que condicionan el entorno físico del crecimiento.
-    
-    \item \textbf{Estructura y composición forestal:} cobertura total y arbórea, ocupación específica por especie, forma y estado de la masa, y distribución espacial del arbolado.
-    
-    \item \textbf{Variables dendrométricas:} número de pies, área basimétrica y volumen por clase diamétrica, como indicadores directos de biomasa y densidad forestal.
-    
-    \item \textbf{Condiciones climáticas:} medias y extremos de temperatura y precipitación por estación, obtenidas a partir de registros satelitales y reanálisis.
-    
-    \item \textbf{Índices de vegetación:} métricas como NDVI, NDII, GNDVI y EVI, que capturan el vigor, humedad y densidad de la cubierta vegetal (véase Sección~\ref{sec:indices}).
-\end{itemize}
-
-\subsection{Objetivo y alcance}
-% Unifica aquí todo el objetivo (una sola vez)
-% Qué se predice (carbono total), horizonte 20--30 años, dos variables (t y t/ha)
-
-
-El objetivo principal de este trabajo es estimar el \textbf{carbono total} que una parcela forestal será capaz de capturar en un horizonte temporal de aproximadamente 20 a 30 años. Este valor constituye un indicador clave del potencial de mitigación climática de los ecosistemas forestales y resulta esencial para la planificación de proyectos de compensación de emisiones. 
-
-\medskip
-
-El modelo se entrena para predecir dos variables de respuesta relacionadas con la captura de carbono: \texttt{c} y \texttt{carbono\_bruto}. La primera (\texttt{c}) representa el carbono total contenido en la biomasa aérea y subterránea por especie, parcela e inventario, expresado en toneladas de carbono por hectárea (tC/ha). Su origen se encuentra en las variables del Inventario Forestal Nacional (IFN), donde se reportan estimaciones del contenido de carbono aéreo (\texttt{ca}), radical (\texttt{cr}) y total (\texttt{c}). Sin embargo, la documentación del IFN no detalla el método de cálculo empleado, por lo que se asume que siguen las directrices de la \textit{Guía del MITECO para la estimación de absorciones de \(\text{CO}_2\)} \cite{miteco_guia_co2}. Estas variables presentan vacíos notables en el IFN4 y ausencia completa en los inventarios previos (IFN2 e IFN3), por lo que al crear la base de datos se recurrió a un modelo \emph{Random Forest Regressor} para imputar los valores faltantes a partir de variables dendrométricas observadas (Especie, CD, VSC, NPies, ABas, IAVC, VCC y VLE). Aunque este enfoque mostró un rendimiento satisfactorio (\(R^2_{test} > 0.90\)), sus estimaciones derivan de un modelo estadístico y no de mediciones directas.
-
-\medskip
-
-La variable \texttt{carbono\_bruto} (tC) se desarrolló como alternativa trazable y físicamente interpretable, calculada directamente a partir de variables medidas en campo: número de pies (\texttt{npies}), altura media (\texttt{ht}), tipo de especie (\texttt{clase\_especie}) y clase diamétrica (\texttt{cd\_id}). Su estimación sigue un modelo alométrico adaptado de \cite{chave2014} y las directrices del IPCC~\cite{IPCC2006}. La biomasa aérea individual se obtiene mediante ecuaciones específicas por tipo de especie:
-\[
-\text{Biomasa}_{\text{coníferas}} = 0.05 \times (CD^2 \times Ht)^{0.9}, \quad
-\text{Biomasa}_{\text{frondosas}} = 0.067 \times (CD^2 \times Ht)^{0.9}.
-\]
-A partir de esta biomasa se calcula el carbono por árbol aplicando el factor de conversión recomendado por el IPCC:
-\[
-\text{Carbono}_{\text{árbol}} = \frac{\text{Biomasa} \times 0.5}{1000}.
-\]
-Finalmente, el \texttt{carbono\_bruto} total se obtiene multiplicando el carbono por árbol por el número de pies de cada clase diamétrica:
-\[
-\text{Carbono\_bruto} = \text{Carbono}_{\text{árbol}} \times \texttt{npies}.
-\]
-El resultado se expresa en toneladas de carbono (t) por parcela y especie, sin normalizar por superficie, lo que facilita la trazabilidad y la comparación entre inventarios. Esta aproximación evita dependencias con factores de expansión específicos del IFN y proporciona una medida más transparente y replicable del carbono capturado a partir de datos observados. En coherencia con los criterios de proyectos de reforestación y forestación, las entradas correspondientes a brinzales o plantones se consideran con valor de carbono cero, dado que el carbono de las fases tempranas de desarrollo no se contabiliza como carbono capturado en los registros oficiales.
-
-\medskip
-
-Para que un proyecto forestal sea elegible dentro de los programas de \emph{créditos de carbono}, debe cumplir una serie de requisitos técnicos establecidos en los marcos regulatorios internacionales \cite{IPCC2006, miteco_guia_co2}. Estos criterios aseguran la validez ambiental y la permanencia del secuestro de carbono, y entre los principales se encuentran:
-
-\begin{itemize}
-    \item \textbf{Intervención humana directa:} el incremento del carbono debe ser resultado de una acción planificada (reforestación, restauración o manejo forestal sostenible).
-    \item \textbf{Permanencia mínima de 30 años:} el carbono capturado debe mantenerse almacenado durante al menos tres décadas.
-    \item \textbf{Superficie mínima de 1 hectárea:} el proyecto debe tener una extensión suficiente para generar beneficios climáticos verificables.
-    \item \textbf{Fracción mínima de cabida cubierta del 20\%:} el área arbolada debe superar este umbral para ser considerada masa forestal.
-    \item \textbf{Altura mínima de los árboles de 3 metros en la madurez:} requisito que garantiza la representatividad estructural del bosque.
-\end{itemize}
-
-\medskip
-
-El objetivo principal de este trabajo es estimar el \textbf{carbono total} que una parcela forestal será capaz de capturar en un horizonte temporal de aproximadamente 20--30 años. El conjunto de datos incluye dos variables de carbono: una en \emph{toneladas totales} y otra en \emph{toneladas por hectárea}, lo que permite analizar el contenido de carbono en términos absolutos y normalizados por superficie.
-
-\medskip
+A partir de estos fundamentos, se construyó una base de datos relacional que integra información forestal, climática y espectral a nivel de parcela, especie y clase diamétrica. 
+Esta estructura permite caracterizar con precisión la dinámica del bosque entre inventarios sucesivos y alimentar modelos predictivos capaces de estimar el contenido futuro de carbono a partir de las condiciones observadas en el pasado.
 
 
 \subsection{Origen y estructura de los datos}
@@ -118,7 +58,7 @@ Estos datos se organizan en las siguientes entidades troncales:
   \item \textbf{especies} y \textbf{grupos}: recogen la información taxonómica y su clasificación jerárquica, estableciendo la relación entre especies individuales y grupos funcionales.
 \end{itemize}
 
-Cada variable categórica posee una tabla de catálogo propia (\texttt{cat\_}), donde se definen los valores posibles y sus descripciones. Por ejemplo, \texttt{cat\_textura}, \texttt{cat\_nivel1}, \texttt{cat\_tratmasa} o \texttt{cat\_origen}. Todas siguen un patrón uniforme: la clave primaria es el identificador de la variable (\texttt{<variable>\_id}), y las tablas troncales referencian este mismo campo como clave foránea. Además la base de daros incluye una tabla llamada \texttt{meta\_variables} que recoge los metadatos.
+Cada variable categórica posee una tabla de catálogo propia (\texttt{cat\_}), donde se definen los valores posibles y sus descripciones. Por ejemplo, \texttt{cat\_textura}, \texttt{cat\_nivel1}, \texttt{cat\_tratmasa} o \texttt{cat\_origen}. Todas siguen un patrón uniforme: la clave primaria es el identificador de la variable (\texttt{<variable>\_id}), y las tablas troncales referencian este mismo campo como clave foránea. Además la base de datos incluye una tabla llamada \texttt{meta\_variables} que recoge los metadatos.
 
 \medskip
 
@@ -251,6 +191,81 @@ El volumen de entradas por tabla es:
 \end{tabular}
 \end{center}
 
+\subsection{Variables objetivo}
+
+El objetivo del modelo es estimar el \textbf{carbono total} que una parcela forestal puede capturar en un horizonte temporal de 20--30 años, a partir de las condiciones observadas en inventarios previos. 
+Para ello se definieron dos variables de respuesta complementarias, ambas derivadas de los datos del Inventario Forestal Nacional (IFN), que permiten analizar el contenido de carbono desde perspectivas distintas: una normalizada por superficie y otra en términos absolutos.
+
+\medskip
+
+\begin{enumerate}
+    \item \textbf{\texttt{c}} (tC/ha): representa el \textbf{carbono total contenido en la biomasa viva aérea y subterránea} por unidad de superficie, expresado en \emph{toneladas de carbono por hectárea}. 
+    Su cálculo se basa en la suma de las estimaciones de carbono aéreo (\texttt{ca}) y radical (\texttt{cr}) reportadas por el IFN. 
+    En los casos con valores faltantes, se completó la información mediante un modelo de \emph{Random Forest Regressor} ajustado sobre variables dendrométricas observadas (Especie, CD, VSC, NPies, ABas, IAVC, VCC y VLE), alcanzando un rendimiento satisfactorio (\(R^2_{test} > 0.90\)). 
+    Esta variable es coherente con los formatos internacionales de reporte de inventarios forestales y permite comparar el contenido de carbono entre parcelas o especies.
+
+    \medskip
+
+    \item \textbf{\texttt{carbono\_bruto}} (tC): corresponde al \textbf{carbono total capturado por parcela y especie}, expresado en \emph{toneladas de carbono totales}. 
+    Su estimación se realiza de forma trazable y físicamente interpretable a partir de variables medidas directamente en campo: número de pies (\texttt{npies}), altura media (\texttt{ht}), tipo de especie (\texttt{clase\_especie}) y clase diamétrica (\texttt{cd\_id}). 
+    El cálculo sigue un modelo alométrico adaptado de \cite{chave2014} y las directrices del IPCC~\cite{ipcc2006}, incorporando tanto la biomasa aérea como la biomasa radical mediante la relación Parte Radical:Parte Aérea ($R$). 
+    El resultado se expresa en toneladas de carbono totales por parcela, sin normalizar por superficie, lo que facilita la trazabilidad del proceso y la comparación entre inventarios sin depender de factores de expansión específicos del IFN. 
+    En coherencia con los criterios de proyectos de forestación y reforestación, las observaciones correspondientes a brinzales o plantones se consideran con valor de carbono nulo, dado que las fases tempranas de desarrollo no se contabilizan oficialmente como carbono capturado.
+\end{enumerate}
+
+\medskip
+
+Estas dos variables resumen el contenido de carbono forestal desde enfoques complementarios: 
+\texttt{c} (tC/ha) permite la comparación espacial y temporal entre masas forestales, mientras que \texttt{carbono\_bruto} (tC) ofrece una medida absoluta y directamente derivada de las observaciones de campo. 
+Ambas constituyen los objetivos principales del modelado predictivo, orientado a estimar el carbono acumulado en el \textbf{IFN4} a partir de las condiciones registradas en los inventarios anteriores (\textbf{IFN2} e \textbf{IFN3}).
+
+\subsection{Supuestos de elegibilidad y verificación externa}
+% Intervención humana, permanencia 30a (extrapolación cauta), superficie>=1ha,
+% fccarb>=20% (filtro), altura>=3m en madurez (decisión de diseño).
+
+Para que un proyecto forestal sea elegible en programas de \emph{créditos de carbono}, debe cumplir requisitos técnicos establecidos por marcos regulatorios internacionales \cite{IPCC2006, miteco_guia_co2}. A continuación se resume cada criterio y la forma en que se aborda en este estudio:
+
+\begin{itemize}
+    \item \textbf{Intervención humana directa.} El incremento de carbono debe proceder de actuaciones planificadas (reforestación, restauración o manejo sostenible). En nuestro caso, el modelo se entrena sobre datos observacionales (IFN2--IFN3--IFN4); por tanto, la \emph{verificación de intervención} no se deduce del modelo, sino que se contempla como \emph{condición externa} de elegibilidad del proyecto a evaluar.
+
+    \item \textbf{Permanencia mínima de 30 años.} Para caracterizar el crecimiento de las parcelas forestales en los datos que alimentan el modelo, es necesario disponer de dos mediciones sucesivas de cada parcela, separadas por un intervalo temporal conocido. Estas mediciones permiten cuantificar la evolución de las variables forestales y, por tanto, estimar el incremento de carbono asociado al crecimiento del arbolado durante dicho periodo. 
+
+    En este trabajo, el objetivo es predecir el contenido de carbono correspondiente al \textbf{IFN4}, utilizando como información explicativa las variables observadas en inventarios anteriores. Dado que los inventarios tercero y cuarto comparten una estructura homogénea y un conjunto de variables comparable la elección más directa para el entrenamiento del modelo sería emplear exclusivamente estos dos inventarios. Esta estrategia aprovecha la coherencia estructural de los inventarios más recientes, que incluyen un mayor número de variables y una caracterización más detallada del terreno. 
+
+    \medskip
+
+    No obstante, este planteamiento se enfrenta a la limitación impuesta por la \textbf{permanencia mínima de 30 años}, requisito fundamental en el contexto de los proyectos de compensación. El intervalo de tiempo entre los inventarios \textbf{IFN3} e \textbf{IFN4} es relativamente corto: no supera los 18 años.   
+    
+    \medskip
+
+    La Figura~\ref{fig:periodo34} muestra la distribución de la diferencia de años entre las mediciones del IFN3 y el IFN4. Como puede observarse, la mayoría de las parcelas presentan intervalos comprendidos entre 6 y 17 años, un rango demasiado estrecho para evaluar la estabilidad del modelo en horizontes más amplios.
+
+    \begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.9\textwidth]{figuras/periodo34.png}
+        \caption{Distribución de la diferencia de años entre los inventarios IFN3 e IFN4.}
+        \label{fig:periodo34}
+    \end{figure}
+
+    Para ampliar la cobertura temporal y mejorar la capacidad de generalización del modelo, se optó por unificar la información de los inventarios \textbf{IFN2} e \textbf{IFN3} como base explicativa para la predicción del \textbf{IFN4}. Esta integración permite disponer de pares de mediciones de parcelas separadas por intervalos que oscilan entre 6 y 29 años, lo que constituye un rango mucho más representativo del horizonte de 20--30 años establecido como referencia.
+
+    \begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.9\textwidth]{figuras/periodo234.png}
+        \caption{Distribución de la diferencia de años entre los inventarios IFN2--IFN3 e IFN3--IFN4.}
+        \label{fig:periodo234}
+    \end{figure}
+
+    \medskip
+
+    De esta forma, el modelo se entrena y valida sobre un conjunto de datos más diverso y equilibrado, tanto en estructura como en amplitud temporal, manteniendo la coherencia metodológica y la trazabilidad de las estimaciones. Este enfoque no sólo mejora la robustez del aprendizaje, sino que también refuerza la capacidad del modelo para proyectar la captura de carbono en escenarios compatibles con los requisitos de permanencia de los proyectos de compensación.
+
+    \item \textbf{Superficie mínima de 1 ha.} Este criterio se considera \emph{externo} al alcance del modelo predictivo, ya que el aprendizaje se realiza a nivel de parcela e inventario y no sobre polígonos de superficie total. En la práctica, la verificación de la superficie se realiza \emph{ex ante}, sobre la geometría declarada del proyecto forestal. En los terrenos forestales generados a partir de intervención humana directa —como plantaciones o repoblaciones—, la extensión suele presentar una estructura homogénea, con una especie dominante, edades coetáneas y densidades estandarizadas. Bajo estas condiciones, el carbono total es proporcional a la superficie: duplicar el área de una masa forestal homogénea implica aproximadamente duplicar su carbono almacenado. Por tanto, la variable de superficie no afecta al ajuste interno del modelo y su cumplimiento puede evaluarse fácilmente a nivel de proyecto, sin comprometer la validez de las predicciones.
+
+    \item \textbf{Fracción mínima de cabida cubierta del 20\%.} La base de datos dispone de \texttt{fccarb} (arbórea) y \texttt{fcctot} (total). Este umbral se aplica como \emph{filtro de elegibilidad} previo o posterior al modelado, sin modificar la arquitectura del modelo (\texttt{fccarb}$>20$).
+
+    \item \textbf{Altura mínima de 3 m en la madurez.} Este requisito se refiere a la altura que alcanzan los árboles en su fase de pleno desarrollo, y no a la altura inicial de los plantones. Por tanto, las mediciones realizadas durante las etapas tempranas de crecimiento no determinan la elegibilidad del proyecto, siempre que las especies seleccionadas sean capaces de superar los 3 metros en la madurez. En nuestro conjunto de datos, la altura no se registra explícitamente, por lo que este criterio se evalúa de forma \emph{externa} al modelo, mediante la selección de especies forestales adecuadas y la verificación con fuentes auxiliares (catálogos silvícolas o tipologías de masa). En la práctica, el cumplimiento del requisito depende de una decisión de diseño del proyecto —\emph{no plantar especies cuyo tamaño adulto sea inferior a 3 metros}— más que del ajuste predictivo del modelo. Por ello, la altura no interviene directamente en el entrenamiento, aunque sí condiciona la elegibilidad final del proyecto forestal. 
+\end{itemize}
 
 \subsection{Preparación y tratamiento de los datos}
 % Filtros (fccarb>=20%, crecimiento positivo, etc.)
@@ -258,48 +273,38 @@ El volumen de entradas por tabla es:
 % Cálculo de variables derivadas (carbono_bruto)
 % Codificación y escalado
 
-
-Para caracterizar el crecimiento de los árboles en los datos que se alimentan al modelo es necesario seleccionar dos inventarios distintos, permitiendo calcular la evolución de las variables forestales en el periodo transcurrido entre ambos. Dado que los inventarios IFN3 e IFN4 tienen una estructura similar y caracterizan mejor el terreno (más variables) la primera elección natural es emplear estos inventarios. 
+Como ya se ha introducido el entrenamiento se realiza en dos líneas según la variable objetivo: \texttt{c} de \textbf{IFN4} o \texttt{carbono_bruto} de \textbf{IFN4}; y según la información que se usa como explicativa: \textbf{IFN3} o \textbf{IFN3} e \textbf{IFN2}. Se plantea la preparación y filtrado de los datos en términos generales (variable objetivo por \texttt{c} o \texttt{carbono_bruto} y primera inventariación/ inventariación explicativa por \textbf{IFN3} o la unión de \textbf{IFN2} e \textbf{IFN3}).
 
 \subsubsection*{Filtrado de registros}
 
-Se descartan todas aquellas parcelas en las que el valor de carbono total (\texttt{C} o \texttt{carbono\_bruto}) en la segunda inventariación es inferior a la primera. Estos casos suelen deberse a episodios de deforestación, incendios u otras perturbaciones, y no representan un crecimiento forestal neto.
+Se descartan todas aquellas parcelas en las que el valor de carbono total (variable objetivo) en la segunda inventariación es inferior a la primera. Estos casos suelen deberse a episodios de deforestación, incendios u otras perturbaciones, y no representan un crecimiento forestal neto.
 
 \medskip
 
-El conjunto de datos empleado se restringe únicamente a las parcelas que presentan una \texttt{fccarb} (fracción de cabida cubierta arbórea) igual o superior al 20\,\%. Este umbral define la proporción mínima de superficie ocupada por copas de árboles respecto al área total de la parcela, y constituye una de las condiciones esenciales para considerar una superficie como terreno forestal. La exclusión de parcelas con \texttt{fccarb} inferior al 20\,\% permite asegurar que las estimaciones de carbono se realicen sobre masas forestales consolidadas, evitando sesgos asociados a áreas agrícolas o matorrales.
+El conjunto de datos se restringe únicamente a las parcelas que presentan una \texttt{fccarb} (fracción de cabida cubierta arbórea) igual o superior al 20\,\% en el \textbf{IFN3}. Este umbral define la proporción mínima de superficie ocupada por copas de árboles respecto al área total de la parcela, y constituye una de las condiciones esenciales para considerar una superficie como terreno forestal. La exclusión de parcelas con \texttt{fccarb} inferior al 20\,\% permite asegurar que las estimaciones de carbono se realicen sobre masas forestales consolidadas, evitando sesgos asociados a áreas agrícolas o matorrales. A los datos del \textbf{IFN2} no se les aplica dicho filtro porque no disponen de la variable \texttt{fccarb}.
 
 \medskip
 
-Tras aplicar los criterios de inclusión definidos —esto es, \texttt{fccarb} $>$ 20 y la no reducción del carbono total entre inventarios (\texttt{c3} $\geq$ \texttt{c4} o \texttt{carbono\_bruto3} $\geq$ \texttt{carbono\_bruto4})—, se obtuvo la siguiente distribución de registros:
+Los conteos de observaciones por inventario y condición se resumen a continuación:
 
 \begin{itemize}
-  \item \textbf{Caso C (c3 $\geq$ c4):} de un total de 171\,170 parcelas, 104\,558 (61.1\,\%) cumplen únicamente la condición de \texttt{fccarb} $>$ 20, mientras que 3\,660 (2.1\,\%) cumplen solo la condición de no reducción del carbono total. El número de parcelas que satisfacen ambas condiciones simultáneamente —y, por tanto, se consideran válidas para el entrenamiento de modelos— asciende a 53\,888 (31.5\,\% del total). En conjunto, el 94.7\,\% de las parcelas cumplen al menos una de las dos condiciones de inclusión.
+    \item \textbf{IFN2:} Total de parcelas = \textbf{88.696}
+    \begin{itemize}
+        \item Casos con $c4 > c$: \textbf{31.428}
+        \item Casos con $carbono\_bruto4 > carbono\_bruto$: \textbf{32.403}
+    \end{itemize}
 
-  \item \textbf{Caso carbono\_bruto (carbono\_bruto3 $\geq$ carbono\_bruto4):} igualmente, sobre las mismas 171\,170 parcelas iniciales, 123\,774 (72.3\,\%) presentan una \texttt{fccarb} $>$ 20, y 1\,738 (1.0\,\%) muestran un incremento neto de carbono bruto sin cumplir la primera condición. Las parcelas que cumplen ambas simultáneamente suman 34\,672 (20.3\,\%), lo que representa el conjunto final de datos empleados para entrenamiento en este caso. El 93.6\,\% de las parcelas cumplen al menos una de las condiciones de inclusión.
+    \item \textbf{IFN3:} Total de parcelas = \textbf{171.157}
+    \begin{itemize}
+        \item Casos con $fccarb > 20$: \textbf{158.434}
+        \item Casos con $fccarb > 20$ y $c4 > c$: \textbf{57.401}
+        \item Casos con $fccarb > 20$ y $carbono\_bruto4 > carbono\_bruto$: \textbf{76.617}
+    \end{itemize}
 \end{itemize}
-
-\medskip
-
-En la Tabla~\ref{tab:filtrado_fccarb} se resume la relación entre ambas condiciones de filtrado en cada caso, evidenciando que la fracción de cabida cubierta es el criterio más restrictivo. 
-
-\begin{table}[h!]
-\centering
-\caption{Resumen del filtrado de parcelas según las condiciones de inclusión.}
-\label{tab:filtrado_fccarb}
-\begin{tabular}{lcccc}
-\toprule
-\textbf{Caso} & \textbf{Total} & \textbf{F1 (\texttt{fccarb}>20)} & \textbf{F2} & \textbf{F1 $\wedge$ F2 (entrenamiento)} \\
-\midrule
-C (c3$\geq$c4) & 171\,170 & 104\,558 & 3\,660 & 53\,888 \\
-Carbono bruto (cb3$\geq$cb4) & 171\,170 & 123\,774 & 1\,738 & 34\,672 \\
-\bottomrule
-\end{tabular}
-\end{table}
 
 \subsubsection*{Cálculo y agregación de variables}
 
-Cada registro de entrada se genera a nivel de combinación parcela--especie, incorporando las variables correspondientes de la primera medición (IFN3 en la configuración empleada) y la variable objetivo (carbono) de la segunda medición (IFN4). Las variables de \texttt{parcela} y \texttt{parcela\_inventario} se desdoblan para cada especie. Las entradas de la tabla \texttt{parcela\_inventario\_especie\_cd} se agrupan por parcela y especie y se comprimen en una única entrada creando un conjunto de variables para cada clase diamétrica.
+Cada registro de entrada se genera a nivel de combinación parcela--especie, incorporando las variables correspondientes de la primera medición y la variable objetivo (carbono) de la segunda medición (IFN4). Las variables de \texttt{parcela} y \texttt{parcela\_inventario} se desdoblan para cada especie. Las entradas de la tabla \texttt{parcela\_inventario\_especie\_cd} se agrupan por parcela y especie y se comprimen en una única entrada creando un conjunto de variables para cada clase diamétrica.
 
 \medskip
 
@@ -317,49 +322,49 @@ La Tabla~\ref{tab:entrada_modelo} resume las variables empleadas como entrada al
 \hline
 \textbf{Variable} & \textbf{Tipo} & \textbf{Descripción} & \textbf{Anexo} \\
 \hline
-\texttt{parcela\_id} & varchar & Identificador \emph{único} de parcela. & -- \\
+\textcolor{ForestGreen}{\texttt{parcela\_id}} & varchar & Identificador \emph{único} de parcela. & -- \\
 \hline
-\texttt{especie\_id}, \texttt{tipo\_especie}, \texttt{grupo\_id} & int (CF) & Especie (código), tipo de especie y grupo taxonómico. & Anexo \ref{sec:especies} \\
+\textcolor{ForestGreen}{\texttt{especie\_id}}, \texttt{tipo\_especie}, \texttt{grupo\_id} & int (CF) & Especie (código), tipo de especie y grupo taxonómico. & Anexo \ref{sec:especies} \\
 \hline
-\texttt{ocupa} & int & Grado de ocupación/presencia de la especie en la parcela (0--10). & -- \\
+\textcolor{ForestGreen}{\texttt{ocupa}} & int & Grado de ocupación/presencia de la especie en la parcela (0--10). & -- \\
 \hline
-\texttt{estado\_id}, \texttt{fpmasa\_id}, \texttt{tratmasa\_id}, \texttt{orgmasa\_1\_id} & int (CF) & Estado/fase de desarrollo, forma principal de masa, tratamiento de masa, organización de masa. & -- \\
+\textcolor{ForestGreen}{\texttt{estado\_id}}, \texttt{fpmasa\_id}, \texttt{tratmasa\_id}, \texttt{orgmasa\_1\_id} & int (CF) & Estado/fase de desarrollo, forma principal de masa, tratamiento de masa, organización de masa. & -- \\
 \hline
-\texttt{tipsuelo1\_id}, \texttt{tipsuelo2\_id}, \texttt{tipsuelo3\_id} & int (CF) & Tipos de suelo de la parcela (niveles jerárquicos). & Anexo \ref{sec:TipSuelo} \\
+\textcolor{ForestGreen}{\texttt{tipsuelo1\_id}, \texttt{tipsuelo2\_id}, \texttt{tipsuelo3\_id}} & int (CF) & Tipos de suelo de la parcela (niveles jerárquicos). & Anexo \ref{sec:TipSuelo} \\
 \hline
-\texttt{rocosidad\_id}, \texttt{textura\_id}, \texttt{matorg\_id}, \texttt{modcomb\_id}, \texttt{disesp\_id}, \texttt{comesp\_id}, \texttt{merosiva\_id} & int (CF) & Rocosidad, textura, materia orgánica, modo de combustibilidad, distribución/composición específica, manifestaciones erosivas. & Anexo \ref{sec:Rocosid},\ref{sec:ManERo}, Anexo \ref{sec:disEsp}, \ref{anexo:compesp}, \ref{sec:textura}, \ref{sec:MatOrg}  \\
+\textcolor{ForestGreen}{\texttt{rocosidad\_id}}, \texttt{textura\_id}, \texttt{matorg\_id}, \texttt{modcomb\_id}, \textcolor{ForestGreen}{\texttt{disesp\_id}, \texttt{comesp\_id}}, \texttt{merosiva\_id} & int (CF) & Rocosidad, textura, materia orgánica, modelo de combustibilidad, distribución/composición específica, manifestaciones erosivas. & Anexo \ref{sec:Rocosid},\ref{sec:ManERo}, Anexo \ref{sec:disEsp}, \ref{anexo:compesp}, \ref{sec:textura}, \ref{sec:MatOrg}  \\
 \hline
-\texttt{radio} & float & Radio de la parcela (m). & -- \\
+\textcolor{ForestGreen}{\texttt{radio}} & float & Radio de la parcela (m). & -- \\
 \hline
-\texttt{orientacion}, \texttt{elevacion}, \texttt{pendiente} & float & Orientación (grados), elevación (m s.n.m.), pendiente (\%). & -- \\
+\textcolor{ForestGreen}{\texttt{orientacion}, \texttt{elevacion}, \texttt{pendiente}} & float & Orientación (grados), elevación (m s.n.m.), pendiente (\%). & -- \\
 \hline
 \texttt{nivel1\_id}, \texttt{nivel2\_id} & int (CF) & Niveles jerárquicos/estratos de inventario. & -- \\
 \hline
 \texttt{fccarb}, \texttt{fcctot} & float & Fracción de cabida cubierta arbórea y total. & -- \\
 \hline
-\texttt{npies\_\{1,2,5,10,15, 20,25,30,35,40,45, 50,55,60,65,70\}} & float & Número de pies por clase diamétrica CD (cm). Cada campo corresponde a la CD indicada. & -- \\
+\texttt{\textcolor{ForestGreen}{npies}\_\{1,2,5,\textcolor{ForestGreen}{10,15, 20,25,30,35,40,45, 50,55,60,65,70}\}} & float & Número de pies por clase diamétrica CD (cm). Cada campo corresponde a la CD indicada. & -- \\
 \hline
-\texttt{periodo} & int & Años transcurridos entre inventarios considerados en el modelo. & -- \\
+\textcolor{ForestGreen}{\texttt{periodo}} & int & Años transcurridos entre inventarios considerados en el modelo. & -- \\
 \hline
-\texttt{evi\_\{stat\}\_\{est\}} & float & Índice EVI por estación; \texttt{stat} $\in$ \{max, mean, median, min, std\}, \texttt{est} $\in$ \{invierno, oto\~no, primavera, verano\}. & -- \\
+\textcolor{ForestGreen}{\texttt{evi\_\{stat\}\_\{est\}}} & float & Índice EVI por estación; \texttt{stat} $\in$ \{max, mean, median, min, std\}, \texttt{est} $\in$ \{invierno, oto\~no, primavera, verano\}. & -- \\
 \hline
-\texttt{gndvi\_\{stat\}\_\{est\}} & float & Índice GNDVI por estación (misma convención de \texttt{stat} y \texttt{est}). & -- \\
+\textcolor{ForestGreen}{\texttt{gndvi\_\{stat\}\_\{est\}}} & float & Índice GNDVI por estación (misma convención de \texttt{stat} y \texttt{est}). & -- \\
 \hline
-\texttt{ndii\_\{stat\}\_\{est\}} & float & Índice NDII por estación (misma convención). & -- \\
+\textcolor{ForestGreen}{\texttt{ndii\_\{stat\}\_\{est\}}} & float & Índice NDII por estación (misma convención). & -- \\
 \hline
-\texttt{ndvi\_\{stat\}\_\{est\}} & float & Índice NDVI por estación (misma convención). & -- \\
+\textcolor{ForestGreen}{\texttt{ndvi\_\{stat\}\_\{est\}}} & float & Índice NDVI por estación (misma convención). & -- \\
 \hline
-\texttt{pr\_\{stat\}\_\{est\}} & float & Precipitación: \texttt{stat} $\in$ \{max, mean, min, std, sum\} por estación \texttt{est}. & -- \\
+\textcolor{ForestGreen}{\texttt{pr\_\{stat\}\_\{est\}}} & float & Precipitación: \texttt{stat} $\in$ \{max, mean, min, std, sum\} por estación \texttt{est}. & -- \\
 \hline
-\texttt{skt\_\{stat\}\_\{est\}} & float & Temperatura de superficie (skin temperature): \texttt{stat} $\in$ \{max, mean, min, std\}. & -- \\
+\textcolor{ForestGreen}{\texttt{skt\_\{stat\}\_\{est\}}} & float & Temperatura de superficie (skin temperature): \texttt{stat} $\in$ \{max, mean, min, std\}. & -- \\
 \hline
-\texttt{stl1-4\_\{stat\}\_\{est\}} & float & Temperatura de suelo por capa (1--4): \texttt{stat} $\in$ \{max, mean, min, std\}. & -- \\
+\textcolor{ForestGreen}{\texttt{stl1-4\_\{stat\}\_\{est\}}} & float & Temperatura de suelo por capa (1--4): \texttt{stat} $\in$ \{max, mean, min, std\}. & -- \\
 \hline
-\texttt{t2m\_\{stat\}\_\{est\}} & float & Temperatura del aire a 2 m: \texttt{stat} $\in$ \{max, mean, min, std\}. & -- \\
+\textcolor{ForestGreen}{\texttt{t2m\_\{stat\}\_\{est\}}} & float & Temperatura del aire a 2 m: \texttt{stat} $\in$ \{max, mean, min, std\}. & -- \\
 \hline
 \end{tabular}%
 }
-\caption{\tiny Resumen de variables de entrada del modelo. Para variables estacionales se usa la notación \texttt{variable\_\{stat\}\_\{est\}}, con estadísticas \texttt{stat} y estaciones \texttt{est} en \{invierno, oto\~no, primavera, verano\}. Las variables \texttt{npies\_\{CD\}} se repiten para cada clase diamétrica indicada.}
+\caption{\tiny Resumen de variables de entrada del modelo. Para variables estacionales se usa la notación \texttt{variable\_\{stat\}\_\{est\}}, con estadísticas \texttt{stat} y estaciones \texttt{est} en \{invierno, oto\~no, primavera, verano\}. Las variables \texttt{npies\_\{CD\}} se repiten para cada clase diamétrica indicada. Las variables destacadas en \textcolor{ForestGreen}{verde} se encuentran recogidas tanto para el IFN2 como para el IFN3, las no destacadas solo se recogen para el IFN3.}
 \label{tab:entrada_modelo}
 \end{table}
 
@@ -368,22 +373,72 @@ La Tabla~\ref{tab:entrada_modelo} resume las variables empleadas como entrada al
 Las variables categóricas se codifican mediante \textit{one-hot encoding}, generando variables binarias para cada clase. Las variables numéricas se escalan (normalización estándar o min-max, según el modelo) para asegurar que todas las magnitudes tengan el mismo orden de importancia durante el entrenamiento.
 
 
-\subsection{Limitación temporal y mitigación}
-% Explica la restricción 18 años IFN3->IFN4
-% Inserta figura de periodos (barras) y conclusiones modales 15--17
 
-De todos los criterios, la \textbf{permanencia de 30 años} es el único que impacta directamente en el entrenamiento: el intervalo IFN3--IFN4 es, en la mayoría de los casos, claramente inferior a dos décadas. La Figura~\ref{fig:periodo_ifn} muestra la distribución de los años transcurridos entre inventarios. 
 
-El conteo de valores de la variable \texttt{periodo} confirma esta tendencia: los años más frecuentes son 15 - 17. En contraste, los valores superiores a 20 años son menos comunes, tal como se aprecia en el gráfico.  
 
-Para reducir el riesgo de sesgo temporal, se emplea validación cruzada por \emph{grupos de periodo} y se evalúa la robustez del modelo ante cambios en el horizonte temporal.
 
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.78\textwidth]{figuras/periodo_barras.png}
-\caption{Distribución del número de años transcurridos entre la inventariación tercera y cuarta de cada parcela (considerando únicamente las parcelas inventariadas en ambas ocasiones). Se aprecia un intervalo modal entre 15 y 17 años, con valores superiores a 20 muy poco frecuentes.}
-\label{fig:periodo_ifn}
-\end{figure}
+\subsection{Objetivo y alcance}
+
+El objetivo principal de este trabajo es estimar el \textbf{carbono total} que una parcela forestal será capaz de capturar en un horizonte temporal de aproximadamente 20 a 30 años. Este indicador constituye una medida fundamental del potencial de mitigación climática de los ecosistemas forestales y resulta clave para la planificación de proyectos de compensación de emisiones y gestión sostenible de los recursos forestales.
+
+\medskip
+
+El estudio aborda este objetivo mediante la modelización de dos variables de respuesta directamente relacionadas con la captura de carbono:
+
+\begin{enumerate}
+    \item \textbf{\texttt{c}} (tC/ha): representa el \textbf{carbono total contenido en la biomasa viva aérea y subterránea}, expresado en \emph{toneladas de carbono por hectárea}. Esta variable se deriva de los datos del Inventario Forestal Nacional (IFN), en particular de las estimaciones de carbono aéreo (\texttt{ca}) y radical (\texttt{cr}). Aunque la documentación del IFN no detalla explícitamente el método de cálculo, este ha sido confirmado mediante comunicación técnica y se describe en el Anexo~\ref{sec:Carbono}. 
+
+    Para completar los valores faltantes en \texttt{ca} y \texttt{cr}, se aplicó un modelo de \emph{Random Forest Regressor} utilizando variables dendrométricas observadas (Especie, CD, VSC, NPies, ABas, IAVC, VCC y VLE), alcanzando un rendimiento satisfactorio (\(R^2_{test} > 0.90\)). Esta variable permite evaluar el contenido de carbono normalizado por superficie, coherente con los formatos internacionales de reporte de inventarios forestales.
+
+    \medskip
+
+    \item \textbf{\texttt{carbono\_bruto}} (tC): corresponde al \textbf{carbono total capturado por parcela y especie}, expresado en \emph{toneladas de carbono totales}. Su cálculo se realiza de forma trazable y físicamente interpretable, a partir de variables medidas directamente en campo: número de pies (\texttt{npies}), altura media (\texttt{ht}), tipo de especie (\texttt{clase\_especie}) y clase diamétrica (\texttt{cd\_id}). 
+
+    La estimación sigue un modelo alométrico adaptado de \cite{chave2014} y las directrices del IPCC~\cite{ipcc2006}, incorporando tanto la biomasa aérea como la biomasa radical mediante la relación Parte Radical:Parte Aérea ($R$). El resultado se expresa en toneladas de carbono totales por parcela, sin normalizar por superficie, lo que favorece la trazabilidad del cálculo y la comparabilidad entre inventarios sin depender de factores de expansión específicos del IFN. En coherencia con los criterios de proyectos de forestación y reforestación, las entradas correspondientes a brinzales o plantones se consideran con valor de carbono nulo, dado que el carbono de fases iniciales de desarrollo no se contabiliza oficialmente como carbono capturado.
+\end{enumerate}
+
+\medskip
+
+El conjunto de ambas variables ---\texttt{c} (tC/ha) y \texttt{carbono\_bruto} (tC)--- permite analizar el contenido de carbono forestal desde dos perspectivas complementarias: una \textbf{normalizada por superficie}, útil para la comparación entre parcelas o especies, y otra \textbf{absoluta y trazable}, directamente vinculada con las observaciones de campo.
+
+\medskip
+
+Además, el modelo se plantea dentro del marco de los programas de \emph{créditos de carbono}, los cuales exigen cumplir requisitos técnicos establecidos por los marcos regulatorios internacionales \cite{ipcc2006, miteco_guia_co2}. Entre los principales criterios se incluyen:
+
+\begin{itemize} 
+    \item \textbf{Intervención humana directa:} el incremento del carbono debe ser resultado de una acción planificada (reforestación, restauración o manejo forestal sostenible). 
+    \item \textbf{Permanencia mínima de 30 años:} el carbono capturado debe mantenerse almacenado durante al menos tres décadas. 
+    \item \textbf{Superficie mínima de 1 hectárea:} el proyecto debe tener una extensión suficiente para generar beneficios climáticos verificables. 
+    \item \textbf{Fracción mínima de cabida cubierta del 20\%:} el área arbolada debe superar este umbral para ser considerada masa forestal. 
+    \item \textbf{Altura mínima de los árboles de 3 metros en la madurez:} requisito que garantiza la representatividad estructural del bosque. 
+\end{itemize}
+
+\medskip
+
+En síntesis, el objetivo del estudio es generar un marco de estimación robusto y verificable del carbono total almacenado en la biomasa viva forestal, tanto en términos absolutos como por unidad de superficie, en un horizonte temporal de 20--30 años.
+
+
+
+\section{Selección de variables explicativas}
+
+La selección de variables explicativas se abordó mediante tres estrategias complementarias: (1) selección automática basada en el algoritmo \textit{Featurewiz}, (2) selección mediante el criterio de relevancia y mínima redundancia (\textit{mRMR}), y (3) una selección manual fundamentada en criterios estadísticos, ecológicos y de interpretabilidad. El objetivo común fue identificar un subconjunto óptimo de predictores que maximice la capacidad explicativa del modelo sobre la variable dependiente \( c4 \) (carbono estimado), evitando colinealidad y preservando el sentido físico de las relaciones.
+
+\subsection{Selección automática mediante Featurewiz}
+El método \textit{Featurewiz} se basa en un enfoque de selección de características guiado por importancia predictiva. El procedimiento combina dos etapas principales: (i) un filtrado inicial por correlación, en el que se eliminan variables altamente colineales (en este caso, con un umbral de \( |r| > 0.70 \)); y (ii) un refinamiento mediante modelos de \textit{Gradient Boosting} que estiman la importancia relativa de cada variable en la predicción del objetivo.  
+De esta manera, \textit{Featurewiz} conserva únicamente aquellas variables con una contribución significativa a la mejora del rendimiento predictivo, proporcionando un conjunto compacto y eficiente de predictores.
+
+\subsection{Selección mediante mRMR}
+El enfoque \textit{mRMR} (minimum Redundancy - maximum Relevance) selecciona las variables que maximizan su relevancia estadística respecto a la variable objetivo, minimizando al mismo tiempo la redundancia entre ellas. Este método utiliza medidas de información mutua para cuantificar la dependencia no lineal entre las variables.  
+En la práctica, el algoritmo mRMR prioriza aquellas variables que aportan información nueva y no redundante sobre el fenómeno modelado (en este caso, la acumulación de carbono), favoreciendo la diversidad informativa frente a la mera fuerza de correlación. Este enfoque permite obtener un conjunto equilibrado de predictores que explican diferentes dimensiones del sistema ecológico.
+
+
+\subsection{Selección manual basada en criterios estadísticos y conceptuales}
+La selección manual de variables se realizó de forma guiada por criterios tanto estadísticos como conceptuales. 
+En primer lugar, se evaluó la significancia de cada variable mediante pruebas univariantes (ANOVA y correlaciones), eliminando aquellas sin influencia estadísticamente significativa sobre la variable objetivo. 
+Posteriormente, se analizaron las correlaciones entre predictores para reducir la colinealidad, manteniendo únicamente una variable representativa de cada grupo altamente correlacionado. 
+Además, se consideraron criterios ecológicos y de interpretación física, asegurando que las variables retenidas representasen aspectos estructurales, edáficos, topográficos, climáticos y espectrales relevantes para el proceso de acumulación de carbono. 
+El objetivo fue equilibrar la robustez estadística con la coherencia ecológica, obteniendo un conjunto final de predictores que mantuviera un compromiso entre precisión, interpretabilidad y sentido biogeográfico.
+
 
 \subsection{Partición y validación}
 
@@ -401,6 +456,9 @@ Para obtener una estimación imparcial del rendimiento y evitar \emph{fugas de i
 
 \vspace{0.25em}
 \noindent\textbf{Protocolo de reporte.} Para cada modelo se reportan: (i) el rendimiento medio y la dispersión en la validación cruzada por grupos (entrenamiento), y (ii) el desempeño final en el conjunto de evaluación independiente (20\,\%). Este protocolo garantiza comparabilidad entre modelos, control del sesgo espacial por parcela y verificación explícita de la robustez temporal.
+
+
+
 
 \subsection{Modelos evaluados}
 % Familias, tuning (RandomizedSearchCV), por qué ensembles, etc.
@@ -518,34 +576,6 @@ La evaluación de múltiples modelos responde a la necesidad de identificar no s
 \label{tab:modelos}
 \end{table}
 
-
-\subsection{Supuestos de elegibilidad y verificación externa}
-% Intervención humana, permanencia 30a (extrapolación cauta), superficie>=1ha,
-% fccarb>=20% (filtro), altura>=3m en madurez (decisión de diseño).
-
-Para que un proyecto forestal sea elegible en programas de \emph{créditos de carbono}, debe cumplir requisitos técnicos establecidos por marcos regulatorios internacionales \cite{IPCC2006, miteco_guia_co2}. A continuación se resume cada criterio y la forma en que se aborda en este estudio:
-
-\begin{itemize}
-    \item \textbf{Intervención humana directa.} El incremento de carbono debe proceder de actuaciones planificadas (reforestación, restauración o manejo sostenible). En nuestro caso, el modelo se entrena sobre datos observacionales (IFN3--IFN4); por tanto, la \emph{verificación de intervención} no se deduce del modelo, sino que se contempla como \emph{condición externa} de elegibilidad del proyecto a evaluar.
-
-    \item \textbf{Permanencia mínima de 30 años.} Este es el criterio más restrictivo en relación con los datos disponibles, dado que el intervalo entre inventarios IFN3 e IFN4 no supera los 18 años. En consecuencia, el modelo se entrena y valida en horizontes de 15--18 años, evaluando su estabilidad temporal mediante validación cruzada estratificada por periodo. 
-
-        Aunque los datos no cubren los 30 años requeridos por los estándares de proyectos de carbono, los resultados obtenidos permiten plantear una \emph{extrapolación cautelosa} siempre que se cumplan ciertas condiciones. En particular, un modelo que mantenga un desempeño estable y coherente dentro del rango observado puede extenderse a horizontes mayores si:
-
-        \begin{enumerate}
-            \item se \textbf{reporta la incertidumbre} asociada a las predicciones, mediante intervalos de confianza o bandas de predicción;
-            \item se realiza un \textbf{análisis de sensibilidad temporal}, explorando escenarios conservadores y pesimistas;
-            \item y se verifica externamente la \textbf{validez de las condiciones del proyecto} —superficie, altura mínima e intervención humana— conforme a los marcos regulatorios aplicables.
-        \end{enumerate}
-
-        Este enfoque combina una base empírica sólida (validación cruzada en horizontes observados) con una verificación externa de elegibilidad, permitiendo aplicar el modelo a contextos de mayor duración sin comprometer la trazabilidad ni la consistencia metodológica.
-    
-    \item \textbf{Superficie mínima de 1 ha.} Este criterio se considera \emph{externo} al alcance del modelo predictivo, ya que el aprendizaje se realiza a nivel de parcela e inventario y no sobre polígonos de superficie total. En la práctica, la verificación de la superficie se realiza \emph{ex ante}, sobre la geometría declarada del proyecto forestal. En los terrenos forestales generados a partir de intervención humana directa —como plantaciones o repoblaciones—, la extensión suele presentar una estructura homogénea, con una especie dominante, edades coetáneas y densidades estandarizadas. Bajo estas condiciones, el carbono total es proporcional a la superficie: duplicar el área de una masa forestal homogénea implica aproximadamente duplicar su carbono almacenado. Por tanto, la variable de superficie no afecta al ajuste interno del modelo y su cumplimiento puede evaluarse fácilmente a nivel de proyecto, sin comprometer la validez de las predicciones.
-
-    \item \textbf{Fracción mínima de cabida cubierta del 20\%.} La base de datos dispone de \texttt{fccarb} (arbórea) y \texttt{fcctot} (total). Este umbral se aplica como \emph{filtro de elegibilidad} previo o posterior al modelado, sin modificar la arquitectura del modelo.
-
-    \item \textbf{Altura mínima de 3 m en la madurez.} Este requisito se refiere a la altura que alcanzan los árboles en su fase de pleno desarrollo, y no a la altura inicial de los plantones. Por tanto, las mediciones realizadas durante las etapas tempranas de crecimiento no determinan la elegibilidad del proyecto, siempre que las especies seleccionadas sean capaces de superar los 3 metros en la madurez. En nuestro conjunto de datos, la altura no se registra explícitamente, por lo que este criterio se evalúa de forma \emph{externa} al modelo, mediante la selección de especies forestales adecuadas y la verificación con fuentes auxiliares (catálogos silvícolas o tipologías de masa). En la práctica, el cumplimiento del requisito depende de una decisión de diseño del proyecto —\emph{no plantar especies cuyo tamaño adulto sea inferior a 3 metros}— más que del ajuste predictivo del modelo. Por ello, la altura no interviene directamente en el entrenamiento, aunque sí condiciona la elegibilidad final del proyecto forestal. 
-\end{itemize}
 
 \medskip
 
