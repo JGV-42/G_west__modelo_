@@ -270,10 +270,10 @@ Para que un proyecto forestal sea elegible en programas de \emph{créditos de ca
 \subsection{Preparación y tratamiento de los datos}
 % Filtros (fccarb>=20%, crecimiento positivo, etc.)
 % Agregaciones (parcela-especie, compresión CD -> npies_{cd}, etc.)
-% Cálculo de variables derivadas (carbono_bruto)
+% Cálculo de variables derivadas (carbono\_bruto)
 % Codificación y escalado
 
-Como ya se ha introducido el entrenamiento se realiza en dos líneas según la variable objetivo: \texttt{c} de \textbf{IFN4} o \texttt{carbono_bruto} de \textbf{IFN4}; y según la información que se usa como explicativa: \textbf{IFN3} o \textbf{IFN3} e \textbf{IFN2}. Se plantea la preparación y filtrado de los datos en términos generales (variable objetivo por \texttt{c} o \texttt{carbono_bruto} y primera inventariación/ inventariación explicativa por \textbf{IFN3} o la unión de \textbf{IFN2} e \textbf{IFN3}).
+Como ya se ha introducido el entrenamiento se realiza en dos líneas según la variable objetivo: \texttt{c} de \textbf{IFN4} o \texttt{carbono\_bruto} de \textbf{IFN4}; y según la información que se usa como explicativa: \textbf{IFN3} o \textbf{IFN3} e \textbf{IFN2}. Se plantea la preparación y filtrado de los datos en términos generales (variable objetivo por \texttt{c} o \texttt{carbono\_bruto} y primera inventariación/ inventariación explicativa por \textbf{IFN3} o la unión de \textbf{IFN2} e \textbf{IFN3}).
 
 \subsubsection*{Filtrado de registros}
 
@@ -311,7 +311,7 @@ Cada registro de entrada se genera a nivel de combinación parcela--especie, inc
 La Tabla~\ref{tab:entrada_modelo} resume las variables empleadas como entrada al modelo, integradas desde las distintas tablas que conforman la base de datos relacional.
 
 \begin{table}[H]
-\renewcommand{\arraystretch}{1.4}
+\renewcommand{\arraystretch}{1.2}
 \setlength{\tabcolsep}{3pt}
 \centering
 \small
@@ -324,21 +324,21 @@ La Tabla~\ref{tab:entrada_modelo} resume las variables empleadas como entrada al
 \hline
 \textcolor{ForestGreen}{\texttt{parcela\_id}} & varchar & Identificador \emph{único} de parcela. & -- \\
 \hline
-\textcolor{ForestGreen}{\texttt{especie\_id}}, \texttt{tipo\_especie}, \texttt{grupo\_id} & int (CF) & Especie (código), tipo de especie y grupo taxonómico. & Anexo \ref{sec:especies} \\
+\textcolor{ForestGreen}{\texttt{especie\_id}, \texttt{tipo\_especie}, \texttt{grupo\_id}} & int (CF) & Especie (código), tipo de especie y grupo taxonómico. & Anexos \ref{sec:especies} y \ref{sec:gruposespecies} \\
 \hline
 \textcolor{ForestGreen}{\texttt{ocupa}} & int & Grado de ocupación/presencia de la especie en la parcela (0--10). & -- \\
 \hline
-\textcolor{ForestGreen}{\texttt{estado\_id}}, \texttt{fpmasa\_id}, \texttt{tratmasa\_id}, \texttt{orgmasa\_1\_id} & int (CF) & Estado/fase de desarrollo, forma principal de masa, tratamiento de masa, organización de masa. & -- \\
+\textcolor{ForestGreen}{\texttt{estado\_id}}, \texttt{fpmasa\_id}, \texttt{tratmasa\_id}, \texttt{orgmasa\_1\_id} & int (CF) & Estado/fase de desarrollo, forma principal de masa, tratamiento de masa, organización de masa. & Anexos \ref{sec:EstadoIFN34}, \ref{sec:FPMasa}, \ref{sec:tratmasa} y \ref{sec:OrgMasa} \\
 \hline
 \textcolor{ForestGreen}{\texttt{tipsuelo1\_id}, \texttt{tipsuelo2\_id}, \texttt{tipsuelo3\_id}} & int (CF) & Tipos de suelo de la parcela (niveles jerárquicos). & Anexo \ref{sec:TipSuelo} \\
 \hline
-\textcolor{ForestGreen}{\texttt{rocosidad\_id}}, \texttt{textura\_id}, \texttt{matorg\_id}, \texttt{modcomb\_id}, \textcolor{ForestGreen}{\texttt{disesp\_id}, \texttt{comesp\_id}}, \texttt{merosiva\_id} & int (CF) & Rocosidad, textura, materia orgánica, modelo de combustibilidad, distribución/composición específica, manifestaciones erosivas. & Anexo \ref{sec:Rocosid},\ref{sec:ManERo}, Anexo \ref{sec:disEsp}, \ref{anexo:compesp}, \ref{sec:textura}, \ref{sec:MatOrg}  \\
+\textcolor{ForestGreen}{\texttt{rocosidad\_id}}, \texttt{textura\_id}, \texttt{matorg\_id}, \texttt{modcomb\_id}, \textcolor{ForestGreen}{\texttt{disesp\_id}, \texttt{comesp\_id}}, \texttt{merosiva\_id} & int (CF) & Rocosidad, textura, materia orgánica, modelo de combustibilidad, distribución/composición específica, manifestaciones erosivas. & Anexos \ref{sec:Rocosid}, \ref{sec:textura}, \ref{sec:MatOrg}, \ref{sec:modComb}, \ref{sec:disEsp}, \ref{anexo:compesp} y \ref{sec:ManERo}. \\
 \hline
 \textcolor{ForestGreen}{\texttt{radio}} & float & Radio de la parcela (m). & -- \\
 \hline
 \textcolor{ForestGreen}{\texttt{orientacion}, \texttt{elevacion}, \texttt{pendiente}} & float & Orientación (grados), elevación (m s.n.m.), pendiente (\%). & -- \\
 \hline
-\texttt{nivel1\_id}, \texttt{nivel2\_id} & int (CF) & Niveles jerárquicos/estratos de inventario. & -- \\
+\texttt{nivel1\_id}, \texttt{nivel2\_id} & int (CF) & Niveles jerárquicos/estratos de inventario. & Anexos \ref{sec:nivel1} y \ref{sec:nivel2}. \\
 \hline
 \texttt{fccarb}, \texttt{fcctot} & float & Fracción de cabida cubierta arbórea y total. & -- \\
 \hline
@@ -362,6 +362,10 @@ La Tabla~\ref{tab:entrada_modelo} resume las variables empleadas como entrada al
 \hline
 \textcolor{ForestGreen}{\texttt{t2m\_\{stat\}\_\{est\}}} & float & Temperatura del aire a 2 m: \texttt{stat} $\in$ \{max, mean, min, std\}. & -- \\
 \hline
+\textcolor{ForestGreen}{\texttt{c4}} & float & Carbono capturado en el cultivo en el IFN4 en t/ha. & -- \\
+\hline
+\textcolor{ForestGreen}{\texttt{carbono\_bruto4}} & float & Carbono capturado en el cultivo en el IFN4 en t. & -- \\
+\hline
 \end{tabular}%
 }
 \caption{\tiny Resumen de variables de entrada del modelo. Para variables estacionales se usa la notación \texttt{variable\_\{stat\}\_\{est\}}, con estadísticas \texttt{stat} y estaciones \texttt{est} en \{invierno, oto\~no, primavera, verano\}. Las variables \texttt{npies\_\{CD\}} se repiten para cada clase diamétrica indicada. Las variables destacadas en \textcolor{ForestGreen}{verde} se encuentran recogidas tanto para el IFN2 como para el IFN3, las no destacadas solo se recogen para el IFN3.}
@@ -371,51 +375,6 @@ La Tabla~\ref{tab:entrada_modelo} resume las variables empleadas como entrada al
 \subsubsection*{Codificación y normalización}
 
 Las variables categóricas se codifican mediante \textit{one-hot encoding}, generando variables binarias para cada clase. Las variables numéricas se escalan (normalización estándar o min-max, según el modelo) para asegurar que todas las magnitudes tengan el mismo orden de importancia durante el entrenamiento.
-
-
-
-
-
-
-\subsection{Objetivo y alcance}
-
-El objetivo principal de este trabajo es estimar el \textbf{carbono total} que una parcela forestal será capaz de capturar en un horizonte temporal de aproximadamente 20 a 30 años. Este indicador constituye una medida fundamental del potencial de mitigación climática de los ecosistemas forestales y resulta clave para la planificación de proyectos de compensación de emisiones y gestión sostenible de los recursos forestales.
-
-\medskip
-
-El estudio aborda este objetivo mediante la modelización de dos variables de respuesta directamente relacionadas con la captura de carbono:
-
-\begin{enumerate}
-    \item \textbf{\texttt{c}} (tC/ha): representa el \textbf{carbono total contenido en la biomasa viva aérea y subterránea}, expresado en \emph{toneladas de carbono por hectárea}. Esta variable se deriva de los datos del Inventario Forestal Nacional (IFN), en particular de las estimaciones de carbono aéreo (\texttt{ca}) y radical (\texttt{cr}). Aunque la documentación del IFN no detalla explícitamente el método de cálculo, este ha sido confirmado mediante comunicación técnica y se describe en el Anexo~\ref{sec:Carbono}. 
-
-    Para completar los valores faltantes en \texttt{ca} y \texttt{cr}, se aplicó un modelo de \emph{Random Forest Regressor} utilizando variables dendrométricas observadas (Especie, CD, VSC, NPies, ABas, IAVC, VCC y VLE), alcanzando un rendimiento satisfactorio (\(R^2_{test} > 0.90\)). Esta variable permite evaluar el contenido de carbono normalizado por superficie, coherente con los formatos internacionales de reporte de inventarios forestales.
-
-    \medskip
-
-    \item \textbf{\texttt{carbono\_bruto}} (tC): corresponde al \textbf{carbono total capturado por parcela y especie}, expresado en \emph{toneladas de carbono totales}. Su cálculo se realiza de forma trazable y físicamente interpretable, a partir de variables medidas directamente en campo: número de pies (\texttt{npies}), altura media (\texttt{ht}), tipo de especie (\texttt{clase\_especie}) y clase diamétrica (\texttt{cd\_id}). 
-
-    La estimación sigue un modelo alométrico adaptado de \cite{chave2014} y las directrices del IPCC~\cite{ipcc2006}, incorporando tanto la biomasa aérea como la biomasa radical mediante la relación Parte Radical:Parte Aérea ($R$). El resultado se expresa en toneladas de carbono totales por parcela, sin normalizar por superficie, lo que favorece la trazabilidad del cálculo y la comparabilidad entre inventarios sin depender de factores de expansión específicos del IFN. En coherencia con los criterios de proyectos de forestación y reforestación, las entradas correspondientes a brinzales o plantones se consideran con valor de carbono nulo, dado que el carbono de fases iniciales de desarrollo no se contabiliza oficialmente como carbono capturado.
-\end{enumerate}
-
-\medskip
-
-El conjunto de ambas variables ---\texttt{c} (tC/ha) y \texttt{carbono\_bruto} (tC)--- permite analizar el contenido de carbono forestal desde dos perspectivas complementarias: una \textbf{normalizada por superficie}, útil para la comparación entre parcelas o especies, y otra \textbf{absoluta y trazable}, directamente vinculada con las observaciones de campo.
-
-\medskip
-
-Además, el modelo se plantea dentro del marco de los programas de \emph{créditos de carbono}, los cuales exigen cumplir requisitos técnicos establecidos por los marcos regulatorios internacionales \cite{ipcc2006, miteco_guia_co2}. Entre los principales criterios se incluyen:
-
-\begin{itemize} 
-    \item \textbf{Intervención humana directa:} el incremento del carbono debe ser resultado de una acción planificada (reforestación, restauración o manejo forestal sostenible). 
-    \item \textbf{Permanencia mínima de 30 años:} el carbono capturado debe mantenerse almacenado durante al menos tres décadas. 
-    \item \textbf{Superficie mínima de 1 hectárea:} el proyecto debe tener una extensión suficiente para generar beneficios climáticos verificables. 
-    \item \textbf{Fracción mínima de cabida cubierta del 20\%:} el área arbolada debe superar este umbral para ser considerada masa forestal. 
-    \item \textbf{Altura mínima de los árboles de 3 metros en la madurez:} requisito que garantiza la representatividad estructural del bosque. 
-\end{itemize}
-
-\medskip
-
-En síntesis, el objetivo del estudio es generar un marco de estimación robusto y verificable del carbono total almacenado en la biomasa viva forestal, tanto en términos absolutos como por unidad de superficie, en un horizonte temporal de 20--30 años.
 
 
 
@@ -442,8 +401,7 @@ El objetivo fue equilibrar la robustez estadística con la coherencia ecológica
 
 \subsection{Partición y validación}
 
-Para obtener una estimación imparcial del rendimiento y evitar \emph{fugas de información} debidas a la correlación espacial dentro de cada parcela, la partición del conjunto de datos se realiza \textbf{por identificador de parcela} (\texttt{parcela\_id}). Todas las observaciones asociadas a una misma parcela se asignan \emph{íntegramente} a un único subconjunto, de modo que ninguna parcela aparece simultáneamente en entrenamiento y evaluación. Tras aplicar los filtros de preprocesamiento, se dispone de \textbf{XXX} registros correspondientes a \textbf{XXX} parcelas, que se dividen en un \textbf{80\,\%} para entrenamiento y un \textbf{20\,\%} para evaluación.
-
+Para obtener una estimación imparcial del rendimiento y evitar \emph{fugas de información} debidas a la correlación espacial dentro de cada parcela, la partición del conjunto de datos se realiza \textbf{por identificador de parcela} (\texttt{parcela\_id}). Todas las observaciones asociadas a una misma parcela se asignan \emph{íntegramente} a un único subconjunto, de modo que ninguna parcela aparece simultáneamente en entrenamiento y evaluación.
 \vspace{0.25em}
 \noindent\textbf{Validación interna y control de sesgo temporal.} Sobre el subconjunto de entrenamiento (80\,\%) se aplica \emph{validación cruzada por grupos} utilizando como agrupador los \emph{años transcurridos entre inventarios} (p.\,ej., 15, 16, 17, \dots). Esta estrategia comprueba la \emph{estabilidad} del modelo frente a cambios en el horizonte temporal y reduce el riesgo de sobreajuste específico de un periodo. La selección de hiperparámetros se realiza exclusivamente dentro de esta validación interna; el conjunto de evaluación (20\,\%) permanece \emph{sellado} para la prueba final.
 
@@ -541,6 +499,7 @@ La evaluación de múltiples modelos responde a la necesidad de identificar no s
 
 \begin{table}[H]\small
 \centering
+\resizebox{\textwidth}{!}{%
 \begin{tabular}{|p{3.2cm}|p{2.8cm}|p{5.2cm}|p{4.2cm}|}
 \hline
 \textbf{Modelo} & \textbf{Tipo / Técnica} & \textbf{Características destacadas} & \textbf{Observaciones} \\
@@ -572,6 +531,7 @@ La evaluación de múltiples modelos responde a la necesidad de identificar no s
 \textbf{Naive Bayes (Gaussian, Multinomial, Bernoulli)} & Probabilístico & Asume independencia condicional, rápido y simple & Eficaz en texto y alta dimensionalidad \\
 \hline
 \end{tabular}
+}
 \caption{Resumen de modelos de aprendizaje supervisado aplicados}
 \label{tab:modelos}
 \end{table}

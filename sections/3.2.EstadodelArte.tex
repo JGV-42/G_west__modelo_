@@ -1,0 +1,79 @@
+\section{Estado del Arte}
+\label{sec:estado-del-arte}
+
+\subsection{Contexto y formulación del problema}
+% Qué se predice, por qué importa, y cómo se formula (regresión)
+La estimación de \emph{[nombre de la variable objetivo]} se aborda como un problema de regresión supervisada, donde el objetivo es aprender una función $f: \mathbb{R}^p \rightarrow \mathbb{R}$ que minimice el error de predicción bajo criterios como RMSE o MAE \citep{Hastie2009,James2021}. 
+Se requieren diseños de validación que eviten fuga de información (\emph{leakage}) y respeten la estructura de los datos (por ejemplo, validación por grupos o espacio-temporal) \citep{Roberts2017}.
+
+\subsection{Modelado predictivo para variables continuas}
+% Modelos clásicos y modernos; cuándo se usan; ventajas/limitaciones
+Los enfoques más empleados incluyen modelos lineales regularizados (Ridge, Lasso, Elastic Net) \citep{Tibshirani1996,Zou2005}, 
+métodos basados en árboles (Random Forest, Gradient Boosting, XGBoost, LightGBM, CatBoost) \citep{Breiman2001,Friedman2001,Chen2016,Ke2017,Prokhorenkova2018}
+y redes neuronales profundas para tabulares e imagen \citep{Goodfellow2016}. 
+La elección suele balancear interpretabilidad, robustez ante no linealidades e interacción entre variables, coste computacional y requisitos de datos.
+
+\subsection{Validación y evaluación}
+% Buenas prácticas de CV, métricas y comparabilidad
+La literatura recomienda validación cruzada estratificada o por grupos para estimar el error fuera de muestra y evitar optimismo en la evaluación \citep{Kohavi1995}. 
+Cuando existen dependencias (espaciales, temporales o por \textit{grupo}), se emplean variantes como GroupKFold o bloqueos espacio-temporales \citep{Roberts2017}. 
+Las métricas habituales para regresión incluyen RMSE, MAE, $R^2$ y, cuando procede, métricas relativas (p.\,ej., MAPE). 
+Es buena práctica reportar distribuciones (mediana, IQR) además de promedios y comparar contra \emph{baselines} fuertes.
+
+\subsection{Selección de variables}
+% Taxonomía de métodos: filter, wrapper, embedded
+Los métodos se agrupan en: (i) \textbf{filtro}, p.\,ej., correlación/ANOVA, información mutua y mRMR \citep{Peng2005}; 
+(ii) \textbf{envoltura} (\emph{wrapper}), como forward/backward selection o RFE \citep{Guyon2002}; 
+y (iii) \textbf{embebidos}, que integran la selección durante el ajuste del modelo (Lasso/Elastic Net, importancia en árboles/boosting) \citep{Zou2005,Breiman2001}. 
+Recientemente, se han popularizado enfoques de \emph{stability selection} y métodos de importancia condicional para reducir sesgos por colinealidad \citep{Meinshausen2010,Strobl2008}.
+
+\subsection{Datos, preprocesado y fuga de información}
+% Tratamiento de NA, codificación, escalado, fugas
+La literatura subraya la importancia de: imputación apropiada, codificación de categóricas (one-hot, target encoding con CV anidada), 
+tratamiento de outliers y escalado cuando el modelo lo requiere \citep{Kuhn2013}. 
+Debe evitarse la fuga de información aplicando todo el preprocesado dentro del \emph{pipeline} y re-ajustándolo por pliegue.
+
+\subsection{Explicabilidad e incertidumbre}
+% SHAP/PI/PD y cuantificación de incertidumbre
+Para interpretar predictores y robustez se usan curvas de dependencia parcial, perfiles acumulados y explicaciones SHAP \citep{Lundberg2017,Molnar2019}. 
+La estimación de la incertidumbre puede abordarse con ensambles, \emph{quantile regression}, conformal prediction o bayesianos aproximados \citep{Angelopoulos2023}.
+
+\subsection{Trabajos relacionados y brechas}
+% Qué se ha hecho (citar), comparación, limitaciones abiertas
+Estudios previos han aplicado \emph{[modelos]} sobre \emph{[dominio/datos]} con \emph{[métricas]} y \emph{[protocolos de CV]} \citep{AutorAño1,AutorAño2}. 
+Persisten brechas en: (i) control explícito de fuga por grupos/espacio-tiempo; 
+(ii) evaluación sistemática del impacto de la selección de variables; 
+(iii) análisis de incertidumbre y generalización fuera de dominio.
+
+\subsection{Síntesis}
+% Qué tomas de la literatura para tu propuesta
+En resumen, el estado del arte respalda: (1) protocolos de validación estrictos (p.\,ej., GroupKFold), 
+(2) comparación de familias de modelos con \emph{baselines} fuertes, 
+(3) selección de variables combinando filtros (mRMR/MI) y técnicas embebidas, 
+y (4) reporte de interpretabilidad e incertidumbre. 
+Sobre esta base se diseña la metodología presentada en la Sección~\ref{sec:metodos}.
+
+% ====== Ejemplos de elementos opcionales ======
+% Tabla comparativa de trabajos (rellenar)
+% \begin{table}[t]
+% \centering
+% \small
+% \caption{Resumen de trabajos previos: datos, modelo, validación y métricas.}
+% \label{tab:related}
+% \begin{tabular}{lcccc}
+% \toprule
+% Trabajo & Datos & Modelo & Validación & Métrica \\
+% \midrule
+% \citep{AutorAño1} & \dots & \dots & KFold (k=5) & RMSE=\dots \\
+% \citep{AutorAño2} & \dots & \dots & GroupKFold & MAE=\dots \\
+% \bottomrule
+% \end{tabular}
+% \end{table}
+
+% Figura de taxonomía de selección de variables (rellenar)
+% \begin{figure}[t]
+% \centering
+% \includegraphics[width=0.8\linewidth]{figuras/feature_selection_taxonomy.pdf}
+% \caption{Taxonomía de métodos de selección de variables.}
+% \label{fig:feat-sel-tax}
+% \end{figure}
