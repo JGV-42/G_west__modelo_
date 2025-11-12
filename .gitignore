@@ -11,7 +11,8 @@
 *.lot       # Lista de Tablas
 *.fls
 *.fdb_latexmk
-*.synctex.gz # Archivo para sincronización entre editor y PDF
+*.log
+# *.synctex.gz # Archivo para sincronización entre editor y PDF
 
 # ----------------------------------------------------------------
 # Archivos de Bibliografía (BibTeX/Biber)

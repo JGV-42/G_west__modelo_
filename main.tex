@@ -1,17 +1,32 @@
-% main.tex
 \documentclass[12pt]{article}
 
 % Incluir preámbulo (paquetes y comandos personalizados)
 \input{preamble.tex}
 
-\title{Predicción de Créditos de Carbono mediante Modelos de Inteligencia Artificial en Proyectos de Forestación y Reforestación}
-\author{Tu Nombre}
-\date{\today}
+% ---------------------------------------------------------------------------
+% Datos del artículo
+% ---------------------------------------------------------------------------
+
+% --- En tu main ---
+\title{\textbf{GreenWest: inteligencia artificial para la predicción de créditos de carbono en proyectos de (re)forestación en España}\\
+\small Correspondiente al grupo B1 (GreenWest) de las líneas de investigación de DemIA}
+
+\author[1]{Maider Araceli Urbón Jiménez\thanks{Autora de correspondencia: murbon001@usal.es}}
+\author[1]{Jaime Gabriel Vegas}
+\author[1]{Ana de Luis Reboredo}
+\author[1]{Belén Pérez Lancho}
+\author[1]{Ana-Belén Gil-González}
+
+\affil[1]{Grupo B1, Equipo de investigación BISITE, Universidad de Salamanca, Facultad de Ciencias, Salamanca, Castilla y León, España\\
+
+\texttt{\{murbon001, JaimeGabrielVegas, adeluis, lancho, abg\}@usal.es}}
+
+
+% ---------------------------------------------------------------------------
 
 \begin{document}
-
-% Página de título
 \maketitle
+
 
 % Abstract y Palabras Clave
 \input{abstract.tex}
@@ -23,7 +38,9 @@
 \newpage
 \input{sections/2.0.objetivos}
 \newpage
-\input{sections/3.revision_literatura}
+\input{sections/3.1.revision_literatura}
+\newpage
+\input{sections/3.2.EstadodelArte}
 \newpage
 \input{sections/4.metodologia}
 \newpage
@@ -45,7 +62,7 @@
 % Referencias
 \cleardoublepage % Opcional: para que las referencias empiecen en una página impar si usas book/report
 
-\printbibliography
-
+\bibliographystyle{unsrt} % o plain, IEEEtran, abbrvnat, plainnat...
+\bibliography{referencias} % SIN la extensión .bib y con barras /
 
 \end{document}

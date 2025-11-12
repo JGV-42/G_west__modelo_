@@ -1,9 +1,58 @@
-@book{IPCC2007,
-    author = {Intergovernmental Panel on Climate Change},
-    title = {Climate Change 2007: Mitigation of Climate Change},
-    year = {2007},
-    publisher = {Cambridge University Press},
-    address = {Cambridge, UK}
+@article{ruizpeinado2011,
+  author    = {Ricardo Ruiz-Peinado and Miguel del Río and Gregorio Montero},
+  title     = {New models for estimating the carbon sink capacity of Spanish softwood species},
+  journal   = {Forest Systems},
+  volume    = {20},
+  number    = {1},
+  pages     = {176--188},
+  year      = {2011},
+  doi       = {10.5424/fs/2011201-11588}
+  }
+@unpublished{greenwestdb,
+  author = {Urb{\'o}n Jim{\'e}nez, Maider Araceli and Vegas, Jaime Gabriel and de Luis Reboredo, Ana and P{\'e}rez Lancho, Bel{\'e}n and Gil-Gonz{\'a}lez, Ana-Bel{\'e}n},
+  title  = {GreenWest-DB: Base de datos integrada de atributos forestales, clim{\'a}ticos y espectrales para Espa{\~n}a},
+  note   = {Manuscrito en preparaci{\'o}n. Universidad de Salamanca, Grupo BISITE},
+  year   = {2025}
+}
+
+@misc{ifn,
+  author       = {{MITECO}},
+  title        = {Inventario Forestal Nacional (IFN2, IFN3, IFN4): metodolog{\'\i}a y bases de datos},
+  howpublished = {Ministerio para la Transici{\'o}n Ecol{\'o}gica y el Reto Demogr{\'a}fico (Espa{\~n}a)},
+  year         = {2023},
+  note         = {\url{https://www.miteco.gob.es/es/biodiversidad/servicios/banco-datos-naturaleza/informacion-disponible/ifn.aspx} (acceso 2025)}
+}
+
+@article{era5land,
+  author  = {Mu{\~n}oz-Sabater, Joaqu{\'\i}n and Dutra, Emanuel and Agust{\'\i}-Panareda, Anna and Albergel, Cl{\'e}ment and Arduini, Giorgio and Balsamo, Gianpaolo and others},
+  title   = {ERA5-Land: A state-of-the-art global reanalysis at land surfaces},
+  journal = {EGU General Assembly / ECMWF (Copernicus Climate Data Store)},
+  year    = {2021},
+  note    = {\url{https://doi.org/10.24381/cds.e2161bac}}
+}
+
+@misc{landsatc2,
+  author       = {{USGS}},
+  title        = {Landsat Collection 2 Level-2 Science Products: Surface Reflectance},
+  howpublished = {U.S. Geological Survey},
+  year         = {2021},
+  note         = {\url{https://www.usgs.gov/landsat-missions/landsat-collection-2-level-2-science-products} (acceso 2025)}
+}
+
+@inproceedings{catboost,
+  author    = {Prokhorenkova, Liudmila and Gusev, Gleb and Vorobev, Aleksandr and Dorogush, Anna Veronika and Gulin, Andrey},
+  title     = {CatBoost: unbiased boosting with categorical features},
+  booktitle = {Advances in Neural Information Processing Systems (NeurIPS)},
+  year      = {2018},
+  note      = {\url{https://proceedings.neurips.cc/paper/2018/hash/14491b756b3a51daac41c24863285549-Abstract.html}}
+}
+
+@misc{cmnucc1992,
+  author       = {{United Nations}},
+  title        = {United Nations Framework Convention on Climate Change (UNFCCC)},
+  year         = {1992},
+  howpublished = {United Nations},
+  note         = {\url{https://unfccc.int/resource/docs/convkp/conveng.pdf}}
 }
 
 @misc{UNFCCC1997,
@@ -13,6 +62,17 @@
     howpublished = {\url{https://unfccc.int/resource/docs/convkp/kpeng.pdf}},
     note = {Accessed: 2023-07-09}
 }
+
+
+%------------------------------------------------------------
+@book{IPCC2007,
+    author = {Intergovernmental Panel on Climate Change},
+    title = {Climate Change 2007: Mitigation of Climate Change},
+    year = {2007},
+    publisher = {Cambridge University Press},
+    address = {Cambridge, UK}
+}
+
 
 @book{IPCC2006,
     author = {Intergovernmental Panel on Climate Change},
@@ -61,7 +121,7 @@
 }
 @techreport{miteco_guia_co2,
   author       = {Ministerio para la Transición Ecológica (MITECO)},
-  title        = {Guía para la estimación de absorciones de dióxido de carbono},
+  title = {Gu{\'\i}a para la estimaci{\'o}n de absorciones de di{\'o}xido de carbono},
   year         = {2021},
   institution  = {Ministerio para la Transición Ecológica y el Reto Demográfico},
   url          = {https://www.miteco.gob.es},
@@ -160,14 +220,15 @@
   publisher={MDPI},
   doi={10.3390/rs15030765}
 }
-@misc{copuernicus_temps,
-  author = {Muñoz Sabater, J.},
-  year = {2019},
-  title = {ERA5-Land hourly data from 1950 to present},
+@misc{copernicus_temps,
+  author       = {Mu{\~n}oz Sabater, J.},
+  year         = {2019},
+  title        = {ERA5-Land hourly data from 1950 to present},
   howpublished = {Copernicus Climate Change Service (C3S) Climate Data Store (CDS)},
-  note = {DOI: 10.24381/cds.e2161bac (Accessed on 07-07-2025)},
-  url = {https://cds.climate.copernicus.eu/cdsapp#!/dataset/reanalysis-era5-land?tab=overview}
+  note         = {DOI: 10.24381/cds.e2161bac (Accedido: 2025-07-07)},
+  url          = {https://cds.climate.copernicus.eu/cdsapp#!/dataset/reanalysis-era5-land?tab=overview}
 }
+
 
 @misc{copernicus_pr,
   author = {Berg, P. and Photiadou, C. and Simonsson, L. and Sjokvist, E. and Thuresson, J. and Mook, R.},
@@ -187,11 +248,11 @@
 }
 
 @misc{landsat5_data,
-  author = {USGS},
-  title = {USGS Landsat 5 Level 2, Collection 2, Tier 1},
-  year = {2025},
-  url = {https://developers.google.com/earth-engine/datasets/catalog/LANDSAT_LT05_C02_T1_L2},
-  note = {Accedido: 8 de julio de 2025}
+  author = {{USGS}},
+  title  = {USGS {Landsat} 5 Level 2, Collection 2, Tier 1},
+  year   = {2025},
+  url    = {https://developers.google.com/earth-engine/datasets/catalog/LANDSAT_LT05_C02_T1_L2},
+  note   = {Accedido: 2025-07-08}
 }
 
 
@@ -200,11 +261,4 @@
 
 
 %metodologia
-@article{Buchholz2014,
-    author = {Buchholz, T.},
-    title = {Artificial Intelligence and Machine Learning in Environmental Science},
-    journal = {Environmental Modelling & Software},
-    year = {2014},
-    volume = {56},
-    pages = {60-69}
-}
+

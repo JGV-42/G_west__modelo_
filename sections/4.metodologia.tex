@@ -1,41 +1,26 @@
 \section{Metodología}
 
-Esta sección describe el procedimiento seguido para entrenar y validar los modelos predictivos desarrollados. La metodología se fundamenta en la identificación de los factores que condicionan el crecimiento forestal y, por tanto, la capacidad de captura de carbono en un periodo determinado. Para ello, se ha trabajado sobre una base de datos específicamente estructurada para facilitar su uso en tareas de modelización ecológica y análisis predictivo.
+Esta sección describe el procedimiento seguido para el entrenamiento y validación de los modelos predictivos desarrollados. 
+La metodología se fundamenta en la identificación de los factores que determinan el crecimiento forestal y, en consecuencia, la capacidad de los ecosistemas para capturar carbono a lo largo del tiempo. 
+El enfoque integra información estructural, climática y espectral procedente del Inventario Forestal Nacional (IFN) y de otras fuentes ambientales, con el propósito de construir modelos robustos que permitan predecir el contenido de carbono acumulado en la biomasa viva.
 
 \medskip
 
-El carbono absorbido por los árboles se acumula en su biomasa a lo largo del tiempo. La cantidad almacenada depende del tamaño de los individuos, el cual está influenciado por múltiples variables ambientales y estructurales. Así, la estimación del carbono capturado entre dos momentos se realiza midiendo el crecimiento de los árboles y aplicando factores de conversión, considerando que aproximadamente el 50\% de la biomasa seca corresponde a carbono \cite{MITECO2020}.
+El carbono fijado por los árboles se acumula progresivamente en su biomasa, en función del tamaño y vigor de los individuos, los cuales están condicionados por variables ambientales, topográficas y de competencia intraespecífica. 
+Las condiciones meteorológicas, como la temperatura y la precipitación, inciden directamente en la fotosíntesis y en la disponibilidad hídrica; 
+la orientación, la pendiente y la altitud modifican la radiación incidente y el microclima local; 
+mientras que la densidad de árboles por unidad de superficie determina el nivel de competencia por los recursos, variando según la especie y su tolerancia ecológica \cite{IPCC2006, Buchholz2014}. 
 
 \medskip
 
-La base de datos empleada recoge características forestales, climáticas y espectrales a nivel de parcela, especie y clase diamétrica. Esta estructura relacional permite capturar la evolución del bosque entre inventarios y alimentar modelos capaces de predecir el contenido futuro de carbono a partir de observaciones pasadas. El conjunto de variables integradas satisface los principales requisitos ecológicos y estadísticos del problema, garantizando una representación suficiente del entorno forestal.
-
-\medskip
-
-El crecimiento de las especies arbóreas está condicionado por factores edáficos, climáticos, topográficos y de competencia intraespecífica. Las condiciones meteorológicas, como la temperatura o la precipitación, afectan a la fotosíntesis y la disponibilidad hídrica. La orientación, la pendiente y la altitud modifican la radiación recibida y la capacidad de retención de agua. A su vez, la densidad de árboles por superficie determina el nivel de competencia por los recursos, lo cual varía según la especie y su tolerancia ecológica \cite{IPCC2006, Buchholz2014}.
-
-\medskip
-
-A partir de estos principios, la base de datos recoge un conjunto diverso de variables que incluyen:
-
-\begin{itemize}
-    \item \textbf{Características del terreno:} textura, tipo de suelo, orientación, pendiente y elevación, que condicionan el entorno físico del crecimiento.
-    
-    \item \textbf{Estructura y composición forestal:} cobertura total y arbórea, ocupación específica por especie, forma y estado de la masa, y distribución espacial del arbolado.
-    
-    \item \textbf{Variables dendrométricas:} número de pies, área basimétrica y volumen por clase diamétrica, como indicadores directos de biomasa y densidad forestal.
-    
-    \item \textbf{Condiciones climáticas:} medias y extremos de temperatura y precipitación por estación, obtenidas a partir de registros satelitales y reanálisis.
-    
-    \item \textbf{Índices de vegetación:} métricas como NDVI, NDII, GNDVI y EVI, que capturan el vigor, humedad y densidad de la cubierta vegetal (véase Sección~\ref{sec:indices}).
-\end{itemize}
+A partir de estos fundamentos, se construyó una base de datos relacional que integra información forestal, climática y espectral a nivel de parcela, especie y clase diamétrica. 
+Esta estructura permite caracterizar con precisión la dinámica del bosque entre inventarios sucesivos y alimentar modelos predictivos capaces de estimar el contenido futuro de carbono a partir de las condiciones observadas en el pasado.
 
 
-\subsection{Origen de los datos}
-% - Nombra la base de datos utilizada.
-% - Incluye la referencia bibliográfica de la publicación donde se documenta.
-% - Resume brevemente los tipos de datos empleados (forestales, climáticos, espectrales).
-
+\subsection{Origen y estructura de los datos}
+% Origen (IFN2/3/4 + clima + índices)
+% Estructura relacional (parcelas, inventarios, especie, CD, estación, árbol)
+% Referencia al esquema (figura) y a meta_variables
 
 
 La base de datos empleada en este trabajo integra información forestal, climática y espectral estructurada en torno a la parcela como unidad básica. Cada parcela se describe mediante sus coordenadas geográficas, características edáficas y su evolución a través de distintos inventarios (IFN2, IFN3, IFN4).
@@ -60,473 +45,381 @@ Finalmente, se incorporan índices espectrales derivados de imágenes satelitale
 
 \medskip
 
-Estos datos se organizan en cinco tablas relacionales (\texttt{parcelas}, \texttt{parcela\_inventario}, \texttt{parcela\_inventario\_especie}, \texttt{parcela\_inventario\_especie\_cd} y \texttt{parcela\_inventario\_estacion}),  representadas esquemáticamente en la Figura~\ref{fig:estructura_ddbb}:
+\subsubsection*{Estrutura de la base de datos}
+Estos datos se organizan en las siguientes entidades troncales:
+
 \begin{itemize}
-    \item \texttt{parcelas}: contiene la información básica de localización y características edáficas de cada parcela.
-    \item \texttt{parcela\_inventario}: registra la información general recolectada por parcela en cada inventario.
-    \item \texttt{parcela\_inventario\_especie}: añade el componente específico de cada especie presente en cada inventario y parcela.
-    \item \texttt{parcela\_inventario\_especie\_cd}: desagrega los datos por clases diamétricas para cada especie.
-    \item \texttt{parcela\_inventario\_estacion}: integra estadísticas climáticas y espectrales a nivel estacional.
+  \item \textbf{parcelas}: icontiene la información básica de localización y características edáficas de cada parcela.
+  \item \textbf{parcela\_inventario}: describe el estado de cada parcela en un inventario determinado (\texttt{parcela\_id}, \texttt{inventario\_id}), incluyendo atributos edáficos y de contexto (p. ej., \texttt{nivel1\_id}, \texttt{textura\_id}).
+  \item \textbf{parcela\_inventario\_especie}: detalla la presencia y condición de cada especie dentro de una parcela e inventario, incorporando descriptores de masa y tratamientos silvícolas.
+  \item \textbf{parcela\_inventario\_especie\_cd}: describe las poblaciones arbóreas por parcela, especie y \emph{clase diamétrica} (\texttt{cd\_id}): n.º de pies (\texttt{npies}), área basimétrica (\texttt{abas}), volúmenes (\texttt{vcc}, \texttt{vsc}, \texttt{vle}), incrementos (\texttt{iavc}) y carbono (\texttt{ca}, \texttt{cr}).
+  \item \textbf{parcela\_especie\_arbol}: caracteriza los pies mayores identificados por parcela y especie en el inventario cuarto. Recoge las caracteristicas particulares de cada pie como altura (\texttt{ht}), diámetros (\texttt{dn1} y \texttt{dn2}), ubicación respecto del centro de la parcela (\texttt{rumbo}, \texttt{distancia}), volumen (\texttt{vcc, vsc, vle}), incremento (\texttt{iavc}) y carbono (\texttt{ca, cr}).  
+  \item \textbf{parcela\_inventario\_estacion}: almacena agregados climático-biofísicos por estación (\texttt{estacion\_id}) en la misma granularidad parcela–inventario, incluyendo variables como precipitación (\texttt{PR}) y temperatura (\texttt{T2M, SKT, STL*}), junto a índices de vegetación (NDVI, EVI, NDII, GNDVI).
+  \item \textbf{especies} y \textbf{grupos}: recogen la información taxonómica y su clasificación jerárquica, estableciendo la relación entre especies individuales y grupos funcionales.
 \end{itemize}
 
+Cada variable categórica posee una tabla de catálogo propia (\texttt{cat\_}), donde se definen los valores posibles y sus descripciones. Por ejemplo, \texttt{cat\_textura}, \texttt{cat\_nivel1}, \texttt{cat\_tratmasa} o \texttt{cat\_origen}. Todas siguen un patrón uniforme: la clave primaria es el identificador de la variable (\texttt{<variable>\_id}), y las tablas troncales referencian este mismo campo como clave foránea. Además la base de datos incluye una tabla llamada \texttt{meta\_variables} que recoge los metadatos.
+
+\medskip
+
+La Figura~\ref{fig:GWest_BBDD} muestra el esquema general de las tablas troncales y sus principales relaciones. Este diagrama resume la estructura interna de la base de datos y su jerarquía de dependencias.
 
 \begin{figure}[H]
-    \centering
-    \includegraphics[width=1\linewidth]{figuras/estructura_base_datos_informe_con_leyenda.png}
-    \caption{Estructura de la base de datos}
-    \label{fig:estructura_ddbb}
+  \centering
+  \includegraphics[width=0.9\textwidth]{figuras/Estrctr_BBDD_GWest.png}
+  \caption{Esquema relacional de las tablas principales de la base de datos. Tabla extraida de \cite{greenwestdb}, donde se pueden consultar más detalles sobre las variables.}
+  \label{fig:GWest_BBDD}
 \end{figure}
 
+\subsubsection*{Diccionario resumido de variables}
+\small
+\setlength{\LTcapwidth}{\textwidth}
+\begin{longtable}{p{3.2cm} p{7.6cm} p{2.4cm} p{2.4cm}}
+\caption{Resumen de variables principales por entidad. Tabla extraida de \cite{greenwestdb}.}\\
+\toprule
+\textbf{Variable} & \textbf{Descripción} & \textbf{Unidad} & \textbf{Tipo de dato} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Variable} & \textbf{Descripción} & \textbf{Unidad} & \textbf{Tipo de dato} \\
+\midrule
+\endhead
+\midrule
+\multicolumn{4}{r}{\emph{Continúa en la siguiente página}} \\
+\midrule
+\endfoot
+\bottomrule
+\endlastfoot
 
-\begin{table}[H]
-\renewcommand{\arraystretch}{2.2}
-\setlength{\tabcolsep}{5pt}
-\centering
-\resizebox{\textwidth}{!}{%
-\begin{tabular}{|m{4cm}|m{3cm}|m{9cm}|}
-\hline
-\multicolumn{3}{|c|}{\cellcolor[HTML]{D9EAD3}\textbf{\color[HTML]{000000}parcelas: identificación, localización y caracterización básica de las parcelas forestales}} \\
-\hline
-\cellcolor[HTML]{D9EAD3}\textbf{\color[HTML]{000000}Variable} &
-\cellcolor[HTML]{D9EAD3}\textbf{\color[HTML]{000000}Tipo} &
-\cellcolor[HTML]{D9EAD3}\textbf{\color[HTML]{000000}Descripción} \\
-\hline
-\textbf{idparcela} & varchar(50) & Identificador único de la parcela \\
-\hline
-latitud & float & Coordenada de latitud de la parcela \\
-\hline
-longitud & float & Coordenada de longitud de la parcela \\
-\hline
-%presencia & int & Indica presencia de la parcela en los distintos inventarios (Anexo \ref{anexo:presencia}) \\
-%\hline
-created\_at & timestamp & Fecha de creación del registro \\
-\hline
-updated\_at & timestamp & Fecha de última modificación del registro \\
-\hline
-elevacion & ? & ? \\
-\hline
-orientacion & ? & ? \\
-\hline
-pendiente & ? & ? \\
-\hline
-periodo23 & int & Años transcurridos entre el apeo de la parcela en el IFN2 y el apeo en el IFN3 \\
-\hline
-periodo24 & int & Años transcurridos entre el apeo de la parcela en el IFN2 y el apeo en el IFN4 \\
-\hline
-periodo34 & int & Años transcurridos entre el apeo de la parcela en el IFN3 y el apeo en el IFN3 \\
-\hline
-tipsuelo1, tipsuelo2, tipsuelo3 & int & Tipos de suelo identificados en la parcela (diferentes categorías o clases) \\
-\hline
-radio & float & Estimación del radio circular de la parcela (m)\\
-\hline
-superficie & float & Estimación de la superficie circular de la parcela ($m^2$) \\
-\hline
-rocosid & int & Grado de rocosidad del terreno \\
-\hline
-merosiva & int & Manifestaciones erosivas observadas en la parcela \\
-\hline
+\multicolumn{4}{l}{\textbf{parcelas}} \\
+\texttt{parcela\_id} & Identificador único de parcela (IFN). & -- & Identificador \\
+\texttt{latitud}, \texttt{longitud} & Coordenadas geográficas (WGS84). & ° & Geográfico \\
+\texttt{coorx}, \texttt{coory} & Coordenadas UTM; \texttt{huso} especifica zona. & m (UTM) & Geográfico \\
+\texttt{elevacion} & Cota sobre el nivel del mar (NASADEM). & m & Numérico \\
+\texttt{pendiente} & Inclinación del terreno. & ° & Numérico \\
+\texttt{orientacion} & Orientación del terreno (0–360). & ° & Numérico \\
+\texttt{presencia\_id} & Presencia en IFN $\rightarrow$ \texttt{cat\_presencia}. & -- & Categórico \\
+\texttt{tipsuelo1\_id}, \texttt{tipsuelo2\_id}, \texttt{tipsuelo3\_id} & Tipos de suelo $\rightarrow$ \texttt{cat\_tipsuelo*}. & -- & Categórico \\
+\texttt{rocosidad\_id} & Rocosidad $\rightarrow$ \texttt{cat\_rocosidad}. & -- & Categórico \\
+\texttt{radio}, \texttt{superficie} & Radio de parcela y superficie derivada. & m; ha & Numérico \\
+\addlinespace
 
-\end{tabular}%
-}
-\caption{Estructura de la tabla \texttt{parcelas}. Contiene información general, geográfica y edáfica de cada unidad de muestreo en la base de datos. Se pueden consultar las claves de las variables en los anexos.}
-\label{tab:parcela1}
-\end{table}
+\multicolumn{4}{l}{\textbf{parcela\_inventario}} \\
+\texttt{parcela\_id}, \texttt{inventario\_id} & Clave compuesta (parcela-inventario). & -- & Identificador \\
+\texttt{ano} & Año de apeo. & año & Numérico \\
+\texttt{nivel1\_id}, \texttt{nivel2\_id} & Morfoestructura. $\rightarrow$ \texttt{cat\_nivel*}. & -- & Categórico \\
+\texttt{textura\_id} & Textura de suelo $\rightarrow$ \texttt{cat\_textura}. & -- & Categórico \\
+\texttt{merosiva\_id} & Manifestaciones erosivas $\rightarrow$ \texttt{cat\_merosiva}. & -- & Categórico \\
+\texttt{matorg\_id} & Materia orgánica $\rightarrow$ \texttt{cat\_matorg}. & -- & Categórico \\
+\texttt{modcomb\_id} & Modelo de combustible $\rightarrow$ \texttt{cat\_modcomb}. & -- & Categórico \\
+\texttt{disesp\_id} & Distribución espacial $\rightarrow$ \texttt{cat\_disesp}. & -- & Categórico \\
+\texttt{comesp\_id} & Composición específica $\rightarrow$ \texttt{cat\_comesp}. & -- & Categórico \\
+\texttt{fccarb}, \texttt{fcctot} & Fracción de cabida cubierta (árboles). & \% & Numérico \\
+\addlinespace
 
+\multicolumn{4}{l}{\textbf{parcela\_inventario\_especie}} \\
+\texttt{parcela\_id}, \texttt{inventario\_id}, \texttt{especie\_id} & Clave compuesta (parcela-inventario-especie). & -- & Identificador \\
+\texttt{ocupa} & Grado de ocupación de la especie. & (0--10) & Numérico \\
+\texttt{estado\_id} & Estado de desarrollo. $\rightarrow$ \texttt{cat\_estado}. & -- & Categórico \\
+\texttt{fpmasa\_id} & Forma principal de masa $\rightarrow$ \texttt{cat\_fpmasa}. & -- & Categórico \\
+\texttt{tratmasa\_id} & Tratamientos selvícolas $\rightarrow$ \texttt{cat\_tratmasa}. & -- & Categórico \\
+\texttt{orgmasa1\_id} & Origen de masa (IFN3/4)$\rightarrow$ \texttt{cat\_orgmasa1}. & -- & Categórico \\
+\texttt{masa\_id} & Clasificación de masa $\rightarrow$ \texttt{cat\_masa}. & -- & Categórico \\
+\texttt{origen\_id} & Origen de la masa (IFN2) $\rightarrow$ \texttt{cat\_origen}. & -- & Categórico \\
+\addlinespace
 
-\begin{table}[H]
-\renewcommand{\arraystretch}{2.2}
-\setlength{\tabcolsep}{5pt}
-\centering
-\resizebox{\textwidth}{!}{%
-\begin{tabular}{|m{5cm}|m{2.2cm}|m{7.8cm}|m{1cm}|m{2cm}|}
-\hline
-\multicolumn{5}{|c|}{\cellcolor[HTML]{D9EAD3}\textbf{\color[HTML]{000000}parcela\_inventario: registros asociados a cada parcela para los inventarios IFN2, IFN3 e IFN4}} \\
-\hline
-\cellcolor[HTML]{D9EAD3}\textbf{Campo} &
-\cellcolor[HTML]{D9EAD3}\textbf{Tipo} &
-\cellcolor[HTML]{D9EAD3}\textbf{Descripción} &
-\cellcolor[HTML]{D9EAD3}\textbf{IFN2} &
-\cellcolor[HTML]{D9EAD3}\textbf{IFN3/IFN4} \\
-\hline
-idparcela\_inventario\_ano & varchar(50) & Identificador único por parcela y año & si & si\\
-\hline
-\textbf{idparcela\_inventario} & varchar(50) & Identificador del inventario de la parcela & si & si\\
-\hline
-idparcela & varchar(50) & Identificador de la parcela & si & si\\
-\hline
-inventario & int & Número del inventario (2, 3 o 4) & si & si\\
-\hline
-ano & int & Año de apeo de la parcela e inventario & si & si\\
-\hline
-fcctot & int & Fracción de cabida cubierta total en la parcela e inventario & no & si\\
-\hline
-textura & int & Textura del suelo en la parcela e inventario & no & si\\
-\hline
-matorg & int & Contenido de materia orgánica en la parcela e inventario & no & si\\
-\hline
-phsuelo & int & pH del suelo en la parcela e inventario & no & si\\
-\hline
-modcomb & int & Modelo de combustible en la parcela e inventario & no & si\\
-\hline
-espcmue & int & Espesor de capa muerta en la parcela e inventario & no & si\\
-\hline
-fccarb & int & Fracción cubierta arbórea en la parcela e inventario & no & si\\
-\hline
-disesp & int & Distribución espacial de las especies en la parcela e inventario & si & si\\
-\hline
-comesp & int & Composición de las especies en la parcela e inventario & si & si\\
-\hline
-clasuelo & int & Clase del suelo (ifn2) & si & no\\
-\hline
-created\_at & datetime & Fecha de creación del registro & si & si \\
-\hline
-updated\_at & datetime & Fecha de última modificación del registro & si & si \\
-\hline
-\end{tabular}%
-}
-\caption{Estructura de la tabla \texttt{parcela\_inventario}. Contiene los registros asociados a cada parcela en cada inventario (IFN2, IFN3, IFN4). Las columnas finales están destinadas a indicar la presencia o ausencia de cada variable en los inventarios IFN2 y IFN3/IFN4.}
-\label{tab:parcela_inventario1}
-\end{table}
+\multicolumn{4}{l}{\textbf{parcela\_inventario\_especie\_cd}} \\
+\texttt{parcela\_id}, \texttt{inventario\_id}, \texttt{especie\_id} & Clave compuesta ( parcela-inventario-especie-cd). & -- & Identificador \\
+\texttt{cd\_id} & Clase diamétrica (CD) reglamento IFN. & cm & Numérico discreto \\
+\texttt{npies} & Número de pies. & pies/ha & Numérico \\
+\texttt{abas} & Área basimétrica. & m$^{2}$/ha & Numérico \\
+\texttt{vcc}, \texttt{vsc}, \texttt{vle} & Volúmenes (con/sin corteza; leñas). & m$^{3}$/ha & Numérico \\
+\texttt{iavc} & Incremento anual del volumen con corteza. & m$^{3}$/ha$\cdot$año & Numérico \\
+\texttt{ca}, \texttt{cr} & Carbono aéreo y radical. & t/ha & Numérico \\
+\texttt{ht} & Altura media (modelo CatBoost). & m & Numérico \\
+\texttt{carbono\_bruto} & Carbono total estimado (alometrías). & t & Numérico \\
+\addlinespace
 
+\multicolumn{4}{l}{\textbf{parcela\_especie\_arbol}} \\
+\texttt{parcela\_id}, \texttt{especie\_id} & Clave compuesta (parcela–especie–árbol). & -- & Identificador \\ 
+\texttt{arbol\_id} & Identificador del árbol dentro de parcela y especie. & -- & Entero \\ 
+\texttt{rumbo} & Rumbo desde el centro de la parcela al árbol. & grados centesimales & Numérico \\ 
+\texttt{distancia} & Distancia desde el centro de la parcela al árbol. & m & Numérico \\ 
+\texttt{cd} & Clase diamétrica (reglamento IFN). & cm & Numérico discreto \\ 
+\texttt{ht} & Altura total del árbol inventariado. & m & Numérico \\ 
+\texttt{dn1}, \texttt{dn2} & Diámetros normales perpendiculares. & mm & Numérico \\ 
+\texttt{abas} & Área basimétrica del pie medido. & m$^{2}$ & Numérico \\ 
+\texttt{iavc} & Incremento anual del volumen con corteza. & dm$^{3}$/año & Numérico \\ 
+\texttt{vcc}, \texttt{vsc}, \texttt{vle} & Volúmenes (con corteza, sin corteza, leñas). & dm$^{3}$ & Numérico \\ 
+\texttt{ca}, \texttt{cr} & Carbono aéreo y radical del árbol. & t & Numérico \\
+\addlinespace
 
-\begin{table}[H]
-\renewcommand{\arraystretch}{2.2}
-\setlength{\tabcolsep}{5pt}
-\centering
-\resizebox{\textwidth}{!}{%
-\begin{tabular}{|m{5cm}|m{2.2cm}|m{7.8cm}|m{1cm}|m{2cm}|}
-\hline
-\multicolumn{5}{|c|}{\cellcolor[HTML]{D9EAD3}\textbf{\color[HTML]{000000}parcela\_inventario\_especie: información por especie forestal presente en cada parcela e inventario}} \\
-\hline
-\cellcolor[HTML]{D9EAD3}\textbf{Campo} &
-\cellcolor[HTML]{D9EAD3}\textbf{Tipo} &
-\cellcolor[HTML]{D9EAD3}\textbf{Descripción} &
-\cellcolor[HTML]{D9EAD3}\textbf{IFN2} &
-\cellcolor[HTML]{D9EAD3}\textbf{IFN3/IFN4} \\
-\hline
-idparcela & varchar(50) & Identificador de la parcela & si& si\\
-\hline
-inventario & int & Número del inventario (2, 3 o 4) & si& si\\
-\hline
-especie & int & Código de la especie forestal & si& si\\
-\hline
-idparcela\_inventario & varchar(50) & Identificador del inventario de la parcela & si& si\\
-\hline
-\textbf{idparcela\_inventario\_especie} & varchar(50) & Identificador único por parcela, inventario y especie & si& si\\
-\hline
-ocupa & int & Ocupación de la especie en la parcela e inventario & si& si\\
-\hline
-estado & int & Estado general de la masa formada por la especie en la parcela e inventario & si & si\\
-\hline
-fpmasa & int & Forma principal de la masa formada por la especie en la parcela e inventario & no& si\\
-\hline
-tratmasa & int & Tipo de tratamiento aplicado a la masa formada por la especie en la parcela e inventario & no& si\\
-\hline
-orgmasa1 & int & Origen principal de la masa formada por la especie en la parcela e inventario & no & si\\
-\hline
-masa & int & Tipo de masa forestal (ifn2) & si& no\\
-\hline
-origen & int & Origen de la masa formada por la especie en la parcela e inventario & si& no\\
-\hline
-ca & float & Carbono aéreo capturado por la especie en la parcela e inventario (t/ha) & si& si \\
-\hline
-cr & float & Carbono radical capturado por la especie en la parcela e inventario (t/ha) & si& si\\
-\hline
-c & float & Carbono total capturado por la especie en la parcela e inventario (t/ha) & si& si\\
-\hline
-created\_at & datetime & Fecha de creación del registro & si& si\\
-\hline
-updated\_at & datetime & Fecha de última modificación del registro & si& si\\
-\hline
-\end{tabular}%
-}
-\caption{Estructura de la tabla \texttt{parcela\_inventario\_especie}. Contiene información por especie forestal presente en cada parcela en cada inventario. Las columnas finales están destinadas a indicar la presencia o ausencia de cada variable en los inventarios IFN2 y IFN3/IFN4.}
-\label{tab:parcela_inventario_especie1}
-\end{table}
+\multicolumn{4}{l}{\textbf{parcela\_inventario\_estacion}} \\
+\texttt{parcela\_id}, \texttt{inventario\_id}, \texttt{estacion\_id} & Clave compuesta (agregado estacional). & -- & Identificador \\
+\texttt{PR\_*} & Estadísticos de precipitación (mean, max, min, std, sum). & mm/(m$^2\cdot$día), mm/m$^2$ & Numérico \\
+\texttt{T2M\_*}, \texttt{SKT\_*} & Aire 2\,m y temperatura superficial (mean, max, min, std). & °C & Numérico \\
+\texttt{STL1\_*}--\texttt{STL4\_*} & Temperatura del suelo por niveles (mean, max, min, std). & °C & Numérico \\
+\texttt{NDVI\_*}, \texttt{EVI\_*}, \texttt{NDII\_*}, \texttt{GNDVI\_*} & Índices de vegetación (max, mean, median, min, std). & adimensional & Numérico \\
+\addlinespace
 
+\multicolumn{4}{l}{\textbf{especies} y \textbf{grupos}} \\
+\texttt{especie\_id} & Identificador de especie IFN. & -- & Identificador \\
+\texttt{nombre}, \texttt{sinonimia} & Denominación IFN y sinónimos. & -- & Texto \\
+\texttt{tipo\_especie} & 0\,= conífera; 1\,= frondosa. & -- & Categórico \\
+\texttt{grupo\_id} & Grupo funcional $\rightarrow$ \texttt{grupos}. & -- & Identificador \\
+\texttt{grupos.nombregrupo} & Nombre del grupo. & -- & Texto \\
+\end{longtable}
+\normalsize
 
+\subsubsection*{Cardinalidad y completitud}
 
+El volumen de entradas por tabla es:
+\begin{center}
+\begin{tabular}{l r}
+\toprule
+\textbf{Tabla} & \textbf{Número de registros} \\
+\midrule
+\texttt{parcelas} & 52{,}298 \\
+\texttt{parcela\_inventario} & 147{,}995 \\
+\texttt{parcela\_inventario\_especie} & 417{,}119 \\
+\texttt{parcela\_inventario\_especie\_cd} & 1{,}191{,}070 \\
+\texttt{parcela\_especie\_arbol} & 855{,}860 \\
+\texttt{parcela\_inventario\_estacion} & 470{,}056 \\
+\texttt{especies} & 195 \\
+\texttt{grupos} & 33 \\
+\bottomrule
+\end{tabular}
+\end{center}
 
-\begin{table}[H]
-\renewcommand{\arraystretch}{2.2}
-\setlength{\tabcolsep}{5pt}
-\centering
-\resizebox{\textwidth}{!}{%
-\begin{tabular}{|m{6cm}|m{3cm}|m{8.5cm}|}
-\hline
-\multicolumn{3}{|c|}{\cellcolor[HTML]{D9EAD3}\textbf{\color[HTML]{000000}parcela\_inventario\_especie\_cd: información por clase diamétrica para cada especie en cada parcela}} \\
-\hline
-\cellcolor[HTML]{D9EAD3}\textbf{Campo} &
-\cellcolor[HTML]{D9EAD3}\textbf{Tipo} &
-\cellcolor[HTML]{D9EAD3}\textbf{Descripción} \\
-\hline
-cd & int & Clase diamétrica del conjunto de árboles estudiado \\
-\hline
-idparcela\_inventario\_especie & varchar(50) & ID de especie por parcela e inventario \\
-\hline
-\textbf{idparcela\_inventario\_especie\_cd} & varchar(50) & Identificador único del registro \\
-\hline
-npies & float & Número de pies de la clase diamétrica y especie en la parcela e inventario \\
-\hline
-abas & float & Área basal total del conjunto de árboles de la clase diamétrica y especie en la parcela e inventario \\
-\hline
-vcc & float & Volumen con corteza del conjunto de árboles de la clase diamétrica y especie en la parcela e inventario\\
-\hline
-vsc & float & Volumen sin corteza del conjunto de árboles de la clase diamétrica y especie en la parcela e inventario\\
-\hline
-iavc & float & Incremento anual del volumen con corteza del conjunto de árboles de la clase diamétrica y especie en la parcela e inventario\\
-\hline
-vle & float & Volumen de leñas del conjunto de árboles de la clase diamétrica y especie en la parcela e inventario\\
-\hline
-created\_at & datetime & Fecha de creación del registro \\
-\hline
-updated\_at & datetime & Fecha de última modificación del registro \\
-\hline
-\end{tabular}%
-}
-\caption{Estructura de la tabla \texttt{parcela\_inventario\_especie\_cd}. Incluye información por clase diamétrica (CD) para cada especie presente en una parcela. Todas las variables se registran tanto para IFN2, como IFN3 e IFN.}
-\label{tab:parcela_inventario_especie_cd1}
-\end{table}
+\subsection{Variables objetivo}
 
+El objetivo del modelo es estimar el \textbf{carbono total} que una parcela forestal puede capturar en un horizonte temporal de 20--30 años, a partir de las condiciones observadas en inventarios previos. 
+Para ello se definieron dos variables de respuesta complementarias, ambas derivadas de los datos del Inventario Forestal Nacional (IFN), que permiten analizar el contenido de carbono desde perspectivas distintas: una normalizada por superficie y otra en términos absolutos.
 
+\medskip
 
+\begin{enumerate}
+    \item \textbf{\texttt{c}} (tC/ha): representa el \textbf{carbono total contenido en la biomasa viva aérea y subterránea} por unidad de superficie, expresado en \emph{toneladas de carbono por hectárea}. 
+    Su cálculo se basa en la suma de las estimaciones de carbono aéreo (\texttt{ca}) y radical (\texttt{cr}) reportadas por el IFN. 
+    En los casos con valores faltantes, se completó la información mediante un modelo de \emph{Random Forest Regressor} ajustado sobre variables dendrométricas observadas (Especie, CD, VSC, NPies, ABas, IAVC, VCC y VLE), alcanzando un rendimiento satisfactorio (\(R^2_{test} > 0.90\)). 
+    Esta variable es coherente con los formatos internacionales de reporte de inventarios forestales y permite comparar el contenido de carbono entre parcelas o especies.
 
-\begin{table}[H]
-\renewcommand{\arraystretch}{2.2}
-\setlength{\tabcolsep}{5pt}
-\centering
-\resizebox{\textwidth}{!}{%
-\begin{tabular}{|m{5cm}|m{3cm}|m{9.5cm}|}
-\hline
-\multicolumn{3}{|c|}{\cellcolor[HTML]{D9EAD3}\textbf{\color[HTML]{000000}parcela\_inventario\_estacion: métricas climáticas y espectrales por estación e inventario}} \\
-\hline
-\cellcolor[HTML]{D9EAD3}\textbf{Campo} &
-\cellcolor[HTML]{D9EAD3}\textbf{Tipo} &
-\cellcolor[HTML]{D9EAD3}\textbf{Descripción} \\
-\hline
-\textbf{idparcela\_inventario\_season} & varchar(50) & Identificador único por parcela e inventario por estación \\
-\hline
-idparcela & varchar(50) & Identificador de la parcela \\
-\hline
-inventario & int & Número del inventario (2, 3 o 4) \\
-\hline
-season & varchar(50) & Estación del año (e.g., invierno, primavera) \\
-\hline
-pr\_mean, sum, max, min, std  & float & Estadísticos de precipitación \\
-\hline
-t2m\_mean, max, min, std & float & Estadísticos de temperatura del aire a 2m del suelo\\
-\hline
-skt\_mean, max, min, std & float & Estadísticos de temperatura de la superficie del suelo \\
-\hline
-stl1–stl4\_mean, max, min, std & float & Estadísticos de temperatura en 4 capas del subsuelo \\
-\hline
-evi-gndvi-ndii-ndvi\_mean, max, min, std & float & Estadísticos de índices espectrales \\
-\hline
-created\_at & datetime & Fecha de creación del registro \\
-\hline
-updated\_at & datetime & Fecha de última modificación del registro \\
-\hline
-\end{tabular}%
-}
-\caption{Estructura de la tabla \texttt{parcela\_inventario\_estacion}. Contiene métricas climáticas y espectrales agregadas estacionalmente para cada parcela e inventario. Todas las variables se registran tanto para IFN2, como IFN3 e IFN.}
-\label{tab:parcela_estacional1}
-\end{table}
+    \medskip
 
+    \item \textbf{\texttt{carbono\_bruto}} (tC): corresponde al \textbf{carbono total capturado por parcela y especie}, expresado en \emph{toneladas de carbono totales}. 
+    Su estimación se realiza de forma trazable y físicamente interpretable a partir de variables medidas directamente en campo: número de pies (\texttt{npies}), altura media (\texttt{ht}), tipo de especie (\texttt{clase\_especie}) y clase diamétrica (\texttt{cd\_id}). 
+    El cálculo sigue un modelo alométrico adaptado de \cite{chave2014} y las directrices del IPCC~\cite{ipcc2006}, incorporando tanto la biomasa aérea como la biomasa radical mediante la relación Parte Radical:Parte Aérea ($R$). 
+    El resultado se expresa en toneladas de carbono totales por parcela, sin normalizar por superficie, lo que facilita la trazabilidad del proceso y la comparación entre inventarios sin depender de factores de expansión específicos del IFN. 
+    En coherencia con los criterios de proyectos de forestación y reforestación, las observaciones correspondientes a brinzales o plantones se consideran con valor de carbono nulo, dado que las fases tempranas de desarrollo no se contabilizan oficialmente como carbono capturado.
+\end{enumerate}
 
+\medskip
 
+Estas dos variables resumen el contenido de carbono forestal desde enfoques complementarios: 
+\texttt{c} (tC/ha) permite la comparación espacial y temporal entre masas forestales, mientras que \texttt{carbono\_bruto} (tC) ofrece una medida absoluta y directamente derivada de las observaciones de campo. 
+Ambas constituyen los objetivos principales del modelado predictivo, orientado a estimar el carbono acumulado en el \textbf{IFN4} a partir de las condiciones registradas en los inventarios anteriores (\textbf{IFN2} e \textbf{IFN3}).
 
+\subsection{Supuestos de elegibilidad y verificación externa}
+% Intervención humana, permanencia 30a (extrapolación cauta), superficie>=1ha,
+% fccarb>=20% (filtro), altura>=3m en madurez (decisión de diseño).
 
+Para que un proyecto forestal sea elegible en programas de \emph{créditos de carbono}, debe cumplir requisitos técnicos establecidos por marcos regulatorios internacionales \cite{IPCC2006, miteco_guia_co2}. A continuación se resume cada criterio y la forma en que se aborda en este estudio:
+
+\begin{itemize}
+    \item \textbf{Intervención humana directa.} El incremento de carbono debe proceder de actuaciones planificadas (reforestación, restauración o manejo sostenible). En nuestro caso, el modelo se entrena sobre datos observacionales (IFN2--IFN3--IFN4); por tanto, la \emph{verificación de intervención} no se deduce del modelo, sino que se contempla como \emph{condición externa} de elegibilidad del proyecto a evaluar.
+
+    \item \textbf{Permanencia mínima de 30 años.} Para caracterizar el crecimiento de las parcelas forestales en los datos que alimentan el modelo, es necesario disponer de dos mediciones sucesivas de cada parcela, separadas por un intervalo temporal conocido. Estas mediciones permiten cuantificar la evolución de las variables forestales y, por tanto, estimar el incremento de carbono asociado al crecimiento del arbolado durante dicho periodo. 
+
+    En este trabajo, el objetivo es predecir el contenido de carbono correspondiente al \textbf{IFN4}, utilizando como información explicativa las variables observadas en inventarios anteriores. Dado que los inventarios tercero y cuarto comparten una estructura homogénea y un conjunto de variables comparable la elección más directa para el entrenamiento del modelo sería emplear exclusivamente estos dos inventarios. Esta estrategia aprovecha la coherencia estructural de los inventarios más recientes, que incluyen un mayor número de variables y una caracterización más detallada del terreno. 
+
+    \medskip
+
+    No obstante, este planteamiento se enfrenta a la limitación impuesta por la \textbf{permanencia mínima de 30 años}, requisito fundamental en el contexto de los proyectos de compensación. El intervalo de tiempo entre los inventarios \textbf{IFN3} e \textbf{IFN4} es relativamente corto: no supera los 18 años.   
+    
+    \medskip
+
+    La Figura~\ref{fig:periodo34} muestra la distribución de la diferencia de años entre las mediciones del IFN3 y el IFN4. Como puede observarse, la mayoría de las parcelas presentan intervalos comprendidos entre 6 y 17 años, un rango demasiado estrecho para evaluar la estabilidad del modelo en horizontes más amplios.
+
+    \begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.9\textwidth]{figuras/periodo34.png}
+        \caption{Distribución de la diferencia de años entre los inventarios IFN3 e IFN4.}
+        \label{fig:periodo34}
+    \end{figure}
+
+    Para ampliar la cobertura temporal y mejorar la capacidad de generalización del modelo, se optó por unificar la información de los inventarios \textbf{IFN2} e \textbf{IFN3} como base explicativa para la predicción del \textbf{IFN4}. Esta integración permite disponer de pares de mediciones de parcelas separadas por intervalos que oscilan entre 6 y 29 años, lo que constituye un rango mucho más representativo del horizonte de 20--30 años establecido como referencia.
+
+    \begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.9\textwidth]{figuras/periodo234.png}
+        \caption{Distribución de la diferencia de años entre los inventarios IFN2--IFN3 e IFN3--IFN4.}
+        \label{fig:periodo234}
+    \end{figure}
+
+    \medskip
+
+    De esta forma, el modelo se entrena y valida sobre un conjunto de datos más diverso y equilibrado, tanto en estructura como en amplitud temporal, manteniendo la coherencia metodológica y la trazabilidad de las estimaciones. Este enfoque no sólo mejora la robustez del aprendizaje, sino que también refuerza la capacidad del modelo para proyectar la captura de carbono en escenarios compatibles con los requisitos de permanencia de los proyectos de compensación.
+
+    \item \textbf{Superficie mínima de 1 ha.} Este criterio se considera \emph{externo} al alcance del modelo predictivo, ya que el aprendizaje se realiza a nivel de parcela e inventario y no sobre polígonos de superficie total. En la práctica, la verificación de la superficie se realiza \emph{ex ante}, sobre la geometría declarada del proyecto forestal. En los terrenos forestales generados a partir de intervención humana directa —como plantaciones o repoblaciones—, la extensión suele presentar una estructura homogénea, con una especie dominante, edades coetáneas y densidades estandarizadas. Bajo estas condiciones, el carbono total es proporcional a la superficie: duplicar el área de una masa forestal homogénea implica aproximadamente duplicar su carbono almacenado. Por tanto, la variable de superficie no afecta al ajuste interno del modelo y su cumplimiento puede evaluarse fácilmente a nivel de proyecto, sin comprometer la validez de las predicciones.
+
+    \item \textbf{Fracción mínima de cabida cubierta del 20\%.} La base de datos dispone de \texttt{fccarb} (arbórea) y \texttt{fcctot} (total). Este umbral se aplica como \emph{filtro de elegibilidad} previo o posterior al modelado, sin modificar la arquitectura del modelo (\texttt{fccarb}$>20$).
+
+    \item \textbf{Altura mínima de 3 m en la madurez.} Este requisito se refiere a la altura que alcanzan los árboles en su fase de pleno desarrollo, y no a la altura inicial de los plantones. Por tanto, las mediciones realizadas durante las etapas tempranas de crecimiento no determinan la elegibilidad del proyecto, siempre que las especies seleccionadas sean capaces de superar los 3 metros en la madurez. En nuestro conjunto de datos, la altura no se registra explícitamente, por lo que este criterio se evalúa de forma \emph{externa} al modelo, mediante la selección de especies forestales adecuadas y la verificación con fuentes auxiliares (catálogos silvícolas o tipologías de masa). En la práctica, el cumplimiento del requisito depende de una decisión de diseño del proyecto —\emph{no plantar especies cuyo tamaño adulto sea inferior a 3 metros}— más que del ajuste predictivo del modelo. Por ello, la altura no interviene directamente en el entrenamiento, aunque sí condiciona la elegibilidad final del proyecto forestal. 
+\end{itemize}
 
 \subsection{Preparación y tratamiento de los datos}
-% - Describe los pasos principales del preprocesamiento:
-%   * Filtrado de registros
-%   * Agregaciones por parcela/especie
-%   * Cálculo de variables derivadas (ej. índices espectrales)
-%   * Codificación de variables categóricas (si aplica)
-%   * Manejo de valores faltantes y outliers
-% - Puedes incluir una tabla con las variables finales seleccionadas para el modelo.
+% Filtros (fccarb>=20%, crecimiento positivo, etc.)
+% Agregaciones (parcela-especie, compresión CD -> npies_{cd}, etc.)
+% Cálculo de variables derivadas (carbono\_bruto)
+% Codificación y escalado
 
-Para caracterizar el crecimiento de los árboles en los datos que se alimentan al modelo es necesario seleccionar dos inventarios distintos, permitiendo calcular la evolución de las variables forestales en el periodo transcurrido entre ambos. La variable \texttt{Periodo} cuantifica dicha diferencia en años. Dado que los inventarios IFN3 e IFN4 tienen una estructura similar y caracterizan mejor el terreno (más variables) la primera elección natural es emplear estos inventarios. 
+Como ya se ha introducido el entrenamiento se realiza en dos líneas según la variable objetivo: \texttt{c} de \textbf{IFN4} o \texttt{carbono\_bruto} de \textbf{IFN4}; y según la información que se usa como explicativa: \textbf{IFN3} o \textbf{IFN3} e \textbf{IFN2}. Se plantea la preparación y filtrado de los datos en términos generales (variable objetivo por \texttt{c} o \texttt{carbono\_bruto} y primera inventariación/ inventariación explicativa por \textbf{IFN3} o la unión de \textbf{IFN2} e \textbf{IFN3}).
 
 \subsubsection*{Filtrado de registros}
 
-Se descartan todas aquellas parcelas en las que el valor de carbono total (\texttt{C}) en el segundo inventario es inferior al del primero. Estos casos suelen deberse a episodios de deforestación, incendios u otras perturbaciones, y no representan un crecimiento forestal neto.
+Se descartan todas aquellas parcelas en las que el valor de carbono total (variable objetivo) en la segunda inventariación es inferior a la primera. Estos casos suelen deberse a episodios de deforestación, incendios u otras perturbaciones, y no representan un crecimiento forestal neto.
 
+\medskip
 
+El conjunto de datos se restringe únicamente a las parcelas que presentan una \texttt{fccarb} (fracción de cabida cubierta arbórea) igual o superior al 20\,\% en el \textbf{IFN3}. Este umbral define la proporción mínima de superficie ocupada por copas de árboles respecto al área total de la parcela, y constituye una de las condiciones esenciales para considerar una superficie como terreno forestal. La exclusión de parcelas con \texttt{fccarb} inferior al 20\,\% permite asegurar que las estimaciones de carbono se realicen sobre masas forestales consolidadas, evitando sesgos asociados a áreas agrícolas o matorrales. A los datos del \textbf{IFN2} no se les aplica dicho filtro porque no disponen de la variable \texttt{fccarb}.
+
+\medskip
+
+Los conteos de observaciones por inventario y condición se resumen a continuación:
+
+\begin{itemize}
+    \item \textbf{IFN2:} Total de parcelas = \textbf{88.696}
+    \begin{itemize}
+        \item Casos con $c4 > c$: \textbf{31.428}
+        \item Casos con $carbono\_bruto4 > carbono\_bruto$: \textbf{32.403}
+    \end{itemize}
+
+    \item \textbf{IFN3:} Total de parcelas = \textbf{171.157}
+    \begin{itemize}
+        \item Casos con $fccarb > 20$: \textbf{158.434}
+        \item Casos con $fccarb > 20$ y $c4 > c$: \textbf{57.401}
+        \item Casos con $fccarb > 20$ y $carbono\_bruto4 > carbono\_bruto$: \textbf{76.617}
+    \end{itemize}
+\end{itemize}
 
 \subsubsection*{Cálculo y agregación de variables}
 
-Cada registro de entrada se genera a nivel de combinación parcela--especie, incorporando las variables correspondientes de la primera medición (IFN3 en la configuración empleada) y la variable objetivo \texttt{c} de la segunda medición (IFN4). Las variables de \texttt{parcela} y \texttt{parcela\_inventario} se desdoblan para cada especie. Las entradas de la tabla \texttt{parcela\_inventario\_especie\_cd} se agrupan por parcela y especie y se comprimen en una única entrada creando un conjunto de variables para cada clase diamétrica.
+Cada registro de entrada se genera a nivel de combinación parcela--especie, incorporando las variables correspondientes de la primera medición y la variable objetivo (carbono) de la segunda medición (IFN4). Las variables de \texttt{parcela} y \texttt{parcela\_inventario} se desdoblan para cada especie. Las entradas de la tabla \texttt{parcela\_inventario\_especie\_cd} se agrupan por parcela y especie y se comprimen en una única entrada creando un conjunto de variables para cada clase diamétrica.
 
 \medskip
 
 La Tabla~\ref{tab:entrada_modelo} resume las variables empleadas como entrada al modelo, integradas desde las distintas tablas que conforman la base de datos relacional.
 
 \begin{table}[H]
-\renewcommand{\arraystretch}{1.5} % Reducir espaciado entre filas
-\setlength{\tabcolsep}{3pt} % Reducir el espacio entre las columnas
+\renewcommand{\arraystretch}{1.2}
+\setlength{\tabcolsep}{3pt}
 \centering
-\scriptsize % Reducir el tamaño de la fuente
+\small
 \resizebox{\textwidth}{!}{%
-\begin{tabular}{|m{3cm}|m{2.5cm}|m{5cm}|m{2.5cm}|}
+\begin{tabular}{|p{3.6cm}|p{2.2cm}|p{7.6cm}|p{2.2cm}|}
 \hline
-\multicolumn{4}{|c|}{\cellcolor[HTML]{D9EAD3}{\color[HTML]{000000}\textbf{Resumen de Datos de Entrada del Modelo}}} \\
+\multicolumn{4}{|c|}{\textbf{Resumen de Datos de Entrada del Modelo}} \\
 \hline
 \textbf{Variable} & \textbf{Tipo} & \textbf{Descripción} & \textbf{Anexo} \\
 \hline
-Especie & int (CF) & Identificador de la especie arbórea en la parcela. & Anexo \ref{sec:especies} \\
+\textcolor{ForestGreen}{\texttt{parcela\_id}} & varchar & Identificador \emph{único} de parcela. & -- \\
 \hline
-Rocosid & int (CF) & Rocosidad o presencia de rocas en el terreno de la parcela. & Anexo \ref{sec:Rocosid} \\
+\textcolor{ForestGreen}{\texttt{especie\_id}, \texttt{tipo\_especie}, \texttt{grupo\_id}} & int (CF) & Especie (código), tipo de especie y grupo taxonómico. & Anexos \ref{sec:especies} y \ref{sec:gruposespecies} \\
 \hline
-TipSuelo1, TipSuelo2, TipSuelo3 & int (CF) & Tipos de suelo identificados en la parcela. & Anexo \ref{sec:TipSuelo} \\
+\textcolor{ForestGreen}{\texttt{ocupa}} & int & Grado de ocupación/presencia de la especie en la parcela (0--10). & -- \\
 \hline
-MErosiva & int (CF) & Manifestaciones erosivas observadas en el terreno. & Anexo \ref{sec:ManERo} \\
+\textcolor{ForestGreen}{\texttt{estado\_id}}, \texttt{fpmasa\_id}, \texttt{tratmasa\_id}, \texttt{orgmasa\_1\_id} & int (CF) & Estado/fase de desarrollo, forma principal de masa, tratamiento de masa, organización de masa. & Anexos \ref{sec:EstadoIFN34}, \ref{sec:FPMasa}, \ref{sec:tratmasa} y \ref{sec:OrgMasa} \\
 \hline
-FccTot & int & Fracción de cabida cubierta total de la vegetación en la parcela. & -- \\
+\textcolor{ForestGreen}{\texttt{tipsuelo1\_id}, \texttt{tipsuelo2\_id}, \texttt{tipsuelo3\_id}} & int (CF) & Tipos de suelo de la parcela (niveles jerárquicos). & Anexo \ref{sec:TipSuelo} \\
 \hline
-FccArb & int & Fracción de cabida cubierta de la vegetación arbórea en la parcela. & -- \\
+\textcolor{ForestGreen}{\texttt{rocosidad\_id}}, \texttt{textura\_id}, \texttt{matorg\_id}, \texttt{modcomb\_id}, \textcolor{ForestGreen}{\texttt{disesp\_id}, \texttt{comesp\_id}}, \texttt{merosiva\_id} & int (CF) & Rocosidad, textura, materia orgánica, modelo de combustibilidad, distribución/composición específica, manifestaciones erosivas. & Anexos \ref{sec:Rocosid}, \ref{sec:textura}, \ref{sec:MatOrg}, \ref{sec:modComb}, \ref{sec:disEsp}, \ref{anexo:compesp} y \ref{sec:ManERo}. \\
 \hline
-DisEsp & int (CF) & Distribución espacial de las especies en la parcela. & Anexo \ref{sec:disEsp} \\
+\textcolor{ForestGreen}{\texttt{radio}} & float & Radio de la parcela (m). & -- \\
 \hline
-ComEsp & int (CF) & Composición específica de las especies en la parcela. & Anexo \ref{anexo:compesp} \\
+\textcolor{ForestGreen}{\texttt{orientacion}, \texttt{elevacion}, \texttt{pendiente}} & float & Orientación (grados), elevación (m s.n.m.), pendiente (\%). & -- \\
 \hline
-Textura & int (CF) & Textura del suelo de la parcela (granulometría, por ejemplo, arcilloso, arenoso). & Anexo \ref{sec:textura} \\
+\texttt{nivel1\_id}, \texttt{nivel2\_id} & int (CF) & Niveles jerárquicos/estratos de inventario. & Anexos \ref{sec:nivel1} y \ref{sec:nivel2}. \\
 \hline
-MatOrg & int (CF) & Material orgánico en el suelo de la parcela. & Anexo \ref{sec:MatOrg} \\
+\texttt{fccarb}, \texttt{fcctot} & float & Fracción de cabida cubierta arbórea y total. & -- \\
 \hline
-PhSuelo & int (CF) & pH del suelo de la parcela. & Anexo \ref{anexo:ph} \\
+\texttt{\textcolor{ForestGreen}{npies}\_\{1,2,5,\textcolor{ForestGreen}{10,15, 20,25,30,35,40,45, 50,55,60,65,70}\}} & float & Número de pies por clase diamétrica CD (cm). Cada campo corresponde a la CD indicada. & -- \\
 \hline
-EspCMue & int (CF) & Espesor de capa muerta en la parcela (material orgánico sobre el suelo). & Anexo \ref{sec:EspMue} \\
+\textcolor{ForestGreen}{\texttt{periodo}} & int & Años transcurridos entre inventarios considerados en el modelo. & -- \\
 \hline
-Ocupa & int & Grado de presencia de la especie en la parcela (de 0 a 10). & -- \\
+\textcolor{ForestGreen}{\texttt{evi\_\{stat\}\_\{est\}}} & float & Índice EVI por estación; \texttt{stat} $\in$ \{max, mean, median, min, std\}, \texttt{est} $\in$ \{invierno, oto\~no, primavera, verano\}. & -- \\
 \hline
-Estado & int (CF) & Fase de desarrollo de la especie arbórea en la parcela. & -- \\
+\textcolor{ForestGreen}{\texttt{gndvi\_\{stat\}\_\{est\}}} & float & Índice GNDVI por estación (misma convención de \texttt{stat} y \texttt{est}). & -- \\
 \hline
-FPMasa & int (CF) & Forma principal de la masa forestal (coetánea, regular, etc.). & -- \\
+\textcolor{ForestGreen}{\texttt{ndii\_\{stat\}\_\{est\}}} & float & Índice NDII por estación (misma convención). & -- \\
 \hline
-Superficie & float & Superficie de la parcela en hectáreas. & -- \\
+\textcolor{ForestGreen}{\texttt{ndvi\_\{stat\}\_\{est\}}} & float & Índice NDVI por estación (misma convención). & -- \\
 \hline
-\textbf{NPies}{CD}, ABas{CD}, VCC{CD}, VSC{CD}, IAVC{CD}, VLE{CD} & float (dependiendo de la clase diamétrica CD) & Estos valores se repiten para cada clase diamétrica (CD) en cada especie y parcela, y describen el número de árboles, área basimétrica, volumen con y sin corteza, incremento anual del volumen con corteza y volumen de leña, respectivamente. & -- \\
+\textcolor{ForestGreen}{\texttt{pr\_\{stat\}\_\{est\}}} & float & Precipitación: \texttt{stat} $\in$ \{max, mean, min, std, sum\} por estación \texttt{est}. & -- \\
 \hline
-Periodo & int & Años transcurridos entre el primer inventario y el segundo empleados en el modelo. & -- \\
+\textcolor{ForestGreen}{\texttt{skt\_\{stat\}\_\{est\}}} & float & Temperatura de superficie (skin temperature): \texttt{stat} $\in$ \{max, mean, min, std\}. & -- \\
 \hline
-Precipitaciones (varias estadísticas) & float & Estadísticas de las precipitaciones (suma, máx, mín, media, ...) para cada localización en el periodo de tiempo escogido (estación, año, mes, ...) & -- \\
+\textcolor{ForestGreen}{\texttt{stl1-4\_\{stat\}\_\{est\}}} & float & Temperatura de suelo por capa (1--4): \texttt{stat} $\in$ \{max, mean, min, std\}. & -- \\
 \hline
-Temperaturas (varias estadísticas) & float & Estadísticas de las temperaturas (suma, máx, mín, media, ...) para cada localización en el periodo de tiempo (estación, año, mes, ...) y profundidades escogidos  & -- \\
+\textcolor{ForestGreen}{\texttt{t2m\_\{stat\}\_\{est\}}} & float & Temperatura del aire a 2 m: \texttt{stat} $\in$ \{max, mean, min, std\}. & -- \\
 \hline
-Índices vegetales (NDVI, NDII, EVI, GNDVI) & float & Estadísticas de los índices vegetales (máx, mín, media, ...) para cada localización en el periodo de tiempo escogido (estación, año, mes, ...) & -- \\
+\textcolor{ForestGreen}{\texttt{c4}} & float & Carbono capturado en el cultivo en el IFN4 en t/ha. & -- \\
 \hline
-Elevación, orientación e inclinación & float & Elevación, orientación e inclinación de las coordenadas de cada parcela &  --\\
+\textcolor{ForestGreen}{\texttt{carbono\_bruto4}} & float & Carbono capturado en el cultivo en el IFN4 en t. & -- \\
 \hline
-
 \end{tabular}%
 }
-\caption{Resumen de las variables de entrada utilizadas en el modelo, correspondientes a las características de las parcelas e inventarios forestales. Las últimas variables (NPies{CD}, ABas{CD}, VCC{CD}, VSC{CD}, IAVC{CD}, VLE{CD}) se repiten tantas veces como valores de la clase diamétrica (CD) haya en la parcela.}
+\caption{\tiny Resumen de variables de entrada del modelo. Para variables estacionales se usa la notación \texttt{variable\_\{stat\}\_\{est\}}, con estadísticas \texttt{stat} y estaciones \texttt{est} en \{invierno, oto\~no, primavera, verano\}. Las variables \texttt{npies\_\{CD\}} se repiten para cada clase diamétrica indicada. Las variables destacadas en \textcolor{ForestGreen}{verde} se encuentran recogidas tanto para el IFN2 como para el IFN3, las no destacadas solo se recogen para el IFN3.}
 \label{tab:entrada_modelo}
 \end{table}
 
-
 \subsubsection*{Codificación y normalización}
 
-Las variables categóricas se codifican mediante \textit{one-hot encoding}, generando variables binarias para cada clase. Esto facilita su uso en algoritmos de aprendizaje que no admiten directamente variables categóricas.
+Las variables categóricas se codifican mediante \textit{one-hot encoding}, generando variables binarias para cada clase. Las variables numéricas se escalan (normalización estándar o min-max, según el modelo) para asegurar que todas las magnitudes tengan el mismo orden de importancia durante el entrenamiento.
 
-Las variables numéricas se escalan (normalización estándar o min-max, según el modelo) para asegurar que todas las magnitudes tengan el mismo orden de importancia durante el entrenamiento.
 
-\subsubsection*{Partición del conjunto de datos}
 
-El conjunto total se divide aleatoriamente en dos subconjuntos:
+\section{Selección de variables explicativas}
 
+La selección de variables explicativas se abordó mediante tres estrategias complementarias: (1) selección automática basada en el algoritmo \textit{Featurewiz}, (2) selección mediante el criterio de relevancia y mínima redundancia (\textit{mRMR}), y (3) una selección manual fundamentada en criterios estadísticos, ecológicos y de interpretabilidad. El objetivo común fue identificar un subconjunto óptimo de predictores que maximice la capacidad explicativa del modelo sobre la variable dependiente \( c4 \) (carbono estimado), evitando colinealidad y preservando el sentido físico de las relaciones.
+
+\subsection{Selección automática mediante Featurewiz}
+El método \textit{Featurewiz} se basa en un enfoque de selección de características guiado por importancia predictiva. El procedimiento combina dos etapas principales: (i) un filtrado inicial por correlación, en el que se eliminan variables altamente colineales (en este caso, con un umbral de \( |r| > 0.70 \)); y (ii) un refinamiento mediante modelos de \textit{Gradient Boosting} que estiman la importancia relativa de cada variable en la predicción del objetivo.  
+De esta manera, \textit{Featurewiz} conserva únicamente aquellas variables con una contribución significativa a la mejora del rendimiento predictivo, proporcionando un conjunto compacto y eficiente de predictores.
+
+\subsection{Selección mediante mRMR}
+El enfoque \textit{mRMR} (minimum Redundancy - maximum Relevance) selecciona las variables que maximizan su relevancia estadística respecto a la variable objetivo, minimizando al mismo tiempo la redundancia entre ellas. Este método utiliza medidas de información mutua para cuantificar la dependencia no lineal entre las variables.  
+En la práctica, el algoritmo mRMR prioriza aquellas variables que aportan información nueva y no redundante sobre el fenómeno modelado (en este caso, la acumulación de carbono), favoreciendo la diversidad informativa frente a la mera fuerza de correlación. Este enfoque permite obtener un conjunto equilibrado de predictores que explican diferentes dimensiones del sistema ecológico.
+
+
+\subsection{Selección manual basada en criterios estadísticos y conceptuales}
+La selección manual de variables se realizó de forma guiada por criterios tanto estadísticos como conceptuales. 
+En primer lugar, se evaluó la significancia de cada variable mediante pruebas univariantes (ANOVA y correlaciones), eliminando aquellas sin influencia estadísticamente significativa sobre la variable objetivo. 
+Posteriormente, se analizaron las correlaciones entre predictores para reducir la colinealidad, manteniendo únicamente una variable representativa de cada grupo altamente correlacionado. 
+Además, se consideraron criterios ecológicos y de interpretación física, asegurando que las variables retenidas representasen aspectos estructurales, edáficos, topográficos, climáticos y espectrales relevantes para el proceso de acumulación de carbono. 
+El objetivo fue equilibrar la robustez estadística con la coherencia ecológica, obteniendo un conjunto final de predictores que mantuviera un compromiso entre precisión, interpretabilidad y sentido biogeográfico.
+
+
+\subsection{Partición y validación}
+
+Para obtener una estimación imparcial del rendimiento y evitar \emph{fugas de información} debidas a la correlación espacial dentro de cada parcela, la partición del conjunto de datos se realiza \textbf{por identificador de parcela} (\texttt{parcela\_id}). Todas las observaciones asociadas a una misma parcela se asignan \emph{íntegramente} a un único subconjunto, de modo que ninguna parcela aparece simultáneamente en entrenamiento y evaluación.
+\vspace{0.25em}
+\noindent\textbf{Validación interna y control de sesgo temporal.} Sobre el subconjunto de entrenamiento (80\,\%) se aplica \emph{validación cruzada por grupos} utilizando como agrupador los \emph{años transcurridos entre inventarios} (p.\,ej., 15, 16, 17, \dots). Esta estrategia comprueba la \emph{estabilidad} del modelo frente a cambios en el horizonte temporal y reduce el riesgo de sobreajuste específico de un periodo. La selección de hiperparámetros se realiza exclusivamente dentro de esta validación interna; el conjunto de evaluación (20\,\%) permanece \emph{sellado} para la prueba final.
+
+\vspace{0.25em}
+\noindent\textbf{Métricas de evaluación.} El rendimiento se informa con dos medidas complementarias:
 \begin{itemize}
-    \item \textbf{Entrenamiento (80\%):} se utiliza para ajustar los modelos y seleccionar hiperparámetros.
-    \item \textbf{Evaluación (20\%):} se reserva para validar la capacidad predictiva del modelo de forma independiente.
+    \item \textbf{RMSE (Root Mean Squared Error):} raíz del error cuadrático medio entre valores observados y predichos; se expresa en las mismas unidades que la variable objetivo y penaliza con mayor peso los errores grandes. Valores más bajos indican mejor ajuste.
+    \item \boldmath\textbf{$R^2$}\unboldmath{} (coeficiente de determinación): proporción de la varianza observada explicada por el modelo (idealmente en $[0,1]$). Valores cercanos a 1 denotan alta capacidad explicativa; puede ser negativo si el modelo es peor que la predicción constante.
 \end{itemize}
 
-\medskip
+\vspace{0.25em}
+\noindent\textbf{Protocolo de reporte.} Para cada modelo se reportan: (i) el rendimiento medio y la dispersión en la validación cruzada por grupos (entrenamiento), y (ii) el desempeño final en el conjunto de evaluación independiente (20\,\%). Este protocolo garantiza comparabilidad entre modelos, control del sesgo espacial por parcela y verificación explícita de la robustez temporal.
 
 
-\subsection{Definición del objetivo}
-% - Explica qué variable se desea predecir (carbono capturado en 20 años).
-% - Justifica la elección del horizonte temporal.
-% - Indica si se modela carbono aéreo, subterráneo o ambos.
-
-
-El objetivo principal de este trabajo es predecir el \textbf{carbono total} (\(C\)) que será capturado por una parcela forestal en un periodo aproximado de 20 a 30 años. Esta variable se define como la suma del carbono aéreo (\texttt{ca}) y el carbono radical (\texttt{cr} almacenado en la biomasa de los árboles:
-
-\medskip
-
-Como se ha introducido previamente, para que un proyecto sea elegible para la amortización de créditos de carbono, debe cumplir una serie de requisitos técnicos establecidos en los marcos regulatorios internacionales \cite{IPCC2006, MITECO2020}. Entre los principales criterios se encuentran:
-
-\begin{itemize}
-    \item \textbf{Intervención humana directa.} 
-    
-    \item \textbf{Permanencia mínima de 30 años.}
-
-    \item \textbf{Superficie mínima de 1 hectárea.}
-
-    \item \textbf{Fracción mínima de cabida cubierta del 20\%.} 
-
-    \item \textbf{Altura mínima de los árboles de 3 metros en la madurez.}
-\end{itemize}
-
-\medskip
-
-De todos estos criterios, el único que presenta una limitación significativa en el entrenamiento del modelo es el periodo de 30 años. Esto se debe a que el modelo se entrena con las mediciones del IFN3 y el IFN4 y el intervalo de tiempo rara vez alcanza ese umbral. La distribución de los años transcurridos entre ambos inventarios se resume en la Tabla~\ref{tab:periodo_ifn}, donde se observa que el intervalo modal se sitúa entre 15 y 17 años.
-
-\begin{table}[H]
-\centering
-\renewcommand{\arraystretch}{1.4}
-\setlength{\tabcolsep}{12pt}
-\begin{tabular}{|c|c|}
-\hline
-\rowcolor[HTML]{D9EAD3}
-\textbf{Años entre IFN3 e IFN4} & \textbf{Porcentaje de parcelas (\%)} \\
-\hline
-16 & 21.13 \\
-\hline
-17 & 17.48 \\
-\hline
-15 & 16.65 \\
-\hline
-11 & 14.69 \\
-\hline
-12 & 7.00 \\
-\hline
-9 & 6.81 \\
-\hline
-13 & 5.26 \\
-\hline
-14 & 3.54 \\
-\hline
-6 & 3.27 \\
-\hline
-18 & 2.41 \\
-\hline
-10 & 1.48 \\
-\hline
-$\textless$ 0.01 & $\textless$ 0.01 \\
-\hline
-\end{tabular}
-\caption{Distribución del número de años entre los inventarios IFN3 e IFN4 en las parcelas utilizadas.}
-\label{tab:periodo_ifn}
-\end{table}
-
-\medskip
-
-Aunque los datos disponibles no alcanzan los 30 años requeridos por los estándares para proyectos de carbono, se considera que un modelo capaz de generalizar correctamente a horizontes de 20 años puede ser extrapolado con precaución a un escenario de 30 años, siempre que su desempeño se mantenga robusto a lo largo de distintos intervalos temporales.
-
-\medskip
-
-Con el fin de evaluar esta capacidad de generalización, se ha implementado un esquema de \textbf{validación cruzada por grupos}, agrupando las observaciones según el número de años transcurridos entre inventarios. Esta estrategia permite comprobar si el modelo mantiene una buena capacidad predictiva al variar el horizonte temporal, lo que resulta fundamental para su aplicación en la estimación de proyectos de largo plazo como los que requieren los esquemas de compensación de carbono.
-
-\medskip
-
-No se restringen los datos a cultivos artificiales por no disponer de bastantes registros. Cabe destacar que los cultivos forestales suelen caracterizarse por tener una misma especie dominante con estructura coetánea y densidades forestales estandarizadas, de forma que para los casos de interés en la predicción, tanto la superficie como la fracción de cabida cubierta mínima pueden ser ignoradas pues serán fácilmente generalizables (si se asumen unas características homogéneas de la parcela y una densidad forestal unificada).
 
 
 \subsection{Modelos evaluados}
-% - Enumera las familias de modelos probados (árboles de decisión, boosting, redes neuronales, etc.).
-% - No hace falta entrar en detalle técnico de cada uno aquí, ya que eso puede ir en resultados/discusión si es necesario.
-% - Menciona las métricas utilizadas para comparar el rendimiento (R2, RMSE).
+% Familias, tuning (RandomizedSearchCV), por qué ensembles, etc.
 
 
 A continuación, se detalla el diseño general y las estrategias empleadas para la selección y optimización de modelos.
@@ -606,6 +499,7 @@ La evaluación de múltiples modelos responde a la necesidad de identificar no s
 
 \begin{table}[H]\small
 \centering
+\resizebox{\textwidth}{!}{%
 \begin{tabular}{|p{3.2cm}|p{2.8cm}|p{5.2cm}|p{4.2cm}|}
 \hline
 \textbf{Modelo} & \textbf{Tipo / Técnica} & \textbf{Características destacadas} & \textbf{Observaciones} \\
@@ -637,20 +531,12 @@ La evaluación de múltiples modelos responde a la necesidad de identificar no s
 \textbf{Naive Bayes (Gaussian, Multinomial, Bernoulli)} & Probabilístico & Asume independencia condicional, rápido y simple & Eficaz en texto y alta dimensionalidad \\
 \hline
 \end{tabular}
+}
 \caption{Resumen de modelos de aprendizaje supervisado aplicados}
 \label{tab:modelos}
 \end{table}
 
-\subsection{Evaluación de los modelos}
 
-La evaluación del rendimiento de los modelos se realizó utilizando métricas específicas para tareas de predicción. En particular, se emplearon el \textit{Root Mean Squared Error} (RMSE) y el coeficiente de determinación $R^2$, ya que permiten cuantificar tanto la precisión absoluta de las predicciones como la proporción de la varianza explicada por el modelo.
-
-\subsubsection*{Métricas utilizadas}
-
-\begin{itemize}
-    \item \textbf{RMSE (Root Mean Squared Error):} esta métrica representa la raíz cuadrada del error cuadrático medio entre los valores reales y las predicciones del modelo. Está expresada en las mismas unidades que la variable objetivo, por lo que es fácilmente interpretable. Penaliza con mayor severidad los errores grandes, lo que la hace adecuada cuando se desea evitar desviaciones significativas en las predicciones. Un RMSE más bajo indica un mejor ajuste del modelo.
-    
-    \item \textbf{Coeficiente de determinación ($R^2$):} mide la proporción de la varianza total de la variable dependiente que es explicada por el modelo. Su valor oscila entre 0 y 1, donde valores cercanos a 1 indican un modelo que captura adecuadamente la estructura de los datos, y valores cercanos a 0 reflejan un modelo con escasa capacidad explicativa. En algunos casos, $R^2$ puede ser negativo si el modelo es peor que una predicción constante.
-\end{itemize}
+\medskip
 
 
