@@ -26,7 +26,16 @@
 % --- QUEDARTE CON (BibTeX) ---
 \usepackage[numbers,sort&compress]{natbib}  % opcional pero recomendado
 \usepackage[hidelinks]{hyperref}            % carga después de natbib
+\usepackage[
+    backend=biber,   % Obligatorio para que funcione tu script
+    style=numeric,       % Estilo de cita (apa, numeric, ieee, alphabetic, etc.)
+    sorting=none,     % Ordenar por Nombre, Año, Título
+    natbib=true       % <--- Permite usar \citep y \citet sin errores
+]{biblatex}
 
+% 2. Añadir el archivo de referencias
+% NOTA: En biblatex ES NECESARIO poner la extensión .bib
+\addbibresource{referencias.bib}
 
 \usepackage{lipsum}% http://ctan.org/pkg/lipsum
 \usepackage{subcaption}
