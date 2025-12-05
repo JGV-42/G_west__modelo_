@@ -389,8 +389,312 @@ Para el nivel de usos del suelo Monte se definirán los siguientes niveles morfo
 \end{tabular}
 \end{table}
 
-
 \newpage
+\subsection{Anexo: Resultados}\label{anexo:resultados}
+
+\subsubsection{Ifn2 e Ifn3 como explicativo para \texttt{carbono\_bruto4} (tC)}
+\begin{table}[H]
+    \centering
+    \caption{Resumen del rendimiento de los modelos para la predicción de la variable de carbono en tC con el conjunto de datos que emplea IFN2 e IFN3 como explicativos.}
+    \label{tab:resultados_modelos23c}
+    \begin{tabular}{lrrrr}
+        \toprule
+        Modelo             & CV $R^2$ & Test $R^2$ & Test RMSE (tC) & Test MAE (tC) \\ 
+        \midrule
+        \textbf{CatBoost}  & 0.8405 & 0.8454 & 13.7701 & 6.7100 \\
+        LightGBM           & 0.8399 & 0.8418 & 13.9258 & 6.6542 \\
+        XGBoost            & 0.8394 & 0.8403 & 13.9937 & 6.6695 \\
+        GBDT               & 0.8372 & 0.8372 & 14.1270 & 6.6973 \\
+        MLP                & 0.8294 & 0.8343 & 14.2546 & 7.0064 \\
+        BaggedDT           & 0.8184 & 0.8218 & 14.7801 & 7.2181 \\
+        Random Forest      & 0.8125 & 0.8163 & 15.0091 & 7.1317 \\
+        SVR                & 0.7987 & 0.7988 & 15.7059 & 6.6313 \\
+        BayesianNN         & 0.7703 & 0.7701 & 16.7897 & 8.8954 \\
+        KNN                & 0.7380 & 0.7415 & 17.8022 & 8.1109 \\
+        AdaBoost           & 0.4814 & 0.4802 & 25.2456 & 20.8181 \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+Se mantienen las conclusiones extraidas en el análisis de resultados realizado para el modelo entrenado 
+con los mismos datos pero variable objetivo \texttt{c4} (tC/ha), esto es:
+\begin{itemize}
+    \item Los modelos presentan una buena capacidad de generalización.
+    \item Los modelos basados en árboles de decisión y en \textit{gradient boosting} son los que ofrecen, en general, el mejor equilibrio entre capacidad predictiva y estabilidad.
+    \item Algoritmos como AdaBoost o KNN muestran un rendimiento claramente inferior
+\end{itemize}
+ 
+En particular, \textbf{CatBoost} destaca como el modelo con mejor rendimiento global, 
+alcanzando un $R^2 = 0.8454$ y un RMSE de $13.77$ tC/ha. Estos valores implican que el modelo 
+es capaz de explicar una proporción sustancial de la variabilidad del carbono en las parcelas, 
+reduciendo el error típico de predicción a menos de la mitad de la variabilidad natural de la 
+variable (SD $\approx 36$ tC). Esto indica que, dentro de la complejidad inherente al problema, 
+CatBoost logra capturar de manera más eficaz las relaciones no lineales presentes en los datos.
+
+
+
+\subsubsection*{Resultados del \textit{stacking} frente a los modelos individuales}
+\begin{table}[H]
+\centering
+\small
+\resizebox{\textwidth}{!}{
+\begin{tabular}{lcccc}
+\hline
+\textbf{Stack} & \textbf{Bases} & \textbf{Test $R^2$} & \textbf{RMSE} & \textbf{MAE} \\
+\hline
+% ---------- STACK 1 ----------
+stack1\_\_GradientBoosting & 6 & 0.8423 & 13.9071 & 6.5327 \\
+stack1\_\_LinearRegression & 6 & 0.8424 & 13.9005 & 6.6250 \\
+stack1\_\_Ridge            & 6 & 0.8424 & 13.9005 & 6.6250 \\
+stack1\_\_RandomForest     & 6 & 0.8113 & 15.2118 & 7.2916 \\
+stack1\_\_SVR              & 6 & 0.8386 & 14.0695 & 6.5204 \\
+\textbf{stack1\_\_MLP}              & 6 & 0.8432 & 13.8638 & 6.4806 \\
+\hline
+% ---------- STACK 2 ----------
+stack2\_\_GradientBoosting & 4 & 0.8435 & 13.8538 & 6.5280 \\
+stack2\_\_LinearRegression & 4 & 0.8439 & 13.8326 & 6.5844 \\
+stack2\_\_Ridge            & 4 & 0.8439 & 13.8326 & 6.5844 \\
+stack2\_\_RandomForest     & 4 & 0.8267 & 14.5758 & 7.0146 \\
+stack2\_\_SVR              & 4 & 0.8405 & 13.9833 & 6.4897 \\
+\textbf{stack2\_\_MLP}              & 4 & 0.8442 & 13.8206 & 6.5289 \\
+\hline
+% ---------- STACK 3 ----------
+stack3\_\_GradientBoosting & 3 & 0.8479 & 13.6581 & 6.4281 \\
+stack3\_\_LinearRegression & 3 & 0.8463 & 13.7272 & 6.5942 \\
+stack3\_\_Ridge            & 3 & 0.8463 & 13.7272 & 6.5942 \\
+stack3\_\_RandomForest     & 3 & 0.8301 & 14.4327 & 6.9187 \\
+stack3\_\_SVR              & 3 & 0.8417 & 13.9308 & 6.4787 \\
+\textbf{stack3\_\_MLP}     & 3 & 0.8481 & 13.6451 & 6.3674 \\
+\hline
+% ---------- STACK 4 ----------
+stack4\_\_GradientBoosting & 3 & 0.8481 & 13.6470 & 6.4214 \\
+stack4\_\_LinearRegression & 3 & 0.8471 & 13.6915 & 6.5631 \\
+stack4\_\_Ridge            & 3 & 0.8471 & 13.6915 & 6.5630 \\
+stack4\_\_RandomForest     & 3 & 0.8345 & 14.2450 & 6.8175 \\
+stack4\_\_SVR              & 3 & 0.8428 & 13.8817 & 6.4555 \\
+\textbf{stack4\_\_MLP}     & \textbf{3} & \textbf{0.8484} & \textbf{13.6336} & \textbf{6.4327} \\
+\hline
+% ---------- STACK 5 ----------
+stack5\_\_GradientBoosting & 2 & 0.8479 & 13.6540 & 6.4258 \\
+stack5\_\_LinearRegression & 2 & 0.8471 & 13.6899 & 6.5610 \\
+stack5\_\_Ridge            & 2 & 0.8471 & 13.6899 & 6.5610 \\
+stack5\_\_RandomForest     & 2 & 0.8382 & 14.0828 & 6.7136 \\
+stack5\_\_SVR              & 2 & 0.8428 & 13.8832 & 6.4518 \\
+\textbf{stack5\_\_MLP}              & \textbf{2} & \textbf{0.8482} & \textbf{13.6420} & \textbf{6.5120} \\
+\hline
+\end{tabular}
+}
+\caption{Resultados de las diferentes configuraciones de stacking utilizando IFN2 e IFN3 como explicativos de la variable en tC.}
+\label{tab:stack_ifn2_ifn3carb}
+\end{table}
+
+
+Los resultados recogidos en la Tabla~\ref{tab:stack_ifn2_ifn3carb} muestran que el \textit{stacking} no alcanza resultados tan 
+satisfactorios como en \ref{tab:stack_ifn2_ifn3c}. Esta técnica permite mejorar ligeramente el rendimiento respecto a 
+los mejores modelos individuales basados en árboles y \textit{gradient boosting}. En concreto, mientras que CatBoost 
+obtiene un $R^2$ de 0.8454 y un RMSE de 13.77 tC,  \textit{stacking} alcanza $R^2$ en torno a 0.8484 y reduce el RMSE hasta 13.6336 tC.
+
+
+Se observa aun patrón claro: en todas las configuraciones, 
+los mejores resultados se obtienen cuando el meta-modelo es una red neuronal MLP 
+(\texttt{stack3\_\_MLP}, \texttt{stack4\_\_MLP}, \texttt{stack5\_\_MLP}), seguido muy de cerca 
+por los meta-modelos basados en \textit{gradient boosting}.
+
+Tomamos como mejor combinación el modelo \texttt{stack5\_\_MLP}, esto es, la combinación \texttt{MLP} 
+de los modelos LightGB y Random Forest. Aunque la mejora en términos de R2 de este modelo respecto de
+CatBoost es ligera ($\varDelta 0.0003$), la variación el MAE alcanza $\varDelta 0.0667$ unidades, lo
+cual se traduce en una diferencia de 67kg de error medio. Ofrece un buen equilibrio entre una mejora
+mediocre y un aumento ligero de la complejidad del problema.
+
+
+\subsubsection{Ifn2 como explicativo para \texttt{c4} (tC/ha)}
+\begin{table}[H]
+    \centering
+    \caption{Resumen del rendimiento de los modelos para la predicción de la variable de carbono en tC/ha con el conjunto de datos que emplea IFN2 como explicativo.} 
+    \label{tab:resultados_modelos}
+    \begin{tabular}{lrrrr}
+        \toprule
+        Modelo        & CV $R^2$ & Test $R^2$ & Test RMSE (tC/ha) & Test MAE (tC/ha) \\
+        \midrule
+        Random Forest & 0.8081 & 0.8268 & 19.1845 & 10.1126 \\
+        XGBoost       & 0.8400 & 0.8581 & 17.3623 & 9.0307 \\
+        CatBoost      & 0.8410 & 0.8614 & 17.1604 & 9.0277 \\
+        LightGBM      & 0.8406 & 0.8563 & 17.4713 & 8.9638 \\
+        GBDT          & 0.8368 & 0.8598 & 17.2612 & 9.2273 \\
+        BaggedDT      & 0.8105 & 0.8293 & 19.0472 & 10.0722 \\
+        AdaBoost      & 0.4580 & 0.4974 & 32.6789 & 25.2755 \\
+        KNN           & 0.7433 & 0.7567 & 22.7382 & 11.9747 \\
+        MLP           & 0.8158 & 0.8266 & 19.1954 & 10.7453 \\
+        SVR           & 0.7318    & 0.7374   & 23.6220  & 10.9064\\
+        BayesianNN    & 0.7672   & 0.7766  & 21.7868  & 11.9026\\  
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+Se mantienen las conclusiones extraidas en el análisis de resultados realizado para el modelo entrenado 
+con la misma variable objetivo pero los datos del IFN2 e IFN3 como explicativos (\ref{tab:resultados_modelos23c}):
+\begin{itemize}
+    \item Los modelos presentan una buena capacidad de generalización.
+    \item Los modelos basados en árboles de decisión y en \textit{gradient boosting} son los que ofrecen, en general, el mejor equilibrio entre capacidad predictiva y estabilidad.
+    \item Algoritmos como AdaBoost o KNN muestran un rendimiento claramente inferior
+\end{itemize}
+ 
+En particular, \textbf{CatBoost} destaca como el modelo con mejor rendimiento global, 
+alcanzando un $R^2 = 0.8614$ y un RMSE de $17.1604$ tC/ha. Estos valores implican que el modelo 
+es capaz de explicar una proporción sustancial de la variabilidad del carbono en las parcelas, 
+reduciendo el error típico de predicción a menos de la mitad de la variabilidad natural de la 
+variable (SD $\approx 47$ tC/ha).
+
+\begin{table}[H]
+\centering
+\small
+\resizebox{\textwidth}{!}{
+\begin{tabular}{lcccc}
+\hline
+\textbf{Stack} & \textbf{Bases} & \textbf{Test $R^2$} & \textbf{RMSE} & \textbf{MAE} \\
+\hline
+stack1\_\_GradientBoosting & 6 & 0.8649 & 16.9454 & 8.7640 \\
+stack1\_\_LinearRegression & 6 & 0.8650 & 16.9342 & 8.7602 \\
+stack1\_\_Ridge            & 6 & 0.8650 & 16.9342 & 8.7602 \\
+stack1\_\_RandomForest     & 6 & 0.8633 & 17.0456 & 9.1193 \\
+stack1\_\_SVR              & 6 & 0.8608 & 17.1971 & 8.5929 \\
+stack1\_\_MLP              & 6 & \textbf{0.8673} & \textbf{16.7925} & \textbf{8.6644} \\
+\hline
+stack2\_\_GradientBoosting & 4 & 0.8641 & 16.9945 & 8.7752 \\
+stack2\_\_LinearRegression & 4 & 0.8653 & 16.9197 & 8.7680 \\
+stack2\_\_Ridge            & 4 & 0.8653 & 16.9196 & 8.7680 \\
+stack2\_\_RandomForest     & 4 & 0.8573 & 17.4123 & 9.1919 \\
+stack2\_\_SVR              & 4 & 0.8614 & 17.1598 & 8.6112 \\
+stack2\_\_MLP              & 4 & \textbf{0.8675} & \textbf{16.7764} & \textbf{8.7338} \\
+\hline
+stack3\_\_GradientBoosting & 3 & 0.8594 & 17.2836 & 8.8767 \\
+stack3\_\_LinearRegression & 3 & 0.8625 & 17.0935 & 8.8214 \\
+stack3\_\_Ridge            & 3 & 0.8625 & 17.0935 & 8.8214 \\
+stack3\_\_RandomForest     & 3 & 0.8527 & 17.6940 & 9.5033 \\
+stack3\_\_SVR              & 3 & 0.8591 & 17.2998 & 8.6736 \\
+stack3\_\_MLP              & 3 & \textbf{0.8639} & 17.0060 & 8.8602 \\
+\hline
+stack4\_\_GradientBoosting & 3 & 0.8646 & 16.9618 & 8.9358 \\
+stack4\_\_LinearRegression & 3 & 0.8645 & 16.9659 & 8.9309 \\
+stack4\_\_Ridge            & 3 & 0.8645 & 16.9660 & 8.9309 \\
+stack4\_\_RandomForest     & 3 & 0.8495 & 17.8810 & 9.6129 \\
+stack4\_\_SVR              & 3 & 0.8604 & 17.2203 & 8.7753 \\
+stack4\_\_MLP              & 3 & \textbf{0.8668} & 16.8260 & 8.8613 \\
+\hline
+stack5\_\_GradientBoosting & 2 & 0.8534 & 17.6522 & 8.9497 \\
+stack5\_\_LinearRegression & 2 & 0.8569 & 17.4362 & 8.9133 \\
+stack5\_\_Ridge            & 2 & 0.8569 & 17.4362 & 8.9133 \\
+stack5\_\_RandomForest     & 2 & 0.8233 & 19.3788 & 10.1032 \\
+stack5\_\_SVR              & 2 & 0.8545 & 17.5846 & 8.7686 \\
+stack5\_\_MLP              & 2 & \textbf{0.8561} & 17.4875 & 8.8770 \\
+\hline
+\end{tabular}
+}
+\caption{Resultados de las diferentes configuraciones de stacking utilizando IFN2 como conjunto explicativo de la variable en tC/ha.}
+\label{tab:stack_ifn2carb}
+\end{table}
+
+En este caso (Tabla \cite{tab:stack_ifn2carb}) la técnica de \textit{stacking} no ofrece mejoras que compensen el incremento en la complejidad del modelo. Destaca 
+el uso de MLP como metamodelo.
+
+\subsubsection{Ifn2 como explicativo para \texttt{carbono\_bruto4} (tC)}
+
+\begin{table}[H]
+    \centering
+    \caption{Resumen del rendimiento de los modelos para la predicción de la variable de carbono en tC con el conjunto de datos que emplea IFN2 como explicativo.} 
+    \label{tab:resultados_modelos2carb}
+    \begin{tabular}{lrrrr}
+        \toprule
+        Modelo        & CV $R^2$ & Test $R^2$ & Test RMSE (tC) & MAE (tC) \\
+        \midrule
+        Random Forest      &   0.8587   &    0.8607    &   13.0457    &   6.4514      \\
+        XGBoost            &   0.8966   &    0.8957    &    11.2890   &    5.5822    \\
+        \textbf{CatBoost}           &   \textbf{0.8974}   &    \textbf{0.8976}    &     \textbf{11.1825}  &   \textbf{5.5840}    \\
+        LightGBM  &   0.8974   &    0.9007    &   11.0128    &  5.4472    \\
+        GBDT               &   0.8940   &    0.8912    &    11.5309   &   5.7745  \\
+        BaggedDT           &   0.8700   &    0.8721    &    12.5015   &  6.3180  \\
+        AdaBoost           &   0.5702   &    0.5765    &   22.7439      &  19.2913 \\
+        KNN                &   0.7803   &    0.7892    &    16.0461   & 7.9430 \\
+        MLP                &   0.8860   &    0.8890    &   11.6427    &  6.3052     \\
+        SVR                &   0.8155   &    0.8159    &     14.9943      &  7.1427     \\
+        BayesianNN         &   0.8348   &    0.8344    &   14.2244        &  7.8642   \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+Una vez más, se mantienen las conclusiones extraidas en el análisis de resultados realizado para el modelo entrenado 
+con la misma variable objetivo pero los datos del IFN2 e IFN3 como explicativos (\ref{tab:resultados_modelos2carb}):
+\begin{itemize}
+    \item Los modelos presentan una buena capacidad de generalización.
+    \item Los modelos basados en árboles de decisión y en \textit{gradient boosting} son los que ofrecen, en general, el mejor equilibrio entre capacidad predictiva y estabilidad.
+    \item Algoritmos como AdaBoost o KNN muestran un rendimiento claramente inferior
+\end{itemize}
+ 
+En particular, \textbf{CatBoost} destaca como el modelo con mejor rendimiento global, 
+alcanzando un $R^2 = 0.8976$ y un RMSE de $11.1825$ tC. Estos valores implican que el modelo 
+es capaz de explicar una proporción sustancial de la variabilidad del carbono en las parcelas, 
+reduciendo el error típico de predicción a menos de la mitad de la variabilidad natural de la 
+variable (SD $\approx 36$ tC).
+
+\begin{table}[H]
+\centering
+\small
+\resizebox{\textwidth}{!}{
+\begin{tabular}{lcccc}
+\hline
+\textbf{Stack} & \textbf{Bases} & \textbf{Test $R^2$} & \textbf{RMSE} & \textbf{MAE} \\
+\hline
+stack1\_\_GradientBoosting & 6 & 0.9013 & 10.9803 & 5.2917 \\
+stack1\_\_LinearRegression & 6 & 0.9028 & 10.8960 & 5.3982 \\
+stack1\_\_Ridge            & 6 & 0.9028 & 10.8962 & 5.3982 \\
+stack1\_\_RandomForest     & 6 & 0.8946 & 11.3469 & 5.5493 \\
+stack1\_\_SVR              & 6 & 0.9017 & 10.9600 & 5.2741 \\
+stack1\_\_MLP              & 6 & \textbf{0.9043} & \textbf{10.8148} & \textbf{5.2523} \\
+\hline
+stack2\_\_GradientBoosting & 4 & 0.9016 & 10.9648 & 5.2924 \\
+stack2\_\_LinearRegression & 4 & 0.9027 & 10.9000 & 5.4073 \\
+stack2\_\_Ridge            & 4 & 0.9027 & 10.9002 & 5.4074 \\
+stack2\_\_RandomForest     & 4 & 0.8938 & 11.3894 & 5.6335 \\
+stack2\_\_SVR              & 4 & 0.9016 & 10.9633 & 5.2807 \\
+stack2\_\_MLP              & 4 & \textbf{0.9039} & \textbf{10.8337} & 5.2856 \\
+\hline
+stack3\_\_GradientBoosting & 3 & 0.8989 & 11.1106 & 5.4026 \\
+stack3\_\_LinearRegression & 3 & 0.9006 & 11.0195 & 5.4354 \\
+stack3\_\_Ridge            & 3 & 0.9006 & 11.0196 & 5.4354 \\
+stack3\_\_RandomForest     & 3 & 0.8868 & 11.7604 & 5.8714 \\
+stack3\_\_SVR              & 3 & 0.8996 & 11.0728 & 5.3318 \\
+stack3\_\_MLP              & 3 & \textbf{0.9002} & \textbf{11.0388} & 5.4138 \\
+\hline
+stack4\_\_GradientBoosting & 3 & 0.8965 & 11.2463 & 5.4273 \\
+stack4\_\_LinearRegression & 3 & 0.8979 & 11.1665 & 5.5801 \\
+stack4\_\_Ridge            & 3 & 0.8979 & 11.1665 & 5.5801 \\
+stack4\_\_RandomForest     & 3 & 0.8861 & 11.7940 & 5.8454 \\
+stack4\_\_SVR              & 3 & 0.8960 & 11.2707 & 5.4679 \\
+stack4\_\_MLP              & 3 & \textbf{0.8993} & \textbf{11.0889} & 5.4012 \\
+\hline
+stack5\_\_GradientBoosting & 2 & 0.8995 & 11.0811 & 5.3741 \\
+stack5\_\_LinearRegression & 2 & 0.9007 & 11.0163 & 5.4479 \\
+stack5\_\_Ridge            & 2 & 0.9006 & 11.0164 & 5.4479 \\
+stack5\_\_RandomForest     & 2 & 0.8813 & 12.0431 & 6.0737 \\
+stack5\_\_SVR              & 2 & 0.8988 & 11.1210 & 5.3609 \\
+stack5\_\_MLP              & 2 & \textbf{0.9011} & \textbf{10.9941} & \textbf{5.3603} \\
+\hline
+\end{tabular}
+}
+\caption{Resultados de las diferentes configuraciones de stacking utilizando IFN2 como conjunto explicativo de la variable en tC.}
+\label{tab:stack_ifn2_tc}
+\end{table}
+\newpage
+
+En este caso (Tabla \cite{tab:stack_ifn2_tc}) la técnica de \textit{stacking} no ofrece mejoras que compensen el 
+incremento en la complejidad del modelo, aunque es cierto que se rompe la barrera del $R^2>0.9$. Destaca 
+el uso de MLP como metamodelo.
+
+De entre los modelos entrenados para predecir \texttt{carbono\_bruto4} (tC) con IFN3 como explicativo destaca 
+aquel entrenado con MLP como metamodelo para combinar \texttt{CatBoost, LightGBM, Random Forest} y \texttt{GBDT}, con un $R^2=0.9039$,
+un $RMSE=10.8387$ y un $MAE=5.2856$. 
+
+
 \subsection{Anexo: Código de las especies (\texttt{especie\_id})}\label{sec:especies}
 
 \small\renewcommand{\arraystretch}{1.15}

@@ -9,7 +9,7 @@ El enfoque integra información estructural, climática y espectral procedente d
 El carbono fijado por los árboles se acumula progresivamente en su biomasa, en función del tamaño y vigor de los individuos, los cuales están condicionados por variables ambientales, topográficas y de competencia intraespecífica. 
 Las condiciones meteorológicas, como la temperatura y la precipitación, inciden directamente en la fotosíntesis y en la disponibilidad hídrica; 
 la orientación, la pendiente y la altitud modifican la radiación incidente y el microclima local; 
-mientras que la densidad de árboles por unidad de superficie determina el nivel de competencia por los recursos, variando según la especie y su tolerancia ecológica \cite{IPCC2006, Buchholz2014}. 
+mientras que la densidad de árboles por unidad de superficie determina el nivel de competencia por los recursos, variando según la especie y su tolerancia ecológica \cite{IPCC2006}. 
 
 \medskip
 
@@ -275,7 +275,7 @@ Para que un proyecto forestal sea elegible en programas de \emph{créditos de ca
 
 Como ya se ha introducido el entrenamiento se realiza en dos líneas según la variable objetivo: \texttt{c} de \textbf{IFN4} o \texttt{carbono\_bruto} de \textbf{IFN4}; y según la información que se usa como explicativa: \textbf{IFN3} o \textbf{IFN3} e \textbf{IFN2}. Se plantea la preparación y filtrado de los datos en términos generales (variable objetivo por \texttt{c} o \texttt{carbono\_bruto} y primera inventariación/ inventariación explicativa por \textbf{IFN3} o la unión de \textbf{IFN2} e \textbf{IFN3}).
 
-\subsubsection*{Filtrado de registros}
+\subsubsection*{Filtrado de registros}\label{subsec:filtrado_registros}
 
 Se descartan todas aquellas parcelas en las que el valor de carbono total (variable objetivo) en la segunda inventariación es inferior a la primera. Estos casos suelen deberse a episodios de deforestación, incendios u otras perturbaciones, y no representan un crecimiento forestal neto.
 
@@ -283,24 +283,6 @@ Se descartan todas aquellas parcelas en las que el valor de carbono total (varia
 
 El conjunto de datos se restringe únicamente a las parcelas que presentan una \texttt{fccarb} (fracción de cabida cubierta arbórea) igual o superior al 20\,\% en el \textbf{IFN3}. Este umbral define la proporción mínima de superficie ocupada por copas de árboles respecto al área total de la parcela, y constituye una de las condiciones esenciales para considerar una superficie como terreno forestal. La exclusión de parcelas con \texttt{fccarb} inferior al 20\,\% permite asegurar que las estimaciones de carbono se realicen sobre masas forestales consolidadas, evitando sesgos asociados a áreas agrícolas o matorrales. A los datos del \textbf{IFN2} no se les aplica dicho filtro porque no disponen de la variable \texttt{fccarb}.
 
-\medskip
-
-Los conteos de observaciones por inventario y condición se resumen a continuación:
-
-\begin{itemize}
-    \item \textbf{IFN2:} Total de parcelas = \textbf{88.696}
-    \begin{itemize}
-        \item Casos con $c4 > c$: \textbf{31.428}
-        \item Casos con $carbono\_bruto4 > carbono\_bruto$: \textbf{32.403}
-    \end{itemize}
-
-    \item \textbf{IFN3:} Total de parcelas = \textbf{171.157}
-    \begin{itemize}
-        \item Casos con $fccarb > 20$: \textbf{158.434}
-        \item Casos con $fccarb > 20$ y $c4 > c$: \textbf{57.401}
-        \item Casos con $fccarb > 20$ y $carbono\_bruto4 > carbono\_bruto$: \textbf{76.617}
-    \end{itemize}
-\end{itemize}
 
 \subsubsection*{Cálculo y agregación de variables}
 
@@ -376,27 +358,25 @@ La Tabla~\ref{tab:entrada_modelo} resume las variables empleadas como entrada al
 
 Las variables categóricas se codifican mediante \textit{one-hot encoding}, generando variables binarias para cada clase. Las variables numéricas se escalan (normalización estándar o min-max, según el modelo) para asegurar que todas las magnitudes tengan el mismo orden de importancia durante el entrenamiento.
 
+\subsubsection*{Reclasificación de las variables \texttt{pendiente} y \texttt{orientacion}}
 
+Las variables topográficas originales \texttt{pendiente} (en grados) y \texttt{orientacion} (acimut en grados) se registran de forma continua en las parcelas del IFN. Sin embargo, desde el punto de vista ecológico su efecto sobre la acumulación de carbono suele ser no lineal y está asociado a clases discretas (e.g.\ laderas suaves frente a escarpadas, exposición norte frente a sur), por lo que resulta más adecuado tratarlas como factores categóricos.
 
-\section{Selección de variables explicativas}
+A partir de la distribución empírica y de criterios habituales en estudios de fisiografía forestal, se definió una variable categórica \texttt{pendiente\_cat} mediante cortes en grados:
 
-La selección de variables explicativas se abordó mediante tres estrategias complementarias: (1) selección automática basada en el algoritmo \textit{Featurewiz}, (2) selección mediante el criterio de relevancia y mínima redundancia (\textit{mRMR}), y (3) una selección manual fundamentada en criterios estadísticos, ecológicos y de interpretabilidad. El objetivo común fue identificar un subconjunto óptimo de predictores que maximice la capacidad explicativa del modelo sobre la variable dependiente \( c4 \) (carbono estimado), evitando colinealidad y preservando el sentido físico de las relaciones.
+\begin{itemize}
+    \item \(\textless 5^\circ\): \textit{muy suave},
+    \item \(5{-}10^\circ\): \textit{suave},
+    \item \(10{-}15^\circ\): \textit{moderada},
+    \item \(15{-}20^\circ\): \textit{fuerte},
+    \item \(20{-}30^\circ\): \textit{muy fuerte},
+    \item \(30{-}50^\circ\): \textit{escarpada},
+    \item \(>50^\circ\): \textit{extrema}.
+\end{itemize}
 
-\subsection{Selección automática mediante Featurewiz}
-El método \textit{Featurewiz} se basa en un enfoque de selección de características guiado por importancia predictiva. El procedimiento combina dos etapas principales: (i) un filtrado inicial por correlación, en el que se eliminan variables altamente colineales (en este caso, con un umbral de \( |r| > 0.70 \)); y (ii) un refinamiento mediante modelos de \textit{Gradient Boosting} que estiman la importancia relativa de cada variable en la predicción del objetivo.  
-De esta manera, \textit{Featurewiz} conserva únicamente aquellas variables con una contribución significativa a la mejora del rendimiento predictivo, proporcionando un conjunto compacto y eficiente de predictores.
+Esta reclasificación permite capturar diferencias funcionales relevantes (accesibilidad, estabilidad del suelo, escorrentía, profundidad efectiva del suelo) sin asumir una relación lineal entre la pendiente y el carbono almacenado.
 
-\subsection{Selección mediante mRMR}
-El enfoque \textit{mRMR} (minimum Redundancy - maximum Relevance) selecciona las variables que maximizan su relevancia estadística respecto a la variable objetivo, minimizando al mismo tiempo la redundancia entre ellas. Este método utiliza medidas de información mutua para cuantificar la dependencia no lineal entre las variables.  
-En la práctica, el algoritmo mRMR prioriza aquellas variables que aportan información nueva y no redundante sobre el fenómeno modelado (en este caso, la acumulación de carbono), favoreciendo la diversidad informativa frente a la mera fuerza de correlación. Este enfoque permite obtener un conjunto equilibrado de predictores que explican diferentes dimensiones del sistema ecológico.
-
-
-\subsection{Selección manual basada en criterios estadísticos y conceptuales}
-La selección manual de variables se realizó de forma guiada por criterios tanto estadísticos como conceptuales. 
-En primer lugar, se evaluó la significancia de cada variable mediante pruebas univariantes (ANOVA y correlaciones), eliminando aquellas sin influencia estadísticamente significativa sobre la variable objetivo. 
-Posteriormente, se analizaron las correlaciones entre predictores para reducir la colinealidad, manteniendo únicamente una variable representativa de cada grupo altamente correlacionado. 
-Además, se consideraron criterios ecológicos y de interpretación física, asegurando que las variables retenidas representasen aspectos estructurales, edáficos, topográficos, climáticos y espectrales relevantes para el proceso de acumulación de carbono. 
-El objetivo fue equilibrar la robustez estadística con la coherencia ecológica, obteniendo un conjunto final de predictores que mantuviera un compromiso entre precisión, interpretabilidad y sentido biogeográfico.
+De forma análoga, la variable \texttt{orientacion} se reclasificó en ocho sectores cardinales equiángulos: \texttt{N}, \texttt{NE}, \texttt{E}, \texttt{SE}, \texttt{S}, \texttt{SO}, \texttt{O} y \texttt{NO}. La nueva variable \texttt{orientacion\_cat} agrupa orientaciones con condiciones de insolación y balance hídrico similares, lo que facilita la interpretación ecológica y reduce el ruido asociado a pequeñas variaciones angulares.
 
 
 \subsection{Partición y validación}
@@ -406,95 +386,127 @@ Para obtener una estimación imparcial del rendimiento y evitar \emph{fugas de i
 \noindent\textbf{Validación interna y control de sesgo temporal.} Sobre el subconjunto de entrenamiento (80\,\%) se aplica \emph{validación cruzada por grupos} utilizando como agrupador los \emph{años transcurridos entre inventarios} (p.\,ej., 15, 16, 17, \dots). Esta estrategia comprueba la \emph{estabilidad} del modelo frente a cambios en el horizonte temporal y reduce el riesgo de sobreajuste específico de un periodo. La selección de hiperparámetros se realiza exclusivamente dentro de esta validación interna; el conjunto de evaluación (20\,\%) permanece \emph{sellado} para la prueba final.
 
 \vspace{0.25em}
-\noindent\textbf{Métricas de evaluación.} El rendimiento se informa con dos medidas complementarias:
+\noindent\textbf{Métricas de evaluación.} El rendimiento se informa con un conjunto de medidas complementarias:
+
 \begin{itemize}
     \item \textbf{RMSE (Root Mean Squared Error):} raíz del error cuadrático medio entre valores observados y predichos; se expresa en las mismas unidades que la variable objetivo y penaliza con mayor peso los errores grandes. Valores más bajos indican mejor ajuste.
+
     \item \boldmath\textbf{$R^2$}\unboldmath{} (coeficiente de determinación): proporción de la varianza observada explicada por el modelo (idealmente en $[0,1]$). Valores cercanos a 1 denotan alta capacidad explicativa; puede ser negativo si el modelo es peor que la predicción constante.
+
+    \item \textbf{MAE (Mean Absolute Error):} media aritmética del error absoluto, que cuantifica la desviación media entre las predicciones y los valores observados. Penaliza todos los errores de forma lineal y es más interpretable que el RMSE. Valores más bajos indican mejor ajuste.
+
+    \item \textbf{Moda del Error}: valor más frecuente del error absoluto a nivel de parcela o individuo, útil para identificar el error típico en la predicción y detectar patrones dominantes en el comportamiento del modelo.
 \end{itemize}
 
-\vspace{0.25em}
-\noindent\textbf{Protocolo de reporte.} Para cada modelo se reportan: (i) el rendimiento medio y la dispersión en la validación cruzada por grupos (entrenamiento), y (ii) el desempeño final en el conjunto de evaluación independiente (20\,\%). Este protocolo garantiza comparabilidad entre modelos, control del sesgo espacial por parcela y verificación explícita de la robustez temporal.
+%\vspace{0.25em}
+%\noindent\textbf{Protocolo de reporte.} Para cada modelo se reportan: (i) el rendimiento medio y la dispersión en la validación cruzada por grupos (entrenamiento), y (ii) el desempeño final en el conjunto de evaluación independiente (20\,\%). Este protocolo garantiza comparabilidad entre modelos, control del sesgo espacial por parcela y verificación explícita de la robustez temporal.
 
 
+\subsection{Selección de variables explicativas}
+
+La selección de predictores se abordó mediante cuatro estrategias complementarias: (1) selección automática mediante \textit{Featurewiz}, (2) selección basada en el criterio de mínima redundancia y máxima relevancia (\textit{mRMR}), (3) selección manual basada en criterios estadísticos y conceptuales, y (4) un procedimiento secuencial supervisado fundamentado en el rendimiento predictivo (SSSRP). El objetivo común de estas aproximaciones fue identificar un subconjunto parsimonioso de variables que maximizara la capacidad predictiva del modelo, redujera la colinealidad y mantuviera la coherencia ecológica de las relaciones.
+
+\subsubsection{Selección automática mediante Featurewiz}
+
+El algoritmo \textit{Featurewiz} aplica un enfoque híbrido orientado a la relevancia predictiva. Primero ejecuta un filtrado por correlación, eliminando predictores altamente colineales (umbral \( |r| > 0.70 \)), y posteriormente refina el conjunto mediante modelos de \textit{Gradient Boosting} para estimar la importancia relativa de cada variable. El resultado es un subconjunto compacto de predictores con contribución significativa al rendimiento del modelo.
+
+\subsubsection{Selección mediante mRMR}
+
+El método \textit{mRMR} (minimum Redundancy–maximum Relevance) selecciona las variables que mejor explican la variabilidad del objetivo a la vez que minimizan la redundancia informativa entre ellas. Para ello emplea información mutua, permitiendo capturar relaciones potencialmente no lineales. Este enfoque prioriza predictores que aportan información complementaria sobre el proceso ecológico modelado, evitando duplicidades entre atributos altamente correlacionados.
+
+\subsubsection{Selección manual basada en criterios estadísticos y conceptuales}
+
+La selección manual integró criterios estadísticos (correlaciones, ANOVA y análisis de redundancia) con criterios ecológicos y de interpretabilidad. Se descartaron predictores sin asociación significativa con la variable objetivo y se redujo la colinealidad reteniendo un único representante por cada grupo altamente correlacionado. Asimismo, se garantizaron variables que describieran dimensiones esenciales del sistema (estructura del arbolado, topografía, suelo, clima e índices espectrales), asegurando un equilibrio entre precisión predictiva y coherencia biogeográfica.
+
+\subsubsection{Selección Secuencial Supervisada basada en Rendimiento Predictivo (SSSRP)}
+
+El método SSSRP complementó las estrategias anteriores mediante un enfoque explícitamente orientado al rendimiento predictivo. Se partió de un \emph{bloque base} de variables estructurales y se evaluó el impacto marginal de cada candidato añadiéndolo individualmente y comparando el cambio en \(R^{2}\) y RMSE mediante un modelo CatBoost con validación holdout estratificada por parcela. A continuación, se aplicó una estrategia de \textit{forward selection} codiciosa, incorporando en cada iteración la variable que proporcionaba la mayor mejora y deteniendo el proceso cuando la ganancia resultaba inferior a un umbral predefinido (\(\Delta R^{2} > 10^{-5}\)). Este procedimiento produjo un conjunto final de predictores reducido, no redundante y específicamente optimizado para maximizar el rendimiento del modelo.
 
 
 \subsection{Modelos evaluados}
-% Familias, tuning (RandomizedSearchCV), por qué ensembles, etc.
 
-
-A continuación, se detalla el diseño general y las estrategias empleadas para la selección y optimización de modelos.
-
-\subsubsection*{Entrenamiento y optimización}
-
-Se aplicó \textit{RandomizedSearchCV}, una técnica de búsqueda aleatoria de hiperparámetros que evalúa distintas combinaciones utilizando validación cruzada. Este procedimiento permite optimizar el rendimiento de cada modelo sin incurrir en un coste computacional tan elevado como el de una búsqueda exhaustiva.
-
-\medskip
-
-\paragraph{Validación cruzada por grupos.} 
-
-
-En algunas configuraciones probadas, se emplea la validación cruzada por grupos (\textit{Group k-Fold Cross Validation}). Este método divide el área de estudio en $k$ bloques, basados en una característica común de los datos, asegurando que los datos dentro de cada bloque estén relacionados. El modelo se entrena con $k-1$ bloques y se valida con el bloque restante, repitiendo este proceso $k$ veces.
-
-\medskip
-
-Este enfoque es útil cuando los datos tienen agrupaciones naturales, como por ejemplo, diferentes parcelas o periodos de tiempo. Al mantener los datos relacionados en un mismo bloque, se evita la filtración de información entre los conjuntos de entrenamiento y validación, lo que permite una mejor evaluación de la capacidad de generalización del modelo. Así, se asegura que el modelo no se sobreajuste y sea robusto al ser evaluado en contextos no vistos previamente.
-
+A continuación se describe el procedimiento seguido para la selección, optimización y combinación de modelos. El objetivo es construir un conjunto de predictores base sólidos y posteriormente integrarlos en un \textit{stack-ensemble} capaz de mejorar la capacidad de generalización.
 
 \subsubsection*{Modelos ensemble}
 
-Para mejorar la precisión y robustez, se emplearon diversos métodos de \textit{ensemble learning}, que combinan múltiples modelos base (\textit{base learners}) para generar una predicción agregada. Esta estrategia se inspira en la teoría de la sabiduría colectiva: la combinación de estimaciones independientes tiende a superar a cualquier estimador individual.
+Se utilizaron diversos métodos de \textit{ensemble learning} con el fin de aumentar precisión y robustez del sistema predictivo. El principio fundamental consiste en combinar predicciones de múltiples modelos, aprovechando su diversidad para reducir varianza, sesgo o ambos.
 
-\paragraph{Técnicas utilizadas:}
+\paragraph{Técnicas empleadas:}
 \begin{itemize}
-    \item \textbf{Voting y Averaging:} combinan modelos ya entrenados mediante votación mayoritaria o promedio.
-    \item \textbf{Bagging y Boosting:} construyen modelos desde cero y los combinan. Bagging reduce la varianza al entrenar modelos en subconjuntos aleatorios; Boosting mejora el sesgo al entrenar secuencialmente, corrigiendo errores anteriores.
-    \item \textbf{Stacking:} combina modelos optimizados usando un metamodelo que aprende a integrar sus predicciones.
+    \item \textbf{Bagging:} entrena modelos independientes sobre subconjuntos generados mediante muestreo bootstrap. Reduce varianza y mejora estabilidad.
+    \item \textbf{Boosting:} construye modelos secuenciales donde cada uno corrige los errores del anterior. Tiende a reducir el sesgo y producir modelos altamente precisos.
+    \item \textbf{Stacking:} integra múltiples modelos base mediante un meta-modelo entrenado sobre sus predicciones. Permite capturar relaciones no lineales entre las salidas de los modelos base.
 \end{itemize}
 
-\subsubsection*{Boosting y aprendizaje gradual}
+\subsubsection*{Boosting y aprendizaje secuencial}
 
-El \textit{boosting} se basa en el aprendizaje secuencial, donde cada nuevo modelo intenta corregir los errores residuales del anterior. Esta técnica permite construir modelos fuertes a partir de modelos débiles, alcanzando gran precisión. Sin embargo, requiere una cuidadosa configuración de hiperparámetros para evitar el sobreajuste.
-
-Entre las implementaciones destacadas se incluyen:
+El conjunto de modelos de boosting evaluados incluye:
 
 \begin{itemize}
-    \item \textbf{XGBoost:} modelo GBM que optimiza rendimiento con gradientes de primer y segundo orden, regularización L1/L2, manejo automático de valores faltantes, y técnicas de generalización como \textit{shrinkage} y \textit{column subsampling}.
-    \item \textbf{LightGBM:} algoritmo eficiente para grandes volúmenes de datos, con crecimiento \textit{leaf-wise} y soporte nativo para variables categóricas.
-    \item \textbf{AdaBoost:} ajusta modelos simples secuencialmente, enfocando el aprendizaje en observaciones mal clasificadas.
-    \item \textbf{CatBoost:} especializado en variables categóricas y robusto frente a datos ruidosos, usando codificación por orden aleatorio.
-    \item \textbf{Gradient Boosting Decision Trees (GBDT):} construye árboles secuenciales ajustados a residuos, optimizando mediante descenso por gradiente.
+    \item \textbf{XGBoost:} implementación avanzada del \textit{gradient boosting}, que incorpora regularización L1/L2, optimización mediante segundo orden y manejo interno de valores faltantes.
+    \item \textbf{LightGBM:} algoritmo especialmente eficiente, basado en crecimiento \textit{leaf-wise}, capaz de manejar grandes volúmenes de datos y con soporte nativo para variables categóricas.
+    \item \textbf{CatBoost:} optimizado para variables categóricas y robusto frente a ruido mediante técnicas como \textit{ordered boosting}.
+    \item \textbf{Gradient Boosting Decision Trees (GBDT):} implementación clásica del algoritmo basado en descenso por gradiente sobre residuos.
+    \item \textbf{AdaBoost:} técnica que ajusta modelos simples (stumps) secuencialmente, asignando más peso a observaciones difíciles.
 \end{itemize}
 
 \subsubsection*{Bagging}
 
-El \textit{bagging} (Bootstrap Aggregating) entrena múltiples modelos independientes sobre subconjuntos de datos generados por muestreo con reemplazo. Las predicciones se combinan por promedio o votación. Esta técnica reduce la varianza y mejora la estabilidad de modelos inestables.
+Los modelos basados en bootstrap empleados fueron:
 
 \begin{itemize}
-    \item \textbf{Random Forest:} combina árboles de decisión (CART) con selección aleatoria de características en cada división. Es escalable, robusto a datos faltantes, y menos propenso al sobreajuste.
-    \item \textbf{Bagged Decision Trees (BaggedDT):} genera árboles sin poda entrenados en muestras bootstrap. Promedia sus predicciones para reducir la varianza.
+    \item \textbf{Random Forest:} conjunto de árboles de decisión que introduce aleatoriedad tanto en datos como en características. Suele ser robusto y relativamente estable.
+    \item \textbf{Bagged Decision Trees (BaggedDT):} árboles no podados entrenados sobre muestras bootstrap, cuyas predicciones se promedian para reducir varianza.
 \end{itemize}
 
-\subsubsection*{Otros modelos utilizados}
+\subsubsection*{Otros modelos evaluados}
 
-Además de los métodos ensemble, se evaluaron modelos representativos de distintos paradigmas de aprendizaje supervisado:
+Además de los métodos ensemble, se evaluaron modelos representativos de paradigmas adicionales:
 
 \begin{itemize}
-    \item \textbf{K-Nearest Neighbors (KNN):} modelo basado en instancia que predice a partir de los vecinos más cercanos. Sensible a la escala y a \textit{outliers}.
-    \item \textbf{Multi-Layer Perceptron (MLP):} red neuronal con una o más capas ocultas, capaz de modelar relaciones no lineales complejas.
-    \item \textbf{Support Vector Regression (SVR):} modelo de márgenes para regresión, con soporte para kernels no lineales.
-    \item \textbf{SVM con kernel:} modelo poderoso para clasificación y regresión no lineal, aunque costoso y sensible a hiperparámetros.
-    \item \textbf{Bayesian Neural Network:} enfoque probabilístico que estima incertidumbre en las predicciones. Incluye variantes como la \textit{Bayesian Ridge Regression}.
-    \item \textbf{Naive Bayes:} clasificador probabilístico rápido y simple, útil en texto y alta dimensionalidad. Se evaluaron variantes:
-        \begin{itemize}
-            \item \textit{Gaussian Naive Bayes:} para datos continuos.
-            \item \textit{Multinomial Naive Bayes:} para conteos y texto.
-            \item \textit{Bernoulli Naive Bayes:} para variables binarias.
-        \end{itemize}
+    \item \textbf{Support Vector Regression (SVR):} modelo de márgenes para regresión, evaluado con kernel lineal.
+    \item \textbf{K-Nearest Neighbors (KNN):} modelo basado en vecinos más próximos; útil como referencia no paramétrica, aunque sensible a la escala.
+    \item \textbf{Multi-Layer Perceptron (MLP):} red neuronal densa capaz de capturar relaciones no lineales.
+    \item \textbf{Bayesian Neural Network (BayesianNN):} aproximación probabilística que permite cuantificar incertidumbre a través de regularización bayesiana.
 \end{itemize}
+
+\vspace{0.2cm}
+
+\subsubsection*{Configuración del \textit{stacking}}
+
+Tras evaluar todos los modelos anteriores, se construyeron diferentes configuraciones de modelos base (\textit{base learners}) que se combinan mediante un meta-modelo. Las configuraciones empleadas son:
+
+\begin{verbatim}
+['CatBoost', 'LightGBM', 'XGBoost', 'Random Forest', 'GBDT', 'BaggedDT'],
+['CatBoost', 'LightGBM', 'Random Forest', 'GBDT'],
+['LightGBM', 'XGBoost', 'GBDT'],
+['CatBoost', 'Random Forest', 'GBDT'],
+['LightGBM', 'Random Forest']
+\end{verbatim}
+
+Estas combinaciones se diseñaron con dos criterios principales:
+
+\begin{enumerate}
+    \item \textbf{Diversidad estructural:} mezclar métodos de boosting y bagging, así como variantes de boosting con distintas estrategias de crecimiento y regularización.
+    \item \textbf{Rendimiento individual:} incluir preferentemente los modelos con mayor $R^2$ y menor error (RMSE, MAE) en las pruebas individuales.
+\end{enumerate}
+
+\medskip
+
+Los meta-modelos utilizados para integrar las predicciones fueron:
+
+\begin{itemize}
+    \item \textbf{Modelos lineales:} Regresión Lineal, Ridge.
+    \item \textbf{Modelos basados en árboles:} Random Forest, Gradient Boosting Regressor.
+    \item \textbf{Modelos kernel:} SVR lineal.
+    \item \textbf{Red neuronal:} MLP con una capa oculta.
+\end{itemize}
+
+Esta selección permite comparar desde combinadores lineales simples hasta integradores no lineales capaces de capturar interacciones complejas entre predicciones.
 
 \subsubsection*{Comparación y justificación de modelos}
 
-La evaluación de múltiples modelos responde a la necesidad de identificar no solo el de mejor rendimiento, sino también el más adecuado según la naturaleza del problema y los datos disponibles. Se compararon algoritmos lineales, no lineales, basados en vecinos, redes neuronales, modelos probabilísticos y diferentes técnicas de \textit{ensemble}.  Vemos un resumen de los modelos aplicados en la tabla \ref{tab:modelos}.
+La evaluación exhaustiva de múltiples algoritmos permite identificar no solo el modelo individual con mejor rendimiento, sino también combinaciones sinérgicas para el \textit{stacking}. La Tabla~\ref{tab:modelos} resume los modelos finalmente entrenados y evaluados.
 
 
 \begin{table}[H]\small
@@ -504,35 +516,65 @@ La evaluación de múltiples modelos responde a la necesidad de identificar no s
 \hline
 \textbf{Modelo} & \textbf{Tipo / Técnica} & \textbf{Características destacadas} & \textbf{Observaciones} \\
 \hline
-\textbf{Random Forest} & Bagging (Árboles) & Uso de bootstrap, selección aleatoria de atributos, reducción de varianza & Robusto y escalable; menor interpretabilidad \\
+
+\textbf{Random Forest} & Bagging (Árboles) &
+Bootstrap con selección aleatoria de atributos; reducción de varianza &
+Robusto, estable y poco sensible a hiperparámetros \\ 
 \hline
-\textbf{Bagged Decision Trees (BaggedDT)} & Bagging & Árboles sin poda, entrenados en paralelo sobre muestras con reemplazo & Preciso pero costoso computacionalmente \\
+
+\textbf{Bagged Decision Trees (BaggedDT)} & Bagging &
+Árboles sin poda entrenados sobre muestras bootstrap &
+Alta varianza individual; mejora por agregación \\ 
 \hline
-\textbf{XGBoost} & Boosting (GBM) & Regularización L1/L2, manejo de valores faltantes, poda anticipada & Alto rendimiento, sensible a hiperparámetros \\
+
+\textbf{XGBoost} & Boosting (GBM) &
+Regularización L1/L2, segundo orden, manejo de valores faltantes &
+Muy preciso; sensible a tuning \\ 
 \hline
-\textbf{LightGBM} & Boosting (Leaf-wise) & Crecimiento hoja a hoja, eficiente en grandes volúmenes & Rápido y preciso; riesgo de sobreajuste \\
+
+\textbf{LightGBM} & Boosting (Leaf-wise) &
+Crecimiento hoja-a-hoja, histogramas, muy eficiente &
+Rápido; riesgo de sobreajuste en datasets pequeños \\ 
 \hline
-\textbf{AdaBoost} & Boosting (Stumps) & Aumenta peso de errores, pondera modelos por precisión & Sencillo y efectivo con datos limpios \\
+
+\textbf{CatBoost} & Boosting especializado &
+Codificación ordenada de categorías; robusto al ruido &
+Excelente rendimiento sin gran tuning \\ 
 \hline
-\textbf{CatBoost} & Boosting especializado & Codificación avanzada de variables categóricas, robustez a ruido & Ideal para datos heterogéneos \\
+
+\textbf{Gradient Boosting Decision Trees (GBDT)} & Boosting &
+Árboles secuenciales ajustados a residuos &
+Buen rendimiento; coste computacional elevado \\ 
 \hline
-\textbf{Gradient Boosting Decision Trees (GBDT)} & Boosting & Árboles secuenciales ajustados a residuos & Buen rendimiento; mayor coste de entrenamiento \\
+
+\textbf{AdaBoost} & Boosting (Stumps) &
+Aumenta el peso de observaciones mal predichas &
+Efectivo en problemas limpios, pero menos robusto \\ 
 \hline
-\textbf{K-Nearest Neighbors (KNN)} & Basado en instancia & No requiere entrenamiento, predice por proximidad & Sensible a escala y outliers \\
+
+\textbf{K-Nearest Neighbors (KNN)} & Basado en instancia &
+Predicción por proximidad; no requiere entrenamiento &
+Sensible a escala y ruido; coste alto en predicción \\ 
 \hline
-\textbf{Multi-Layer Perceptron (MLP)} & Red neuronal & Modela relaciones no lineales complejas & Requiere normalización y regularización \\
+
+\textbf{Multi-Layer Perceptron (MLP)} & Red neuronal &
+Capaz de capturar relaciones no lineales complejas &
+Requiere normalización y tuning de regularización \\ 
 \hline
-\textbf{Support Vector Regression (SVR)} & Kernel y márgenes & Predicción dentro de tolerancia $\varepsilon$, uso de kernels no lineales & Robusto; elevado coste computacional \\
+
+\textbf{Support Vector Regression (SVR)} & Modelo lineal con márgenes &
+Modelo de gran margen; utiliza un kernel lineal ($\text{kernel}=\text{linear}$) &
+Robusto al sobreajuste; coste computacional elevado \\ 
 \hline
-\textbf{SVM con kernel} & SVM no lineal & Maximiza margen, admite distintos kernels (RBF, polinomial, etc.) & Alta precisión; sensible a hiperparámetros \\
+
+\textbf{Bayesian Neural Network (BayesianNN)} & Probabilístico &
+Estimación bayesiana de parámetros; cuantifica incertidumbre &
+Reduce sobreajuste; mayor coste de entrenamiento \\ 
 \hline
-\textbf{Bayesian Neural Network / Ridge Regression} & Probabilístico / Bayesiano & Predicción con incertidumbre, estimación automática de hiperparámetros & Útil para inferencia y regularización \\
-\hline
-\textbf{Naive Bayes (Gaussian, Multinomial, Bernoulli)} & Probabilístico & Asume independencia condicional, rápido y simple & Eficaz en texto y alta dimensionalidad \\
-\hline
+
 \end{tabular}
 }
-\caption{Resumen de modelos de aprendizaje supervisado aplicados}
+\caption{Resumen de los modelos de aprendizaje supervisado evaluados.}
 \label{tab:modelos}
 \end{table}
 
