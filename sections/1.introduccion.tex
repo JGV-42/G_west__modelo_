@@ -5,14 +5,14 @@ El cambio climático es uno de los mayores desafíos globales y su manifestació
 
 \medskip 
 
-A lo largo de las últimas décadas, instrumentos internacionales como la \textit{Convención Marco de las Naciones Unidas sobre el Cambio Climático (CMNUCC)} y el \textit{Protocolo de Kioto} \cite{UNFCCC1997,UNFCCC2015} han establecido los marcos regulatorios para reducir las emisiones de gases de efecto invernadero mediante mecanismos basados en el mercado. En este contexto surgen los \emph{créditos de carbono}, unidades que representan la cantidad de dióxido de carbono (\(CO_2\)) —habitualmente una tonelada— que ha sido capturada o cuya emisión ha sido evitada a través de proyectos certificados de mitigación. 
+A lo largo de las últimas décadas, instrumentos internacionales como la \textit{Convención Marco de las Naciones Unidas sobre el Cambio Climático (CMNUCC)} y el \textit{Protocolo de Kioto} \cite{UNFCCC1997,UNFCCC2015} han establecido los marcos regulatorios para reducir las emisiones de gases de efecto invernadero mediante mecanismos basados en el mercado. En este contexto surgen los \emph{créditos de carbono}, unidades que representan la cantidad de dióxido de carbono (\(CO_2\)), habitualmente una tonelada— que ha sido capturada o cuya emisión ha sido evitada a través de proyectos certificados de mitigación. 
 
 \medskip
 
 Entre las actividades elegibles, la forestación y reforestación destacan por su capacidad de actuar como sumideros naturales de carbono, fijando \(CO_2\) en la biomasa y el suelo. No obstante, para que estas actuaciones puedan generar créditos de carbono válidos, deben cumplir una serie de criterios técnicos y legales definidos en la normativa internacional y nacional vigente:
 
 \begin{itemize} 
-\item \textbf{Intervención humana directa:} Los árboles deben provenir de actividades de intervención humana, como la plantación, siembra o fomento de semilleros naturales. Esto significa que los cultivos forestales naturales no son elegibles para la contabilización de carbono. 
+\item \textbf{Intervención humana directa:} Los árboles deben provenir de actividades de intervención humana, como la plantación, siembra o fomento de semilleros naturales. 
 \item \textbf{Período mínimo de 30 años:} Para que un proyecto sea válido, debe garantizarse que los árboles permanezcan en el terreno durante un período mínimo de tiempo, generalmente 30 años, lo que excluye la absorción de carbono de cultivos estacionales, cuyo carbono es liberado nuevamente al ser cosechados. 
 \item \textbf{Superficie mínima de 1 hectárea:} El proyecto debe abarcar al menos 1 hectárea de terreno para ser considerado. 
 \item \textbf{Fracción mínima de cabida cubierta del 20\%:} Para que un área sea considerada como bosque, debe cubrir al menos el 20\% del área con especies arbóreas. 
@@ -21,10 +21,9 @@ Entre las actividades elegibles, la forestación y reforestación destacan por s
 
 \medskip 
 
-Este trabajo presenta \textbf{GreenWest}, un modelo de inteligencia artificial para estimar la cantidad de carbono que capturará un cultivo forestal en España a partir de variables de vegetación, clima y terreno. Este enfoque innovador tiene el potencial de transformar la gestión de proyectos de forestación y reforestación, optimizando las prácticas de plantación y maximizando la cantidad de carbono que se puede capturar en estos ecosistemas. 
+Este trabajo presenta \textbf{GreenWest}, un modelo de inteligencia artificial para estimar la cantidad de carbono que capturará un cultivo forestal en España a partir de variables de vegetación, clima y terreno en un período de 20 a 30 años. Este enfoque innovador tiene el potencial de transformar la gestión de proyectos de forestación y reforestación, optimizando las prácticas de plantación y maximizando la cantidad de carbono que se puede capturar en estos ecosistemas. 
 
 La pregunta operativa es: \emph{dadas las características iniciales de una plantación, ¿cuánto \(CO_2\) contendrá tras \(t\) años?} Para responderla, se integran datos del \textbf{Inventario Forestal Nacional} (IFN3–IFN4, MITECO) \cite{ifn}, reanálisis \textbf{ERA5-Land} \cite{era5land} e \textbf{índices espectrales Landsat} (Collection~2, L2) \cite{landsatc2} en una base de datos relacional jerárquica descrita en un trabajo complementario \cite{greenwestdb}.
 
 Este modelo no solo mejorará la comprensión del comportamiento de los sumideros de carbono, sino que también proporcionará herramientas útiles para la toma de decisiones estratégicas tanto en el ámbito empresarial como en el ambiental. De esta forma, el proyecto \textit{GreenWest} contribuye a la transición hacia una economía baja en carbono, alineándose con los objetivos globales de sostenibilidad establecidos en el marco de la CMNUCC y el \textit{Protocolo de Kioto}, y promoviendo la creación de un mercado de créditos de carbono más eficiente y accesible para los actores económicos involucrados en la gestión de los recursos naturales.
 
-\textbf{Contribución.} GreenWest (i) modela la captura futura de carbono a resolución parcela–especie–clase diamétrica, (ii) demuestra \emph{generalización temporal} mediante validación cruzada por grupos de periodo, y (iii) habilita su uso en marcos de optimización (selección de especie y emplazamiento) manteniendo compatibilidad con los requisitos de elegibilidad de créditos \cite{UNFCCC1997}. Estos resultados facilitan la planificación de proyectos de (re)forestación y la toma de decisiones para una gestión forestal alineada con una economía baja en carbono.
