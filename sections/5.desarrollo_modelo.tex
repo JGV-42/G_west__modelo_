@@ -1,44 +1,117 @@
-% sections/05_desarrollo_modelo.tex
 \section{Implementación de los modelos}
 
-% Este apartado es donde profundizas en la parte práctica de tu IA.
-% Podrías incluir:
-% - Preprocesamiento de datos avanzado: escalado, codificación de variables categóricas, ingeniería de características.
-% - División del dataset: explicar cómo se dividieron los datos en conjuntos de entrenamiento, validación y prueba.
-% - Arquitectura final del modelo: si es una red neuronal, un diagrama o una descripción detallada de las capas, neuronas y funciones de activación. Si es un modelo de árbol, cómo se configuró (número de estimadores, profundidad máxima, etc.).
-% - Proceso de entrenamiento: cómo se entrenó el modelo, cuánto tiempo tomó, hardware utilizado (GPU/CPU).
-% - Optimización de hiperparámetros: si utilizaste Grid Search, Random Search, o librerías como Optuna/Hyperopt.
-% - Manejo de sobreajuste (overfitting) o subajuste (underfitting).
-% - Ejemplos de código o pseudocódigo (si son relevantes y no demasiado extensos para el documento).
+El desarrollo y evaluación de los modelos predictivos se realizó íntegramente en \textbf{Python}, utilizando principalmente la librería \texttt{scikit-learn}, junto con implementaciones específicas de gradient boosting como \texttt{XGBoost}, \texttt{LightGBM} y \texttt{CatBoost}. El entrenamiento se llevó a cabo en un entorno local, en un equipo con procesador Intel Core i7 y 32 GB de RAM, lo que permitió realizar experimentos de forma eficiente con un conjunto de datos de tamaño considerable (\textasciitilde{}80.000 muestras).
 
-% - Herramientas y librerías utilizadas (Python, scikit-learn, XGBoost, etc.).
-% - Mención opcional del entorno de ejecución (entorno local, servidor, etc.).
-% - Tiempo de entrenamiento aproximado, tamaño del dataset.
+\subsection{Preparación del conjunto de datos}
 
-El desarrollo y evaluación de los modelos predictivos se realizó íntegramente en \textbf{Python} y el entorno de ejecución fue local, en un equipo con procesador Intel Core i7 y 32 GB de RAM, lo que permitió realizar experimentos de forma eficiente con un conjunto de datos de tamaño considerable (\textasciitilde{}80.000 muestras).
-
-\medskip
-
-El preprocesamiento de datos se llevó a cabo mediante la librería \texttt{scikit-learn}, utilizando \texttt{Pipeline} y \texttt{ColumnTransformer} para combinar transformaciones numéricas y categóricas. En particular, las variables numéricas se imputaron con la mediana y se escalaron con \texttt{StandardScaler}, mientras que las variables categóricas se trataron mediante imputación por moda y codificación \textit{one-hot}. La función objetivo a predecir fue el carbono total (\texttt{CZ}) acumulado en cada parcela.
-
-\medskip
-
-Se implementaron y optimizaron diversos modelos de regresión supervisada, incluyendo:
+La variable objetivo a predecir es el \textbf{carbono bruto acumulado} por parcela (\texttt{carbono\_bruto4}). Para garantizar la consistencia de la muestra, se aplicaron los siguientes filtros:
 
 \begin{itemize}
-    \item \textbf{Modelos basados en árboles:} \texttt{RandomForestRegressor}, \texttt{XGBoost}, \texttt{LightGBM}, \texttt{CatBoost}, \texttt{GradientBoosting}, \texttt{AdaBoost} y \texttt{Bagging}.
-    \item \textbf{Modelos basados en instancias:} \texttt{KNeighborsRegressor}.
-    \item \textbf{Modelos de redes neuronales:} \texttt{MLPRegressor}.
-    \item \textbf{Modelos de soporte vectorial:} \texttt{SVR}.
-    \item \textbf{Modelos probabilísticos:} \texttt{BayesianRidge}.
+    \item Se eliminaron observaciones con \texttt{carbono\_bruto4} nulo o igual a cero.
+    \item Se retuvieron únicamente aquellas filas donde \texttt{carbono\_bruto} es nulo o estrictamente menor que \texttt{carbono\_bruto4}, evitando duplicidades o inconsistencias entre ambas medidas.
+    \item Se restringió el análisis al inventario \texttt{ifn\_id = 3}.
 \end{itemize}
 
-La optimización de hiperparámetros se realizó mediante \texttt{RandomizedSearchCV}, con validación cruzada de 5 particiones y búsqueda en espacios definidos manualmente para cada modelo. Los modelos fueron evaluados en términos de \textbf{\(R^2\)} y \textbf{RMSE}, tanto en el conjunto de entrenamiento como en el de prueba.
+Las variables explicativas se seleccionaron a partir de una configuración manual (\texttt{features}) que combina:
 
-\medskip
+\begin{itemize}
+    \item Índices de pies por hectárea a distintos diámetros (\texttt{npies\_1}, \texttt{npies\_2}, \dots, \texttt{npies\_70}).
+    \item Variables climáticas y edáficas (por ejemplo, \texttt{martonneidx\_id}, \texttt{tipsuelo2\_id}).
+    \item Variables topográficas (elevación, pendiente, orientación).
+    \item Índices de vegetación y variables de temperatura superficial (\texttt{NDII}, \texttt{EVI}, \texttt{GNDVI}, \texttt{skt\_mean}, \texttt{skt\_std}) en distintas estaciones.
+    \item Atributos forestales y estructurales de la masa (\texttt{tipo\_especie}, \texttt{estado\_id}, \texttt{orgmasa1\_id}, \texttt{matorg\_id}, etc.).
+\end{itemize}
 
-Con el objetivo de mejorar el rendimiento predictivo, se evaluaron además varias configuraciones de \texttt{StackingRegressor}, combinando distintos subconjuntos de modelos base (previamente entrenados) con diversos meta-modelos (\texttt{LinearRegression}, \texttt{Ridge}, \texttt{GradientBoosting}, \texttt{SVR}, \texttt{MLP}, entre otros). Estas combinaciones permitieron comparar sinergias entre modelos complementarios.
+\subsection{División entrenamiento–prueba y validación cruzada}
 
-\medskip
+Cuando la tabla de datos incluye el identificador de parcela (\texttt{parcela\_id}), la partición entrenamiento–prueba se realiza mediante \texttt{GroupShuffleSplit}, reservando un 20\,\% de las parcelas para prueba y empleando el 80\,\% restante para entrenamiento. De este modo, todas las observaciones de una misma parcela quedan necesariamente en el mismo conjunto, evitando fuga de información.
 
-El tiempo de entrenamiento varió según el modelo y la configuración de hiperparámetros. Gracias al uso de \texttt{n\_jobs=-1} se aprovechó el paralelismo multinúcleo para acelerar la optimización.
+Sobre el conjunto de entrenamiento se aplica validación cruzada por grupos mediante \texttt{GroupKFold} con 5 particiones, utilizando también \texttt{parcela\_id} como variable de agrupación. En ausencia de esta columna, se recurre a un \texttt{KFold} clásico estratificado en 5 particiones con barajado.
+
+Este esquema permite evaluar la capacidad de generalización del modelo en parcelas no vistas, reduciendo el riesgo de sobreajuste estructural.
+
+\subsection{Preprocesamiento de variables}
+
+El preprocesamiento se implementó con un \texttt{ColumnTransformer} que distingue tres bloques de variables:
+
+\begin{itemize}
+    \item \textbf{Variables numéricas generales}: imputación mediante la mediana y escalado con \texttt{StandardScaler}.
+    \item \textbf{Variables de densidad de pies} (\texttt{npies\_1}, \dots, \texttt{npies\_70}): imputación mediante un valor constante (0) y posterior escalado. Se tratan como un bloque numérico específico por su naturaleza y rango de valores.
+    \item \textbf{Variables categóricas}: imputación por la moda, conversión explícita a cadena de texto y codificación \textit{one-hot} con \texttt{OneHotEncoder}, ignorando categorías desconocidas en el conjunto de prueba.
+\end{itemize}
+
+Todo el preprocesado se integra en un \texttt{Pipeline} junto con el modelo de regresión, de manera que la imputación, escalado y codificación se ajustan únicamente sobre el conjunto de entrenamiento y se aplican de forma coherente a validación y prueba.
+
+\subsection{Modelos entrenados y ajuste de hiperparámetros}
+
+Se entrenó un conjunto de modelos base que cubren distintas familias de algoritmos de regresión supervisada:
+
+\begin{itemize}
+    \item \textbf{Modelos basados en árboles y ensambles}:
+    \begin{itemize}
+        \item \texttt{RandomForestRegressor}
+        \item \texttt{GradientBoostingRegressor} (GBDT)
+        \item \texttt{AdaBoostRegressor}
+        \item \texttt{BaggingRegressor} (Bagged Decision Trees)
+        \item \texttt{XGBRegressor} (\texttt{XGBoost})
+        \item \texttt{LGBMRegressor} (\texttt{LightGBM})
+        \item \texttt{CatBoostRegressor} (\texttt{CatBoost})
+    \end{itemize}
+    \item \textbf{Modelos basados en instancias}:
+    \begin{itemize}
+        \item \texttt{KNeighborsRegressor} (KNN)
+    \end{itemize}
+    \item \textbf{Redes neuronales}:
+    \begin{itemize}
+        \item \texttt{MLPRegressor} (perceptrón multicapa)
+    \end{itemize}
+    \item \textbf{Máquinas de soporte vectorial}:
+    \begin{itemize}
+        \item \texttt{LinearSVR} (SVR con kernel lineal)
+    \end{itemize}
+    \item \textbf{Modelos probabilísticos / bayesianos}:
+    \begin{itemize}
+        \item \texttt{BayesianRidge} (Bayesian Neural Network en sentido amplio)
+    \end{itemize}
+\end{itemize}
+
+Para cada modelo se definió un espacio de hiperparámetros específico (número de árboles, profundidad máxima, tasa de aprendizaje, tamaño de vecindad, arquitectura de la red, etc.), y se realizó una búsqueda en rejilla mediante \texttt{GridSearchCV}, usando como métrica de optimización el coeficiente de determinación \(R^2\). La validación interna se llevó a cabo con el mismo esquema de validación cruzada descrito anteriormente (\texttt{GroupKFold} o \texttt{KFold}, según disponibilidad de grupos), y se empleó \texttt{n\_jobs=-1} para explotar el paralelismo multinúcleo.
+
+De cada ajuste se almacenaron:
+
+\begin{itemize}
+    \item El mejor estimador (pipeline completo) según el \(R^2\) medio en validación cruzada.
+    \item Las métricas en el conjunto de prueba: \(R^2\), RMSE, MAE, así como la mediana del error absoluto y la moda del error absoluto redondeado.
+\end{itemize}
+
+\subsection{Ensamblado tipo \textit{stacking}}
+
+Con el fin de explotar la posible complementariedad entre modelos, se implementó un esquema de \textit{stacking} manual basado en predicciones \textit{out-of-fold} (OOF). A partir de los mejores modelos ajustados en la fase anterior (\texttt{slow\_best\_models}), se definieron varias configuraciones de modelos base:
+
+\begin{itemize}
+    \item \texttt{['CatBoost', 'LightGBM', 'XGBoost', 'Random Forest', 'GBDT', 'BaggedDT']}
+    \item \texttt{['CatBoost', 'LightGBM', 'Random Forest', 'GBDT']}
+    \item \texttt{['LightGBM', 'XGBoost', 'GBDT']}
+    \item \texttt{['CatBoost', 'Random Forest', 'GBDT']}
+    \item \texttt{['LightGBM', 'Random Forest']}
+\end{itemize}
+
+Para cada configuración:
+
+\begin{enumerate}
+    \item Se generaron predicciones OOF para cada modelo base utilizando el mismo esquema de validación cruzada que en el entrenamiento individual. En cada pliegue, se ajusta un clon del modelo sobre las particiones de entrenamiento y se predice sobre la partición de validación, construyendo así una matriz de meta-características de tamaño \(n_{\text{train}} \times M\), donde \(M\) es el número de modelos base.
+    \item Se entrenó de nuevo cada modelo base sobre todo el conjunto de entrenamiento y se obtuvieron sus predicciones sobre el conjunto de prueba, generando una matriz de meta-características de tamaño \(n_{\text{test}} \times M\).
+\end{enumerate}
+
+Sobre estas meta-características se ajustaron distintos meta-modelos (\texttt{meta\_models}):
+
+\begin{itemize}
+    \item \textbf{Modelos lineales}: \texttt{LinearRegression}, \texttt{Ridge}.
+    \item \textbf{Modelos basados en árboles}: \texttt{GradientBoostingRegressor}, \texttt{RandomForestRegressor}.
+    \item \textbf{Máquina de vectores soporte}: \texttt{SVR} con kernel lineal.
+    \item \textbf{Red neuronal}: \texttt{MLPRegressor} con una capa oculta.
+\end{itemize}
+
+Antes del meta-modelo se incluyó un \texttt{StandardScaler} aplicado sobre las meta-características, de forma que se estabiliza el entrenamiento cuando se combinan modelos con escalas de salida diferentes.
+
+Cada combinación \textit{(configuración de bases, meta-modelo)} define un \textit{stack} distinto. Para cada uno de ellos se evaluó el rendimiento en el conjunto de prueba en términos de \(R^2\), RMSE y MAE, seleccionando finalmente el \textbf{stack} con mejor \(R^2\) en prueba (y, en caso de empate, menor RMSE) como modelo final de referencia.
