@@ -5,7 +5,6 @@
 
 Las variables \texttt{ca} (carbono arbóreo) y \texttt{cr} (carbono radical) incluidas en la base de datos del \textit{Inventario Forestal Nacional} (IFN4) derivan de las ecuaciones alométricas de biomasa desarrolladas por el \textit{Instituto Nacional de Investigación y Tecnología Agraria y Alimentaria} (INIA), en particular por \textit{Gregorio Montero} y \textit{Ricardo Ruiz-Peinado} \cite{montero2009, ruizpeinado2011}. Estas ecuaciones fueron elaboradas a partir de datos de campo obtenidos mediante talas y pesadas directas de árboles de distintas especies representativas de la flora forestal española.
 
-\medskip
 
 Cada ecuación estima la biomasa seca (en kilogramos) de los diferentes componentes del árbol en función del diámetro normal (\textit{D}, en cm, medido a 1,3 m del suelo) y la altura total (\textit{H}, en m). Para cada especie o grupo de especies similares se dispone de ecuaciones específicas de la forma:
 \[
@@ -14,7 +13,6 @@ Cada ecuación estima la biomasa seca (en kilogramos) de los diferentes componen
 
 donde $W_i$ representa la biomasa del componente $i$ (fuste, corteza, ramas, hojas, raíces, etc.), y $a_i$, $b_i$ y $c_i$ son coeficientes empíricos obtenidos mediante regresión no lineal. En los casos en que una especie no dispone de ecuación propia, se utiliza la de otra especie considerada análoga por similitud morfológica o ecológica.
 
-\medskip
 
 Los componentes de biomasa definidos en el IFN4 incluyen \cite{miteco_ifn4_manual}:
 
@@ -31,7 +29,6 @@ Los componentes de biomasa definidos en el IFN4 incluyen \cite{miteco_ifn4_manua
     \item $W_r$: biomasa radical (raíces, kg).
 \end{itemize}
 
-\medskip
 
 \noindent
 A partir de estas ecuaciones, el cálculo de biomasa y carbono en el IFN4 se realiza de la siguiente forma:
@@ -49,11 +46,9 @@ A partir de estas ecuaciones, el cálculo de biomasa y carbono en el IFN4 se rea
     \item \textbf{Agregación por clases diamétricas y especie:} finalmente, en la tabla \texttt{Parcelas\_exs} se agrupan los valores por parcela, especie y clase diamétrica (CD), sumando las contribuciones individuales ya expandidas. El resultado son los valores medios de biomasa y carbono por hectárea (\textit{t/ha}) para cada combinación de parcela y especie.
 \end{enumerate}
 
-\medskip
 
 El mismo procedimiento se aplica tanto a la biomasa aérea (para obtener \texttt{ca}) como a la biomasa radical (para \texttt{cr}). De esta forma, \textbf{\texttt{ca} Y \texttt{cr} representan el carbono almacenado en la biomasa viva, aérea y subterránea respectivamente, expresado en toneladas de carbono por hectárea (t/ha)}.
 
-\medskip
 
 Este enfoque metodológico se ajusta a las recomendaciones del \textit{IPCC Guidelines for National Greenhouse Gas Inventories} \cite{ipcc2006}, garantizando la coherencia con los métodos de reporte de carbono a nivel internacional y facilitando la comparación de los resultados con otros estudios y marcos regulatorios.
 
@@ -422,7 +417,7 @@ CatBoost logra capturar de manera más eficaz las relaciones no lineales present
 \begin{table}[htbp]
     \centering
     \small
-    \resizebox{\textwidth}{!}{
+    \footnotesize
         \begin{tabular}{lcccc}
             \hline
             \textbf{Stack}             & \textbf{Bases} & \textbf{Test $R^2$} & \textbf{RMSE}    & \textbf{MAE}    \\
@@ -468,7 +463,6 @@ CatBoost logra capturar de manera más eficaz las relaciones no lineales present
             \textbf{stack5\_\_MLP}     & \textbf{2}     & \textbf{0.8482}     & \textbf{13.6420} & \textbf{6.5120} \\
             \hline
         \end{tabular}
-    }
     \caption{Resultados de las diferentes configuraciones de stacking utilizando IFN2 e IFN3 como explicativos de la variable en tC.}
     \label{tab:stack_ifn2_ifn3carb}
 \end{table}
@@ -533,7 +527,7 @@ variable (SD $\approx 47$ tC/ha).
 \begin{table}[htbp]
     \centering
     \small
-    \resizebox{\textwidth}{!}{
+    \footnotesize
         \begin{tabular}{lcccc}
             \hline
             \textbf{Stack}             & \textbf{Bases} & \textbf{Test $R^2$} & \textbf{RMSE}    & \textbf{MAE}    \\
@@ -574,7 +568,6 @@ variable (SD $\approx 47$ tC/ha).
             stack5\_\_MLP              & 2              & \textbf{0.8561}     & 17.4875          & 8.8770          \\
             \hline
         \end{tabular}
-    }
     \caption{Resultados de las diferentes configuraciones de stacking utilizando IFN2 como conjunto explicativo de la variable en tC/ha.}
     \label{tab:stack_ifn2carb}
 \end{table}
@@ -624,7 +617,7 @@ variable (SD $\approx 36$ tC).
 \begin{table}[htbp]
     \centering
     \small
-    \resizebox{\textwidth}{!}{
+    \footnotesize
         \begin{tabular}{lcccc}
             \hline
             \textbf{Stack}             & \textbf{Bases} & \textbf{Test $R^2$} & \textbf{RMSE}    & \textbf{MAE}    \\
@@ -665,7 +658,6 @@ variable (SD $\approx 36$ tC).
             stack5\_\_MLP              & 2              & \textbf{0.9011}     & \textbf{10.9941} & \textbf{5.3603} \\
             \hline
         \end{tabular}
-    }
     \caption{Resultados de las diferentes configuraciones de stacking utilizando IFN2 como conjunto explicativo de la variable en tC.}
     \label{tab:stack_ifn2_tc}
 \end{table}

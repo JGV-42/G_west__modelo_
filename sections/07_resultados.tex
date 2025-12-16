@@ -212,7 +212,6 @@ La presencia sistemática de valores medios, máximos y medianos de NDII, GNDVI 
 
 En conjunto, mRMR produjo un conjunto compacto y equilibrado, asegurando diversidad informativa y evitando redundancias, lo que lo convierte en un complemento eficaz a los métodos anteriores.
 
-\medskip
 
 De los tres conjuntos de variables seleccionados se mantuvo la selección manual al demostrar un mejor rendimiento con mayor simplicidad como se aprecia en la tabla \ref{tab:comparativa_modelos}.
 
@@ -220,7 +219,7 @@ De los tres conjuntos de variables seleccionados se mantuvo la selección manual
     \centering
     \caption{Comparación de configuraciones de selección de variables y rendimiento del modelo CatBoost sobre los datos del IFN 2-3 y 4 para predecir \texttt{c4}.}
     \label{tab:comparativa_modelos}
-    \resizebox{\textwidth}{!}{%
+    \footnotesize
     \begin{tabular}{l l r r r r r r}
         \toprule
         Configuración & Modelo & $n_\text{vars}$ & $R^{2}$ & RMSE & MAE & Moda Error \\
@@ -230,7 +229,6 @@ De los tres conjuntos de variables seleccionados se mantuvo la selección manual
         FeatureWiz  & CatBoost & 50 & 0.717194 & 25.647248 & 13.076981 & 2.0 \\
         \bottomrule
     \end{tabular}
-    }
 \end{table}
 
 
@@ -249,7 +247,7 @@ explicativo y trata de predecir la variable \texttt{c4}, esto es, aquella en tC/
     \label{tab:resultados_modelos}
     \begin{tabular}{lrrrr}
         \toprule
-        Modelo             & CV $R^2$ & Test $R^2$ & Test RMSE (tC/ha) & Test MAE (tC/ha) \\ 
+        Modelo             & CV $R^2$ & $R^2_{\text{test}}$ & RMSE$_{\text{test}}$ & MAE$_{\text{test}}$ \\ 
         \midrule
         Random Forest      &    0.7387      & 0.7504 & 24.0927 & 12.6655 \\
         XGBoost            &    0.7901      & 0.7955 & 21.8084 & 11.3995 \\
@@ -365,18 +363,22 @@ El objetivo es que el meta-modelo reciba como entradas predicciones de alta cali
 \subsubsection{Meta-modelos utilizados}
 
 Sobre las predicciones apiladas de cada configuración se entrenan distintos meta-modelos $g(\cdot)$, definidos en el siguiente diccionario:
-\scriptsize
+
+{\footnotesize
 \begin{verbatim}
 meta_models = {
     'GradientBoosting': GradientBoostingRegressor(random_state=42),
     'LinearRegression': LinearRegression(),
-    'Ridge'           : RidgeCV(alphas=[0.01, 0.1, 1.0, 10.0, 100.0], cv=5),
-    'RandomForest'    : RandomForestRegressor(n_estimators=50, random_state=42),
+    'Ridge'           : RidgeCV(alphas=[0.01, 0.1, 1.0, 10.0, 100.0], 
+                                cv=5),
+    'RandomForest'    : RandomForestRegressor(n_estimators=50, 
+                                              random_state=42),
     'SVR'             : SVR(kernel='linear'),
-    'MLP'             : MLPRegressor(hidden_layer_sizes=(50,), max_iter=500, random_state=42)
+    'MLP'             : MLPRegressor(hidden_layer_sizes=(50,), 
+                                     max_iter=500)
 }
 \end{verbatim}
-\normalsize
+}
 Estos meta-modelos representan diferentes formas de combinar las predicciones de los modelos base:
 
 \begin{itemize}
@@ -395,7 +397,7 @@ Al evaluar todas las combinaciones de \texttt{stack\_configs} con los diferentes
 \begin{table}[htbp]
 \centering
 \small
-\resizebox{\textwidth}{!}{
+\footnotesize
 \begin{tabular}{lcccc}
 \hline
 \textbf{Stack} & \textbf{Bases} & \textbf{Test $R^2$} & \textbf{RMSE} & \textbf{MAE} \\
@@ -441,7 +443,6 @@ stack5\_\_SVR              & 2 & 0.7992 & 21.6087 & 10.9512 \\
 \textbf{stack5\_\_MLP}     & 2 & 0.8017 & 21.4786 & 11.0024 \\
 \hline
 \end{tabular}
-}
 \caption{Resultados de las diferentes configuraciones de stacking utilizando IFN2 e IFN3 como explicativos de la variable en tC/ha.}
 \label{tab:stack_ifn2_ifn3c}
 \end{table}

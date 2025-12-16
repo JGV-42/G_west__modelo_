@@ -4,14 +4,12 @@ Esta sección describe el procedimiento seguido para el entrenamiento y validaci
 La metodología se fundamenta en la identificación de los factores que determinan el crecimiento forestal y, en consecuencia, la capacidad de los ecosistemas para capturar carbono a lo largo del tiempo.
 El enfoque integra información estructural, climática y espectral procedente del Inventario Forestal Nacional (IFN) y de otras fuentes ambientales, con el propósito de construir modelos robustos que permitan predecir el contenido de carbono acumulado en la biomasa viva.
 
-\medskip
 
 El carbono fijado por los árboles se acumula progresivamente en su biomasa, en función del tamaño y vigor de los individuos, los cuales están condicionados por variables ambientales, topográficas y de competencia intraespecífica.
 Las condiciones meteorológicas, como la temperatura y la precipitación, inciden directamente en la fotosíntesis y en la disponibilidad hídrica;
 la orientación, la pendiente y la altitud modifican la radiación incidente y el microclima local;
 mientras que la densidad de árboles por unidad de superficie determina el nivel de competencia por los recursos, variando según la especie y su tolerancia ecológica \cite{IPCC2006}.
 
-\medskip
 
 A partir de estos fundamentos, se construyó una base de datos relacional que integra información forestal, climática y espectral a nivel de parcela, especie y clase diamétrica.
 Esta estructura permite caracterizar con precisión la dinámica del bosque entre inventarios sucesivos y alimentar modelos predictivos capaces de estimar el contenido futuro de carbono a partir de las condiciones observadas en el pasado.
@@ -25,15 +23,12 @@ Esta estructura permite caracterizar con precisión la dinámica del bosque entr
 
 La base de datos empleada en este trabajo integra información forestal, climática y espectral estructurada en torno a la parcela como unidad básica. Cada parcela se describe mediante sus coordenadas geográficas, características edáficas y su evolución a través de distintos inventarios (IFN2, IFN3, IFN4).
 
-\medskip
 
 Los datos forestales incluyen información por especie y clase diamétrica, como número de pies, volumen con y sin corteza, área basimétrica, carbono aéreo, radical y total. Estos valores permiten caracterizar con precisión la estructura y crecimiento de la vegetación.
 
-\medskip
 
 A cada parcela se asocian también estadísticas climáticas agregadas por estación e inventario: temperaturas (superficie, aire y subsuelo) y precipitaciones, resumidas mediante métricas como media, máxima, mínima y desviación típica.
 
-\medskip
 
 Finalmente, se incorporan índices espectrales derivados de imágenes satelitales (NDVI, EVI, NDII, GNDVI), que permiten cuantificar propiedades biofísicas de la vegetación:
 \begin{itemize}
@@ -43,7 +38,6 @@ Finalmente, se incorporan índices espectrales derivados de imágenes satelitale
     \item \textbf{GNDVI (Green NDVI):} variante del NDVI basada en la banda verde, sensible al clorofila.
 \end{itemize}
 
-\medskip
 
 \subsubsection{Estrutura de la base de datos}
 Estos datos se organizan en las siguientes entidades troncales:
@@ -60,7 +54,6 @@ Estos datos se organizan en las siguientes entidades troncales:
 
 Cada variable categórica posee una tabla de catálogo propia (\texttt{cat\_}), donde se definen los valores posibles y sus descripciones. Por ejemplo, \texttt{cat\_textura}, \texttt{cat\_nivel1}, \texttt{cat\_tratmasa} o \texttt{cat\_origen}. Todas siguen un patrón uniforme: la clave primaria es el identificador de la variable (\texttt{<variable>\_id}), y las tablas troncales referencian este mismo campo como clave foránea. Además la base de datos incluye una tabla llamada \texttt{meta\_variables} que recoge los metadatos.
 
-\medskip
 
 La Figura~\ref{fig:GWest_BBDD} muestra el esquema general de las tablas troncales y sus principales relaciones. Este diagrama resume la estructura interna de la base de datos y su jerarquía de dependencias.
 
@@ -196,7 +189,6 @@ El volumen de entradas por tabla es:
 El objetivo del modelo es estimar el \textbf{carbono total} que una parcela forestal puede capturar en un horizonte temporal de 20--30 años, a partir de las condiciones observadas en inventarios previos.
 Para ello se definieron dos variables de respuesta complementarias, ambas derivadas de los datos del Inventario Forestal Nacional (IFN), que permiten analizar el contenido de carbono desde perspectivas distintas: una normalizada por superficie y otra en términos absolutos.
 
-\medskip
 
 \begin{enumerate}
     \item \textbf{\texttt{c}} (tC/ha): representa el \textbf{carbono total contenido en la biomasa viva aérea y subterránea} por unidad de superficie, expresado en \emph{toneladas de carbono por hectárea}.
@@ -204,7 +196,6 @@ Para ello se definieron dos variables de respuesta complementarias, ambas deriva
           En los casos con valores faltantes, se completó la información mediante un modelo de \emph{Random Forest Regressor} ajustado sobre variables dendrométricas observadas (Especie, CD, VSC, NPies, ABas, IAVC, VCC y VLE), alcanzando un rendimiento satisfactorio (\(R^2_{test} > 0.90\)).
           Esta variable es coherente con los formatos internacionales de reporte de inventarios forestales y permite comparar el contenido de carbono entre parcelas o especies.
 
-          \medskip
 
     \item \textbf{\texttt{carbono\_bruto}} (tC): corresponde al \textbf{carbono total capturado por parcela y especie}, expresado en \emph{toneladas de carbono totales}.
           Su estimación se realiza de forma trazable y físicamente interpretable a partir de variables medidas directamente en campo: número de pies (\texttt{npies}), altura media (\texttt{ht}), tipo de especie (\texttt{clase\_especie}) y clase diamétrica (\texttt{cd\_id}).
@@ -213,7 +204,6 @@ Para ello se definieron dos variables de respuesta complementarias, ambas deriva
           En coherencia con los criterios de proyectos de forestación y reforestación, las observaciones correspondientes a brinzales o plantones se consideran con valor de carbono nulo, dado que las fases tempranas de desarrollo no se contabilizan oficialmente como carbono capturado.
 \end{enumerate}
 
-\medskip
 
 Estas dos variables resumen el contenido de carbono forestal desde enfoques complementarios:
 \texttt{c} (tC/ha) permite la comparación espacial y temporal entre masas forestales, mientras que \texttt{carbono\_bruto} (tC) ofrece una medida absoluta y directamente derivada de las observaciones de campo.
@@ -232,11 +222,9 @@ Para que un proyecto forestal sea elegible en programas de \emph{créditos de ca
 
           En este trabajo, el objetivo es predecir el contenido de carbono correspondiente al \textbf{IFN4}, utilizando como información explicativa las variables observadas en inventarios anteriores. Dado que los inventarios tercero y cuarto comparten una estructura homogénea y un conjunto de variables comparable la elección más directa para el entrenamiento del modelo sería emplear exclusivamente estos dos inventarios. Esta estrategia aprovecha la coherencia estructural de los inventarios más recientes, que incluyen un mayor número de variables y una caracterización más detallada del terreno.
 
-          \medskip
 
           No obstante, este planteamiento se enfrenta a la limitación impuesta por la \textbf{permanencia mínima de 30 años}, requisito fundamental en el contexto de los proyectos de compensación. El intervalo de tiempo entre los inventarios \textbf{IFN3} e \textbf{IFN4} es relativamente corto: no supera los 18 años.
 
-          \medskip
 
           La Figura~\ref{fig:periodo34} muestra la distribución de la diferencia de años entre las mediciones del IFN3 y el IFN4. Como puede observarse, la mayoría de las parcelas presentan intervalos comprendidos entre 6 y 17 años, un rango demasiado estrecho para evaluar la estabilidad del modelo en horizontes más amplios.
 
@@ -258,7 +246,6 @@ Para que un proyecto forestal sea elegible en programas de \emph{créditos de ca
               \label{fig:periodo234}
           \end{figure}
 
-          \medskip
 
           De esta forma, el modelo se entrena y valida sobre un conjunto de datos más diverso y equilibrado, tanto en estructura como en amplitud temporal, manteniendo la coherencia metodológica y la trazabilidad de las estimaciones. Este enfoque no sólo mejora la robustez del aprendizaje, sino que también refuerza la capacidad del modelo para proyectar la captura de carbono en escenarios compatibles con los requisitos de permanencia de los proyectos de compensación.
 
@@ -281,7 +268,6 @@ Como ya se ha introducido el entrenamiento se realiza en dos líneas según la v
 
 Se descartan todas aquellas parcelas en las que el valor de carbono total (variable objetivo) en la segunda inventariación es inferior a la primera. Estos casos suelen deberse a episodios de deforestación, incendios u otras perturbaciones, y no representan un crecimiento forestal neto.
 
-\medskip
 
 El conjunto de datos se restringe únicamente a las parcelas que presentan una \texttt{fccarb} (fracción de cabida cubierta arbórea) igual o superior al 20\,\% en el \textbf{IFN3}. Este umbral define la proporción mínima de superficie ocupada por copas de árboles respecto al área total de la parcela, y constituye una de las condiciones esenciales para considerar una superficie como terreno forestal. La exclusión de parcelas con \texttt{fccarb} inferior al 20\,\% permite asegurar que las estimaciones de carbono se realicen sobre masas forestales consolidadas, evitando sesgos asociados a áreas agrícolas o matorrales. A los datos del \textbf{IFN2} no se les aplica dicho filtro porque no disponen de la variable \texttt{fccarb}.
 
@@ -290,7 +276,6 @@ El conjunto de datos se restringe únicamente a las parcelas que presentan una \
 
 Cada registro de entrada se genera a nivel de combinación parcela--especie, incorporando las variables correspondientes de la primera medición y la variable objetivo (carbono) de la segunda medición (IFN4). Las variables de \texttt{parcela} y \texttt{parcela\_inventario} se desdoblan para cada especie. Las entradas de la tabla \texttt{parcela\_inventario\_especie\_cd} se agrupan por parcela y especie y se comprimen en una única entrada creando un conjunto de variables para cada clase diamétrica.
 
-\medskip
 
 La Tabla~\ref{tab:entrada_modelo} resume las variables empleadas como entrada al modelo, integradas desde las distintas tablas que conforman la base de datos relacional.
 
@@ -298,62 +283,40 @@ La Tabla~\ref{tab:entrada_modelo} resume las variables empleadas como entrada al
     \renewcommand{\arraystretch}{1.2}
     \setlength{\tabcolsep}{3pt}
     \centering
-    \small
-    \resizebox{\textwidth}{!}{%
-        \begin{tabular}{|p{3.6cm}|p{2.2cm}|p{7.6cm}|p{2.2cm}|}
-            \hline
-            \multicolumn{4}{|c|}{\textbf{Resumen de Datos de Entrada del Modelo}}                                                                                                                                                                                                                                                                                                                                                                                                                                                 \\
-            \hline
-            \textbf{Variable}                                                                                                                                                                                          & \textbf{Tipo} & \textbf{Descripción}                                                                                                                       & \textbf{Anexo}                                                                                                                              \\
-            \hline
-            \textcolor{ForestGreen}{\texttt{parcela\_id}}                                                                                                                                                              & varchar       & Identificador \emph{único} de parcela.                                                                                                     & --                                                                                                                                          \\
-            \hline
-            \textcolor{ForestGreen}{\texttt{especie\_id}, \texttt{tipo\_especie}, \texttt{grupo\_id}}                                                                                                                  & int (CF)      & Especie (código), tipo de especie y grupo taxonómico.                                                                                      & Anexos \ref{sec:especies} y \ref{sec:gruposespecies}                                                                                        \\
-            \hline
-            \textcolor{ForestGreen}{\texttt{ocupa}}                                                                                                                                                                    & int           & Grado de ocupación/presencia de la especie en la parcela (0--10).                                                                          & --                                                                                                                                          \\
-            \hline
-            \textcolor{ForestGreen}{\texttt{estado\_id}}, \texttt{fpmasa\_id}, \texttt{tratmasa\_id}, \texttt{orgmasa\_1\_id}                                                                                          & int (CF)      & Estado/fase de desarrollo, forma principal de masa, tratamiento de masa, organización de masa.                                             & Anexos \ref{sec:EstadoIFN34}, \ref{sec:FPMasa}, \ref{sec:tratmasa} y \ref{sec:OrgMasa}                                                      \\
-            \hline
-            \textcolor{ForestGreen}{\texttt{tipsuelo1\_id}, \texttt{tipsuelo2\_id}, \texttt{tipsuelo3\_id}}                                                                                                            & int (CF)      & Tipos de suelo de la parcela (niveles jerárquicos).                                                                                        & Anexo \ref{sec:TipSuelo}                                                                                                                    \\
-            \hline
-            \textcolor{ForestGreen}{\texttt{rocosidad\_id}}, \texttt{textura\_id}, \texttt{matorg\_id}, \texttt{modcomb\_id}, \textcolor{ForestGreen}{\texttt{disesp\_id}, \texttt{comesp\_id}}, \texttt{merosiva\_id} & int (CF)      & Rocosidad, textura, materia orgánica, modelo de combustibilidad, distribución/composición específica, manifestaciones erosivas.            & Anexos \ref{sec:Rocosid}, \ref{sec:textura}, \ref{sec:MatOrg}, \ref{sec:modComb}, \ref{sec:disEsp}, \ref{anexo:compesp} y \ref{sec:ManERo}. \\
-            \hline
-            \textcolor{ForestGreen}{\texttt{radio}}                                                                                                                                                                    & float         & Radio de la parcela (m).                                                                                                                   & --                                                                                                                                          \\
-            \hline
-            \textcolor{ForestGreen}{\texttt{orientacion}, \texttt{elevacion}, \texttt{pendiente}}                                                                                                                      & float         & Orientación (grados), elevación (m s.n.m.), pendiente (\%).                                                                                & --                                                                                                                                          \\
-            \hline
-            \texttt{nivel1\_id}, \texttt{nivel2\_id}                                                                                                                                                                   & int (CF)      & Niveles jerárquicos/estratos de inventario.                                                                                                & Anexos \ref{sec:nivel1} y \ref{sec:nivel2}.                                                                                                 \\
-            \hline
-            \texttt{fccarb}, \texttt{fcctot}                                                                                                                                                                           & float         & Fracción de cabida cubierta arbórea y total.                                                                                               & --                                                                                                                                          \\
-            \hline
-            \texttt{\textcolor{ForestGreen}{npies}\_\{1,2,5,\textcolor{ForestGreen}{10,15, 20,25,30,35,40,45, 50,55,60,65,70}\}}                                                                                       & float         & Número de pies por clase diamétrica CD (cm). Cada campo corresponde a la CD indicada.                                                      & --                                                                                                                                          \\
-            \hline
-            \textcolor{ForestGreen}{\texttt{periodo}}                                                                                                                                                                  & int           & Años transcurridos entre inventarios considerados en el modelo.                                                                            & --                                                                                                                                          \\
-            \hline
-            \textcolor{ForestGreen}{\texttt{evi\_\{stat\}\_\{est\}}}                                                                                                                                                   & float         & Índice EVI por estación; \texttt{stat} $\in$ \{max, mean, median, min, std\}, \texttt{est} $\in$ \{invierno, oto\~no, primavera, verano\}. & --                                                                                                                                          \\
-            \hline
-            \textcolor{ForestGreen}{\texttt{gndvi\_\{stat\}\_\{est\}}}                                                                                                                                                 & float         & Índice GNDVI por estación (misma convención de \texttt{stat} y \texttt{est}).                                                              & --                                                                                                                                          \\
-            \hline
-            \textcolor{ForestGreen}{\texttt{ndii\_\{stat\}\_\{est\}}}                                                                                                                                                  & float         & Índice NDII por estación (misma convención).                                                                                               & --                                                                                                                                          \\
-            \hline
-            \textcolor{ForestGreen}{\texttt{ndvi\_\{stat\}\_\{est\}}}                                                                                                                                                  & float         & Índice NDVI por estación (misma convención).                                                                                               & --                                                                                                                                          \\
-            \hline
-            \textcolor{ForestGreen}{\texttt{pr\_\{stat\}\_\{est\}}}                                                                                                                                                    & float         & Precipitación: \texttt{stat} $\in$ \{max, mean, min, std, sum\} por estación \texttt{est}.                                                 & --                                                                                                                                          \\
-            \hline
-            \textcolor{ForestGreen}{\texttt{skt\_\{stat\}\_\{est\}}}                                                                                                                                                   & float         & Temperatura de superficie (skin temperature): \texttt{stat} $\in$ \{max, mean, min, std\}.                                                 & --                                                                                                                                          \\
-            \hline
-            \textcolor{ForestGreen}{\texttt{stl1-4\_\{stat\}\_\{est\}}}                                                                                                                                                & float         & Temperatura de suelo por capa (1--4): \texttt{stat} $\in$ \{max, mean, min, std\}.                                                         & --                                                                                                                                          \\
-            \hline
-            \textcolor{ForestGreen}{\texttt{t2m\_\{stat\}\_\{est\}}}                                                                                                                                                   & float         & Temperatura del aire a 2 m: \texttt{stat} $\in$ \{max, mean, min, std\}.                                                                   & --                                                                                                                                          \\
-            \hline
-            \textcolor{ForestGreen}{\texttt{c4}}                                                                                                                                                                       & float         & Carbono capturado en el cultivo en el IFN4 en t/ha.                                                                                        & --                                                                                                                                          \\
-            \hline
-            \textcolor{ForestGreen}{\texttt{carbono\_bruto4}}                                                                                                                                                          & float         & Carbono capturado en el cultivo en el IFN4 en t.                                                                                           & --                                                                                                                                          \\
-            \hline
-        \end{tabular}%
-    }
-    % Caption original:
-    % \caption{Resumen de variables de entrada del modelo. Para variables estacionales se usa la notación \texttt{variable\_\{stat\}\_\{est\}}, con estadísticas \texttt{stat} y estaciones \texttt{est} en \{invierno, oto\~no, primavera, verano\}. Las variables \texttt{npies\_\{CD\}} se repiten para cada clase diamétrica indicada. Las variables destacadas en \textcolor{ForestGreen}{verde} se encuentran recogidas tanto para el IFN2 como para el IFN3, las no destacadas solo se recogen para el IFN3.}
+    \footnotesize
+    \begin{tabular}{|p{3.2cm}|p{1.8cm}|p{6.5cm}|p{2.2cm}|}
+        \hline
+        \multicolumn{4}{|c|}{\textbf{Resumen de Datos de Entrada del Modelo}} \\
+        \hline
+        \textbf{Variable} & \textbf{Tipo} & \textbf{Descripción} & \textbf{Anexo} \\
+        \hline
+        \textcolor{ForestGreen}{\texttt{parcela\_id}} & varchar & Identificador único de parcela. & -- \\
+        \hline
+        \textcolor{ForestGreen}{\texttt{especie\_id}, \texttt{tipo\_especie}, \texttt{grupo\_id}} & int (CF) & Especie, tipo y grupo taxonómico. & Anexos \ref{sec:especies}, \ref{sec:gruposespecies} \\
+        \hline
+        \textcolor{ForestGreen}{\texttt{ocupa}} & int & Grado de ocupación (0--10). & -- \\
+        \hline
+        \textcolor{ForestGreen}{\texttt{estado\_id}}, \texttt{fpmasa\_id}, \texttt{tratmasa\_id}, \texttt{orgmasa\_1\_id} & int (CF) & Estado, forma de masa, tratamiento, organización. & Anexos \ref{sec:EstadoIFN34}, \ref{sec:FPMasa}, \ref{sec:tratmasa}, \ref{sec:OrgMasa} \\
+        \hline
+        \textcolor{ForestGreen}{\texttt{tipsuelo1-3\_id}} & int (CF) & Tipos de suelo. & Anexo \ref{sec:TipSuelo} \\
+        \hline
+        \textcolor{ForestGreen}{\texttt{rocosidad\_id}}, \texttt{textura\_id}, \texttt{matorg\_id}, \texttt{modcomb\_id}, \texttt{disesp\_id}, \texttt{comesp\_id}, \texttt{merosiva\_id} & int (CF) & Variables edáficas y estructurales. & Anexos varios \\
+        \hline
+        \textcolor{ForestGreen}{\texttt{radio}, \texttt{orientacion}, \texttt{elevacion}, \texttt{pendiente}} & float & Topografía y geometría de parcela. & -- \\
+        \hline
+        \texttt{nivel1\_id}, \texttt{nivel2\_id}, \texttt{fccarb}, \texttt{fcctot} & int/float & Niveles jerárquicos y cabida cubierta. & Anexos \ref{sec:nivel1}, \ref{sec:nivel2} \\
+        \hline
+        \textcolor{ForestGreen}{\texttt{npies\_\{CD\}}} & float & N.º de pies por clase diamétrica. & -- \\
+        \hline
+        \textcolor{ForestGreen}{\texttt{periodo}} & int & Años entre inventarios. & -- \\
+        \hline
+        \textcolor{ForestGreen}{\texttt{evi, gndvi, ndii, ndvi\_\{stat\}\_\{est\}}} & float & Índices de vegetación por estación. & -- \\
+        \hline
+        \textcolor{ForestGreen}{\texttt{pr, skt, stl1-4, t2m\_\{stat\}\_\{est\}}} & float & Variables climáticas por estación. & -- \\
+        \hline
+        \textcolor{ForestGreen}{\texttt{c4}, \texttt{carbono\_bruto4}} & float & Carbono IFN4 (t/ha y t). & -- \\
+        \hline
+    \end{tabular}
     \caption{Variables de entrada del modelo. Las variables en \textcolor{ForestGreen}{verde} están disponibles en IFN2 e IFN3; el resto solo en IFN3.}
     \label{tab:entrada_modelo}
 \end{table}
@@ -495,7 +458,6 @@ Estas combinaciones se diseñaron con dos criterios principales:
     \item \textbf{Rendimiento individual:} incluir preferentemente los modelos con mayor $R^2$ y menor error (RMSE, MAE) en las pruebas individuales.
 \end{enumerate}
 
-\medskip
 
 Los meta-modelos utilizados para integrar las predicciones fueron:
 
@@ -513,75 +475,40 @@ Esta selección permite comparar desde combinadores lineales simples hasta integ
 La evaluación exhaustiva de múltiples algoritmos permite identificar no solo el modelo individual con mejor rendimiento, sino también combinaciones sinérgicas para el \textit{stacking}. La Tabla~\ref{tab:modelos} resume los modelos finalmente entrenados y evaluados.
 
 
-\begin{table}[htbp]\small
+\begin{table}[htbp]
     \centering
-    \resizebox{\textwidth}{!}{%
-        \begin{tabular}{|p{3.2cm}|p{2.8cm}|p{5.2cm}|p{4.2cm}|}
-            \hline
-            \textbf{Modelo}                                                                 & \textbf{Tipo / Técnica}    & \textbf{Características destacadas} & \textbf{Observaciones} \\
-            \hline
-
-            \textbf{Random Forest}                                                          & Bagging (Árboles)          &
-            Bootstrap con selección aleatoria de atributos; reducción de varianza           &
-            Robusto, estable y poco sensible a hiperparámetros                                                                                                                          \\
-            \hline
-
-            \textbf{Bagged Decision Trees (BaggedDT)}                                       & Bagging                    &
-            Árboles sin poda entrenados sobre muestras bootstrap                            &
-            Alta varianza individual; mejora por agregación                                                                                                                             \\
-            \hline
-
-            \textbf{XGBoost}                                                                & Boosting (GBM)             &
-            Regularización L1/L2, segundo orden, manejo de valores faltantes                &
-            Muy preciso; sensible a tuning                                                                                                                                              \\
-            \hline
-
-            \textbf{LightGBM}                                                               & Boosting (Leaf-wise)       &
-            Crecimiento hoja-a-hoja, histogramas, muy eficiente                             &
-            Rápido; riesgo de sobreajuste en datasets pequeños                                                                                                                          \\
-            \hline
-
-            \textbf{CatBoost}                                                               & Boosting especializado     &
-            Codificación ordenada de categorías; robusto al ruido                           &
-            Excelente rendimiento sin gran tuning                                                                                                                                       \\
-            \hline
-
-            \textbf{Gradient Boosting Decision Trees (GBDT)}                                & Boosting                   &
-            Árboles secuenciales ajustados a residuos                                       &
-            Buen rendimiento; coste computacional elevado                                                                                                                               \\
-            \hline
-
-            \textbf{AdaBoost}                                                               & Boosting (Stumps)          &
-            Aumenta el peso de observaciones mal predichas                                  &
-            Efectivo en problemas limpios, pero menos robusto                                                                                                                           \\
-            \hline
-
-            \textbf{K-Nearest Neighbors (KNN)}                                              & Basado en instancia        &
-            Predicción por proximidad; no requiere entrenamiento                            &
-            Sensible a escala y ruido; coste alto en predicción                                                                                                                         \\
-            \hline
-
-            \textbf{Multi-Layer Perceptron (MLP)}                                           & Red neuronal               &
-            Capaz de capturar relaciones no lineales complejas                              &
-            Requiere normalización y tuning de regularización                                                                                                                           \\
-            \hline
-
-            \textbf{Support Vector Regression (SVR)}                                        & Modelo lineal con márgenes &
-            Modelo de gran margen; utiliza un kernel lineal ($\text{kernel}=\text{linear}$) &
-            Robusto al sobreajuste; coste computacional elevado                                                                                                                         \\
-            \hline
-
-            \textbf{Bayesian Neural Network (BayesianNN)}                                   & Probabilístico             &
-            Estimación bayesiana de parámetros; cuantifica incertidumbre                    &
-            Reduce sobreajuste; mayor coste de entrenamiento                                                                                                                            \\
-            \hline
-        \end{tabular}
-    }
+    \footnotesize
+    \begin{tabular}{|p{2.5cm}|p{2.2cm}|p{4.5cm}|p{4cm}|}
+        \hline
+        \textbf{Modelo} & \textbf{Tipo} & \textbf{Características} & \textbf{Observaciones} \\
+        \hline
+        Random Forest & Bagging & Bootstrap con selección aleatoria de atributos & Robusto y estable \\
+        \hline
+        BaggedDT & Bagging & Árboles sin poda sobre muestras bootstrap & Mejora por agregación \\
+        \hline
+        XGBoost & Boosting & Regularización L1/L2, segundo orden & Muy preciso; sensible a tuning \\
+        \hline
+        LightGBM & Boosting & Crecimiento leaf-wise, muy eficiente & Rápido; riesgo de sobreajuste \\
+        \hline
+        CatBoost & Boosting & Codificación ordenada; robusto al ruido & Excelente sin gran tuning \\
+        \hline
+        GBDT & Boosting & Árboles secuenciales ajustados a residuos & Buen rendimiento \\
+        \hline
+        AdaBoost & Boosting & Aumenta peso de obs. mal predichas & Menos robusto \\
+        \hline
+        KNN & Instancia & Predicción por proximidad & Sensible a escala y ruido \\
+        \hline
+        MLP & Red neuronal & Captura relaciones no lineales & Requiere normalización \\
+        \hline
+        SVR & Márgenes & Kernel lineal, gran margen & Robusto al sobreajuste \\
+        \hline
+        BayesianNN & Probabilístico & Cuantifica incertidumbre & Reduce sobreajuste \\
+        \hline
+    \end{tabular}
     \caption{Resumen de los modelos de aprendizaje supervisado evaluados.}
     \label{tab:modelos}
 \end{table}
 
 
-\medskip
 
 
