@@ -1,0 +1,67 @@
+\babel@toc {spanish}{}\relax 
+\contentsline {section}{\numberline {1}Introducción}{5}{section.1}%
+\contentsline {section}{\numberline {2}Objetivos y Justificación}{7}{section.2}%
+\contentsline {section}{\numberline {3}Revisión de la Literatura}{8}{section.3}%
+\contentsline {section}{\numberline {4}Estado del Arte}{9}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Contexto y formulación del problema}{9}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Modelado predictivo para variables continuas}{9}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}Validación y evaluación}{9}{subsection.4.3}%
+\contentsline {subsection}{\numberline {4.4}Selección de variables}{9}{subsection.4.4}%
+\contentsline {subsection}{\numberline {4.5}Datos, preprocesado y fuga de información}{9}{subsection.4.5}%
+\contentsline {subsection}{\numberline {4.6}Explicabilidad e incertidumbre}{9}{subsection.4.6}%
+\contentsline {subsection}{\numberline {4.7}Trabajos relacionados y brechas}{10}{subsection.4.7}%
+\contentsline {subsection}{\numberline {4.8}Síntesis}{10}{subsection.4.8}%
+\contentsline {section}{\numberline {5}Metodología}{11}{section.5}%
+\contentsline {subsection}{\numberline {5.1}Origen y estructura de los datos}{11}{subsection.5.1}%
+\contentsline {subsection}{\numberline {5.2}Variables objetivo}{15}{subsection.5.2}%
+\contentsline {subsection}{\numberline {5.3}Supuestos de elegibilidad y verificación externa}{16}{subsection.5.3}%
+\contentsline {subsection}{\numberline {5.4}Preparación y tratamiento de los datos}{19}{subsection.5.4}%
+\contentsline {subsection}{\numberline {5.5}Partición y validación}{21}{subsection.5.5}%
+\contentsline {subsection}{\numberline {5.6}Selección de variables explicativas}{22}{subsection.5.6}%
+\contentsline {subsubsection}{\numberline {5.6.1}Selección automática mediante Featurewiz}{22}{subsubsection.5.6.1}%
+\contentsline {subsubsection}{\numberline {5.6.2}Selección mediante mRMR}{22}{subsubsection.5.6.2}%
+\contentsline {subsubsection}{\numberline {5.6.3}Selección manual basada en criterios estadísticos y conceptuales}{23}{subsubsection.5.6.3}%
+\contentsline {subsubsection}{\numberline {5.6.4}Selección Secuencial Supervisada basada en Rendimiento Predictivo (SSSRP)}{23}{subsubsection.5.6.4}%
+\contentsline {subsection}{\numberline {5.7}Modelos evaluados}{23}{subsection.5.7}%
+\contentsline {paragraph}{Técnicas empleadas:}{23}{section*.15}%
+\contentsline {section}{\numberline {6}Implementación de los modelos}{27}{section.6}%
+\contentsline {subsection}{\numberline {6.1}Preparación del conjunto de datos}{27}{subsection.6.1}%
+\contentsline {subsection}{\numberline {6.2}División entrenamiento–prueba y validación cruzada}{27}{subsection.6.2}%
+\contentsline {subsection}{\numberline {6.3}Preprocesamiento de variables}{28}{subsection.6.3}%
+\contentsline {subsection}{\numberline {6.4}Modelos entrenados y ajuste de hiperparámetros}{28}{subsection.6.4}%
+\contentsline {subsection}{\numberline {6.5}Ensamblado tipo \textit {stacking}}{29}{subsection.6.5}%
+\contentsline {section}{\numberline {7}Resultados}{30}{section.7}%
+\contentsline {subsection}{\numberline {7.1}Descripción del conjunto depurado}{30}{subsection.7.1}%
+\contentsline {subsection}{\numberline {7.2}Efecto del periodo sobre el carbono}{31}{subsection.7.2}%
+\contentsline {subsection}{\numberline {7.3}Elección de variables}{32}{subsection.7.3}%
+\contentsline {subsection}{\numberline {7.4}Rendimiento de los modelos}{34}{subsection.7.4}%
+\contentsline {subsection}{\numberline {7.5}Ensamblado tipo \textit {stacking} de modelos de regresión}{36}{subsection.7.5}%
+\contentsline {subsubsection}{\numberline {7.5.1}Combinaciones de modelos base}{36}{subsubsection.7.5.1}%
+\contentsline {subsubsection}{\numberline {7.5.2}Meta-modelos utilizados}{37}{subsubsection.7.5.2}%
+\contentsline {subsection}{\numberline {7.6}Síntesis de resultados}{40}{subsection.7.6}%
+\contentsline {section}{\numberline {8}Discusión}{42}{section.8}%
+\contentsline {section}{\numberline {9}Conclusiones}{43}{section.9}%
+\contentsline {section}{\numberline {10}Recomendaciones para Futuras Investigaciones}{44}{section.10}%
+\contentsline {section}{\numberline {11}Anexos}{46}{section.11}%
+\contentsline {subsection}{\numberline {11.1}Anexo: Origen y cálculo de las variables \texttt {\hyphenchar \font =`\-\relax ca} y \texttt {\hyphenchar \font =`\-\relax cr}}{46}{subsection.11.1}%
+\contentsline {subsection}{\numberline {11.2}Anexo: Estado de las Poblaciones (\texttt {\hyphenchar \font =`\-\relax estado\_id})}{47}{subsection.11.2}%
+\contentsline {subsection}{\numberline {11.3}Anexo: Forma Principal de Masa (IFN3 e IFN4: \texttt {\hyphenchar \font =`\-\relax fpmasa\_id})}{47}{subsection.11.3}%
+\contentsline {subsection}{\numberline {11.4}Anexo: Tratamiento de la Masa (IFN3 e IFN4: \texttt {\hyphenchar \font =`\-\relax tratmasa\_id})}{47}{subsection.11.4}%
+\contentsline {subsection}{\numberline {11.5}Anexo: Origen de la Masa (IFN3 e IFN4: \texttt {\hyphenchar \font =`\-\relax orgmasa\_id})}{47}{subsection.11.5}%
+\contentsline {subsection}{\numberline {11.6}Anexo: Tipo de Suelo (\texttt {\hyphenchar \font =`\-\relax tipsuelo1\_id}, \texttt {\hyphenchar \font =`\-\relax tipsuelo2\_id}, \texttt {\hyphenchar \font =`\-\relax tipsuelo3\_id})}{48}{subsection.11.6}%
+\contentsline {subsection}{\numberline {11.7}Anexo: Rocosidad (\texttt {\hyphenchar \font =`\-\relax rocosidad\_id}) }{49}{subsection.11.7}%
+\contentsline {subsection}{\numberline {11.8}Anexo: Textura del Suelo (\texttt {\hyphenchar \font =`\-\relax textura\_id})}{49}{subsection.11.8}%
+\contentsline {subsection}{\numberline {11.9}Anexo: Contenido en Materia Orgánica (IFN3 e IFN4: \texttt {\hyphenchar \font =`\-\relax matorg\_id})}{49}{subsection.11.9}%
+\contentsline {subsection}{\numberline {11.10}Anexo: Modelo de Combustible (IFN3 e IFN4: \texttt {\hyphenchar \font =`\-\relax modcomb\_id})}{49}{subsection.11.10}%
+\contentsline {subsection}{\numberline {11.11}Anexo: Distribución Espacial (\texttt {\hyphenchar \font =`\-\relax disesp\_id})}{50}{subsection.11.11}%
+\contentsline {subsection}{\numberline {11.12}Anexo: Composición Específica (\texttt {\hyphenchar \font =`\-\relax comesp\_id})}{50}{subsection.11.12}%
+\contentsline {subsection}{\numberline {11.13}Anexo: Manifestaciones Erosivas (\texttt {\hyphenchar \font =`\-\relax merosiva\_id})}{51}{subsection.11.13}%
+\contentsline {subsection}{\numberline {11.14}Anexo: Nivel de usos del suelo (IFN3 e IFN4: \texttt {\hyphenchar \font =`\-\relax nivel1\_id})}{51}{subsection.11.14}%
+\contentsline {subsection}{\numberline {11.15}Anexo: Nivel morfoestructural (IFN3 e IFN4: \texttt {\hyphenchar \font =`\-\relax nivel2\_id})}{51}{subsection.11.15}%
+\contentsline {subsection}{\numberline {11.16}Anexo: Código de los grupos taxonómicos de las especies (\texttt {\hyphenchar \font =`\-\relax grupo\_id})}{52}{subsection.11.16}%
+\contentsline {subsection}{\numberline {11.17}Anexo: Resultados}{53}{subsection.11.17}%
+\contentsline {subsubsection}{\numberline {11.17.1}Ifn2 e Ifn3 como explicativo para \texttt {\hyphenchar \font =`\-\relax carbono\_bruto4} (tC)}{53}{subsubsection.11.17.1}%
+\contentsline {subsubsection}{\numberline {11.17.2}Ifn2 como explicativo para \texttt {\hyphenchar \font =`\-\relax c4} (tC/ha)}{55}{subsubsection.11.17.2}%
+\contentsline {subsubsection}{\numberline {11.17.3}Ifn2 como explicativo para \texttt {\hyphenchar \font =`\-\relax carbono\_bruto4} (tC)}{57}{subsubsection.11.17.3}%
+\contentsline {subsection}{\numberline {11.18}Anexo: Código de las especies (\texttt {\hyphenchar \font =`\-\relax especie\_id})}{59}{subsection.11.18}%
+\contentsline {section}{Referencias Bibliográficas}{65}{section*.43}%
