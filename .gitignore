@@ -55,4 +55,4 @@
 # A menudo se ignora el PDF, ya que se puede generar desde los
 # archivos fuente. Descomenta la siguiente línea si NO quieres
 # incluir el PDF en tu repositorio.
-# *.pdf
+# *.pdfbackup_20241216/

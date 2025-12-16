@@ -1,73 +1,86 @@
-\documentclass[12pt]{article}
+%% Plantilla basada en elsarticle (Elsevier)
+%% Fácilmente adaptable a otras revistas cambiando el documentclass
+\documentclass[preprint,12pt,authoryear]{elsarticle}
 
-% Incluir preámbulo (paquetes y comandos personalizados)
+% ---------------------------------------------------------------------------
+% Preámbulo: paquetes y configuración
+% ---------------------------------------------------------------------------
 \input{preamble.tex}
 
 % ---------------------------------------------------------------------------
-% Datos del artículo
+% Metadatos del artículo
 % ---------------------------------------------------------------------------
-
-% --- En tu main ---
-\title{\textbf{GreenWest: inteligencia artificial para la predicción de créditos de carbono en proyectos de (re)forestación en España}\\
-\small Correspondiente al grupo B1 (GreenWest) de las líneas de investigación de DemIA}
-
-\author[1]{Maider Araceli Urbón Jiménez\thanks{Autora de correspondencia: murbon001@usal.es}}
-\author[1]{Jaime Gabriel Vegas}
-\author[1]{Ana de Luis Reboredo}
-\author[1]{Belén Pérez Lancho}
-\author[1]{Ana-Belén Gil-González}
-
-\affil[1]{Grupo B1, Equipo de investigación BISITE, Universidad de Salamanca, Facultad de Ciencias, Salamanca, Castilla y León, España\\
-
-\texttt{\{murbon001, JaimeGabrielVegas, adeluis, lancho, abg\}@usal.es}}
-
-
-% ---------------------------------------------------------------------------
+\journal{[Nombre de la Revista]} % Cambiar al enviar
 
 \begin{document}
-\maketitle
 
-% Índice / Tabla de contenidos
-\tableofcontents
-\newpage
+\begin{frontmatter}
 
-% Abstract y Palabras Clave
-\input{abstract.tex}
+    \title{GreenWest: inteligencia artificial para la predicción de créditos de carbono en proyectos de (re)forestación en España}
 
-% --- Contenido principal ---
-% Cada sección se incluye desde su archivo correspondiente
-\newpage
-\input{sections/1.introduccion}
-\newpage
-\input{sections/2.0.objetivos}
-\newpage
-\input{sections/3.1.revision_literatura}
-\newpage
-\input{sections/3.2.EstadodelArte}
-\newpage
-\input{sections/4.metodologia}
-\newpage
-\input{sections/5.desarrollo_modelo}
-\newpage
-\input{sections/6.resultados.tex}
-\newpage
-\input{sections/discusion.tex}
-\newpage
-\input{sections/conclusiones.tex}
-\newpage
-\input{sections/recomendaciones.tex}
-\newpage
-\input{sections/agradecimientos.tex}
-\newpage
-\input{sections/9_anexos}
+    %% Autores y afiliaciones
+    \author[usal]{Maider Araceli Urbón Jiménez\corref{cor1}}
+    \ead{murbon001@usal.es}
+    \cortext[cor1]{Autora de correspondencia}
 
+    \author[usal]{Jaime Gabriel Vegas}
+    \ead{JaimeGabrielVegas@usal.es}
 
+    \author[usal]{Ana de Luis Reboredo}
+    \ead{adeluis@usal.es}
+
+    \author[usal]{Belén Pérez Lancho}
+    \ead{lancho@usal.es}
+
+    \author[usal]{Ana-Belén Gil-González}
+    \ead{abg@usal.es}
+
+    \affiliation[usal]{organization={Grupo B1, Equipo de investigación BISITE, Universidad de Salamanca},
+        addressline={Facultad de Ciencias},
+        city={Salamanca},
+        country={España}}
+
+    %% Abstract
+    \begin{abstract}
+        Este trabajo presenta \textbf{GreenWest}, un modelo de inteligencia artificial diseñado para predecir la cantidad de carbono capturado en proyectos de forestación y reforestación en España. El modelo se entrena con datos multifuente: registros del \textbf{Inventario Forestal Nacional} (\textbf{IFN3--IFN4}, MITECO), variables climáticas derivadas de \textbf{Copernicus/ERA5-Land} e índices espectrales procedentes de \textbf{imágenes Landsat} (Collection~2, Level~2, USGS). Estos datos se integran en una base de datos relacional jerárquica que organiza la información por parcela, especie y clase diamétrica, manteniendo trazabilidad y coherencia estructural entre inventarios.
+
+        El modelo desarrollado responde a la pregunta: \textit{Dado un cultivo forestal con características concretas de vegetación, clima y terreno, ¿cuánto CO$_2$ contendrá pasados unos años?} Esta capacidad predictiva permite su integración en marcos de optimización forestal, abordando cuestiones como la selección de especies o la asignación óptima de terrenos para maximizar la fijación de carbono.
+
+        Se evaluaron múltiples enfoques de aprendizaje supervisado, destacando \textbf{CatBoost} como el modelo con mejor rendimiento ($R^2>0.80$, RMSE$<$15), con alta capacidad de generalización temporal mediante validación cruzada por grupos. Los resultados demuestran el potencial del enfoque para estimar la absorción futura de CO$_2$ y optimizar decisiones de gestión forestal sostenible, contribuyendo a la transición hacia una economía baja en emisiones.
+    \end{abstract}
+
+    %% Keywords
+    \begin{keyword}
+        créditos de carbono \sep inteligencia artificial \sep forestación \sep reforestación \sep modelado predictivo \sep cambio climático
+    \end{keyword}
+
+\end{frontmatter}
+
+% ---------------------------------------------------------------------------
+% Contenido principal
+% ---------------------------------------------------------------------------
+
+\input{sections/01_introduccion}
+\input{sections/02_objetivos}
+\input{sections/03_revision_literatura}
+\input{sections/04_estado_del_arte}
+\input{sections/05_metodologia}
+\input{sections/06_desarrollo_modelo}
+\input{sections/07_resultados}
+\input{sections/08_discusion}
+\input{sections/09_conclusiones}
+\input{sections/10_recomendaciones}
+\input{sections/11_agradecimientos}
+
+% ---------------------------------------------------------------------------
 % Referencias
-\cleardoublepage % Opcional: para que las referencias empiecen en una página impar si usas book/report
+% ---------------------------------------------------------------------------
+\printbibliography[title={Referencias}]
 
-% \bibliographystyle{plainnat}  % o unsrt, or natbib estilos numéricos
-% \bibliography{referencias}    % sin .bib
-\printbibliography[heading=bibintoc, title={Referencias Bibliográficas}]
-
+% ---------------------------------------------------------------------------
+% Anexos (opcional - comentar si no se necesitan)
+% ---------------------------------------------------------------------------
+\appendix
+\input{sections/12_anexos}
 
 \end{document}

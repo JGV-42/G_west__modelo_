@@ -1,0 +1,15 @@
+\begin{abstract}
+Este trabajo presenta \textbf{GreenWest}, un modelo de inteligencia artificial diseñado para predecir la cantidad de carbono capturado en proyectos de forestación y reforestación en España. El modelo se entrena con datos multifuente: registros del \textbf{Inventario Forestal Nacional} (\textbf{IFN3–IFN4}, MITECO)~\cite{ifn}, variables climáticas derivadas de \textbf{Copernicus/ERA5-Land}~\cite{era5land} e índices espectrales procedentes de \textbf{imágenes Landsat} (Collection~2, Level~2, USGS)~\cite{landsatc2}. Estos datos se integran en una base de datos relacional jerárquica descrita en un trabajo complementario~\cite{greenwestdb}, que organiza la información por parcela, especie y clase diamétrica, manteniendo trazabilidad y coherencia estructural entre inventarios.
+
+\medskip
+
+El modelo desarrollado responde a la pregunta: \textit{Dado un cultivo forestal con características concretas de vegetación, clima y terreno, ¿cuánto CO$_2$ contendrá pasados unos años?} Esta capacidad predictiva permite su integración en marcos de optimización forestal, abordando cuestiones como la selección de especies o la asignación óptima de terrenos para maximizar la fijación de carbono.
+
+\medskip
+
+Se evaluaron múltiples enfoques de aprendizaje supervisado, destacando \textbf{CatBoost}~\cite{catboost} como el modelo con mejor rendimiento (\(R^2>0.80\), RMSE<15), con alta capacidad de generalización temporal mediante validación cruzada por grupos. Los resultados demuestran el potencial del enfoque para estimar la absorción futura de CO$_2$ y optimizar decisiones de gestión forestal sostenible, contribuyendo a la transición hacia una economía baja en emisiones~\cite{cmnucc1992,UNFCCC1997}.
+
+\medskip
+
+\textbf{Palabras clave:} créditos de carbono, inteligencia artificial, forestación, reforestación, modelado predictivo, cambio climático.
+\end{abstract}

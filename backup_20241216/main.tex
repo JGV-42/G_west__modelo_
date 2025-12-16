@@ -1,0 +1,73 @@
+\documentclass[12pt]{article}
+
+% Incluir preámbulo (paquetes y comandos personalizados)
+\input{preamble.tex}
+
+% ---------------------------------------------------------------------------
+% Datos del artículo
+% ---------------------------------------------------------------------------
+
+% --- En tu main ---
+\title{\textbf{GreenWest: inteligencia artificial para la predicción de créditos de carbono en proyectos de (re)forestación en España}\\
+\small Correspondiente al grupo B1 (GreenWest) de las líneas de investigación de DemIA}
+
+\author[1]{Maider Araceli Urbón Jiménez\thanks{Autora de correspondencia: murbon001@usal.es}}
+\author[1]{Jaime Gabriel Vegas}
+\author[1]{Ana de Luis Reboredo}
+\author[1]{Belén Pérez Lancho}
+\author[1]{Ana-Belén Gil-González}
+
+\affil[1]{Grupo B1, Equipo de investigación BISITE, Universidad de Salamanca, Facultad de Ciencias, Salamanca, Castilla y León, España\\
+
+\texttt{\{murbon001, JaimeGabrielVegas, adeluis, lancho, abg\}@usal.es}}
+
+
+% ---------------------------------------------------------------------------
+
+\begin{document}
+\maketitle
+
+% Índice / Tabla de contenidos
+\tableofcontents
+\newpage
+
+% Abstract y Palabras Clave
+\input{abstract.tex}
+
+% --- Contenido principal ---
+% Cada sección se incluye desde su archivo correspondiente
+\newpage
+\input{sections/1.introduccion}
+\newpage
+\input{sections/2.0.objetivos}
+\newpage
+\input{sections/3.1.revision_literatura}
+\newpage
+\input{sections/3.2.EstadodelArte}
+\newpage
+\input{sections/4.metodologia}
+\newpage
+\input{sections/5.desarrollo_modelo}
+\newpage
+\input{sections/6.resultados.tex}
+\newpage
+\input{sections/discusion.tex}
+\newpage
+\input{sections/conclusiones.tex}
+\newpage
+\input{sections/recomendaciones.tex}
+\newpage
+\input{sections/agradecimientos.tex}
+\newpage
+\input{sections/9_anexos}
+
+
+% Referencias
+\cleardoublepage % Opcional: para que las referencias empiecen en una página impar si usas book/report
+
+% \bibliographystyle{plainnat}  % o unsrt, or natbib estilos numéricos
+% \bibliography{referencias}    % sin .bib
+\printbibliography[heading=bibintoc, title={Referencias Bibliográficas}]
+
+
+\end{document}

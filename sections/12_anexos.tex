@@ -1,0 +1,893 @@
+\section{Anexos}
+\small
+
+\subsection{Anexo: Origen y cálculo de las variables \texttt{ca} y \texttt{cr}}\label{sec:Carbono}
+
+Las variables \texttt{ca} (carbono arbóreo) y \texttt{cr} (carbono radical) incluidas en la base de datos del \textit{Inventario Forestal Nacional} (IFN4) derivan de las ecuaciones alométricas de biomasa desarrolladas por el \textit{Instituto Nacional de Investigación y Tecnología Agraria y Alimentaria} (INIA), en particular por \textit{Gregorio Montero} y \textit{Ricardo Ruiz-Peinado} \cite{montero2009, ruizpeinado2011}. Estas ecuaciones fueron elaboradas a partir de datos de campo obtenidos mediante talas y pesadas directas de árboles de distintas especies representativas de la flora forestal española.
+
+\medskip
+
+Cada ecuación estima la biomasa seca (en kilogramos) de los diferentes componentes del árbol en función del diámetro normal (\textit{D}, en cm, medido a 1,3 m del suelo) y la altura total (\textit{H}, en m). Para cada especie o grupo de especies similares se dispone de ecuaciones específicas de la forma:
+\[
+    W_i = a_i \cdot D^{b_i} \cdot H^{c_i}
+\]
+
+donde $W_i$ representa la biomasa del componente $i$ (fuste, corteza, ramas, hojas, raíces, etc.), y $a_i$, $b_i$ y $c_i$ son coeficientes empíricos obtenidos mediante regresión no lineal. En los casos en que una especie no dispone de ecuación propia, se utiliza la de otra especie considerada análoga por similitud morfológica o ecológica.
+
+\medskip
+
+Los componentes de biomasa definidos en el IFN4 incluyen \cite{miteco_ifn4_manual}:
+
+\begin{itemize}
+    \item $W_s$: biomasa del fuste (kg),
+    \item $W_c$: biomasa de la corteza del fuste (kg),
+    \item $W_{b7}$: biomasa de ramas mayores de 7 cm de diámetro (kg),
+    \item $W_{b2-7}$: biomasa de ramas entre 2 y 7 cm de diámetro (kg),
+    \item $W_{b0.5-2}$: biomasa de ramas entre 0,5 y 2 cm de diámetro (kg),
+    \item $W_t$: biomasa de ramas menores de 0,5 cm de diámetro (kg),
+    \item $W_h$: biomasa de hojas (kg),
+    \item $W_{db}$: biomasa de ramas muertas (kg),
+    \item $W_T = W_s + W_c + W_{b7} + W_{b2-7} + W_{b0.5-2} + W_t + W_h$: biomasa aérea total (kg),
+    \item $W_r$: biomasa radical (raíces, kg).
+\end{itemize}
+
+\medskip
+
+\noindent
+A partir de estas ecuaciones, el cálculo de biomasa y carbono en el IFN4 se realiza de la siguiente forma:
+
+\begin{enumerate}
+    \item \textbf{Biomasa por árbol (kg):} en la tabla \texttt{Mayores\_exs} se incluyen las medidas de diámetro y altura de cada pie. Aplicando las ecuaciones alométricas correspondientes se obtiene la biomasa aérea ($W_T$) y radical ($W_r$) para cada árbol.
+
+    \item \textbf{Conversión a carbono (kg):} se aplica un factor de conversión estándar de 0.5, según las directrices del IPCC \cite{ipcc2006}, de forma que:
+          \[
+              \text{CA} = 0.5 \times W_T, \quad \text{CR} = 0.5 \times W_r
+          \]
+
+    \item \textbf{Expansión a valores por hectárea (t/ha):} los valores por árbol se convierten a toneladas por hectárea mediante un \textit{factor de expansión} (\textit{Fac}), que refleja la densidad de árboles por unidad de superficie dentro de cada clase diamétrica y especie. Este factor se calcula en función del número de pies inventariados y la superficie de muestreo, permitiendo expresar los resultados en términos comparables de biomasa o carbono por hectárea.
+
+    \item \textbf{Agregación por clases diamétricas y especie:} finalmente, en la tabla \texttt{Parcelas\_exs} se agrupan los valores por parcela, especie y clase diamétrica (CD), sumando las contribuciones individuales ya expandidas. El resultado son los valores medios de biomasa y carbono por hectárea (\textit{t/ha}) para cada combinación de parcela y especie.
+\end{enumerate}
+
+\medskip
+
+El mismo procedimiento se aplica tanto a la biomasa aérea (para obtener \texttt{ca}) como a la biomasa radical (para \texttt{cr}). De esta forma, \textbf{\texttt{ca} Y \texttt{cr} representan el carbono almacenado en la biomasa viva, aérea y subterránea respectivamente, expresado en toneladas de carbono por hectárea (t/ha)}.
+
+\medskip
+
+Este enfoque metodológico se ajusta a las recomendaciones del \textit{IPCC Guidelines for National Greenhouse Gas Inventories} \cite{ipcc2006}, garantizando la coherencia con los métodos de reporte de carbono a nivel internacional y facilitando la comparación de los resultados con otros estudios y marcos regulatorios.
+
+
+\subsection{Anexo: Estado de las Poblaciones (\texttt{estado\_id})}\label{sec:EstadoIFN34}
+
+Se determinará las fases de desarrollo de las \textit{poblaciones} codificándose de la siguiente forma:
+
+\begin{enumerate}
+    \item \textbf{Repoblado}. Conjunto de pies que desde el estrato herbáceo llega hasta el subarbustivo y los pies inician la tangencia de copas.
+    \item \textbf{Monte bravo}. Comprende desde el estrato y clase de edad anterior hasta el momento en que por efecto del crecimiento, los pies empiezan a perder las ramas inferiores; es decir que en esta clase de edad, las ramas se encuentran a lo largo de todo el fuste.
+    \item \textbf{Latizal}. Comprende desde la clase anterior hasta que los pies tienen 20 cm de diámetro normal; es decir, el diámetro de su fuste, medido a la altura de 1,30 m del suelo.
+    \item \textbf{Fustal}. Se caracteriza esta clase de edad, porque sus pies tienen diámetros normales superiores a 20 cm.
+\end{enumerate}
+
+
+\subsection{Anexo: Forma Principal de Masa (IFN3 e IFN4: \texttt{fpmasa\_id})}\label{sec:FPMasa}
+
+\begin{enumerate}
+    \item \textbf{Coetánea}. Cuando al menos el 90\% de sus pies tienen la misma edad individual. Ejemplo típico: las repoblaciones.
+    \item \textbf{Regular}. Cuando al menos el 90\% de sus pies pertenecen a la misma clase artificial de edad o misma clase diamétrica en su defecto.
+    \item \textbf{Semirregular}. Cuando al menos el 90\% de sus pies pertenecen a dos clases artificiales de edad cíclicamente contiguas o dos clases diamétricas contiguas en su defecto.
+    \item \textbf{Irregular}. Cuando no se cumplen las condiciones anteriores, es decir, cuando en cualquier parte de la masa existen pies más o menos mezclados, de todas las clases de edad que tiene la masa o de varias clases diamétricas en su defecto.
+\end{enumerate}
+
+
+\subsection{Anexo: Tratamiento de la Masa (IFN3 e IFN4: \texttt{tratmasa\_id})}\label{sec:tratmasa}
+
+\begin{enumerate}
+    \item \textbf{Monte alto}. Cuando todos los pies proceden de semilla.
+    \item \textbf{Monte medio}. Cuando coexisten pies de la misma especie, unos procedentes de semilla (brinzales) y otros de brote (chirpiales).
+    \item \textbf{Monte bajo}. Cuando todos los pies proceden de brote de cepa o de raíz.
+\end{enumerate}
+
+
+\subsection{Anexo: Origen de la Masa (IFN3 e IFN4: \texttt{orgmasa\_id})}\label{sec:OrgMasa}
+
+\begin{enumerate}
+    \item \textbf{Natural}. Bosque desarrollado espontáneamente, sin intervención humana directa.
+    \item \textbf{Artificial}. Plantado intencionadamente por el ser humano.
+    \item \textbf{Naturalizado}. Bosque originalmente plantado pero que ha evolucionado hacia una estructura más similar a un bosque natural.
+\end{enumerate}
+
+
+\subsection{Anexo: Tipo de Suelo (\texttt{tipsuelo1\_id}, \texttt{tipsuelo2\_id}, \texttt{tipsuelo3\_id})}\label{sec:TipSuelo}
+
+Se utilizará la siguiente codificación para el tipo de suelo, diferenciando tres variables:
+
+\vspace{1em}
+\noindent
+\textbf{Tipo de suelo (I):} \textbf{Presencia de sales, yesos o hidromorfía}
+
+\begin{enumerate}
+    \item \textbf{No se observan sales, yesos ni procesos de fidromorfía.}
+    \item \textbf{Suelo salino.} Si presenta al menos dos de las siguientes características:
+          \begin{itemize}
+              \item Presencia de eflorescencias en la superficie o a distintas profundidades.
+              \item Existencia de plantas halófitas.
+              \item Zonas llanas o endorreicas con climas secos que provocan gran evaporación.
+          \end{itemize}
+
+
+    \item \textbf{Suelo yesífero.} Si presenta alguna de las siguientes características:
+          \begin{itemize}
+              \item Presencia de materia yesífera en superficie o a distintas profundidades.
+              \item Existencia de plantas gipsófilas.
+          \end{itemize}
+
+
+    \item \textbf{Suelo hidromorfo.} Si el suelo presenta síntomas de hidromorfía acusada, cumpliendo al menos dos de las siguientes:
+          \begin{itemize}
+              \item Zona encharcada permanente o casi permanentemente de forma natural.
+              \item Zona llana o endorreica con climas húmedos.
+              \item Grietas en verano si no hay encharcamiento.
+              \item Presencia de vegetación indicadora de hidromorfismo.
+          \end{itemize}
+\end{enumerate}
+
+Identificandose las siguientes:
+\begin{itemize}
+    \item Formaciones vegetales indicadoras de hidromorfía:
+          \begin{itemize}
+              \item Ribereñas: \textit{saucedas, mimbreras, alisedas}.
+              \item Brezales con \textit{Erica ciliaris, Erica tetralix}.
+              \item Turberas arboladas (excepto Cornisa Cantábrica y Pirineos).
+              \item Turberas de montaña con \textit{Sphagnum, Erica tetralix}.
+              \item Cervunales con \textit{Nardus stricta}.
+              \item Carrizales y espadañares (\textit{Phragmites, Tipha, Cladium}).
+              \item Juncales (\textit{Scirpus, Juncus}).
+              \item Pastizales con cárices (\textit{Carex spp.}).
+              \item Marismas.
+          \end{itemize}
+    \item Formaciones vegetales gipsófilas:
+          \begin{itemize}
+              \item Aznallar: matorral de \textit{Ononis tridentata}.
+              \item Tomillares gipsófilos con:
+                    \begin{itemize}
+                        \item \textit{Lepidium subulatum}
+                        \item \textit{Gypsophila spp.}
+                        \item \textit{Matthiola fruticulosa}
+                    \end{itemize}
+          \end{itemize}
+    \item   Formaciones vegetales indicadoras de suelos salinos:
+          \begin{itemize}
+              \item Salicorniales: matas leñosas crasas (Salicornia, Arthrocnemum, Halozylon).
+              \item Bosques halófitos del género \textit{Tamarix}.
+              \item Saladar o sosar: predominio de \textit{Suaeda vera}.
+              \item Saladar blanco: predominio de \textit{Atriplex halimus}.
+          \end{itemize}
+\end{itemize}
+
+
+\vspace{1em}
+\noindent
+\textbf{Tipo de suelo (II y III):} \textbf{Composición del suelo (calizo o silíceo)}
+
+\begin{enumerate}
+    \item \textbf{Suelo calizo.} Más del 50\,\% de la vertical del perfil da efervescencia con ácido clorhídrico.
+
+          \begin{itemize}
+              \item \textbf{Moderadamente básico:} pH en superficie $\leq$ 8.5.
+              \item \textbf{Fuertemente básico:} pH en superficie > 8.5.
+          \end{itemize}
+
+    \item \textbf{Suelo silíceo.} Menos del 50\,\% de la vertical del perfil da efervescencia.
+
+          \begin{itemize}
+              \item \textbf{Moderadamente ácido:} pH $\geq$ 5.5.
+              \item \textbf{Fuertemente ácido:} pH < 5.5.
+          \end{itemize}
+\end{enumerate}
+
+
+\subsection{Anexo: Rocosidad (\texttt{rocosidad\_id}) }\label{sec:Rocosid}
+Se considerará el conjunto de la parcela clasificando la rocosidad según la siguiente codificación:
+\begin{enumerate}
+    \item \textbf{Sin pedregosidad}: la superficie de la parcela está completamente cubierta de vegetación.
+    \item \textbf{Poco pedregoso}: cuando la superficie de la parcela cubierta por rocas coherentes es menor del 25\,\%.
+    \item \textbf{Pedregoso}: cuando la superficie rocosa está comprendida entre el 25\,\% y el 50\,\%.
+    \item \textbf{Muy pedregoso}: cuando la superficie rocosa se sitúa entre el 50\,\% y el 75\,\%.
+    \item \textbf{Roquedo}: cuando la superficie de rocas es mayor del 75\,\%. En este caso, no se tomará ningún dato adicional correspondiente a suelos.
+\end{enumerate}
+
+
+\subsection{Anexo: Textura del Suelo (\texttt{textura\_id})}\label{sec:textura}
+
+Se clasificará en función de la siguiente codificación:
+
+\begin{enumerate}
+    \item \textbf{Suelo arenoso.} Si los cilindros se deshacen sin apenas formarse.
+    \item \textbf{Suelo franco.} Es posible hacer cilindros gruesos pero no delgados.
+    \item \textbf{Suelo arcilloso.} Se consiguen cilindros de unos 5 mm de diámetro.
+\end{enumerate}
+
+
+
+\subsection{Anexo: Contenido en Materia Orgánica (IFN3 e IFN4: \texttt{matorg\_id})}\label{sec:MatOrg}
+
+Según la siguiente clasificación:
+
+\begin{enumerate}
+    \item \textbf{Suelo muy humífero.} Cuando a 15 cm la pureza es menor de 4, o cuando la capa de broza sea de espesor mayor de 5 cm y a 15 cm de profundidad la pureza sea menor de 6.
+    \item \textbf{Suelo moderadamente humífero.} Cuando a 15 cm la pureza sea menor de 6 con capa de broza nula o de escaso espesor, o cuando dicha capa tenga espesor mayor de 5 cm y a 15 cm de profundidad la pureza sea igual o mayor de 6.
+    \item \textbf{Suelo poco humífero.} En los restantes casos.
+\end{enumerate}
+
+
+\subsection{Anexo: Modelo de Combustible (IFN3 e IFN4: \texttt{modcomb\_id})}\label{sec:modComb}
+Se determinará la clase de combustible que es más probable que propague el fuego si hubiese un incendio en la zona, hasta un máximo de 60m: pasto, matorral, hojarasca de bosque o deshechos o restos de corta. Se determinará el modelo de combustible a partir de la siguiente clave:
+
+\footnotesize
+\begin{longtable}{|p{2.5cm}|c|p{9cm}|}
+    \caption{Descripción de los modelos de combustible del Inventario Forestal Nacional, clasificados por grupo funcional.}
+    \label{tab:modelos_combustible}                                                                                                                                                                                                                    \\
+    \hline
+    \rowcolor[HTML]{D9EAD3} \textbf{GRUPO}   & \textbf{MOD.} & \textbf{DESCRIPCIÓN DEL MODELO}                                                                                                                                                         \\
+    \hline
+    \endfirsthead
+    \hline
+    \rowcolor[HTML]{D9EAD3} \textbf{GRUPO}   & \textbf{MOD.} & \textbf{DESCRIPCIÓN DEL MODELO}                                                                                                                                                         \\
+    \hline
+    \endhead
+    \hline
+    \multicolumn{3}{r}{\emph{Continúa en la siguiente página}}                                                                                                                                                                                         \\
+    \endfoot
+    \hline
+    \endlastfoot
+
+    Pastos                                   & 1             & Pasto fino, seco y bajo, que recubre completamente el suelo. Puede aparecer algunas plantas leñosas dispersas ocupando menos de 1/3 de la superficie.                                   \\
+                                             & 2             & Pasto fino, seco y bajo, que recubre completamente el suelo. Las plantas leñosas dispersas cubren de 1/3 a 2/3 de la superficie; pero la propagación del fuego se realiza por el pasto. \\
+                                             & 3             & Pasto grueso, denso, seco y alto (> 1 m). Puede haber algunas plantas leñosas dispersas. Los campos de cereales son representativos de este modelo.                                     \\
+    \hline
+    Matorral                                 & 4             & Matorral o plantación joven muy densa; de más de 2 m de altura; con ramas muertas en su interior. Propagación del fuego por las copas de las plantas.                                   \\
+                                             & 5             & Matorral disperso, denso y verde, de menos de 1 m de altura. Propagación del fuego por la hojarasca, el pasto, las ramillas y el matorral.                                              \\
+                                             & 6             & Parecido al modelo 5, pero con especies más inflamables, de mayor talla, pudiéndose encontrar ramas gruesas en el suelo. Propagación del fuego con vientos moderados a fuertes.         \\
+                                             & 7             & Matorral de especies muy inflamables; de 0.5 a 2 m de altura, situado como sotobosque en masas de coníferas.                                                                            \\
+    \hline
+    Hojarasca bajo arbolado                  & 8             & Bosque denso, sin matorral. Propagación del fuego por la hojarasca muy compacta, formada por acículas cortas (5 cm o menos) o por hojas planas no muy grandes.                          \\
+                                             & 9             & Parecido al modelo 8, pero con hojarasca menos compacta, formada por acículas largas y rígidas (P. pinaster) o follaje de frondosas de hoja grande, caducas (castaño o robles).         \\
+                                             & 10            & Bosque con gran cantidad de leña y árboles caídos, como consecuencia de vendavales, plagas intensas, etc.                                                                               \\
+    \hline
+    Restos de corta y operaciones selvícolas & 11            & Bosque claro y fuertemente aclarado. Restos de poda o aclareo ligeros (diámetro < 7.5 cm).                                                                                              \\
+                                             & 12            & Predominio de los restos sobre el arbolado. La hojarasca y el matorral presente ayudarán a la propagación del fuego.                                                                    \\
+                                             & 13            & Grandes acumulaciones de restos gruesos y pesados, cubriendo todo el suelo.                                                                                                             \\
+\end{longtable}
+\normalsize
+
+
+\subsection{Anexo: Distribución Espacial (\texttt{disesp\_id})}\label{sec:disEsp}
+
+La disposición de la vegetación en el espacio se clasificará según la siguiente codificación:
+
+\begin{enumerate}
+    \item \textbf{Uniforme.} Cuando el estrato arbóreo presenta continuidad en el espacio.
+
+    \item \textbf{Diseminada en bosquetes aislados.} Cuando la masa arbórea se encuentra dividida en porciones que tienen una superficie inferior a 0,5 ha.
+
+    \item \textbf{Diseminada en individuos aislados.} Cuando se trata de dehesas.
+
+    \item[9.] \textbf{Otras o no se sabe.} En caso diferente a los anteriores o si se desconoce el dato exacto.
+\end{enumerate}
+
+
+\subsection{Anexo: Composición Específica (\texttt{comesp\_id})}\label{anexo:compesp}
+
+En función de las especies presentes:
+
+\begin{enumerate}
+    \item \textbf{Masas homogéneas o puras}. Masas monoespecíficas con una única especie arbórea. La normativa española precisa que una masa es monoespecífica o pura cuando al menos el 90\% de los pies pertenecen a la misma especie.
+
+    \item \textbf{Masas heterogéneas o mezcladas pie a pie}. Masas de diferentes especies que se juntan o bien se entremezclan por golpes o grupos, siempre que tengan una altura similar.
+
+    \item \textbf{Masas heterogéneas o mezcladas con subpiso}. Las dos o más especies mezcladas, cuando alcancen el estado adulto y la estabilidad, presentarán alturas diferentes.
+
+    \item[9.] \textbf{Otras o no se sabe}. En caso diferente a los anteriores o desconocer el dato exacto.
+\end{enumerate}
+
+
+\subsection{Anexo: Manifestaciones Erosivas (\texttt{merosiva\_id})}\label{sec:ManERo}
+
+Se observará la parcela y sus alrededores hasta una distancia de 60 metros desde el centro, y se codificará la existencia de manifestaciones erosivas según la siguiente clave:
+
+\begin{enumerate}
+    \item \textbf{No hay ninguna manifestación.}
+
+    \item \textbf{Cuellos de raíces al descubierto:} los cuellos de las raíces están visibles, con acumulación de residuos aguas arriba de los tallos y obstáculos, así como abundancia superficial de piedras.
+
+    \item \textbf{Presencia de regueros:} canales paralelos de erosión con una profundidad máxima de un palmo (aproximadamente 20 cm).
+
+    \item \textbf{Cárcavas y barrancos en V:} erosión lineal más profunda que los regueros, con forma de ``V''.
+
+    \item \textbf{Cárcavas y barrancos en U:} erosión avanzada con formas suavizadas y amplias en ``U''.
+
+    \item \textbf{Deslizamientos del terreno:} desplazamientos de masas de tierra, ladera o materiales del suelo.
+\end{enumerate}
+
+
+
+\subsection{Anexo: Nivel de usos del suelo  (IFN3 e IFN4: \texttt{nivel1\_id})}\label{sec:nivel1}
+
+\begin{enumerate}
+    \item \textbf{Monte.} Toda superficie en la que vegetan especies arbóreas, arbustivas, de matorral o herbáceas, ya sea espontáneamente o procedan de siembra o plantación, siempre que no sean características de cultivo agrícola o fueran objeto del mismo.
+    \item \textbf{Agrícola.} Territorio o ecosistema poblado con siembras o plantaciones de herbáceas y/o leñosas, anuales o plurianuales que se laborea con una fuerte intervención humana, puede estar poblado por especies forestales de fruto (flor, hojas o en el futuro biomasa) siempre que la intervención humana sea importante. Incluye las dehesas, montes huecos o montes adehesados de base cultivo, siempre que la fracción de cabida cubierta de los árboles sea inferior al 5\%.
+    \item \textbf{Artificial.} Territorio o ecosistemas dominado por edificios, parques urbanos (aunque estén poblados de árboles), viveros fuera de los montes (aunque sean de especies forestales), carreteras (salvo las vías de servicio de los montes) u otras construcciones humanas que tengan superficies continuas.
+    \item \textbf{Humedal.} Lo constituyen las lagunas, charcas, zonas húmedas, marismas y corrientes discontinuas de agua en las que, al menos durante 6 meses del año, esté presente dicho líquido.
+    \item \textbf{Agua.} Es la parte de la tierra constituida por ríos, lagos, embalses, canales o estanques con superficies continuas de más de 0.26 ha y con agua prácticamente todo el año.
+\end{enumerate}
+
+
+\subsection{Anexo: Nivel morfoestructural  (IFN3 e IFN4: \texttt{nivel2\_id})}\label{sec:nivel2}
+Para el nivel de usos del suelo Monte se definirán los siguientes niveles morfoestructurales.
+
+\begin{enumerate}
+    \item \textbf{Monte arbolado.} Territorio o ecosistema con especies forestales arbóreas como manifestación vegetal de estructura vertical dominante y con una fracción de cabida cubierta igual o superior al 20\%; incluye dehesas con base cultivo o pastizal con labores siempre que la fracción arbolada supere el 20\%, y excluye terrenos con fuerte intervención humana para obtener frutos, hojas, flores o varas.
+
+    \item \textbf{Monte arbolado ralo.} Terreno de uso forestal con especies arbóreas forestales dominantes y fracción de cabida cubierta entre el 10\% y 20\% (incluido el 10\%, excluido el 20\%); también aplica a terrenos con matorral o pastizal natural como dominantes, pero con presencia importante de árboles forestales, incluyendo dehesas de base de cultivo.
+
+    \item \textbf{Monte temporalmente desarbolado.} Terreno que fue monte arbolado recientemente y que casi con seguridad volverá a estar cubierto de árboles en un futuro próximo.
+
+    \item \textbf{Monte desarbolado.} Terreno con matorral y/o pastizal natural o débil intervención humana como cobertura dominante, con fracción de cabida cubierta por árboles forestales inferior al 5\%.
+
+    \item \textbf{Monte sin vegetación superior.} Terreno de uso forestal que no está poblado por vegetales superiores debido a condiciones actuales de suelo, clima o topografía, aunque podría estarlo en otras circunstancias.
+
+    \item \textbf{Árboles fuera del monte.} Incluye riberas arboladas no estructuradas con los montes, bosquetes de menos de 2.500 m\textsuperscript{2}, alineaciones de especies arbóreas o arbustivas de menos de 25 m de anchura, y árboles sueltos en terreno forestal.
+
+    \item \textbf{Monte arbolado disperso.} Terreno forestal con especies arbóreas dominantes y fracción de cabida cubierta entre el 5\% y el 10\% (incluido el 5\%, excluido el 10\%); también terrenos con matorral o pastizal como cobertura dominante pero con presencia significativa de árboles forestales, incluyendo dehesas de base cultivo.
+\end{enumerate}
+
+
+\subsection{Anexo: Código de los grupos taxonómicos de las especies (\texttt{grupo\_id})}\label{sec:gruposespecies}
+\begin{table}[htbp]
+    \centering
+    \small
+    \renewcommand{\arraystretch}{1.1}
+    \setlength{\tabcolsep}{6pt}
+    \caption{Relación de códigos de grupo taxonómico utilizados en la variable \texttt{grupo\_id}.}
+    \begin{tabular}{rl|rl}
+        \toprule
+        \textbf{Código} & \textbf{Grupo taxonómico} & \textbf{Código} & \textbf{Grupo taxonómico} \\
+        \midrule
+        7               & Acacia                    & 69              & Phoenix                   \\
+        15              & Crataegus                 & 73              & Betula                    \\
+        19              & Coníferas                 & 77              & Tilia                     \\
+        20              & Pinos                     & 78              & Sorbus                    \\
+        31              & Abies                     & 79              & Platanus                  \\
+        35              & Larix                     & 80              & Laurisilva                \\
+        40              & Quercus                   & 91              & Buxus                     \\
+        53              & Tamarix                   & 93              & Pistacia                  \\
+        57              & Salix                     & 94              & Laurus                    \\
+        58              & Populus                   & 95              & Prunus                    \\
+        60              & Eucalyptus                & 99              & Frondosas                 \\
+        65              & Ilex                      & 399             & Morus                     \\
+        68              & Arbutus                   & 455             & Fraxinus                  \\
+        917             & Cedrus                    & 936             & Cupressus                 \\
+        937             & Juniperus                 & 956             & Ulmus                     \\
+        975             & Juglans                   & 976             & Acer                      \\
+        997             & Sambucus                  &                 &                           \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\subsection{Anexo: Resultados}\label{anexo:resultados}
+
+\subsubsection{Ifn2 e Ifn3 como explicativo para \texttt{carbono\_bruto4} (tC)}
+\begin{table}[htbp]
+    \centering
+    \caption{Resumen del rendimiento de los modelos para la predicción de la variable de carbono en tC con el conjunto de datos que emplea IFN2 e IFN3 como explicativos.}
+    \label{tab:resultados_modelos23c}
+    \begin{tabular}{lrrrr}
+        \toprule
+        Modelo            & CV $R^2$ & Test $R^2$ & Test RMSE (tC) & Test MAE (tC) \\
+        \midrule
+        \textbf{CatBoost} & 0.8405   & 0.8454     & 13.7701        & 6.7100        \\
+        LightGBM          & 0.8399   & 0.8418     & 13.9258        & 6.6542        \\
+        XGBoost           & 0.8394   & 0.8403     & 13.9937        & 6.6695        \\
+        GBDT              & 0.8372   & 0.8372     & 14.1270        & 6.6973        \\
+        MLP               & 0.8294   & 0.8343     & 14.2546        & 7.0064        \\
+        BaggedDT          & 0.8184   & 0.8218     & 14.7801        & 7.2181        \\
+        Random Forest     & 0.8125   & 0.8163     & 15.0091        & 7.1317        \\
+        SVR               & 0.7987   & 0.7988     & 15.7059        & 6.6313        \\
+        BayesianNN        & 0.7703   & 0.7701     & 16.7897        & 8.8954        \\
+        KNN               & 0.7380   & 0.7415     & 17.8022        & 8.1109        \\
+        AdaBoost          & 0.4814   & 0.4802     & 25.2456        & 20.8181       \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+Se mantienen las conclusiones extraidas en el análisis de resultados realizado para el modelo entrenado
+con los mismos datos pero variable objetivo \texttt{c4} (tC/ha), esto es:
+\begin{itemize}
+    \item Los modelos presentan una buena capacidad de generalización.
+    \item Los modelos basados en árboles de decisión y en \textit{gradient boosting} son los que ofrecen, en general, el mejor equilibrio entre capacidad predictiva y estabilidad.
+    \item Algoritmos como AdaBoost o KNN muestran un rendimiento claramente inferior
+\end{itemize}
+
+En particular, \textbf{CatBoost} destaca como el modelo con mejor rendimiento global,
+alcanzando un $R^2 = 0.8454$ y un RMSE de $13.77$ tC/ha. Estos valores implican que el modelo
+es capaz de explicar una proporción sustancial de la variabilidad del carbono en las parcelas,
+reduciendo el error típico de predicción a menos de la mitad de la variabilidad natural de la
+variable (SD $\approx 36$ tC). Esto indica que, dentro de la complejidad inherente al problema,
+CatBoost logra capturar de manera más eficaz las relaciones no lineales presentes en los datos.
+
+
+
+\subsubsection{Resultados del \textit{stacking} frente a los modelos individuales}
+\begin{table}[htbp]
+    \centering
+    \small
+    \resizebox{\textwidth}{!}{
+        \begin{tabular}{lcccc}
+            \hline
+            \textbf{Stack}             & \textbf{Bases} & \textbf{Test $R^2$} & \textbf{RMSE}    & \textbf{MAE}    \\
+            \hline
+            % ---------- STACK 1 ----------
+            stack1\_\_GradientBoosting & 6              & 0.8423              & 13.9071          & 6.5327          \\
+            stack1\_\_LinearRegression & 6              & 0.8424              & 13.9005          & 6.6250          \\
+            stack1\_\_Ridge            & 6              & 0.8424              & 13.9005          & 6.6250          \\
+            stack1\_\_RandomForest     & 6              & 0.8113              & 15.2118          & 7.2916          \\
+            stack1\_\_SVR              & 6              & 0.8386              & 14.0695          & 6.5204          \\
+            \textbf{stack1\_\_MLP}     & 6              & 0.8432              & 13.8638          & 6.4806          \\
+            \hline
+            % ---------- STACK 2 ----------
+            stack2\_\_GradientBoosting & 4              & 0.8435              & 13.8538          & 6.5280          \\
+            stack2\_\_LinearRegression & 4              & 0.8439              & 13.8326          & 6.5844          \\
+            stack2\_\_Ridge            & 4              & 0.8439              & 13.8326          & 6.5844          \\
+            stack2\_\_RandomForest     & 4              & 0.8267              & 14.5758          & 7.0146          \\
+            stack2\_\_SVR              & 4              & 0.8405              & 13.9833          & 6.4897          \\
+            \textbf{stack2\_\_MLP}     & 4              & 0.8442              & 13.8206          & 6.5289          \\
+            \hline
+            % ---------- STACK 3 ----------
+            stack3\_\_GradientBoosting & 3              & 0.8479              & 13.6581          & 6.4281          \\
+            stack3\_\_LinearRegression & 3              & 0.8463              & 13.7272          & 6.5942          \\
+            stack3\_\_Ridge            & 3              & 0.8463              & 13.7272          & 6.5942          \\
+            stack3\_\_RandomForest     & 3              & 0.8301              & 14.4327          & 6.9187          \\
+            stack3\_\_SVR              & 3              & 0.8417              & 13.9308          & 6.4787          \\
+            \textbf{stack3\_\_MLP}     & 3              & 0.8481              & 13.6451          & 6.3674          \\
+            \hline
+            % ---------- STACK 4 ----------
+            stack4\_\_GradientBoosting & 3              & 0.8481              & 13.6470          & 6.4214          \\
+            stack4\_\_LinearRegression & 3              & 0.8471              & 13.6915          & 6.5631          \\
+            stack4\_\_Ridge            & 3              & 0.8471              & 13.6915          & 6.5630          \\
+            stack4\_\_RandomForest     & 3              & 0.8345              & 14.2450          & 6.8175          \\
+            stack4\_\_SVR              & 3              & 0.8428              & 13.8817          & 6.4555          \\
+            \textbf{stack4\_\_MLP}     & \textbf{3}     & \textbf{0.8484}     & \textbf{13.6336} & \textbf{6.4327} \\
+            \hline
+            % ---------- STACK 5 ----------
+            stack5\_\_GradientBoosting & 2              & 0.8479              & 13.6540          & 6.4258          \\
+            stack5\_\_LinearRegression & 2              & 0.8471              & 13.6899          & 6.5610          \\
+            stack5\_\_Ridge            & 2              & 0.8471              & 13.6899          & 6.5610          \\
+            stack5\_\_RandomForest     & 2              & 0.8382              & 14.0828          & 6.7136          \\
+            stack5\_\_SVR              & 2              & 0.8428              & 13.8832          & 6.4518          \\
+            \textbf{stack5\_\_MLP}     & \textbf{2}     & \textbf{0.8482}     & \textbf{13.6420} & \textbf{6.5120} \\
+            \hline
+        \end{tabular}
+    }
+    \caption{Resultados de las diferentes configuraciones de stacking utilizando IFN2 e IFN3 como explicativos de la variable en tC.}
+    \label{tab:stack_ifn2_ifn3carb}
+\end{table}
+
+
+Los resultados recogidos en la Tabla~\ref{tab:stack_ifn2_ifn3carb} muestran que el \textit{stacking} no alcanza resultados tan
+satisfactorios como en \ref{tab:stack_ifn2_ifn3c}. Esta técnica permite mejorar ligeramente el rendimiento respecto a
+los mejores modelos individuales basados en árboles y \textit{gradient boosting}. En concreto, mientras que CatBoost
+obtiene un $R^2$ de 0.8454 y un RMSE de 13.77 tC,  \textit{stacking} alcanza $R^2$ en torno a 0.8484 y reduce el RMSE hasta 13.6336 tC.
+
+
+Se observa aun patrón claro: en todas las configuraciones,
+los mejores resultados se obtienen cuando el meta-modelo es una red neuronal MLP
+(\texttt{stack3\_\_MLP}, \texttt{stack4\_\_MLP}, \texttt{stack5\_\_MLP}), seguido muy de cerca
+por los meta-modelos basados en \textit{gradient boosting}.
+
+Tomamos como mejor combinación el modelo \texttt{stack5\_\_MLP}, esto es, la combinación \texttt{MLP}
+de los modelos LightGB y Random Forest. Aunque la mejora en términos de R2 de este modelo respecto de
+CatBoost es ligera ($\varDelta 0.0003$), la variación el MAE alcanza $\varDelta 0.0667$ unidades, lo
+cual se traduce en una diferencia de 67kg de error medio. Ofrece un buen equilibrio entre una mejora
+mediocre y un aumento ligero de la complejidad del problema.
+
+
+\subsubsection{Ifn2 como explicativo para \texttt{c4} (tC/ha)}
+\begin{table}[htbp]
+    \centering
+    \caption{Resumen del rendimiento de los modelos para la predicción de la variable de carbono en tC/ha con el conjunto de datos que emplea IFN2 como explicativo.}
+    \label{tab:resultados_modelos_ifn2}
+    \begin{tabular}{lrrrr}
+        \toprule
+        Modelo        & CV $R^2$ & Test $R^2$ & Test RMSE (tC/ha) & Test MAE (tC/ha) \\
+        \midrule
+        Random Forest & 0.8081   & 0.8268     & 19.1845           & 10.1126          \\
+        XGBoost       & 0.8400   & 0.8581     & 17.3623           & 9.0307           \\
+        CatBoost      & 0.8410   & 0.8614     & 17.1604           & 9.0277           \\
+        LightGBM      & 0.8406   & 0.8563     & 17.4713           & 8.9638           \\
+        GBDT          & 0.8368   & 0.8598     & 17.2612           & 9.2273           \\
+        BaggedDT      & 0.8105   & 0.8293     & 19.0472           & 10.0722          \\
+        AdaBoost      & 0.4580   & 0.4974     & 32.6789           & 25.2755          \\
+        KNN           & 0.7433   & 0.7567     & 22.7382           & 11.9747          \\
+        MLP           & 0.8158   & 0.8266     & 19.1954           & 10.7453          \\
+        SVR           & 0.7318   & 0.7374     & 23.6220           & 10.9064          \\
+        BayesianNN    & 0.7672   & 0.7766     & 21.7868           & 11.9026          \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+Se mantienen las conclusiones extraidas en el análisis de resultados realizado para el modelo entrenado
+con la misma variable objetivo pero los datos del IFN2 e IFN3 como explicativos (\ref{tab:resultados_modelos23c}):
+\begin{itemize}
+    \item Los modelos presentan una buena capacidad de generalización.
+    \item Los modelos basados en árboles de decisión y en \textit{gradient boosting} son los que ofrecen, en general, el mejor equilibrio entre capacidad predictiva y estabilidad.
+    \item Algoritmos como AdaBoost o KNN muestran un rendimiento claramente inferior
+\end{itemize}
+
+En particular, \textbf{CatBoost} destaca como el modelo con mejor rendimiento global,
+alcanzando un $R^2 = 0.8614$ y un RMSE de $17.1604$ tC/ha. Estos valores implican que el modelo
+es capaz de explicar una proporción sustancial de la variabilidad del carbono en las parcelas,
+reduciendo el error típico de predicción a menos de la mitad de la variabilidad natural de la
+variable (SD $\approx 47$ tC/ha).
+
+\begin{table}[htbp]
+    \centering
+    \small
+    \resizebox{\textwidth}{!}{
+        \begin{tabular}{lcccc}
+            \hline
+            \textbf{Stack}             & \textbf{Bases} & \textbf{Test $R^2$} & \textbf{RMSE}    & \textbf{MAE}    \\
+            \hline
+            stack1\_\_GradientBoosting & 6              & 0.8649              & 16.9454          & 8.7640          \\
+            stack1\_\_LinearRegression & 6              & 0.8650              & 16.9342          & 8.7602          \\
+            stack1\_\_Ridge            & 6              & 0.8650              & 16.9342          & 8.7602          \\
+            stack1\_\_RandomForest     & 6              & 0.8633              & 17.0456          & 9.1193          \\
+            stack1\_\_SVR              & 6              & 0.8608              & 17.1971          & 8.5929          \\
+            stack1\_\_MLP              & 6              & \textbf{0.8673}     & \textbf{16.7925} & \textbf{8.6644} \\
+            \hline
+            stack2\_\_GradientBoosting & 4              & 0.8641              & 16.9945          & 8.7752          \\
+            stack2\_\_LinearRegression & 4              & 0.8653              & 16.9197          & 8.7680          \\
+            stack2\_\_Ridge            & 4              & 0.8653              & 16.9196          & 8.7680          \\
+            stack2\_\_RandomForest     & 4              & 0.8573              & 17.4123          & 9.1919          \\
+            stack2\_\_SVR              & 4              & 0.8614              & 17.1598          & 8.6112          \\
+            stack2\_\_MLP              & 4              & \textbf{0.8675}     & \textbf{16.7764} & \textbf{8.7338} \\
+            \hline
+            stack3\_\_GradientBoosting & 3              & 0.8594              & 17.2836          & 8.8767          \\
+            stack3\_\_LinearRegression & 3              & 0.8625              & 17.0935          & 8.8214          \\
+            stack3\_\_Ridge            & 3              & 0.8625              & 17.0935          & 8.8214          \\
+            stack3\_\_RandomForest     & 3              & 0.8527              & 17.6940          & 9.5033          \\
+            stack3\_\_SVR              & 3              & 0.8591              & 17.2998          & 8.6736          \\
+            stack3\_\_MLP              & 3              & \textbf{0.8639}     & 17.0060          & 8.8602          \\
+            \hline
+            stack4\_\_GradientBoosting & 3              & 0.8646              & 16.9618          & 8.9358          \\
+            stack4\_\_LinearRegression & 3              & 0.8645              & 16.9659          & 8.9309          \\
+            stack4\_\_Ridge            & 3              & 0.8645              & 16.9660          & 8.9309          \\
+            stack4\_\_RandomForest     & 3              & 0.8495              & 17.8810          & 9.6129          \\
+            stack4\_\_SVR              & 3              & 0.8604              & 17.2203          & 8.7753          \\
+            stack4\_\_MLP              & 3              & \textbf{0.8668}     & 16.8260          & 8.8613          \\
+            \hline
+            stack5\_\_GradientBoosting & 2              & 0.8534              & 17.6522          & 8.9497          \\
+            stack5\_\_LinearRegression & 2              & 0.8569              & 17.4362          & 8.9133          \\
+            stack5\_\_Ridge            & 2              & 0.8569              & 17.4362          & 8.9133          \\
+            stack5\_\_RandomForest     & 2              & 0.8233              & 19.3788          & 10.1032         \\
+            stack5\_\_SVR              & 2              & 0.8545              & 17.5846          & 8.7686          \\
+            stack5\_\_MLP              & 2              & \textbf{0.8561}     & 17.4875          & 8.8770          \\
+            \hline
+        \end{tabular}
+    }
+    \caption{Resultados de las diferentes configuraciones de stacking utilizando IFN2 como conjunto explicativo de la variable en tC/ha.}
+    \label{tab:stack_ifn2carb}
+\end{table}
+
+En este caso (Tabla \cite{tab:stack_ifn2carb}) la técnica de \textit{stacking} no ofrece mejoras que compensen el incremento en la complejidad del modelo. Destaca
+el uso de MLP como metamodelo.
+
+\subsubsection{Ifn2 como explicativo para \texttt{carbono\_bruto4} (tC)}
+
+\begin{table}[htbp]
+    \centering
+    \caption{Resumen del rendimiento de los modelos para la predicción de la variable de carbono en tC con el conjunto de datos que emplea IFN2 como explicativo.}
+    \label{tab:resultados_modelos2carb}
+    \begin{tabular}{lrrrr}
+        \toprule
+        Modelo            & CV $R^2$        & Test $R^2$      & Test RMSE (tC)   & MAE (tC)        \\
+        \midrule
+        Random Forest     & 0.8587          & 0.8607          & 13.0457          & 6.4514          \\
+        XGBoost           & 0.8966          & 0.8957          & 11.2890          & 5.5822          \\
+        \textbf{CatBoost} & \textbf{0.8974} & \textbf{0.8976} & \textbf{11.1825} & \textbf{5.5840} \\
+        LightGBM          & 0.8974          & 0.9007          & 11.0128          & 5.4472          \\
+        GBDT              & 0.8940          & 0.8912          & 11.5309          & 5.7745          \\
+        BaggedDT          & 0.8700          & 0.8721          & 12.5015          & 6.3180          \\
+        AdaBoost          & 0.5702          & 0.5765          & 22.7439          & 19.2913         \\
+        KNN               & 0.7803          & 0.7892          & 16.0461          & 7.9430          \\
+        MLP               & 0.8860          & 0.8890          & 11.6427          & 6.3052          \\
+        SVR               & 0.8155          & 0.8159          & 14.9943          & 7.1427          \\
+        BayesianNN        & 0.8348          & 0.8344          & 14.2244          & 7.8642          \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+Una vez más, se mantienen las conclusiones extraidas en el análisis de resultados realizado para el modelo entrenado
+con la misma variable objetivo pero los datos del IFN2 e IFN3 como explicativos (\ref{tab:resultados_modelos2carb}):
+\begin{itemize}
+    \item Los modelos presentan una buena capacidad de generalización.
+    \item Los modelos basados en árboles de decisión y en \textit{gradient boosting} son los que ofrecen, en general, el mejor equilibrio entre capacidad predictiva y estabilidad.
+    \item Algoritmos como AdaBoost o KNN muestran un rendimiento claramente inferior
+\end{itemize}
+
+En particular, \textbf{CatBoost} destaca como el modelo con mejor rendimiento global,
+alcanzando un $R^2 = 0.8976$ y un RMSE de $11.1825$ tC. Estos valores implican que el modelo
+es capaz de explicar una proporción sustancial de la variabilidad del carbono en las parcelas,
+reduciendo el error típico de predicción a menos de la mitad de la variabilidad natural de la
+variable (SD $\approx 36$ tC).
+
+\begin{table}[htbp]
+    \centering
+    \small
+    \resizebox{\textwidth}{!}{
+        \begin{tabular}{lcccc}
+            \hline
+            \textbf{Stack}             & \textbf{Bases} & \textbf{Test $R^2$} & \textbf{RMSE}    & \textbf{MAE}    \\
+            \hline
+            stack1\_\_GradientBoosting & 6              & 0.9013              & 10.9803          & 5.2917          \\
+            stack1\_\_LinearRegression & 6              & 0.9028              & 10.8960          & 5.3982          \\
+            stack1\_\_Ridge            & 6              & 0.9028              & 10.8962          & 5.3982          \\
+            stack1\_\_RandomForest     & 6              & 0.8946              & 11.3469          & 5.5493          \\
+            stack1\_\_SVR              & 6              & 0.9017              & 10.9600          & 5.2741          \\
+            stack1\_\_MLP              & 6              & \textbf{0.9043}     & \textbf{10.8148} & \textbf{5.2523} \\
+            \hline
+            stack2\_\_GradientBoosting & 4              & 0.9016              & 10.9648          & 5.2924          \\
+            stack2\_\_LinearRegression & 4              & 0.9027              & 10.9000          & 5.4073          \\
+            stack2\_\_Ridge            & 4              & 0.9027              & 10.9002          & 5.4074          \\
+            stack2\_\_RandomForest     & 4              & 0.8938              & 11.3894          & 5.6335          \\
+            stack2\_\_SVR              & 4              & 0.9016              & 10.9633          & 5.2807          \\
+            stack2\_\_MLP              & 4              & \textbf{0.9039}     & \textbf{10.8337} & 5.2856          \\
+            \hline
+            stack3\_\_GradientBoosting & 3              & 0.8989              & 11.1106          & 5.4026          \\
+            stack3\_\_LinearRegression & 3              & 0.9006              & 11.0195          & 5.4354          \\
+            stack3\_\_Ridge            & 3              & 0.9006              & 11.0196          & 5.4354          \\
+            stack3\_\_RandomForest     & 3              & 0.8868              & 11.7604          & 5.8714          \\
+            stack3\_\_SVR              & 3              & 0.8996              & 11.0728          & 5.3318          \\
+            stack3\_\_MLP              & 3              & \textbf{0.9002}     & \textbf{11.0388} & 5.4138          \\
+            \hline
+            stack4\_\_GradientBoosting & 3              & 0.8965              & 11.2463          & 5.4273          \\
+            stack4\_\_LinearRegression & 3              & 0.8979              & 11.1665          & 5.5801          \\
+            stack4\_\_Ridge            & 3              & 0.8979              & 11.1665          & 5.5801          \\
+            stack4\_\_RandomForest     & 3              & 0.8861              & 11.7940          & 5.8454          \\
+            stack4\_\_SVR              & 3              & 0.8960              & 11.2707          & 5.4679          \\
+            stack4\_\_MLP              & 3              & \textbf{0.8993}     & \textbf{11.0889} & 5.4012          \\
+            \hline
+            stack5\_\_GradientBoosting & 2              & 0.8995              & 11.0811          & 5.3741          \\
+            stack5\_\_LinearRegression & 2              & 0.9007              & 11.0163          & 5.4479          \\
+            stack5\_\_Ridge            & 2              & 0.9006              & 11.0164          & 5.4479          \\
+            stack5\_\_RandomForest     & 2              & 0.8813              & 12.0431          & 6.0737          \\
+            stack5\_\_SVR              & 2              & 0.8988              & 11.1210          & 5.3609          \\
+            stack5\_\_MLP              & 2              & \textbf{0.9011}     & \textbf{10.9941} & \textbf{5.3603} \\
+            \hline
+        \end{tabular}
+    }
+    \caption{Resultados de las diferentes configuraciones de stacking utilizando IFN2 como conjunto explicativo de la variable en tC.}
+    \label{tab:stack_ifn2_tc}
+\end{table}
+
+En este caso (Tabla \cite{tab:stack_ifn2_tc}) la técnica de \textit{stacking} no ofrece mejoras que compensen el
+incremento en la complejidad del modelo, aunque es cierto que se rompe la barrera del $R^2>0.9$. Destaca
+el uso de MLP como metamodelo.
+
+De entre los modelos entrenados para predecir \texttt{carbono\_bruto4} (tC) con IFN3 como explicativo destaca
+aquel entrenado con MLP como metamodelo para combinar \texttt{CatBoost, LightGBM, Random Forest} y \texttt{GBDT}, con un $R^2=0.9039$,
+un $RMSE=10.8387$ y un $MAE=5.2856$.
+
+
+\subsection{Anexo: Código de las especies (\texttt{especie\_id})}\label{sec:especies}
+
+\footnotesize
+\begin{longtable}{r p{4cm} p{5cm} c c}
+    \caption{Relación de especies empleadas en el estudio y metadatos asociados.} \label{anexo:especies}                               \\
+    \toprule
+    \textbf{Cód.} & \textbf{Nombre}                   & \textbf{Sinonimia}                            & \textbf{Tipo} & \textbf{Grupo} \\
+    \midrule
+    \endfirsthead
+    \caption[]{Relación de especies (continuación).}                                                                                   \\
+    \toprule
+    \textbf{Cód.} & \textbf{Nombre}                   & \textbf{Sinonimia}                            & \textbf{Tipo} & \textbf{Grupo} \\
+    \midrule
+    \endhead
+    \midrule
+    \multicolumn{5}{r}{\emph{Continúa en la siguiente página}}                                                                         \\
+    \endfoot
+    \bottomrule
+    \endlastfoot
+    307           & Acacia dealbata                   & Acacia dealbata                               & 1             & 7              \\
+    207           & Acacia melanoxylon                & Acacia melanoxylon                            & 1             & 7              \\
+    7             & Acacia spp.                       & -                                             & 1             & 7              \\
+    392           & Gleditsia triacanthos             & Acacia gleditsia                              & 1             & 7              \\
+    92            & Robinia pseudoacacia              & Acacia robinia                                & 1             & 7              \\
+    292           & Sophora japonica                  & Acacia sofora                                 & 1             & 7              \\
+    515           & Crataegus azarolus                & Espino                                        & 1             & 15             \\
+    415           & Crataegus laciniata               & Majoleto                                      & 1             & 15             \\
+    315           & Crataegus laevigata               & Espino majuelo                                & 1             & 15             \\
+    215           & Crataegus monogyna                & Majuelo                                       & 1             & 15             \\
+    15            & Crataegus spp.                    & -                                             & 1             & 15             \\
+    30            & Mezcla de coníferas               & Coníferas | excepto pinos                     & 0             & 19             \\
+    19            & Otras coníferas                   & -                                             & 0             & 19             \\
+    29            & Otros pinos                       & -                                             & 0             & 20             \\
+    20            & Pinos                             & -                                             & 0             & 20             \\
+    27            & Pinus canariensis                 & -                                             & 0             & 20             \\
+    24            & Pinus halepensis                  & -                                             & 0             & 20             \\
+    25            & Pinus nigra                       & Pinus laricio | Pinus clusiana                & 0             & 20             \\
+    26            & Pinus pinaster                    & Pinus maritima                                & 0             & 20             \\
+    23            & Pinus pinea                       & -                                             & 0             & 20             \\
+    28            & Pinus radiata                     & Pinus insignis                                & 0             & 20             \\
+    21            & Pinus sylvestris                  & -                                             & 0             & 20             \\
+    22            & Pinus uncinata                    & Pinus montana | Pinus mugo                    & 0             & 20             \\
+    31            & Abies alba                        & Abies pectinata                               & 0             & 31             \\
+    32            & Abies pinsapo                     & -                                             & 0             & 31             \\
+    235           & Larix decidua                     & Alerce común                                  & 0             & 35             \\
+    335           & Larix leptolepis                  & Larix kaempferi | Alerce leptolepis           & 0             & 35             \\
+    35            & Larix spp.                        & -                                             & 0             & 35             \\
+    435           & Larix x eurolepis                 & Alerce híbrido                                & 0             & 35             \\
+    49            & Otros quercus                     & -                                             & 1             & 40             \\
+    344           & Quercus alpestris                 & -                                             & 1             & 40             \\
+    47            & Quercus canariensis               & Quercus lusitanica var. baetica               & 1             & 40             \\
+    44            & Quercus faginea                   & Quercus lusitanica var. faginea               & 1             & 40             \\
+    45            & Quercus ilex ssp. ballota         & Quercus rotundifolia                          & 1             & 40             \\
+    245           & Quercus ilex ssp. ilex            & -                                             & 1             & 40             \\
+    244           & Quercus lusitanica                & Quercus fruticosa | Quejigueta                & 1             & 40             \\
+    42            & Quercus petraea                   & Quercus sessiliflora                          & 1             & 40             \\
+    243           & Quercus pubescens                 & Quercus pubescens | Quercus humilis           & 1             & 40             \\
+    43            & Quercus pyrenaica                 & Quercus toza                                  & 1             & 40             \\
+    41            & Quercus robur                     & Quercus pedunculata                           & 1             & 40             \\
+    48            & Quercus rubra                     & Quercus borealis                              & 1             & 40             \\
+    46            & Quercus suber                     & -                                             & 1             & 40             \\
+    253           & Tamarix canariensis               & Tarajal                                       & 1             & 53             \\
+    53            & Tamarix spp.                      & -                                             & 1             & 53             \\
+    257           & Salix alba                        & Sauce blanco                                  & 1             & 57             \\
+    357           & Salix atrocinerea                 & Bardaguera                                    & 1             & 57             \\
+    858           & Salix canariensis                 & Sauce canario                                 & 1             & 57             \\
+    557           & Salix cantabrica                  & Sauce cantábrico                              & 1             & 57             \\
+    657           & Salix caprea                      & Sauce cabruno                                 & 1             & 57             \\
+    757           & Salix elaeagnos                   & Sarga                                         & 1             & 57             \\
+    857           & Salix fragilis                    & Mimbre                                        & 1             & 57             \\
+    957           & Salix purpurea                    & Mimbrera                                      & 1             & 57             \\
+    57            & Salix spp.                        & -                                             & 1             & 57             \\
+    51            & Populus alba                      & -                                             & 1             & 58             \\
+    58            & Populus nigra                     & -                                             & 1             & 58             \\
+    52            & Populus tremula                   & -                                             & 1             & 58             \\
+    258           & Populus x canadensis              & Populus x euroamericana                       & 1             & 58             \\
+    62            & Eucalyptus camaldulensis          & Eucalyptus rostrata                           & 1             & 60             \\
+    61            & Eucalyptus globulus               & -                                             & 1             & 60             \\
+    364           & Eucalyptus gomphocephalus         & Eucalipto gonfo                               & 1             & 60             \\
+    64            & Eucalyptus nitens                 & -                                             & 1             & 60             \\
+    464           & Eucalyptus robusta                & -                                             & 1             & 60             \\
+    264           & Eucalyptus viminalis              & Eucalipto viminalis                           & 1             & 60             \\
+    63            & Otros eucaliptos                  & -                                             & 1             & 60             \\
+    65            & Ilex aquifolium                   & -                                             & 1             & 65             \\
+    82            & Ilex canariensis                  & -                                             & 1             & 65             \\
+    282           & Ilex platyphylla                  & Naranjero                                     & 1             & 65             \\
+    268           & Arbutus canariensis               & Madroño canario                               & 1             & 68             \\
+    68            & Arbutus unedo                     & -                                             & 1             & 68             \\
+    469           & Phoenix canariensis               & Palmera                                       & 1             & 69             \\
+    69            & Phoenix spp.                      & -                                             & 1             & 69             \\
+    273           & Betula alba                       & Betula verrucosa | Abedul pubescens           & 1             & 73             \\
+    373           & Betula pendula                    & Betula hispanica | Abedul péndula             & 1             & 73             \\
+    73            & Betula spp.                       & -                                             & 1             & 73             \\
+    277           & Tilia cordata                     & Tilo cordata                                  & 1             & 77             \\
+    377           & Tilia platyphyllos                & Tilo común                                    & 1             & 77             \\
+    77            & Tilia spp.                        & -                                             & 1             & 77             \\
+    278           & Sorbus aria                       & Mostajo                                       & 1             & 78             \\
+    378           & Sorbus aucuparia                  & Serbal de cazadores                           & 1             & 78             \\
+    778           & Sorbus chamaemespilus             & Serbal chame                                  & 1             & 78             \\
+    478           & Sorbus domestica                  & Serbal común                                  & 1             & 78             \\
+    678           & Sorbus latifolia                  & Serbal de hoja ancha                          & 1             & 78             \\
+    78            & Sorbus spp.                       & -                                             & 1             & 78             \\
+    578           & Sorbus torminalis                 & Serbal torminal                               & 1             & 78             \\
+    79            & Platanus hispanica                & Platanus hybrida                              & 1             & 79             \\
+    279           & Platanus orientalis               & Plátano oriental                              & 1             & 79             \\
+    80            & Laurisilva                        & -                                             & 1             & 80             \\
+    89            & Otras laurisilvas                 & -                                             & 1             & 80             \\
+    291           & Buxus balearica                   & Boj de Baleares                               & 1             & 91             \\
+    91            & Buxus sempervirens                & -                                             & 1             & 91             \\
+    293           & Pistacia atlantica                & Cornicabra canaria                            & 1             & 93             \\
+    93            & Pistacia terebinthus              & Cornicabra                                    & 1             & 93             \\
+    294           & Laurus azorica                    & Laurel canario                                & 1             & 94             \\
+    94            & Laurus nobilis                    & Laurel                                        & 1             & 94             \\
+    395           & Prunus avium                      & Cerezo silvestre                              & 1             & 95             \\
+    495           & Prunus lusitanica                 & Loro | hija                                   & 1             & 95             \\
+    595           & Prunus padus                      & Prunus                                        & 1             & 95             \\
+    295           & Prunus spinosa                    & Espino negro                                  & 1             & 95             \\
+    95            & Prunus spp.                       & Prunus                                        & 1             & 95             \\
+    70            & Mezcla de frondosas de gran porte & Frondosas de gran porte (H.t. > 10 m)         & 1             & 99             \\
+    90            & Mezcla de pequeñas frondosas      & Frondosas de pequeño porte (H.t. $\leq$ 10 m) & 1             & 99             \\
+    99            & Otras frondosas                   & Otras frondosas                               & 1             & 99             \\
+    499           & Morus alba                        & Morera                                        & 1             & 399            \\
+    599           & Morus nigra                       & Morera                                        & 1             & 399            \\
+    399           & Morus spp.                        & Morera                                        & 1             & 399            \\
+    55            & Fraxinus angustifolia             & -                                             & 1             & 455            \\
+    255           & Fraxinus excelsior                & Fresno excelsior                              & 1             & 455            \\
+    355           & Fraxinus ornus                    & Fresno orno                                   & 1             & 455            \\
+    955           & Fraxinus spp.                     & Fresnos                                       & 1             & 455            \\
+    17            & Cedrus atlantica                  & -                                             & 0             & 917            \\
+    217           & Cedrus deodara                    & Cedrus deodara                                & 0             & 917            \\
+    317           & Cedrus libani                     & Cedrus libani                                 & 0             & 917            \\
+    917           & Cedrus spp.                       & Cedrus spp.                                   & 0             & 917            \\
+    337           & Juniperus cedrus                  & Enebro canario                                & 0             & 917            \\
+    236           & Cupressus arizonica               & Ciprés arizónica                              & 0             & 936            \\
+    336           & Cupressus lusitanica              & Ciprés lambertiana                            & 0             & 936            \\
+    436           & Cupressus macrocarpa              & Ciprés americano                              & 0             & 936            \\
+    36            & Cupressus sempervirens            & -                                             & 0             & 936            \\
+    936           & Cupressus spp.                    & Cipres                                        & 0             & 936            \\
+    37            & Juniperus communis                & -                                             & 0             & 937            \\
+    237           & Juniperus oxycedrus               & Enebro oxicedro                               & 0             & 937            \\
+    39            & Juniperus phoenicea               & -                                             & 0             & 937            \\
+    239           & Juniperus sabina                  & Sabina rastrera                               & 0             & 937            \\
+    937           & Juniperus spp.                    & Enebros y sabinas                             & 0             & 937            \\
+    38            & Juniperus thurifera               & -                                             & 0             & 937            \\
+    238           & Juniperus turbinata               & Sabina canaria                                & 0             & 937            \\
+    256           & Ulmus glabra                      & Ulmus montana                                 & 1             & 956            \\
+    56            & Ulmus minor                       & Ulmus campestris                              & 1             & 956            \\
+    356           & Ulmus pumila                      & Olmo pumilo                                   & 1             & 956            \\
+    956           & Ulmus spp.                        & Olmo                                          & 1             & 956            \\
+    275           & Juglans nigra                     & Nogal                                         & 1             & 975            \\
+    75            & Juglans regia                     & -                                             & 1             & 975            \\
+    975           & Juglans spp.                      & -                                             & 1             & 975            \\
+    76            & Acer campestre                    & -                                             & 1             & 976            \\
+    276           & Acer monspessulanum               & Arce de Montpelier                            & 1             & 976            \\
+    376           & Acer negundo                      & Negundo fraxinifolia | Arce negundo           & 1             & 976            \\
+    476           & Acer opalus                       & Arce ópalus                                   & 1             & 976            \\
+    676           & Acer platanoides                  & Arce platanoide                               & 1             & 976            \\
+    576           & Acer pseudoplatanus               & Arce seudoplátano                             & 1             & 976            \\
+    976           & Acer spp.                         & Arces                                         & 1             & 976            \\
+    97            & Sambucus nigra                    & Saúco negro                                   & 1             & 997            \\
+    297           & Sambucus racemosa                 & Saúco racemosa                                & 1             & 997            \\
+    997           & Sambucus spp.                     & -                                             & 1             & 997            \\
+    11            & Ailanthus altissima               & Ailanthus glandulosa                          & 1             & -              \\
+    54            & Alnus glutinosa                   & -                                             & 1             & -              \\
+    2             & Amelanchier ovalis                & Guillomo                                      & 1             & -              \\
+    88            & Apollonias barbujana              & Apollonias canariensis                        & 1             & -              \\
+    98            & Carpinus betulus                  & Carpe                                         & 1             & -              \\
+    72            & Castanea sativa                   & Castanea vesca                                & 1             & -              \\
+    13            & Celtis australis                  & -                                             & 1             & -              \\
+    67            & Ceratonia siliqua                 & -                                             & 1             & -              \\
+    18            & Chamaecyparis lawsoniana          & -                                             & 0             & -              \\
+    369           & Chamaerops humilis                & Palmito                                       & 1             & -              \\
+    9             & Cornus sanguinea                  & -                                             & 1             & -              \\
+    74            & Corylus avellana                  & -                                             & 1             & -              \\
+    569           & Dracaena draco                    & Drago                                         & 1             & -              \\
+    83            & Erica arborea                     & -                                             & 1             & -              \\
+    283           & Erica scoparia                    & Tejo | brezo arbóreo escopario                & 1             & -              \\
+    5             & Euonymus europaeus                & -                                             & 1             & -              \\
+    71            & Fagus sylvatica                   & -                                             & 1             & -              \\
+    299           & Ficus carica                      & Higuera                                       & 1             & -              \\
+    3             & Frangula alnus                    & Rhamnus frangula                              & 1             & -              \\
+    1             & Heberdenia bahamensis             & Heberdenia excelsa                            & 1             & -              \\
+    12            & Malus sylvestris                  & -                                             & 1             & -              \\
+    60            & Mezcla de eucaliptos              & Eucaliptos                                    & 1             & -              \\
+    50            & Mezcla de árboles de ribera       & Árboles ripícolas                             & 1             & -              \\
+    81            & Myrica faya                       & -                                             & 1             & -              \\
+    281           & Myrica rivasmartinezii            & -                                             & 1             & -              \\
+    6             & Myrtus communis                   & -                                             & 1             & -              \\
+    87            & Ocotea phoetens                   & -                                             & 1             & -              \\
+    66            & Olea europaea                     & Olea oleaster                                 & 1             & -              \\
+    59            & Otros árboles ripícolas           & -                                             & 1             & -              \\
+    84            & Persea indica                     & -                                             & 1             & -              \\
+    8             & Phillyrea latifolia               & -                                             & 1             & -              \\
+    86            & Picconia excelsa                  & Notelaea excelsa                              & 1             & -              \\
+    33            & Picea abies                       & Picea excelsa                                 & 0             & -              \\
+    289           & Pleiomeris canariensis            & Delfino                                       & 1             & -              \\
+    34            & Pseudotsuga menziesii             & Pseudotsuga douglasii                         & 0             & -              \\
+    16            & Pyrus spp.                        & -                                             & 1             & -              \\
+    40            & Quercus                           & -                                             & 1             & -              \\
+    4             & Rhamnus alaternus                 & Aladierno                                     & 1             & -              \\
+    389           & Rhamnus glandulosa                & Sanguino                                      & 1             & -              \\
+    96            & Rhus coriaria                     & Zumaque                                       & 1             & -              \\
+    457           & Salix babylonica                  & Sauce llorón                                  & 1             & -              \\
+    85            & Sideroxylon marmulano             & -                                             & 1             & -              \\
+    10            & Sin asignar                       & Sin asignar                                   & 1             & -              \\
+    14            & Taxus baccata                     & -                                             & 0             & -              \\
+    219           & Tetraclinis articulata            & Tetraclinis articulata                        & 0             & -              \\
+    319           & Thuja spp.                        & Thuja                                         & 0             & -              \\
+    489           & Visnea mocanera                   & Mocan                                         & 1             & -              \\
+\end{longtable}
+
+

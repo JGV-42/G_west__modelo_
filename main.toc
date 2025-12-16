@@ -15,7 +15,7 @@
 \contentsline {subsection}{\numberline {5.1}Origen y estructura de los datos}{11}{subsection.5.1}%
 \contentsline {subsection}{\numberline {5.2}Variables objetivo}{15}{subsection.5.2}%
 \contentsline {subsection}{\numberline {5.3}Supuestos de elegibilidad y verificación externa}{16}{subsection.5.3}%
-\contentsline {subsection}{\numberline {5.4}Preparación y tratamiento de los datos}{19}{subsection.5.4}%
+\contentsline {subsection}{\numberline {5.4}Preparación y tratamiento de los datos}{18}{subsection.5.4}%
 \contentsline {subsection}{\numberline {5.5}Partición y validación}{21}{subsection.5.5}%
 \contentsline {subsection}{\numberline {5.6}Selección de variables explicativas}{22}{subsection.5.6}%
 \contentsline {subsubsection}{\numberline {5.6.1}Selección automática mediante Featurewiz}{22}{subsubsection.5.6.1}%
