@@ -1,6 +1,6 @@
 \section{Implementación de los modelos}
 
-El desarrollo y evaluación de los modelos predictivos se realizó íntegramente en \textbf{Python}, utilizando principalmente la librería \texttt{scikit-learn}, junto con implementaciones específicas de gradient boosting como \texttt{XGBoost}, \texttt{LightGBM} y \texttt{CatBoost}. El entrenamiento se llevó a cabo en un entorno local, en un equipo con procesador Intel Core i7 y 32 GB de RAM, lo que permitió realizar experimentos de forma eficiente con un conjunto de datos de tamaño considerable (\textasciitilde{}80.000 muestras).
+El desarrollo y evaluación de los modelos predictivos se realizó íntegramente en \textbf{Python}, utilizando librerías como \texttt{scikit-learn}, \texttt{cuML} y \texttt{PyTorch}, junto con implementaciones específicas de gradient boosting como \texttt{XGBoost}, \texttt{LightGBM} y \texttt{CatBoost}. El entrenamiento se llevó a cabo en dos fases. Para los modelos cuyos datos de entrenamiento provenían solo del IFN3 se uso un equipo local con procesador Intel Core i7 y 32 GB de RAM. Los modelos que usaban los datos del IFN2 e IFN3 se empleo el ordenador de HPC de la Universidad de Salamanca. Esto fue por la posibilidad de usar tarjetas gráficas Nvidia H100, que aceleraba mucho el entrenamiento para los modelos que tienen opción a ejecutarse en una GPU gracias a la posibilidad de paralelización. No obstante, el entrenamiento se podría hacer llevado a cabo en un equipo de escritorio equipado con una tarjeta gráfica comercial, ya que los requisitos no son tan altos.
 
 \subsection{Preparación del conjunto de datos}
 
@@ -115,3 +115,76 @@ Sobre estas meta-características se ajustaron distintos meta-modelos (\texttt{m
 Antes del meta-modelo se incluyó un \texttt{StandardScaler} aplicado sobre las meta-características, de forma que se estabiliza el entrenamiento cuando se combinan modelos con escalas de salida diferentes.
 
 Cada combinación \textit{(configuración de bases, meta-modelo)} define un \textit{stack} distinto. Para cada uno de ellos se evaluó el rendimiento en el conjunto de prueba en términos de \(R^2\), RMSE y MAE, seleccionando finalmente el \textbf{stack} con mejor \(R^2\) en prueba (y, en caso de empate, menor RMSE) como modelo final de referencia.
+
+\subsection{Datos finales de entrenamiento}
+\label{subsec:datos_finales_entrenamiento}
+
+Tras aplicar los criterios de elegibilidad y filtrado descritos en la
+Sección~\ref{subsec:filtrado_registros}, el conjunto de datos final utilizado
+para el ajuste de los modelos queda compuesto por:
+
+\begin{itemize}
+    \item \textbf{IFN2:} Total de parcelas = \textbf{88.696}
+          \begin{itemize}
+              \item Casos con $c4 > c$: \textbf{31.428}
+              \item Casos con $carbono\_bruto4 > carbono\_bruto$: \textbf{32.403}
+          \end{itemize}
+
+    \item \textbf{IFN3:} Total de parcelas = \textbf{171.157}
+          \begin{itemize}
+              \item Casos con $fccarb > 20$: \textbf{158.434}
+              \item Casos con $fccarb > 20$ y $c4 > c$: \textbf{57.401}
+              \item Casos con $fccarb > 20$ y $carbono\_bruto4 > carbono\_bruto$: \textbf{76.617}
+          \end{itemize}
+\end{itemize}
+
+La Tabla~\ref{tab:resumen_variables} resume las principales estadísticas
+descriptivas de las variables utilizadas en el modelado, adicionalmente en la Figura~\ref{fig:hist_c4} se muestra la distribución de las mismas.
+
+\begin{table}[htbp]
+    \centering
+    \caption{Estadísticos descriptivos del conjunto de datos depurado.}
+    \label{tab:resumen_variables}
+    \begin{tabular}{lrrrrr}
+        \toprule
+        Variable        & N        & Media   & Desv.\ estándar & Mín.     & Máx.       \\
+        \midrule
+        carbono\_bruto4 & 136\,325 & 24.6168 & 35.8198         & 0.000327 & 420.498829 \\
+        carbono\_bruto  & 114\,485 & 15.9326 & 26.3052         & 0        & 359.805707 \\
+        c4              & 105\,714 & 38.3789 & 47.0348         & 0.484695 & 883.462735 \\
+        c               & 92\,372  & 23.4399 & 34.9622         & 0        & 842.739088 \\
+        periodo         & 105\,709 & 18.3167 & 6.4853          & 0        & 34         \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+A partir de los estadísticos descriptivos de la Tabla~\ref{tab:resumen_variables} se observa que la variable
+\texttt{carbono\_bruto4} presenta una media de 24.62 y una desviación estándar de 35.82, mientras que la variable
+\texttt{c4} muestra valores notablemente superiores (media de 38.38 y desviación estándar de 47.03).
+
+Esta diferencia implica que \texttt{c4} es una variable más dispersa y heterogénea que \texttt{carbono\_bruto4}. En general, una mayor variabilidad en la variable objetivo se traduce en un problema de predicción más complejo, ya que el modelo debe capturar relaciones más inestables y sujetas a mayor ruido.
+
+Por tanto, incluso antes de evaluar los modelos, es razonable esperar que una misma familia de algoritmos obtenga valores de $R^2$ más elevados y errores más bajos (RMSE, MAE) al predecir \texttt{carbono\_bruto4}, cuya estructura estadística es menos dispersa, que al predecir \texttt{c4}.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=1\textwidth]{figuras/histograma_c.png}
+    \caption{Distribución de las variables \texttt{c4} y \texttt{carbono\_bruto4} en el conjunto depurado.}
+    \label{fig:hist_c4}
+\end{figure}
+
+Observamos una clara distribución asimétrica a la izquierda con una larga cola en ambas variables. No existe un factor de escala único que lleve de una variable a la otra porque la generalización a hectárea tiene en cuenta la densidad forestal particular de cada parcela.
+
+\subsubsection{Efecto del periodo sobre el carbono}
+\label{subsec:resultados_periodo_anova}
+
+La influencia del \textit{periodo} sobre las variables de carbono se evaluó
+mediante ANOVA de un factor. Los análisis realizados \
+muestran que el \textit{periodo} ejerce un efecto significativo sobre ambas
+variables. En \texttt{c4} se obtuvo un estadístico
+\(F = 143.49\) \((p < 0.001)\), mientras que en \texttt{carbono\_bruto4}
+el valor fue \(F = 161.08\) \((p < 0.001)\).
+Estos resultados indican que las diferencias observadas entre periodos
+no son aleatorias, sino que reflejan variaciones sistemáticas asociadas al
+momento de muestreo, confirmando que el \textit{periodo} constituye un factor
+explicativo relevante en la dinámica del carbono forestal.

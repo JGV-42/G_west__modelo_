@@ -1,0 +1,187 @@
+\section{Entrenamiento y validación}
+
+El proceso de entrenamiento se estructuró en varias fases orientadas a optimizar tanto la selección de variables predictoras como la robustez del modelo final. En primer lugar, se llevó a cabo una etapa de \textbf{selección de variables}, en la que se evaluaron distintos subconjuntos de características definidos por bloques temáticos con significado ecológico y funcional. Para esta tarea se adoptó un enfoque sistemático basado en la comparación del desempeño predictivo de las distintas combinaciones mediante el algoritmo \texttt{CatBoost}, seleccionado tras pruebas preliminares que mostraron su alta capacidad de ajuste y estabilidad frente a la heterogeneidad de los datos. En todas las configuraciones se mantuvo constante la variable objetivo (carbono capturado) y los parámetros del modelo, de modo que las variaciones en el coeficiente de determinación ($R^2$) y el error cuadrático medio (RMSE) reflejaran exclusivamente la contribución informativa de cada bloque.
+
+Las configuraciones analizadas incorporaron progresivamente variables relacionadas con las características de la especie, las propiedades edáficas, el terreno, las condiciones climáticas y los índices de vegetación. A partir de los resultados obtenidos, se identificaron los bloques con mayor aporte marginal al rendimiento del modelo, priorizando aquellos cuya inclusión mejoró consistentemente el $R^2$ sin aumentar de forma significativa la complejidad o redundancia del conjunto de predictores.
+
+En una segunda fase, se procedió al \textbf{entrenamiento comparativo de modelos}, implementando un conjunto de algoritmos de aprendizaje supervisado con el fin de contrastar su capacidad predictiva. Entre los estimadores evaluados se incluyeron \texttt{LightGBM}, \texttt{Random Forest}, \texttt{XGBoost}, \texttt{CatBoost}, \texttt{Gradient Boosting}, \texttt{Bagging Regressor}, \texttt{AdaBoost}, \texttt{KNN}, \texttt{MLP}, \texttt{SVR} y \texttt{Bayesian Ridge}. Cada modelo fue entrenado bajo las mismas condiciones experimentales, utilizando las configuraciones de variables seleccionadas en la fase anterior. Esta comparación permitió identificar los algoritmos con mejor ajuste global y menor error de predicción, destacando de nuevo el desempeño de \texttt{CatBoost}.
+
+Posteriormente, se implementó una estrategia de \textbf{stacking}, combinando las predicciones de los modelos individuales mediante un metamodelo de segundo nivel, con el objetivo de aprovechar la complementariedad entre los distintos enfoques y mejorar la capacidad de generalización.
+
+Finalmente, el modelo seleccionado se \textbf{reentrenó con validación cruzada estratificada por grupos}, definidos según el periodo temporal de la observación. Este esquema de validación cruzada por grupos permitió evaluar la estabilidad del modelo frente a periodos no observados durante el entrenamiento, garantizando así su capacidad de generalización temporal y la fiabilidad de las predicciones en escenarios futuros.
+
+
+
+%--------------------------------------------------
+\subsection{Elección de variables}
+
+\subsubsection{Resultados de la selección de variables manual}
+
+La selección manual de variables partió de una organización temática del conjunto de
+predictores, agrupando las variables según el tipo de información ecológica,
+estructural o climática que representan. Esta clasificación permitió estructurar
+el proceso de reducción dimensional en torno a los siguientes bloques conceptuales:
+
+\begin{itemize}
+    \item \textbf{Bloque de variables fijas}: describe la estructura básica de la
+          masa forestal y los atributos esenciales de identificación y caracterización
+          general de cada parcela.
+    \item \textbf{Bloque de variables de especie}: recoge información relativa a la composición, estado y características específicas de las formaciones forestales.
+    \item \textbf{Bloque sustrato}: integra variables edáficas y de manejo susceptibles de variar en el tiempo.
+    \item \textbf{Bloque de terreno}: agrupa propiedades físicas del medio que permanecen estables a escala temporal de inventarios (pendiente, orientación, tipo de suelo, etc.).
+    \item \textbf{Bloque climático resumido}: representado por el índice de aridez de Martonne, que sintetiza la interacción entre temperatura y precipitación.
+    \item \textbf{Bloque climático detallado}: incluye métricas estacionales explícitas de temperatura y precipitación.
+    \item \textbf{Bloque de índices de vegetación}: recoge información espectral relacionada con el estado hídrico, vigor y actividad fotosintética de la vegetación.
+\end{itemize}
+
+En total, la base de datos contenía inicialmente 445 variables candidatas distribuidas entre estos bloques temáticos. Tras aplicar el procedimiento de selección manual —apoyado en criterios estadísticos, ecológicos y en la comparación del rendimiento del modelo— el conjunto se redujo a 44 variables representativas. Las variables finalmente seleccionadas dentro de cada bloque fueron las siguientes:
+
+\begin{itemize}
+    \item \textbf{Bloque de variables fijas}:
+          \texttt{especie\_id}, \texttt{tipo\_especie}, \texttt{grupo\_id}, \texttt{periodo}, \texttt{radio}, \texttt{ocupa},
+          \texttt{npies\_1}, \texttt{npies\_2}, \texttt{npies\_5},
+          \texttt{npies\_10}, \texttt{npies\_15}, \texttt{npies\_20},
+          \texttt{npies\_25}, \texttt{npies\_30}, \texttt{npies\_35},
+          \texttt{npies\_40}, \texttt{npies\_45}, \texttt{npies\_50},
+          \texttt{npies\_55}, \texttt{npies\_60}, \texttt{npies\_65},
+          \texttt{npies\_70}.
+
+    \item \textbf{Bloque de variables de especie}:
+          \texttt{estado\_id}, \texttt{fccarb}, \texttt{disesp\_id}.
+
+    \item \textbf{Bloque sustrato (dinámico)}:
+          \texttt{modcomb\_id}, \texttt{nivel2\_id},
+          \texttt{tratmasa\_id}.
+
+    \item \textbf{Bloque de terreno}:
+          \texttt{rocosidad\_id},
+          \texttt{orientacion\_cat}, \texttt{elevacion}, \texttt{pendiente\_cat}.
+
+    \item \textbf{Bloque climático resumido (Martonne)}:
+          \texttt{martonneidx\_id}.
+
+    \item \textbf{Bloque climático detallado (temperatura y precipitación)}:
+          \texttt{skt\_mean\_primavera}, \texttt{skt\_mean\_verano},
+          \texttt{skt\_std\_primavera}, \texttt{skt\_std\_verano},
+          \texttt{pr\_sum\_invierno}, \texttt{pr\_sum\_otoño},
+          \texttt{pr\_sum\_primavera}, \texttt{pr\_sum\_verano}.
+
+    \item \textbf{Bloque de índices de vegetación}:
+          \texttt{gndvi\_mean\_verano}, \texttt{ndii\_mean\_primavera},
+          \texttt{gndvi\_std\_primavera}, \texttt{evi\_mean\_primavera}.
+\end{itemize}
+
+Este proceso permitió sintetizar la información original manteniendo una representación equilibrada de todos los ámbitos ecológicos implicados en la estimación del carbono.
+
+La comparación de modelos entrenados con combinaciones incrementales de bloques mostró que todos ellos aportan información relevante, siguiendo el orden de contribución aproximado: \textit{variables fijas} $>$ \textit{variables de especie} $>$ \textit{sustrato} $>$ \textit{terreno} $>$ \textit{índices de vegetación} $>$ \textit{Martonne} $>$ \textit{temperatura y precipitación}. Es decir, la mayor parte de la capacidad predictiva se explica por la estructura y composición de la masa forestal, mientras que las condiciones edáficas, topográficas y climáticas actúan como moduladores adicionales de la acumulación de carbono.
+
+\subsubsection{Selección de variables mediante \textit{Featurewiz}}
+
+Aplicado al conjunto completo de predictores, \textit{Featurewiz} seleccionó \textbf{67 variables}. El patrón resultante muestra una clara preferencia por dos grandes grupos: (i) \textbf{índices de vegetación} derivados de Sentinel-2 y (ii) \textbf{variables térmicas estacionales}. El algoritmo retuvo numerosas estadísticas de NDII, EVI, GNDVI y NDVI (medias, máximos, mínimos, medianas y desviaciones estándar), especialmente durante primavera y verano, reflejando la relevancia del estado hídrico y el vigor fotosintético en la estimación del carbono.
+
+Asimismo, se seleccionaron múltiples métricas de temperatura del aire y del suelo (\texttt{t2m\_*}, \texttt{skt\_*}, \texttt{stl\_*}) y diversas variables de precipitación (\texttt{pr\_sum\_*}, \texttt{pr\_max\_*}, \texttt{pr\_min\_*}), lo que muestra sensibilidad del método a las condiciones climáticas estacionales. El índice de aridez de Martonne también fue seleccionado, aportando una medida sintetizada del balance térmico-hídrico.
+
+Finalmente, el algoritmo incluyó un conjunto contenido pero representativo de variables estructurales (número de pies por clase diamétrica), de especie y de terreno, indicando que dichas variables aportan información complementaria necesaria para la predicción.
+
+\subsubsection{Selección de variables mediante \textit{mRMR}}
+
+El método \textit{mRMR} seleccionó un total de \textbf{50 variables}, priorizando aquellas con alta información mutua respecto al carbono y baja redundancia entre sí. El conjunto final integra predictores estructurales (identificación de especie, radio, clases diamétricas, orientación y pendiente), variables topográficas y edáficas (rocosidad, tipos de suelo), métricas climáticas estacionales (temperatura del aire y del suelo, índice de Martonne) e índices de vegetación representativos del estado estacional de la copa.
+
+La presencia sistemática de valores medios, máximos y medianos de NDII, GNDVI y EVI en verano y primavera confirma que la actividad fotosintética y el estado hídrico son predictores directos del carbono almacenado. De igual modo, la selección de múltiples métricas térmicas refleja la relevancia de los pulsos climáticos sobre la productividad forestal.
+
+En conjunto, mRMR produjo un conjunto compacto y equilibrado, asegurando diversidad informativa y evitando redundancias, lo que lo convierte en un complemento eficaz a los métodos anteriores.
+
+
+De los tres conjuntos de variables seleccionados se mantuvo la selección manual al demostrar un mejor rendimiento con mayor simplicidad como se aprecia en la tabla \ref{tab:comparativa_modelos}.
+
+
+\begin{table}[htbp]
+    \centering
+    \caption{Comparación de configuraciones de selección de variables y rendimiento del modelo CatBoost sobre los datos del IFN 2-3 y 4 para predecir \texttt{c4}.}
+    \label{tab:comparativa_modelos}
+    \footnotesize
+    \begin{tabular}{l l r r r r r}
+        \toprule
+        Configuración & Modelo   & $n_\text{vars}$ & $R^{2}$ & RMSE  & MAE   & Moda error (aprox.) \\
+        \midrule
+        Manual        & CatBoost & 44              & 0.80    & 21.77 & 11.48 & 1                   \\
+        mRMR          & CatBoost & 67              & 0.79    & 21.91 & 11.69 & 1                   \\
+        FeatureWiz    & CatBoost & 50              & 0.72    & 25.65 & 13.08 & 2                   \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+
+\subsection{Ensamblado tipo \textit{stacking} de modelos de regresión}
+
+Con el objetivo de estudiar el compromiso entre diversidad del ensamble, coste computacional y rendimiento, se definieron cinco configuraciones de modelos base (Tabla~\ref{tab:stack_configs}). Los modelos AdaBoost, BayesianNN, SVR, MLP y KNN se descartaron como candidatos.
+
+\begin{table}[htbp]
+    \centering
+    \caption{Configuraciones de modelos base para \textit{stacking}.}
+    \label{tab:stack_configs}
+    \begin{tabular}{cl}
+        \toprule
+        \textbf{Config.} & \textbf{Modelos base} \\
+        \midrule
+        1 & CatBoost, LightGBM, XGBoost, Random Forest, GBDT, BaggedDT \\
+        2 & CatBoost, LightGBM, Random Forest, GBDT \\
+        3 & LightGBM, XGBoost, GBDT \\
+        4 & CatBoost, Random Forest, GBDT \\
+        5 & LightGBM, Random Forest \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+TODO: pensar en quitar esta tabla
+\begin{itemize}
+    \item \textbf{Configuración 1:} incluye todos los modelos con rendimiento competitivo. Esta configuración es la más rica en términos de variedad de arquitecturas, aunque también la más costosa computacionalmente y potencialmente más propensa al sobreajuste si no se controla adecuadamente.
+    
+    \item \textbf{Configuración 2:} reduce el número de modelos, eliminando XGBoost y BaggedDT, que aportan menos mejora marginal respecto a sus alternativas (LightGBM y Random Forest). Esta combinación mantiene una buena diversidad con menor complejidad y coste computacional.
+    
+    \item \textbf{Configuración 3:} agrupa únicamente modelos de la familia de \textit{gradient boosting}. El objetivo es analizar el efecto de combinar variantes de un mismo paradigma y evaluar hasta qué punto diferentes implementaciones de boosting proporcionan suficiente diversidad como para ser beneficiosa en un ensamble.
+    
+    \item \textbf{Configuración 4:} combina un modelo de boosting basado en manejo robusto de variables categóricas (CatBoost) con Random Forest (bagging de árboles) y GBDT (boosting clásico). La idea es mezclar enfoques de bagging y boosting, manteniendo un número moderado de modelos y una buena diversidad estructural.
+    
+    \item \textbf{Configuración 5:} es la configuración más simple. LightGBM compite con CatBoost en rendimiento, mientras que Random Forest aporta un sesgo diferente al basarse en bagging en lugar de boosting. Esta configuración sirve como referencia de un ensamble muy ligero, con bajo coste computacional y, al mismo tiempo, razonablemente diverso.
+\end{itemize}
+
+El objetivo es que el meta-modelo reciba como entradas predicciones de alta calidad y suficientemente diversas, en lugar de introducir ruido procedente de modelos débiles.
+
+Sobre las predicciones apiladas de cada configuración se entrenan distintos meta-modelos $g(\cdot)$, definidos en la Tabla~\ref{tab:meta_modelos}.
+
+\begin{table}[htbp]
+    \centering
+    \caption{Meta-modelos utilizados en el \textit{stacking} junto con sus parámetros.}
+    \label{tab:meta_modelos}
+    \footnotesize
+    \begin{tabular}{lp{8cm}}
+        \toprule
+        \textbf{Meta-modelo} & \textbf{Parámetros} \\
+        \midrule
+        Gradient Boosting   & Configuración por defecto \\
+        Regresión Lineal    & Sin regularización \\
+        Ridge               & Regularización L2 con validación cruzada ($\alpha \in \{0.01, 0.1, 1, 10, 100\}$) \\
+        Random Forest       & 50 árboles \\
+        SVR                 & Kernel lineal \\
+        MLP                 & Una capa oculta con 50 neuronas, 500 iteraciones máximas \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+Estos meta-modelos representan diferentes formas de combinar las predicciones de los modelos base:
+
+\begin{itemize}
+    \item \textbf{Modelos lineales} (Regresión Lineal y Ridge): permiten comprobar si una combinación lineal de las predicciones base es suficiente para mejorar el rendimiento. Ridge añade regularización L2 para controlar el sobreajuste.
+    \item \textbf{Modelos no lineales basados en árboles} (GradientBoostingRegressor, RandomForestRegressor): pueden capturar interacciones complejas entre las predicciones de los modelos base, a costa de una mayor complejidad.
+    \item \textbf{Modelos de \textit{kernel}} (SVR con kernel lineal): permiten una combinación robusta y, en algunos casos, menos sensible a valores extremos en las predicciones.
+    \item \textbf{Red neuronal (MLPRegressor)}: introduce una capa adicional de flexibilidad, capaz de aproximar combinaciones no lineales complejas entre las salidas de los modelos base.
+\end{itemize}
+
+Al evaluar todas las combinaciones de \texttt{stack\_configs} con los diferentes \texttt{meta\_models}, se obtiene un conjunto de ensambles apilados que permiten estudiar de forma sistemática:
+(i) qué subconjuntos de modelos base son más complementarios, y (ii) qué tipo de meta-modelo aprovecha mejor la información contenida en sus predicciones.
+
+
+
+
+

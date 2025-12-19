@@ -1,0 +1,144 @@
+\section{Discusión}
+\label{sec:discusion}
+
+Dividiremos las discusión es dos partes muy parecidos, para cada una de las variables objetivo. Luego compararemos brevemente los resultados en conjunto.
+
+\subsection{Discusión sobre la variable objetivo \texttt{c4}}
+\label{subsec:discusion_c4}
+Comenzando por los modelos individuales, observamos que el modelo LightGBM es el que presenta un mayor valor de $R^2$ ($0.79$) y un menor RMSE ($22.77$ tC/ha), no así un menor MAE ($11.65$ tC/ha), caso en el que los modelos XGBoost ($11.59$ tC/ha) y CatBoost ($11.61$ tC/ha) mejoran ligeramente. Los resultados de estos modelos son muy similares, logrando captar cerca de un $80\%$ de la varianilidad de los datos.  
+
+Mirar a las estadísticas globales de los resultados nos da una idea de la calidad de los modelos, pero en este caso, donde los datos tienen tanta variabilidad, podemos comprobar que esto no resulta del todo útil. En la Figura~\ref{fig:dispersion_densidad_c4} podemos observar la dispersión de las predicciones respecto a los valores reales, junto con una visualización de la densidad de puntos. Observando la figura nos damos cuenta de varias cosas:
+\begin{itemize}
+    \item Los datos abarcan un gran rango de valores, de $0$ a $900$ tC/ha.
+    \item La gran mayoría de los datos se encuentran en el rango de $0$ a $200$ tC/ha.
+    \item Podemos ver por los valores de densidad que los valores más abundantes son aquellos cercanos a cero
+    \item Minetras que hay casos en los que los valores predichos difieren notablemente de los reales, la línea de mayor densdad se encuentra siguiendo la línea diagonal, lo que indica que el modelo efectivamente captura la tendencia general de los datos.
+\end{itemize}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{figuras/density_LightGBM_0-300.pdf}
+    \caption{Dispersión de las predicciones respecto a los valores reales para la variable objetivo \texttt{c4}. Solo se incluye el rango de valores $[0-300]$ tC/ha.}
+    \label{fig:dispersion_densidad_c4}
+\end{figure}
+
+Debido a la elevada variabilidad de los datos y a la irregularidad de la ditribución respecto a los años (ver Figura~\ref{fig:periodo234}), el modelo no tiene la misma precisión para todos los rangos de valores. En al Figura~\ref{fig:smape_c4} podemos observar el SMAPE para cada uno de los modelos base, junto con un histograma que muestra la distribución del número de valores del conjunto de entrenamiento para cada rango de valores elegidos. Los rangos en los que no hay datos es porque no se disponen de suficientes para hacer el cálculo.
+
+TODO: Meter versión nueva de esta imagen (hay línea que se tapan entre sí) 
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{figuras/c4_base_models_SMAPE_RMSE_combined_bins.pdf}
+    \caption{Dispersión de las predicciones respecto a los valores reales para la variable objetivo \texttt{c4}.}
+    \label{fig:smape_c4}
+\end{figure}
+
+Podemos observar que el SMAPE tiene un valle entre los datos $[20-50]$ y $[200-300]$ tC/ha, donde el SMAPE llega a ser inferior al $30\%$ para los mejores modelos. Atendiendo a la distribución de los datos de entrenamiento en la Figura~\ref{fig:smape_c4} nos damos cuenta de que para valores pequeños ($[0-20]$ tC/ha) el SMAPE es alto pese a que en ese rango se encuentra prácticamente la mitad de los datos de entrenamiento, lo que indica que el error medio del modelo no es lo suficientemente pequeño como para hacer predicciones confiables para cultivos pequeños. Tras el punto incial el SMAPE disminuye rápidamente mientras el RMSE aumnta ligeramente. Este comportamiento se mantiene durante la zona valle, lo que indica que, si vien el error absoluto aumenta, no lo hace tanto el error relativo. Esto es un indicativo de que es esta zona el modelo comprende mejor el comportamiento de los datos. El SMAPE comienza a aumentar rápidamente a partir del rango $[150-200]$ tC/ha, valor que coincide con una gran escasez de datos comparado con el resto de rangos
+
+
+
+
+
+
+\hline 
+
+% esto ya son resultados
+Los resultados recogidos en la Tabla~\ref{tab:stack_ifn2_ifn3c} muestran que el \textit{stacking} ofrece un rendimiento comparable al de los mejores modelos individuales basados en árboles y \textit{gradient boosting}. En concreto, mientras que CatBoost obtiene un $R^2$ de 0.78 y un RMSE de 22.99 tC/ha, las configuraciones de \textit{stacking} alcanzan valores similares, con $R^2$ en torno a 0.79 y RMSE cercano a 22.39 tC/ha en el mejor caso (\texttt{stack5\_MLP}).
+
+
+En general, la agregación de modelos mediante \textit{GradientBoosting} como meta-modelo no produce mejora en los
+resultados, lo que sugiere que la mezcla de arquitecturas distintas es más beneficiosa.
+
+El rendimiento del \textit{stacking} depende de manera importante del meta-modelo empleado. En
+primer lugar, los modelos lineales (Regresión Lineal y Ridge) ofrecen, de forma sistemática,
+un rendimiento sólido y muy estable en todas las configuraciones, situándose casi siempre entre
+las mejores alternativas dentro de cada grupo de \texttt{stack\_configs}. Esto sugiere que,
+dado el reducido número de meta-predictores (salidas de los modelos base), una combinación
+esencialmente lineal es suficiente para explotar gran parte de la información disponible sin
+incurrir en sobreajuste.
+
+En contraste, los meta-modelos basados en \textit{Random Forest} muestran de manera consistente
+los peores resultados dentro de cada configuración. Este comportamiento indica que, sobre un espacio
+de baja dimensión, una capacidad excesiva de modelado no aporta beneficios y tiende más bien a
+ajustar ruido en las predicciones de los modelos base.
+
+Los meta-modelos no lineales más sencillos, como MLP y SVR,
+proporcionan mejoras puntuales sobre los lineales. Destaca especialmente la configuración
+\texttt{stack5\_MLP}, que alcanza el valor más alto de $R^2$ (0.79) junto con el menor
+RMSE (22.39 tC/ha) de todas las combinaciones evaluadas. En conjunto, estos resultados indican que existe una ligera
+ganancia al introducir cierta no linealidad en la combinación de las predicciones base, pero
+que dicha ganancia se produce sólo cuando el modelo de segundo nivel mantiene una complejidad
+moderada y bien regularizada.
+
+% \subsubsection{Toneladas de carbono}
+
+% La Tabla~\ref{tab:stack_ifn2_ifn3_tc} muestra los resultados del \textit{stacking} para la
+% predicción de la variable \texttt{carbono\_bruto4} (toneladas de carbono absolutas).
+
+
+
+% Los resultados del \textit{stacking} para la variable de carbono en toneladas muestran un patrón
+% similar al observado para la variable en tC/ha. El mejor modelo es nuevamente \texttt{stack5\_MLP},
+% que alcanza un $R^2 = 0.85$ y un RMSE de 13.76 tC, superando ligeramente al mejor modelo
+% individual (CatBoost, con RMSE = 13.85 tC).
+
+
+\subsection{Síntesis de resultados}
+\label{subsec:resultados_sintesis}
+
+A partir del análisis realizado, pueden resumirse las principales conclusiones en los siguientes puntos:
+
+\begin{itemize}
+    \item El conjunto de datos depurado muestra una variables objetivos marcadas con gran variabilidad:
+          \texttt{carbono\_bruto4} presenta menor dispersión (SD $\approx 36$ tC/ha)
+          que \texttt{c4} (SD $\approx 47$ tC/ha), lo que anticipa un problema predictivo más complejo
+          para esta última.
+
+    \item El análisis ANOVA confirma que el \textit{periodo} tiene un efecto estadísticamente
+          significativo sobre ambas variables de carbono, evidenciando la existencia de variaciones
+          temporales sistemáticas relevantes para su modelización.
+
+    \item Entre las estrategias de selección de variables evaluadas (manual, FeatureWiz y mRMR),
+          la selección manual, basada en bloques temáticos con coherencia ecológica, ofrece el mejor
+          equilibrio entre simplicidad y rendimiento, superando en precisión y error a las selecciones
+          automáticas.
+
+    \item Los bloques de variables más informativos son, en orden aproximado de importancia:
+          estructura de la masa forestal, características de especie, condiciones edáficas y topográficas,
+          índices de vegetación e información climática estacional. La mayor parte del poder predictivo se
+          concentra en las características estructurales y de especie.
+
+    \item Los modelos individuales muestran que los métodos basados en árboles y
+          \textit{gradient boosting} (CatBoost, LightGBM, XGBoost y GBDT) alcanzan el mejor rendimiento
+          global, con valores de $R^2$ superiores a 0.79 y errores moderados (inferiores al $50\%$ de
+          la desviación típica de la variable).
+
+    \item CatBoost destaca como el mejor modelo individual, gracias a su capacidad para capturar
+          relaciones no lineales y manejar adecuadamente la complejidad y heterogeneidad de los datos.
+
+    \item Métodos como AdaBoost, KNN o BayesianNN muestran un rendimiento sustancialmente inferior,
+          lo que los descarta como candidatos eficaces para este tipo de predicción.
+
+    \item Las técnicas de \textit{stacking} mejoran de forma consistente el rendimiento de los
+          modelos individuales, alcanzando la mejor configuración (el metamodelo SVR con los modelos
+          \texttt{CatBoost, Random Forest, GBDT}) un $R^2$ de 0.86 y reduciendo el RMSE y el MAE
+          frente a CatBoost en un $20.26\%$ y en un $23.16\%$ respectivamente.
+
+    \item El rendimiento del ensamble depende del meta-modelo: los modelos lineales
+          (Regresión Lineal y Ridge) ofrecen combinaciones estables y robustas; los meta-modelos Random
+          Forest tienden al sobreajuste; y los meta-modelos moderadamente no lineales (SVR y MLP)
+          proporcionan las mayores mejoras, destacando SVR en las configuraciones \texttt{stack3} y
+          \texttt{stack4}.
+
+    \item En conjunto, los resultados muestran que la combinación de modelos mediante
+          \textit{stacking}, aplicada con meta-modelos bien regularizados, permite aprovechar la
+          complementariedad entre los distintos algoritmos y alcanzar una capacidad predictiva superior
+          a la de cualquier modelo individual.
+
+    \item El modelo desarrollado es capaz de predecir, a partir de las características estructurales,
+          ecológicas y ambientales de un cultivo forestal, la cantidad de carbono almacenado por hectárea
+          en un horizonte temporal de entre 4 y 35 años con un nivel elevado de precisión.
+          El mejor modelo obtenido se construye mediante un metamodelo \texttt{SVR} combinando los modelos
+          \texttt{CatBoost, Random Forest} y \texttt{GBDT} y alcanza un coeficiente de determinación de
+          \textbf{$R^2 = 0.8604$}, junto con un error típico de \textbf{RMSE = 17.22 tC/ha} y un error
+          medio absoluto de \textbf{MAE = 8.78 tC/ha}.
+\end{itemize}
