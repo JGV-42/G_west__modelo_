@@ -1,120 +1,31 @@
-\section{Implementación de los modelos}
+\section{Implementación del \textit{pipeline}}
+El desarrollo y la evaluación de los modelos predictivos se realizaron íntegramente en \textbf{Python}, utilizando librerías como \texttt{scikit-learn}, \texttt{cuML} y \texttt{PyTorch}, junto con implementaciones específicas de \textit{gradient boosting} como \texttt{XGBoost}, \texttt{LightGBM} y \texttt{CatBoost}. El proceso de entrenamiento se llevó a cabo en dos fases diferenciadas. 
 
-El desarrollo y evaluación de los modelos predictivos se realizó íntegramente en \textbf{Python}, utilizando librerías como \texttt{scikit-learn}, \texttt{cuML} y \texttt{PyTorch}, junto con implementaciones específicas de gradient boosting como \texttt{XGBoost}, \texttt{LightGBM} y \texttt{CatBoost}. El entrenamiento se llevó a cabo en dos fases. Para los modelos cuyos datos de entrenamiento provenían solo del IFN3 se uso un equipo local con procesador Intel Core i7 y 32 GB de RAM. Los modelos que usaban los datos del IFN2 e IFN3 se empleo el ordenador de HPC de la Universidad de Salamanca. Esto fue por la posibilidad de usar tarjetas gráficas Nvidia H100, que aceleraba mucho el entrenamiento para los modelos que tienen opción a ejecutarse en una GPU gracias a la posibilidad de paralelización. No obstante, el entrenamiento se podría hacer llevado a cabo en un equipo de escritorio equipado con una tarjeta gráfica comercial, ya que los requisitos no son tan altos.
+Para los modelos entrenados exclusivamente con datos del IFN3 se utilizó un equipo local equipado con un procesador Intel Core i7 y 32~GB de memoria RAM. En cambio, los modelos que empleaban conjuntamente datos del IFN2 e IFN3 se entrenaron en el sistema de computación de alto rendimiento (HPC) de la Universidad de Salamanca. Esta elección se debió a la disponibilidad de tarjetas gráficas Nvidia H100, que permiten acelerar de forma significativa el entrenamiento de aquellos modelos compatibles con ejecución en GPU gracias a su elevada capacidad de paralelización. 
 
-\subsection{Preparación del conjunto de datos}
+No obstante, cabe señalar que el entrenamiento también podría haberse realizado en un equipo de escritorio convencional equipado con una tarjeta gráfica comercial, ya que los requisitos computacionales del problema no son especialmente elevados.
 
-La variable objetivo a predecir es el \textbf{carbono bruto acumulado} por parcela (\texttt{carbono\_bruto4}). Para garantizar la consistencia de la muestra, se aplicaron los siguientes filtros:
+\subsection{Ingeniería práctica del entrenamiento y la validación}
 
-\begin{itemize}
-    \item Se eliminaron observaciones con \texttt{carbono\_bruto4} nulo o igual a cero.
-    \item Se retuvieron únicamente aquellas filas donde \texttt{carbono\_bruto} es nulo o estrictamente menor que \texttt{carbono\_bruto4}, evitando duplicidades o inconsistencias entre ambas medidas.
-    \item Se restringió el análisis al inventario \texttt{ifn\_id = 3}.
-\end{itemize}
+Desde el punto de vista de la implementación, el proceso de entrenamiento y validación se apoyó fundamentalmente en el ecosistema de \texttt{scikit-learn}, complementado con librerías especializadas para modelos de \textit{gradient boosting}. La gestión de los datos se realizó mediante \texttt{pandas} y \texttt{numpy}, mientras que el cálculo de métricas y estadísticas adicionales del error se apoyó en \texttt{scipy} y los módulos de evaluación de \texttt{sklearn.metrics}.
 
-Las variables explicativas se seleccionaron a partir de una configuración manual (\texttt{features}) que combina:
+A partir del conjunto de datos original, se aplicaron filtros de calidad sobre la variable objetivo utilizando operaciones vectorizadas de \texttt{pandas}, eliminando observaciones con valores nulos, inconsistentes o que no cumplían los criterios definidos en la Sección~\ref{subsec:filtradoregistros}. 
 
-\begin{itemize}
-    \item Índices de pies por hectárea a distintos diámetros (\texttt{npies\_1}, \texttt{npies\_2}, \dots, \texttt{npies\_70}).
-    \item Variables climáticas y edáficas (por ejemplo, \texttt{martonneidx\_id}, \texttt{tipsuelo2\_id}).
-    \item Variables topográficas (elevación, pendiente, orientación).
-    \item Índices de vegetación y variables de temperatura superficial (\texttt{NDII}, \texttt{EVI}, \texttt{GNDVI}, \texttt{skt\_mean}, \texttt{skt\_std}) en distintas estaciones.
-    \item Atributos forestales y estructurales de la masa (\texttt{tipo\_especie}, \texttt{estado\_id}, \texttt{orgmasa1\_id}, \texttt{matorg\_id}, etc.).
-\end{itemize}
+La partición de los datos en conjuntos de entrenamiento y prueba se realizó mediante \texttt{GroupShuffleSplit} del módulo \texttt{sklearn.model\_selection}, con una proporción 80/20. Este esquema garantizó que todas las observaciones asociadas a una misma parcela se asignaran íntegramente a un único subconjunto, evitando fugas de información derivadas de la correlación espacial intra-parcela. Sobre el conjunto de entrenamiento se definió una validación cruzada de cinco pliegues utilizando \texttt{GroupKFold}.
 
-\subsection{División entrenamiento–prueba y validación cruzada}
+El preprocesado de las variables y el ajuste de los modelos se integraron en un único objeto \texttt{Pipeline}, combinando \texttt{ColumnTransformer}, \texttt{SimpleImputer}, \texttt{StandardScaler} y \texttt{OneHotEncoder}. Esta integración aseguró que todas las transformaciones se estimaran exclusivamente con los datos de entrenamiento de cada pliegue durante la validación cruzada. El ajuste de hiperparámetros se llevó a cabo mediante \texttt{GridSearchCV}, definiendo rejillas específicas para cada algoritmo y utilizando el coeficiente de determinación ($R^2$) como métrica de selección.
 
-Cuando la tabla de datos incluye el identificador de parcela (\texttt{parcela\_id}), la partición entrenamiento–prueba se realiza mediante \texttt{GroupShuffleSplit}, reservando un 20\,\% de las parcelas para prueba y empleando el 80\,\% restante para entrenamiento. De este modo, todas las observaciones de una misma parcela quedan necesariamente en el mismo conjunto, evitando fuga de información.
+Los modelos evaluados incluyen implementaciones de \textit{gradient boosting} (\texttt{XGBoost}, \texttt{LightGBM}, \texttt{CatBoost} y \texttt{GradientBoostingRegressor}), métodos basados en \textit{bagging} (\texttt{RandomForestRegressor}, \texttt{BaggingRegressor}), así como modelos de distinta naturaleza como \texttt{MLPRegressor}, \texttt{KNeighborsRegressor}, \texttt{LinearSVR}, \texttt{AdaBoostRegressor} y \texttt{BayesianRidge}. Para cada modelo se calcularon de forma sistemática las métricas de rendimiento sobre el conjunto de prueba: $R^2$, RMSE y MAE, junto con estadísticas adicionales del error absoluto (mediana y moda), almacenándose los resultados en estructuras tabulares para su análisis comparativo.
 
-Sobre el conjunto de entrenamiento se aplica validación cruzada por grupos mediante \texttt{GroupKFold} con 5 particiones, utilizando también \texttt{parcela\_id} como variable de agrupación. En ausencia de esta columna, se recurre a un \texttt{KFold} clásico estratificado en 5 particiones con barajado.
+\subsection{Implementación del \textit{stacking}}
 
-Este esquema permite evaluar la capacidad de generalización del modelo en parcelas no vistas, reduciendo el riesgo de sobreajuste estructural.
+La agregación de modelos mediante \textit{stacking} se implementó de forma manual utilizando utilidades básicas de \texttt{scikit-learn}, con el objetivo de mantener un control estricto sobre el flujo de entrenamiento y validación. A partir de los mejores modelos individuales se generaron predicciones fuera de pliegue (\textit{out-of-fold}, OOF) sobre el conjunto de entrenamiento, empleando el mismo esquema de validación cruzada (\texttt{GroupKFold}).
 
-\subsection{Preprocesamiento de variables}
+Estas predicciones OOF se organizaron en matrices de meta-variables mediante \texttt{numpy} y se utilizaron como entrada para el entrenamiento de los metamodelos. En paralelo, cada modelo base se reentrenó sobre la totalidad del conjunto de entrenamiento para generar las correspondientes predicciones sobre el conjunto de test, que se emplearon posteriormente para la evaluación final del \textit{stack}.
 
-El preprocesamiento se implementó con un \texttt{ColumnTransformer} que distingue tres bloques de variables:
+Los metamodelos considerados incluyen \texttt{LinearRegression}, \texttt{Ridge}, \\
+\texttt{GradientBoostingRegressor}, \texttt{RandomForestRegressor}, \texttt{SVR} con kernel lineal y \texttt{MLPRegressor}. Antes de su ajuste, las meta-variables se estandarizaron mediante \texttt{StandardScaler}, integrando este paso en un \texttt{Pipeline} específico del segundo nivel. La evaluación del \textit{stacking} se realizó exclusivamente sobre el conjunto de test independiente, calculando las métricas habituales ($R^2$, RMSE y MAE) para cada combinación de modelos base y metamodelo.
 
-\begin{itemize}
-    \item \textbf{Variables numéricas generales}: imputación mediante la mediana y escalado con \texttt{StandardScaler}.
-    \item \textbf{Variables de densidad de pies} (\texttt{npies\_1}, \dots, \texttt{npies\_70}): imputación mediante un valor constante (0) y posterior escalado. Se tratan como un bloque numérico específico por su naturaleza y rango de valores.
-    \item \textbf{Variables categóricas}: imputación por la moda, conversión explícita a cadena de texto y codificación \textit{one-hot} con \texttt{OneHotEncoder}, ignorando categorías desconocidas en el conjunto de prueba.
-\end{itemize}
-
-Todo el preprocesado se integra en un \texttt{Pipeline} junto con el modelo de regresión, de manera que la imputación, escalado y codificación se ajustan únicamente sobre el conjunto de entrenamiento y se aplican de forma coherente a validación y prueba.
-
-\subsection{Modelos entrenados y ajuste de hiperparámetros}
-
-Se entrenó un conjunto de modelos base que cubren distintas familias de algoritmos de regresión supervisada:
-
-\begin{itemize}
-    \item \textbf{Modelos basados en árboles y ensambles}:
-    \begin{itemize}
-        \item \texttt{RandomForestRegressor}
-        \item \texttt{GradientBoostingRegressor} (GBDT)
-        \item \texttt{AdaBoostRegressor}
-        \item \texttt{BaggingRegressor} (Bagged Decision Trees)
-        \item \texttt{XGBRegressor} (\texttt{XGBoost})
-        \item \texttt{LGBMRegressor} (\texttt{LightGBM})
-        \item \texttt{CatBoostRegressor} (\texttt{CatBoost})
-    \end{itemize}
-    \item \textbf{Modelos basados en instancias}:
-    \begin{itemize}
-        \item \texttt{KNeighborsRegressor} (KNN)
-    \end{itemize}
-    \item \textbf{Redes neuronales}:
-    \begin{itemize}
-        \item \texttt{MLPRegressor} (perceptrón multicapa)
-    \end{itemize}
-    \item \textbf{Máquinas de soporte vectorial}:
-    \begin{itemize}
-        \item \texttt{LinearSVR} (SVR con kernel lineal)
-    \end{itemize}
-    \item \textbf{Modelos probabilísticos / bayesianos}:
-    \begin{itemize}
-        \item \texttt{BayesianRidge} (Bayesian Neural Network en sentido amplio)
-    \end{itemize}
-\end{itemize}
-
-Para cada modelo se definió un espacio de hiperparámetros específico (número de árboles, profundidad máxima, tasa de aprendizaje, tamaño de vecindad, arquitectura de la red, etc.), y se realizó una búsqueda en rejilla mediante \texttt{GridSearchCV}, usando como métrica de optimización el coeficiente de determinación \(R^2\). La validación interna se llevó a cabo con el mismo esquema de validación cruzada descrito anteriormente (\texttt{GroupKFold} o \texttt{KFold}, según disponibilidad de grupos), y se empleó \texttt{n\_jobs=-1} para explotar el paralelismo multinúcleo.
-
-De cada ajuste se almacenaron:
-
-\begin{itemize}
-    \item El mejor estimador (pipeline completo) según el \(R^2\) medio en validación cruzada.
-    \item Las métricas en el conjunto de prueba: \(R^2\), RMSE, MAE, así como la mediana del error absoluto y la moda del error absoluto redondeado.
-\end{itemize}
-
-\subsection{Ensamblado tipo \textit{stacking}}
-
-Con el fin de explotar la posible complementariedad entre modelos, se implementó un esquema de \textit{stacking} manual basado en predicciones \textit{out-of-fold} (OOF). A partir de los mejores modelos ajustados en la fase anterior (\texttt{slow\_best\_models}), se definieron varias configuraciones de modelos base:
-
-\begin{itemize}
-    \item \texttt{['CatBoost', 'LightGBM', 'XGBoost', 'Random Forest', 'GBDT', 'BaggedDT']}
-    \item \texttt{['CatBoost', 'LightGBM', 'Random Forest', 'GBDT']}
-    \item \texttt{['LightGBM', 'XGBoost', 'GBDT']}
-    \item \texttt{['CatBoost', 'Random Forest', 'GBDT']}
-    \item \texttt{['LightGBM', 'Random Forest']}
-\end{itemize}
-
-Para cada configuración:
-
-\begin{enumerate}
-    \item Se generaron predicciones OOF para cada modelo base utilizando el mismo esquema de validación cruzada que en el entrenamiento individual. En cada pliegue, se ajusta un clon del modelo sobre las particiones de entrenamiento y se predice sobre la partición de validación, construyendo así una matriz de meta-características de tamaño \(n_{\text{train}} \times M\), donde \(M\) es el número de modelos base.
-    \item Se entrenó de nuevo cada modelo base sobre todo el conjunto de entrenamiento y se obtuvieron sus predicciones sobre el conjunto de prueba, generando una matriz de meta-características de tamaño \(n_{\text{test}} \times M\).
-\end{enumerate}
-
-Sobre estas meta-características se ajustaron distintos meta-modelos (\texttt{meta\_models}):
-
-\begin{itemize}
-    \item \textbf{Modelos lineales}: \texttt{LinearRegression}, \texttt{Ridge}.
-    \item \textbf{Modelos basados en árboles}: \texttt{GradientBoostingRegressor}, \texttt{RandomForestRegressor}.
-    \item \textbf{Máquina de vectores soporte}: \texttt{SVR} con kernel lineal.
-    \item \textbf{Red neuronal}: \texttt{MLPRegressor} con una capa oculta.
-\end{itemize}
-
-Antes del meta-modelo se incluyó un \texttt{StandardScaler} aplicado sobre las meta-características, de forma que se estabiliza el entrenamiento cuando se combinan modelos con escalas de salida diferentes.
-
-Cada combinación \textit{(configuración de bases, meta-modelo)} define un \textit{stack} distinto. Para cada uno de ellos se evaluó el rendimiento en el conjunto de prueba en términos de \(R^2\), RMSE y MAE, seleccionando finalmente el \textbf{stack} con mejor \(R^2\) en prueba (y, en caso de empate, menor RMSE) como modelo final de referencia.
 
 \subsection{Datos finales de entrenamiento}
 \label{subsec:datos_finales_entrenamiento}
@@ -158,11 +69,8 @@ descriptivas de las variables utilizadas en el modelado, adicionalmente en la Fi
     \end{tabular}
 \end{table}
 
-A partir de los estadísticos descriptivos de la Tabla~\ref{tab:resumen_variables} se observa que la variable
-\texttt{carbono\_bruto4} presenta una media de 24.62 y una desviación estándar de 35.82, mientras que la variable
-\texttt{c4} muestra valores notablemente superiores (media de 38.38 y desviación estándar de 47.03).
-
-Esta diferencia implica que \texttt{c4} es una variable más dispersa y heterogénea que \texttt{carbono\_bruto4}. En general, una mayor variabilidad en la variable objetivo se traduce en un problema de predicción más complejo, ya que el modelo debe capturar relaciones más inestables y sujetas a mayor ruido.
+Se observa que la variable \texttt{carbono\_bruto4} presenta una media de 24.62 y una desviación estándar de 35.82, mientras que la variable
+\texttt{c4} muestra valores notablemente superiores (media de 38.38 y desviación estándar de 47.03). La variable \texttt{c4} es más dispersa y heterogénea que \texttt{carbono\_bruto4}. En general, una mayor variabilidad en la variable objetivo se traduce en un problema de predicción más complejo, ya que el modelo debe capturar relaciones más inestables y sujetas a mayor ruido.
 
 Por tanto, incluso antes de evaluar los modelos, es razonable esperar que una misma familia de algoritmos obtenga valores de $R^2$ más elevados y errores más bajos (RMSE, MAE) al predecir \texttt{carbono\_bruto4}, cuya estructura estadística es menos dispersa, que al predecir \texttt{c4}.
 

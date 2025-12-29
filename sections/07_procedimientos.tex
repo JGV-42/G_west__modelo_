@@ -1,15 +1,12 @@
 \section{Entrenamiento y validación}
 
-El proceso de entrenamiento se estructuró en varias fases orientadas a optimizar tanto la selección de variables predictoras como la robustez del modelo final. En primer lugar, se llevó a cabo una etapa de \textbf{selección de variables}, en la que se evaluaron distintos subconjuntos de características definidos por bloques temáticos con significado ecológico y funcional. Para esta tarea se adoptó un enfoque sistemático basado en la comparación del desempeño predictivo de las distintas combinaciones mediante el algoritmo \texttt{CatBoost}, seleccionado tras pruebas preliminares que mostraron su alta capacidad de ajuste y estabilidad frente a la heterogeneidad de los datos. En todas las configuraciones se mantuvo constante la variable objetivo (carbono capturado) y los parámetros del modelo, de modo que las variaciones en el coeficiente de determinación ($R^2$) y el error cuadrático medio (RMSE) reflejaran exclusivamente la contribución informativa de cada bloque.
+El proceso de entrenamiento se estructuró en varias fases orientadas a optimizar tanto la selección de variables predictoras como la robustez del modelo final. En primer lugar, se llevó a cabo una etapa de \textbf{selección de variables}, en la que se evaluaron distintos subconjuntos de características definidos por bloques temáticos con significado ecológico y funcional. Para esta tarea se adoptó un enfoque sistemático basado en la comparación del desempeño predictivo de las distintas combinaciones mediante el algoritmo \texttt{CatBoost}, seleccionado tras pruebas preliminares que mostraron su alta capacidad de ajuste y estabilidad frente a la heterogeneidad de los datos. En todas las configuraciones se mantuvo constante la variable objetivo (carbono capturado) y los parámetros del modelo, de modo que las variaciones en el coeficiente de determinación ($R^2$) y el error cuadrático medio (RMSE) reflejaran exclusivamente la contribución informativa de cada bloque. Los resultados de esta fase son preliminares ya que se emplearon entrenamientos más sencillos (sin validación cruzada para la selección de hiperparámetros).
 
 Las configuraciones analizadas incorporaron progresivamente variables relacionadas con las características de la especie, las propiedades edáficas, el terreno, las condiciones climáticas y los índices de vegetación. A partir de los resultados obtenidos, se identificaron los bloques con mayor aporte marginal al rendimiento del modelo, priorizando aquellos cuya inclusión mejoró consistentemente el $R^2$ sin aumentar de forma significativa la complejidad o redundancia del conjunto de predictores.
 
-En una segunda fase, se procedió al \textbf{entrenamiento comparativo de modelos}, implementando un conjunto de algoritmos de aprendizaje supervisado con el fin de contrastar su capacidad predictiva. Entre los estimadores evaluados se incluyeron \texttt{LightGBM}, \texttt{Random Forest}, \texttt{XGBoost}, \texttt{CatBoost}, \texttt{Gradient Boosting}, \texttt{Bagging Regressor}, \texttt{AdaBoost}, \texttt{KNN}, \texttt{MLP}, \texttt{SVR} y \texttt{Bayesian Ridge}. Cada modelo fue entrenado bajo las mismas condiciones experimentales, utilizando las configuraciones de variables seleccionadas en la fase anterior. Esta comparación permitió identificar los algoritmos con mejor ajuste global y menor error de predicción, destacando de nuevo el desempeño de \texttt{CatBoost}.
+En una segunda fase, se procedió al \textbf{entrenamiento comparativo de modelos}, implementando un conjunto de algoritmos de aprendizaje supervisado con el fin de contrastar su capacidad predictiva. Cada modelo fue entrenado bajo las mismas condiciones experimentales, utilizando las configuraciones de variables seleccionadas en la fase anterior. Esta comparación permitió identificar los algoritmos con mejor ajuste global y menor error de predicción, destacando de nuevo el desempeño de \texttt{CatBoost}.
 
 Posteriormente, se implementó una estrategia de \textbf{stacking}, combinando las predicciones de los modelos individuales mediante un metamodelo de segundo nivel, con el objetivo de aprovechar la complementariedad entre los distintos enfoques y mejorar la capacidad de generalización.
-
-Finalmente, el modelo seleccionado se \textbf{reentrenó con validación cruzada estratificada por grupos}, definidos según el periodo temporal de la observación. Este esquema de validación cruzada por grupos permitió evaluar la estabilidad del modelo frente a periodos no observados durante el entrenamiento, garantizando así su capacidad de generalización temporal y la fiabilidad de las predicciones en escenarios futuros.
-
 
 
 %--------------------------------------------------
@@ -34,7 +31,7 @@ el proceso de reducción dimensional en torno a los siguientes bloques conceptua
     \item \textbf{Bloque de índices de vegetación}: recoge información espectral relacionada con el estado hídrico, vigor y actividad fotosintética de la vegetación.
 \end{itemize}
 
-En total, la base de datos contenía inicialmente 445 variables candidatas distribuidas entre estos bloques temáticos. Tras aplicar el procedimiento de selección manual —apoyado en criterios estadísticos, ecológicos y en la comparación del rendimiento del modelo— el conjunto se redujo a 44 variables representativas. Las variables finalmente seleccionadas dentro de cada bloque fueron las siguientes:
+En total, la base de datos contenía inicialmente 445 variables candidatas distribuidas entre estos bloques temáticos. Tras aplicar el procedimiento de selección manual, apoyado en criterios estadísticos, ecológicos y en la comparación del rendimiento del modelo; el conjunto se redujo a 44 variables representativas. Las variables finalmente seleccionadas dentro de cada bloque fueron las siguientes:
 
 \begin{itemize}
     \item \textbf{Bloque de variables fijas}:
@@ -91,9 +88,8 @@ La presencia sistemática de valores medios, máximos y medianos de NDII, GNDVI 
 
 En conjunto, mRMR produjo un conjunto compacto y equilibrado, asegurando diversidad informativa y evitando redundancias, lo que lo convierte en un complemento eficaz a los métodos anteriores.
 
-
+\subsubsection{Discusión de la selección de variables}
 De los tres conjuntos de variables seleccionados se mantuvo la selección manual al demostrar un mejor rendimiento con mayor simplicidad como se aprecia en la tabla \ref{tab:comparativa_modelos}.
-
 
 \begin{table}[htbp]
     \centering
@@ -133,7 +129,6 @@ Con el objetivo de estudiar el compromiso entre diversidad del ensamble, coste c
     \end{tabular}
 \end{table}
 
-TODO: pensar en quitar esta tabla
 \begin{itemize}
     \item \textbf{Configuración 1:} incluye todos los modelos con rendimiento competitivo. Esta configuración es la más rica en términos de variedad de arquitecturas, aunque también la más costosa computacionalmente y potencialmente más propensa al sobreajuste si no se controla adecuadamente.
     
