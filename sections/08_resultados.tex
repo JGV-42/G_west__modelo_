@@ -22,19 +22,19 @@ La Tabla~\ref{tab:resultados_modelos_base} resume las métricas principales para
     \centering
     \caption{Resumen del rendimiento de los modelos para la predicción de la variable de carbono en tC/ha con el conjunto de datos que emplea IFN2 e IFN3 como explicativos.}
     \label{tab:resultados_modelos_base}
-    \begin{tabular}{lrrrr}
+    \begin{tabular}{lrrr}
         \toprule
-        Modelo            & CV $R^2$ & $R^2_{\text{test}}$ & RMSE$_{\text{test}}$ & MAE$_{\text{test}}$ \\
+        Modelo            & $R^2_{\text{test}}$ & RMSE$_{\text{test}}$ & MAE$_{\text{test}}$ \\
         \midrule
-        Random Forest     & 0.75     & 0.73                & 25.55                & 12.91               \\
-        XGBoost           & 0.79     & 0.78                & 22.95                & 11.59               \\
-        CatBoost          & 0.80     & 0.78                & 22.99                & 11.61               \\
-        \textbf{LightGBM} & 0.79     & 0.79                & 22.77                & 11.65               \\
-        GBDT              & 0.79     & 0.78                & 23.01                & 11.66               \\
-        BaggedDT          & 0.76     & 0.74                & 25.14                & 13.02               \\
-        MLP               & 0.79     & 0.77                & 23.61                & 12.29               \\
-        SVR               & 0.58     & 0.55                & 33.07                & 13.71               \\
-        BayesianNN        & 0.71     & 0.68                & 28.02                & 14.69               \\
+        \textbf{LightGBM} & 0.7872              & 22.7674              & 11.6504             \\
+        XGBoost           & 0.7837              & 22.9524              & 11.5904             \\
+        CatBoost          & 0.7830              & 22.9899              & 11.6069             \\
+        GBDT              & 0.7825              & 23.0136              & 11.6580             \\
+        MLP\_Torch        & 0.7712              & 23.6065              & 12.2874             \\
+        BaggedDT          & 0.7404              & 25.1423              & 13.0214             \\
+        RandomForest      & 0.7320              & 25.5473              & 12.9079             \\
+        BayesianNN        & 0.6776              & 28.0211              & 14.6893             \\
+        SVR               & 0.5511              & 33.0652              & 13.7077             \\
         \bottomrule
     \end{tabular}
 \end{table}
@@ -175,19 +175,19 @@ La Tabla~\ref{tab:resultados_modelos_base_tc} resume las métricas principales p
     \centering
     \caption{Resumen del rendimiento de los modelos para la predicción de la variable de carbono en toneladas (carbono\_bruto4) con el conjunto de datos que emplea IFN2 e IFN3 como explicativos.}
     \label{tab:resultados_modelos_base_tc}
-    \begin{tabular}{lrrrr}
+    \begin{tabular}{lrrr}
         \toprule
-        Modelo            & CV $R^2$ & $R^2_{\text{test}}$ & RMSE$_{\text{test}}$ & MAE$_{\text{test}}$ \\
+        Modelo            & $R^2_{\text{test}}$ & RMSE$_{\text{test}}$ & MAE$_{\text{test}}$ \\
         \midrule
-        Random Forest     & 0.81     & 0.82                & 14.95                & 7.14                \\
-        XGBoost           & 0.84     & 0.84                & 14.05                & 6.65                \\
-        \textbf{CatBoost} & 0.84     & 0.84                & 13.85                & 6.61                \\
-        LightGBM          & 0.84     & 0.84                & 14.01                & 6.65                \\
-        GBDT              & 0.84     & 0.84                & 14.16                & 6.72                \\
-        BaggedDT          & 0.82     & 0.82                & 14.86                & 7.28                \\
-        MLP               & 0.83     & 0.83                & 14.41                & 6.93                \\
-        SVR               & 0.66     & 0.68                & 19.90                & 8.14                \\
-        BayesianNN        & 0.77     & 0.77                & 16.67                & 8.91                \\
+        \textbf{CatBoost} & 0.8448              & 13.8457              & 6.6148              \\
+        LightGBM          & 0.8412              & 14.0055              & 6.6539              \\
+        XGBoost           & 0.8400              & 14.0544              & 6.6545              \\
+        GBDT              & 0.8376              & 14.1591              & 6.7220              \\
+        MLP\_Torch        & 0.8318              & 14.4103              & 6.9314              \\
+        BaggedDT          & 0.8212              & 14.8581              & 7.2820              \\
+        RandomForest      & 0.8190              & 14.9498              & 7.1353              \\
+        BayesianNN        & 0.7749              & 16.6740              & 8.9064              \\
+        SVR               & 0.6794              & 19.8968              & 8.1374              \\
         \bottomrule
     \end{tabular}
 \end{table}

@@ -12,27 +12,37 @@ Mirar a las estadísticas globales de los resultados nos da una idea de la calid
     \item Los datos abarcan un gran rango de valores, de $0$ a $900$ tC/ha.
     \item La gran mayoría de los datos se encuentran en el rango de $0$ a $200$ tC/ha.
     \item Podemos ver por los valores de densidad que los valores más abundantes son aquellos cercanos a cero
-    \item Minetras que hay casos en los que los valores predichos difieren notablemente de los reales, la línea de mayor densdad se encuentra siguiendo la línea diagonal, lo que indica que el modelo efectivamente captura la tendencia general de los datos.
+    \item Mientras que hay casos en los que los valores predichos difieren notablemente de los reales, la línea de mayor densdad se encuentra siguiendo la línea diagonal, lo que indica que el modelo efectivamente captura la tendencia general de los datos.
 \end{itemize}
 
-\begin{figure}
+\begin{figure}[h]
     \centering
     \includegraphics[width=0.8\textwidth]{figuras/density_LightGBM_0-300.pdf}
-    \caption{Dispersión de las predicciones respecto a los valores reales para la variable objetivo \texttt{c4}. Solo se incluye el rango de valores $[0-300]$ tC/ha.}
+    \caption{Dispersión del modelo LightGBM de las predicciones respecto a los valores reales para la variable objetivo \texttt{c4}. Solo se incluye el rango de valores $[0-300]$ tC/ha.}
     \label{fig:dispersion_densidad_c4}
 \end{figure}
 
-Debido a la elevada variabilidad de los datos y a la irregularidad de la ditribución respecto a los años (ver Figura~\ref{fig:periodo234}), el modelo no tiene la misma precisión para todos los rangos de valores. En al Figura~\ref{fig:smape_c4} podemos observar el SMAPE para cada uno de los modelos base, junto con un histograma que muestra la distribución del número de valores del conjunto de entrenamiento para cada rango de valores elegidos. Los rangos en los que no hay datos es porque no se disponen de suficientes para hacer el cálculo.
+Debido a la elevada variabilidad de los datos y a la irregularidad de la distribución respecto a los años (ver Figura~\ref{fig:periodo234}), el modelo no tiene la misma precisión para todos los rangos de valores. En al Figura~\ref{fig:smape_c4} podemos observar el SMAPE para cada uno de los modelos base, junto con un histograma que muestra la distribución del número de valores del conjunto de entrenamiento para cada rango de valores elegidos. Los rangos en los que no hay datos es porque no se disponen de suficientes para hacer el cálculo.
 
 TODO: Meter versión nueva de esta imagen (hay línea que se tapan entre sí) 
-\begin{figure}
+\begin{figure}[h]
     \centering
     \includegraphics[width=0.8\textwidth]{figuras/c4_base_models_SMAPE_RMSE_combined_bins.pdf}
-    \caption{Dispersión de las predicciones respecto a los valores reales para la variable objetivo \texttt{c4}.}
+    \caption{SMAPE y RMSE de los modelos base para la variable objetivo \texttt{c4}.}
     \label{fig:smape_c4}
 \end{figure}
 
-Podemos observar que el SMAPE tiene un valle entre los datos $[20-50]$ y $[200-300]$ tC/ha, donde el SMAPE llega a ser inferior al $30\%$ para los mejores modelos. Atendiendo a la distribución de los datos de entrenamiento en la Figura~\ref{fig:smape_c4} nos damos cuenta de que para valores pequeños ($[0-20]$ tC/ha) el SMAPE es alto pese a que en ese rango se encuentra prácticamente la mitad de los datos de entrenamiento, lo que indica que el error medio del modelo no es lo suficientemente pequeño como para hacer predicciones confiables para cultivos pequeños. Tras el punto incial el SMAPE disminuye rápidamente mientras el RMSE aumnta ligeramente. Este comportamiento se mantiene durante la zona valle, lo que indica que, si vien el error absoluto aumenta, no lo hace tanto el error relativo. Esto es un indicativo de que es esta zona el modelo comprende mejor el comportamiento de los datos. El SMAPE comienza a aumentar rápidamente a partir del rango $[150-200]$ tC/ha, valor que coincide con una gran escasez de datos comparado con el resto de rangos
+Podemos observar que el SMAPE tiene un valle entre los datos $[20-50]$ y $[200-300]$ tC/ha, donde llega a ser inferior al $30\%$ para los mejores modelos. Atendiendo a la distribución de los datos de entrenamiento en la Figura~\ref{fig:smape_c4} nos damos cuenta de que para valores pequeños ($[0-20]$ tC/ha) el SMAPE es alto pese a que en ese rango se encuentra prácticamente la mitad de los datos de entrenamiento, lo que indica que el error medio del modelo no es lo suficientemente pequeño como para hacer predicciones confiables para cultivos pequeños. Tras el punto inicial el SMAPE disminuye rápidamente mientras el RMSE aumenta ligeramente. Este comportamiento se mantiene durante la zona valle, lo que indica que, si bien el error absoluto aumenta, no lo hace tanto el error relativo. Esto es un indicativo de que es esta zona el modelo comprende mejor el comportamiento de los datos. El SMAPE comienza a aumentar rápidamente a partir del rango $[150-200]$ tC/ha, valor que coincide con una gran escasez de datos comparado con el resto de rangos.
+
+Para comprobar que los modelos están aprendiendo la lógica del crecimiento de los árboles (cuanto más tiempo, más carbono absobido) podemos hacer la simulación de predecir el carbono para un mismo cultivo a los largo de todos los años disponibles. Esta prueba se ha realizado en la Figura \ref{fig:prediccion_vs_periodo_top5} para el caso del modelo LightGBM. Se encogieron las cinco especies más comunes del dataset junto con sus valores más comunes de los datos de entrada (la media para los parámetros numéricos, la moda para los categóricos) y se realizó la predicción cambiando únicamente el año de predicción. Observamos que el carbono aumenta a medida que lo hace el tiempo, lo que indica que la lógica del modelo es la esperada.
+
+\begin{figure}
+      \centering
+      \includegraphics[width=0.8\textwidth]{figuras/prediccion_vs_periodo_top5.pdf}
+      \caption{Valor de carbono en función del tiempo para los cinco cultivos más comunes del dataset para el modelo LightGBM.}
+      \label{fig:prediccion_vs_periodo_top5}
+\end{figure}
+
 
 
 
@@ -80,6 +90,30 @@ moderada y bien regularizada.
 % similar al observado para la variable en tC/ha. El mejor modelo es nuevamente \texttt{stack5\_MLP},
 % que alcanza un $R^2 = 0.85$ y un RMSE de 13.76 tC, superando ligeramente al mejor modelo
 % individual (CatBoost, con RMSE = 13.85 tC).
+
+\subsection{Discusión sobre la variable objetivo \texttt{carbono\_bruto\_4}}
+
+Para el caso de los modelos individuales, para la variable \texttt{carbono\_bruto\_4} el modelo CatBoost con un $R^2 = 0.8448$ supera ligeramente a LightGBM, que era el que mejor $R^2$ obtenía para la variable \texttt{c4}. Así mismo, el modelo CatBoost también es el que presenta un menor RMSE ($13.85$ tC) y un menor MAE ($6.6148$ tC). Si hacemos la comparación de las métricas entre los modelos que predices \texttt{c4} y \texttt{carbono\_bruto\_4} observamos que los $R^2$ mejoran de forma sistemática para la variable \texttt{carbono\_bruto\_4}, lo que sugiere que es más sencillo predecir la variable objetivo en toneladas de carbono.
+
+Podemos observar los valores predichos contra los reales en la figura \ref{fig:density_CatBoost_0-300}. Observamos un caso muy similar a aquel observado para la variable \texttt{c4}, con un rango de valores posibles muy grande (de $0$ a $300$ tC) situandose la gran mayoría en el rango entre $0$ y $100$ tC. También ocurre que la mayor densidad de puntos se encuentra en valores pequeños, además de que la línea de mayor densidad se encuentra cercana a la línea de predicción correcta, lo que indica que el modelo capta de forma correcta la tendencia de los datos.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{figuras/density_CatBoost_0-300.pdf}
+    \caption{Densidad de la variable \texttt{carbono\_bruto\_4} para el modelo CatBoost. Solo se muestran los valores entre 0 y 300 tC.}
+    \label{fig:density_CatBoost_0-300}
+\end{figure}
+    
+De igual forma, en la Figura \ref{fig:carbono_bruto_4_SMAPE_RMSE} se muestran los valores de SMAPE y RMSE de los modelos individuales para distintos rangos de valores de la variable objetico \texttt{carbono\_bruto\_4}. De nuevo, el comportamiento es similar al observado para la variable \texttt{c4}, pudiendo observar un valle en el SMAPE entre los rangos $[20-50]$ tC y $[200-300]$ tC, mientras que en el RMSE aumenta a medida que el valor de la variable objetivo aumenta. Esto sugiere que las mejores predicciones son aquellas dentro del rango de valores del valle, donde el error porcentual es menor (llegando a cerca del $25\%$ de error para el rango $[100-150]$ tC). Un mayor valor del error en valores extremos de la variable objetico sugiere que los modelos no pueden alcanzar la suficiente precisión como para ser útil en valores de carbono pequeños (donde un error ``pequeño'' penaliza en mayor medida que para valores de carbono altos), bien porque los modelos no son suficeintemente bueno o bien por la elevada variabilidad de los datos. Para valores de carbono altos el error elevado se debe muy posiblemente a la poca cantidad de datos disponibles.
+
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{figuras/carbono_bruto4_base_models_SMAPE_RMSE_combined_bins.pdf}
+    \caption{SMAPE y RMSE de los modelos base para la variable \texttt{carbono\_bruto\_4}.}
+    \label{fig:carbono_bruto_4_SMAPE_RMSE}
+\end{figure}
+    
 
 
 \subsection{Síntesis de resultados}

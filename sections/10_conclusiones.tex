@@ -6,3 +6,7 @@
 % - Enfatiza la importancia y el impacto potencial de tu modelo.
 % - Evita introducir nueva información aquí.
 
+El objetivo de este trabajo es la obtención de un modelo de Inteligencia Artificial capaz de predecir el carbono que una cierta parcela de terreno forestada o reforestada capturará en un cierto periodo de tiempo. Para ello se han recogido datos de tierra (Inventario Forestal Nacional \cite{ifn}), datos meteorológicos \cite{era5land} e imágenes satelitales \cite{landsat5_data} con los que se han entrenado varios modelos para intentar predecir el carbono capturado por las parcelas presenten en las iteraciones $2$ y $3$ del Inventario Forestal Nacional, comparando el resultado con la última de las iteraciones, la $4$. Las predicciones se hicieron para dos configuraciones distintas: usando como datos explicativos únicamente los del inventario $2$ y usando como datos explicativos los de los inventarios $3$ y $4$. A su vez, para cada caso se realizó la predicción de dos variables objetivo: la predicción del carbono en toneladas por hectárea (tC/ha) y la predicción del carbono en toneladas (tC). Los resultados para los mejores modelo en cada caso están recogidos en la Tabla \ref{poner_tabla}.
+
+
+Con estos resultados podemos afirmar que disponemos de datos suficientes y de suficiente calidad para entrenar modelos capaces de predecir el carbono capturado con un error aceptable. 
