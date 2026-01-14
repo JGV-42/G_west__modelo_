@@ -8,6 +8,114 @@
 % - Relevancia práctica: ¿Cómo puede ser utilizado este modelo en el mundo real?
 
 %--------------------------------------------------
+
+Para estructurar de forma clara el análisis, dividiremos este apartado en dos secciones, sesgún se hayan entrenado los modelos solo con el IFN3 o bien con el IFN2 e IFN3 como explicativos. A su vez, en sección contendrá una explicación distinta para cada una de las cantidades predichas (tC o tC/ha).
+
+\subsection{Resultados IFN3}
+
+\subsection{Resultados IFN2 e IFN3}
+
+
+\subsubsection{Toneladas de carbono por hectárea}
+
+\subsubsubsection{Modelos base}
+
+Una vez entrenados los modelos, algunos parámetros globales como el $R^2$, RMSE y MAE se presentan en la Tabla \ref{tab:resultados_modelos_base_THA_resultados}
+
+\begin{table}[H]
+    \centering
+    \caption{Resumen del rendimiento de los modelos para la predicción de la variable de carbono en tC/ha con el conjunto de datos que emplea IFN2 e IFN3 como explicativos.}
+    \label{tab:resultadosmodelosbaseTHA}
+    \begin{tabular}{lrrr}
+        \toprule
+        Modelo            & $R^2_{\text{test}}$ & RMSE$_{\text{test}}$ & MAE$_{\text{test}}$ \\
+        \midrule
+        \textbf{LightGBM} & \textbf{0.787}      & \textbf{22.767}      & \textbf{11.650}     \\
+        XGBoost           & 0.784               & 22.952               & 11.590              \\
+        CatBoost          & 0.783               & 22.990               & 11.607              \\
+        GBDT              & 0.783               & 23.014               & 11.658              \\
+        MLP               & 0.771               & 23.607               & 12.287              \\
+        BaggedDT          & 0.740               & 25.142               & 13.021              \\
+        Random Forest     & 0.732               & 25.547               & 12.908              \\
+        BayesianNN        & 0.678               & 28.021               & 14.689              \\
+        SVR               & 0.551               & 33.065               & 13.708              \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+% Globalmente el mejor resultado lo obtiene el modelo LightGBM con un $R^2_{\text{test}}$ de 0.787, un RMSE$_{\text{test}}$ de 22.767 tC/ha y un MAE$_{\text{test}}$ de 11.650 tC/ha. El siguiente modelo de la tabla, XGBoost, obtiene métricas muy similares, y de hecho tienen un MAE$_{\text{test}}$ ligeramente menor. Exceptuando los últimos dos modelos, el resto obtienen resultados muy similares. 
+
+En la Figura \ref{fig:density_LightGBM_0-300} se muestra la distribución de predicciones frente a valores reales para el modelo LightGBM (el que se ha escogido como el mejor) con IFN2 e IFN3 como explicativos para el rango de predicciones entre 0 y 300 tC/ha (para facilitar la visualización). También se incluye un código de colores para facilitar la visualización de la densidad de puntos y un histograma de la distribución tanto de los valores reales como de las predicciones.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{figuras/density_LightGBM_0-300.pdf}
+    \caption{Distribución de predicciones frente a valores reales para el modelo LightGBM con IFN2 e IFN3 como explicativos. Solo se muestra el intervalo de predicciones entre 0 y 300 tC/ha.}
+    \label{fig:density_LightGBM_0-300}
+\end{figure}
+
+
+
+\subsubsubsection{Modelos con stacking}
+
+
+\subsubsection{Toneladas de carbono}
+
+\subsubsubsection{Modelos base}
+
+En la Tabla \ref{tab:resultados_modelos_base_tc_resultados} se muestra el resumen del rendimiento de los modelos para la predicción de la variable de carbono en toneladas con el conjunto de datos que emplea el IFN2 e IFN3 como explicativos.
+
+
+\begin{table}[H]
+    \centering
+    \caption{Resumen del rendimiento de los modelos para la predicción de la variable de carbono en toneladas (carbono\_bruto4) con el conjunto de datos que emplea IFN2 e IFN3 como explicativos.}
+    \label{tab:resultados_modelos_base_tc_resultados}
+    \begin{tabular}{lrrr}
+        \toprule
+        Modelo            & $R^2_{\text{test}}$ & RMSE$_{\text{test}}$ & MAE$_{\text{test}}$ \\
+        \midrule
+        \textbf{CatBoost} & \textbf{0.845}      & \textbf{13.846}      & \textbf{6.615}      \\
+        LightGBM          & 0.841               & 14.006               & 6.654               \\
+        XGBoost           & 0.840               & 14.054               & 6.655               \\
+        GBDT              & 0.838               & 14.159               & 6.722               \\
+        MLP               & 0.832               & 14.410               & 6.931               \\
+        BaggedDT          & 0.821               & 14.858               & 7.282               \\
+        Random Forest     & 0.819               & 14.950               & 7.135               \\
+        BayesianNN        & 0.775               & 16.674               & 8.906               \\
+        SVR               & 0.679               & 19.897               & 8.137               \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+Al igual que en apartado anterior, en la Figura \ref{fig:density_CatBoost_0-150} se muestra la distribución de predicciones frente a valores reales para el modelo CatBoost (el que se ha escogido como el mejor) con IFN2 e IFN3 como explicativos para el rango de predicciones entre 0 y 150 tC/ha (para facilitar la visualización). También se incluye un código de colores para facilitar la visualización de la densidad de puntos y un histograma de la distribución tanto de los valores reales como de las predicciones.
+
+\begin{figure}
+      \centering
+      \includegraphics[width=0.8\textwidth]{figuras/density_CatBoost_0-150.pdf}
+      \caption{Distribución de predicciones frente a valores reales para el modelo CatBoost con IFN2 e IFN3 como explicativos para el rango de predicciones entre 0 y 150 tC/ha (para facilitar la visualización).}
+      \label{fig:density_CatBoost_0-150}
+\end{figure}
+
+Por otro lado, en las Figuras \ref{fig:CatBoost_rmse_cuantiles} y \ref{fig:CatBoost_pct_rmse_cuantiles} se muestra la evolución del RMSE en cuantiles y el RMSE porcentual en cuantiles en función de la variable \texttt{periodo} para el modelo CatBoost con IFN2 e IFN3 como explicativos, junto con el histograma de distribución de los datos de entrenamiento en función de la variable periodo.
+
+\begin{figure}
+      \centering
+      \includegraphics[width=0.8\textwidth]{figuras/CatBoost_rmse_cuantiles.pdf}
+      \caption{Evolución del RMSE en cuantiles en función de la variable \texttt{periodo} para el modelo CatBoost con IFN2 e IFN3 como explicativos.}
+      \label{fig:CatBoost_rmse_cuantiles}
+\end{figure}
+
+\begin{figure}
+      \centering
+      \includegraphics[width=0.8\textwidth]{figuras/CatBoost_pct_rmse_cuantiles.pdf}
+      \caption{Evolución del RMSE porcentual en cuantiles en función de la variable \texttt{periodo} para el modelo CatBoost con IFN2 e IFN3 como explicativos.}
+      \label{fig:CatBoost_pct_rmse_cuantiles}
+\end{figure}
+
+
+\vspace{1cm}
+\hline
+\vspace{1cm}
 \subsection{Resultados}
 \label{subsec:resultados_modelos}
 
@@ -19,7 +127,7 @@ Un aspecto especialmente relevante es la alta similitud entre los valores de $R^
 
 La incorporación de esquemas de \textit{stacking} no produce incrementos sustanciales en el coeficiente de determinación respecto a los mejores modelos individuales. No obstante, sí se aprecia una mejora sistemática en el error absoluto medio (MAE), con reducciones que oscilan aproximadamente entre 210 y 371 kg de carbono (o kg/ha), dependiendo del escenario considerado. Esta reducción, aunque moderada en términos relativos, resulta relevante desde un punto de vista práctico, ya que implica predicciones más precisas en el rango de error típico y justifica la consideración del \textit{stacking} como una estrategia complementaria.
 
-En cuanto a la estructura de los ensambles, los mejores resultados se obtienen cuando se combinan modelos base de alta calidad y naturaleza similar (principalmente variantes de \textit{gradient boosting}) y se emplean metamodelos con complejidad moderada, como MLP o SVR lineal. Por el contrario, los \textit{stacks} con pocos modelos base o aquellos que incorporan metamodelos excesivamente flexibles, como Random Forest en el segundo nivel, tienden a ofrecer un rendimiento inferior, probablemente debido a la baja dimensionalidad del espacio de meta-predictores y a un ajuste innecesario del ruido residual.
+En cuanto a la estructura de los ensambles, los mejores resultados se obtienen cuando se combinan modelos base de alta calidad y naturaleza similar (principalmente variantes de \textit{gradient boosting}) y se emplean metamodelos con complejidad moderada, como MLP o SVR lineal. Por el contrario, los \textit{stacks} con pocos modelos base o aquellos que incorporan metamodelos excesivamente flexibles, como Random Forest en el segundo nivel, tienden a ofrecer un rendimiento inferior, probablemente debido a la baja dimensionalidad del espacio de meta-predictores o a un sobreajuste innecesario del ruido residual.
 
 En síntesis, los resultados confirman que los modelos individuales basados en árboles constituyen una solución sólida y eficiente, mientras que el \textit{stacking} aporta mejoras incrementales principalmente en términos de reducción del error medio.
 
@@ -92,14 +200,16 @@ A partir del análisis realizado, pueden resumirse las principales conclusiones 
           lo que los descarta como candidatos eficaces para este tipo de predicción.
 
     \item Las técnicas de \textit{stacking} aportan mejoras sistemáticas en el error absoluto medio de los modelos,
-          reduciendolos, en la mejor configuración, entorno a un 5\%.
+          reduciendolos, en la mejor configuración, en torno a un 5\%.
     
     \item El rendimiento del \textit{stacking} depende del meta-modelo: los modelos lineales
           (Regresión Lineal y Ridge) ofrecen combinaciones estables y robustas; los meta-modelos Random
           Forest tienden al sobreajuste; y los meta-modelos moderadamente no lineales (SVR y MLP)
           proporcionan las mayores mejoras.
 
-    \item El modelo desarrollado es capaz de predecir, a partir de las características estructurales,
+    \item \textit{TODO: En este item se habla de la capacidad de predecir del modelo para un horizonte temporal de ``entre 5 y 30 años con un nivel elevado de precisión''. En la discusión se menciona que esta precisión varía mucho dependiendo de la cantidad de carbono, así que igual habría que matizar. Podría ser buena idea que en el apartado de Resultados simplemente se expusieran los resultados obtenidos en el de Discusión se entrase ya en valoraciones.}
+    
+    El modelo desarrollado es capaz de predecir, a partir de las características estructurales,
           ecológicas y ambientales de un cultivo forestal, la cantidad de carbono almacenado
           en un horizonte temporal de entre 5 y 30 años con un nivel elevado de precisión.
           El mejor modelo obtenido se construye mediante un metamodelo \texttt{MLP} combinando los modelos

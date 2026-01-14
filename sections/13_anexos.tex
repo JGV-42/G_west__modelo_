@@ -592,25 +592,25 @@ Para el nivel de usos del suelo Monte se definirán los siguientes niveles morfo
     \centering
     \caption{Resumen del rendimiento de los modelos para la predicción de la variable de carbono en toneladas (carbono\_bruto4) con el conjunto de datos que emplea IFN2 e IFN3 como explicativos.}
     \label{tab:resultados_modelos_base_tc}
-    \begin{tabular}{lrrrr}
+    \begin{tabular}{lrrr}
         \toprule
-        Modelo            & CV $R^2$ & $R^2_{\text{test}}$ & RMSE$_{\text{test}}$ & MAE$_{\text{test}}$ \\
+        Modelo            & $R^2_{\text{test}}$ & RMSE$_{\text{test}}$ & MAE$_{\text{test}}$ \\
         \midrule
-        Random Forest     & 0.81     & 0.82                & 14.95                & 7.14                \\
-        XGBoost           & 0.84     & 0.84                & 14.05                & 6.65                \\
-        \textbf{CatBoost} & \textbf{0.84}     & \textbf{0.84}     & \textbf{13.85}      & \textbf{6.61} \\
-        LightGBM          & 0.84     & 0.84                & 14.01                & 6.65                \\
-        GBDT              & 0.84     & 0.84                & 14.16                & 6.72                \\
-        BaggedDT          & 0.82     & 0.82                & 14.86                & 7.28                \\
-        MLP               & 0.83     & 0.83                & 14.41                & 6.93                \\
-        SVR               & 0.66     & 0.68                & 19.90                & 8.14                \\
-        BayesianNN        & 0.77     & 0.77                & 16.67                & 8.91                \\
+        \textbf{CatBoost} & \textbf{0.845}      & \textbf{13.846}      & \textbf{6.615}      \\
+        LightGBM          & 0.841               & 14.006               & 6.654               \\
+        XGBoost           & 0.840               & 14.054               & 6.655               \\
+        GBDT              & 0.838               & 14.159               & 6.722               \\
+        MLP               & 0.832               & 14.410               & 6.931               \\
+        BaggedDT          & 0.821               & 14.858               & 7.282               \\
+        Random Forest     & 0.819               & 14.950               & 7.135               \\
+        BayesianNN        & 0.775               & 16.674               & 8.906               \\
+        SVR               & 0.679               & 19.897               & 8.137               \\
         \bottomrule
     \end{tabular}
 \end{table}
 
 TODO: corregir las combinaciones para el stack. No coinciden con las descritas arriba ni con las entrenadas para IFN3 como explicativo. Debería ser stack1-6 modelos, satck2-4 modelos, stack3-3 modelos, stack4-3 modelos, stack5-2 modelos
-
+TODO: comprobar que sean los valores finales
 \begin{table}[H]
     \centering
     \small
@@ -670,24 +670,26 @@ TODO: corregir las combinaciones para el stack. No coinciden con las descritas a
     \centering
     \caption{Resumen del rendimiento de los modelos para la predicción de la variable de carbono en tC/ha con el conjunto de datos que emplea IFN2 e IFN3 como explicativos.}
     \label{tab:resultadosmodelosbaseTHA}
-    \begin{tabular}{lrrrr}
+    \begin{tabular}{lrrr}
         \toprule
-        Modelo            & CV $R^2$ & $R^2_{\text{test}}$ & RMSE$_{\text{test}}$ & MAE$_{\text{test}}$ \\
+        Modelo            & $R^2_{\text{test}}$ & RMSE$_{\text{test}}$ & MAE$_{\text{test}}$ \\
         \midrule
-        Random Forest     & 0.75     & 0.73                & 25.55                & 12.91               \\
-        XGBoost           & 0.79     & 0.78                & 22.95                & 11.59               \\
-        \textbf{CatBoost}          & \textbf{0.80}     & \textbf{0.78}                & \textbf{22.99}                & \textbf{11.61}               \\
-        \textbf{LightGBM} & \textbf{0.79}     & \textbf{0.79}    & \textbf{22.77}      & \textbf{11.65} \\
-        GBDT              & 0.79     & 0.78                & 23.01                & 11.66               \\
-        BaggedDT          & 0.76     & 0.74                & 25.14                & 13.02               \\
-        MLP               & 0.79     & 0.77                & 23.61                & 12.29               \\
-        SVR               & 0.58     & 0.55                & 33.07                & 13.71               \\
-        BayesianNN        & 0.71     & 0.68                & 28.02                & 14.69               \\
+        \textbf{LightGBM} & \textbf{0.787}      & \textbf{22.767}      & \textbf{11.650}     \\
+        XGBoost           & 0.784               & 22.952               & 11.590              \\
+        CatBoost          & 0.783               & 22.990               & 11.607              \\
+        GBDT              & 0.783               & 23.014               & 11.658              \\
+        MLP               & 0.771               & 23.607               & 12.287              \\
+        BaggedDT          & 0.740               & 25.142               & 13.021              \\
+        Random Forest     & 0.732               & 25.547               & 12.908              \\
+        BayesianNN        & 0.678               & 28.021               & 14.689              \\
+        SVR               & 0.551               & 33.065               & 13.708              \\
         \bottomrule
     \end{tabular}
 \end{table}
 
 TODO: corregir las combinaciones para el stack. No coinciden con las descritas arriba ni con las entrenadas para IFN3 como explicativo. Debería ser stack1-6 modelos, satck2-4 modelos, stack3-3 modelos, stack4-3 modelos, stack5-2 modelos
+
+TODO: comprobar que sean los valores finales
 \begin{table}[H]
     \centering
     \small
@@ -746,21 +748,21 @@ TODO: corregir las combinaciones para el stack. No coinciden con las descritas a
     \centering
     \caption{Resumen del rendimiento de los modelos para la predicción de la variable de carbono en tC con el conjunto de datos que emplea IFN3 como explicativo.}
     \label{tab:resultados_modelos_base_ifn3_tc}
-    \begin{tabular}{lrrrr}
+    \begin{tabular}{lrrr}
         \toprule
-        Modelo            & CV $R^2$ & $R^2_{\text{test}}$ & RMSE$_{\text{test}}$ & MAE$_{\text{test}}$ \\
+        Modelo            & $R^2_{\text{test}}$ & RMSE$_{\text{test}}$ & MAE$_{\text{test}}$ \\
         \midrule
-        Random Forest     & 0.8580 & 0.8722 & 12.6433 & 6.5331 \\
-        XGBoost           & 0.8945 & 0.9072 & 10.7716 & 5.5797 \\
-        CatBoost          & 0.8953 & 0.9066 & 10.8074 & 5.5704 \\
-        \textbf{LightGBM} & \textbf{0.8956} & \textbf{0.9091} & \textbf{10.6623} & \textbf{5.4774} \\
-        GBDT              & 0.8921 & 0.9043 & 10.9423 & 5.7316 \\
-        BaggedDT          & 0.8676 & 0.8819 & 12.1541 & 6.4201 \\
-        MLP               & 0.8855 & 0.8963 & 11.3916 & 6.3821 \\
-        SVR               & 0.8171 & 0.8249 & 14.7974 & 7.1238 \\
-        BayesianNN        & 0.8354 & 0.8415 & 14.0794 & 7.8900 \\
-        KNN               & 0.7815 & 0.7884 & 16.2702 & 8.1659 \\
-        AdaBoost          & 0.5702 & 0.5750 & 23.0560 & 19.5345 \\
+        \textbf{LightGBM} & \textbf{0.909}      & \textbf{10.662}      & \textbf{5.477}      \\
+        XGBoost           & 0.907               & 10.772               & 5.580               \\
+        CatBoost          & 0.907               & 10.807               & 5.570               \\
+        GBDT              & 0.904               & 10.942               & 5.732               \\
+        MLP               & 0.896               & 11.392               & 6.382               \\
+        BaggedDT          & 0.882               & 12.154               & 6.420               \\
+        Random Forest     & 0.872               & 12.643               & 6.533               \\
+        BayesianNN        & 0.842               & 14.079               & 7.890               \\
+        SVR               & 0.825               & 14.797               & 7.124               \\
+        KNN               & 0.788               & 16.270               & 8.166               \\
+        AdaBoost          & 0.575               & 23.056               & 19.535              \\
         \bottomrule
     \end{tabular}
 \end{table}
@@ -824,21 +826,21 @@ TODO: corregir las combinaciones para el stack. No coinciden con las descritas a
     \centering
     \caption{Resumen del rendimiento de los modelos para la predicción de la variable de carbono en tC/ha con el conjunto de datos que emplea IFN3 como explicativo.}
     \label{tab:resultados_modelos_base_ifn3}
-    \begin{tabular}{lrrrr}
+    \begin{tabular}{lrrr}
         \toprule
-        Modelo            & CV $R^2$ & $R^2_{\text{test}}$ & RMSE$_{\text{test}}$ & MAE$_{\text{test}}$ \\
+        Modelo            & $R^2_{\text{test}}$ & RMSE$_{\text{test}}$ & MAE$_{\text{test}}$ \\
         \midrule
-        Random Forest     & 0.8097 & 0.8260 & 19.7302 & 10.4893 \\
-        XGBoost           & 0.8409 & 0.8579 & 17.8277 & 9.2069 \\
-        \textbf{CatBoost} & \textbf{0.8396} & \textbf{0.8598} & \textbf{17.7087} & \textbf{9.2504} \\
-        LightGBM          & 0.8368 & 0.8577 & 17.8409 & 9.1587 \\
-        GBDT              & 0.8364 & 0.8529 & 18.1412 & 9.4626 \\
-        BaggedDT          & 0.8136 & 0.8261 & 19.7255 & 10.4018 \\
-        MLP               & 0.8099 & 0.8372 & 19.0859 & 10.9172 \\
-        SVR               & 0.7327 & 0.7338 & 24.4026 & 11.2189 \\
-        BayesianNN        & 0.7691 & 0.7746 & 22.4543 & 12.2597 \\
-        KNN               & 0.7406 & 0.7686 & 22.7546 & 12.2522 \\
-        AdaBoost          & 0.4514 & 0.4731 & 34.3356 & 26.2947 \\
+        \textbf{CatBoost} & \textbf{0.860}      & \textbf{17.709}      & \textbf{9.250}      \\
+        XGBoost           & 0.858               & 17.828               & 9.207               \\
+        LightGBM          & 0.858               & 17.841               & 9.159               \\
+        GBDT              & 0.853               & 18.141               & 9.463               \\
+        MLP               & 0.837               & 19.086               & 10.917              \\
+        BaggedDT          & 0.826               & 19.726               & 10.402              \\
+        Random Forest     & 0.826               & 19.730               & 10.489              \\
+        BayesianNN        & 0.775               & 22.454               & 12.260              \\
+        KNN               & 0.769               & 22.755               & 12.252              \\
+        SVR               & 0.734               & 24.403               & 11.219              \\
+        AdaBoost          & 0.473               & 34.336               & 26.295              \\
         \bottomrule
     \end{tabular}
 \end{table}
