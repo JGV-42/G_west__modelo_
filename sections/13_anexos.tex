@@ -610,54 +610,53 @@ Para el nivel de usos del suelo Monte se definirán los siguientes niveles morfo
 \end{table}
 
 TODO: corregir las combinaciones para el stack. No coinciden con las descritas arriba ni con las entrenadas para IFN3 como explicativo. Debería ser stack1-6 modelos, satck2-4 modelos, stack3-3 modelos, stack4-3 modelos, stack5-2 modelos
-TODO: comprobar que sean los valores finales
 \begin{table}[H]
     \centering
     \small
     \footnotesize
     \begin{tabular}{llcccc}
         \hline
-        \textbf{Stack}  & \textbf{Metamodelo}    & \textbf{Bases} & \textbf{Test $R^2$} & \textbf{RMSE}  & \textbf{MAE}  \\
+        \textbf{Stack}  & \textbf{Metamodelo}    & \textbf{Bases} & $R^2_{\text{test}}$ & $\text{RMSE}_{\text{test}}$  & $\text{MAE}_{\text{test}}$  \\
         \hline
         % ---------- STACK 1 ----------
-        stack1 & GradientBoosting & 2 & 0.84 & 14.04 & 6.53 \\
-        stack1 & LinearRegression & 2 & 0.84 & 13.97 & 6.62 \\
-        stack1 & Ridge            & 2 & 0.84 & 13.97 & 6.62 \\
-        stack1 & RandomForest     & 2 & 0.81 & 15.13 & 7.27 \\
-        stack1 & SVR              & 2 & 0.84 & 14.15 & 6.53 \\
-        \textbf{stack1} & \textbf{MLP}              & \textbf{2} & \textbf{0.84} & \textbf{13.97} & \textbf{6.48} \\
+        stack1 & GradientBoosting & 2 & 0.840 & 14.042 & 6.532 \\
+        stack1 & LinearRegression & 2 & 0.842 & 13.974 & 6.621 \\
+        stack1 & Ridge            & 2 & 0.842 & 13.974 & 6.621 \\
+        stack1 & RandomForest     & 2 & 0.815 & 15.108 & 7.254 \\
+        stack1 & SVR              & 2 & 0.838 & 14.150 & 6.534 \\
+        \textbf{stack1} & \textbf{MLP}              & \textbf{2} & \textbf{0.842} & \textbf{13.969} & \textbf{6.482} \\
         \hline
         % ---------- STACK 2 ----------
-        stack2 & GradientBoosting & 3 & 0.84 & 13.98 & 6.52 \\
-        stack2 & LinearRegression & 3 & 0.84 & 13.91 & 6.59 \\
-        stack2 & Ridge            & 3 & 0.84 & 13.91 & 6.59 \\
-        stack2 & RandomForest     & 3 & 0.83 & 14.65 & 7.02 \\
-        stack2 & SVR              & 3 & 0.84 & 14.06 & 6.51 \\
-        \textbf{stack2} & \textbf{MLP}              & \textbf{3} & \textbf{0.84} & \textbf{13.91} & \textbf{6.51} \\
+        stack2 & GradientBoosting & 3 & 0.842 & 13.977 & 6.525 \\
+        stack2 & LinearRegression & 3 & 0.843 & 13.913 & 6.586 \\
+        stack2 & Ridge            & 3 & 0.843 & 13.913 & 6.586 \\
+        stack2 & RandomForest     & 3 & 0.826 & 14.652 & 7.017 \\
+        stack2 & SVR              & 3 & 0.840 & 14.064 & 6.511 \\
+        \textbf{stack2} & \textbf{MLP}              & \textbf{3} & \textbf{0.843} & \textbf{13.913} & \textbf{6.507} \\
         \hline
         % ---------- STACK 3 ----------
-        stack3 & GradientBoosting & 4 & 0.84 & 13.88 & 6.45 \\
-        stack3 & LinearRegression & 4 & 0.85 & 13.81 & 6.56 \\
-        stack3 & Ridge            & 4 & 0.85 & 13.81 & 6.56 \\
-        stack3 & RandomForest     & 4 & 0.83 & 14.54 & 6.91 \\
-        stack3 & SVR              & 4 & 0.84 & 13.97 & 6.47 \\
-        \textbf{stack3} & \textbf{MLP}              & \textbf{4} & \textbf{0.85} & \textbf{13.78} & \textbf{6.41} \\
+        stack3 & GradientBoosting & 4 & 0.844 & 13.862 & 6.440 \\
+        stack3 & LinearRegression & 4 & 0.846 & 13.813 & 6.557 \\
+        stack3 & Ridge            & 4 & 0.846 & 13.813 & 6.557 \\
+        stack3 & RandomForest     & 4 & 0.829 & 14.545 & 6.920 \\
+        stack3 & SVR              & 4 & 0.842 & 13.978 & 6.473 \\
+        \textbf{stack3} & \textbf{MLP}              & \textbf{4} & \textbf{0.846} & \textbf{13.785} & \textbf{6.364} \\
         \hline
         % ---------- STACK 4 ----------
-        stack4 & GradientBoosting & 5 & 0.85 & 13.82 & 6.42 \\
-        stack4 & LinearRegression & 5 & 0.85 & 13.78 & 6.53 \\
-        stack4 & Ridge            & 5 & 0.85 & 13.78 & 6.53 \\
-        stack4 & RandomForest     & 5 & 0.84 & 14.24 & 6.75 \\
-        stack4 & SVR              & 5 & 0.84 & 13.94 & 6.45 \\
-        \textbf{stack4} & \textbf{MLP}              & \textbf{5} & \textbf{0.85} & \textbf{13.77} & \textbf{6.43} \\
+        stack4 & GradientBoosting & 5 & 0.845 & 13.827 & 6.428 \\
+        stack4 & LinearRegression & 5 & 0.846 & 13.784 & 6.533 \\
+        stack4 & Ridge            & 5 & 0.846 & 13.784 & 6.533 \\
+        stack4 & RandomForest     & 5 & 0.834 & 14.309 & 6.771 \\
+        stack4 & SVR              & 5 & 0.843 & 13.943 & 6.452 \\
+        \textbf{stack4} & \textbf{MLP}              & \textbf{5} & \textbf{0.847} & \textbf{13.768} & \textbf{6.458} \\
         \hline
         % ---------- STACK 5 ----------
-        stack5 & GradientBoosting & 6 & 0.85 & 13.81 & 6.42 \\
-        stack5 & LinearRegression & 6 & 0.85 & 13.78 & 6.54 \\
-        stack5 & Ridge            & 6 & 0.85 & 13.78 & 6.54 \\
-        stack5 & RandomForest     & 6 & 0.84 & 14.21 & 6.71 \\
-        stack5 & SVR              & 6 & 0.84 & 13.94 & 6.45 \\
-        \textbf{stack5} & \textbf{MLP} & \textbf{6} & \textbf{0.85} & \textbf{13.76} & \textbf{6.40} \\
+        stack5 & GradientBoosting & 6 & 0.846 & 13.812 & 6.423 \\
+        stack5 & LinearRegression & 6 & 0.846 & 13.787 & 6.541 \\
+        stack5 & Ridge            & 6 & 0.846 & 13.787 & 6.541 \\
+        stack5 & RandomForest     & 6 & 0.836 & 14.212 & 6.716 \\
+        stack5 & SVR              & 6 & 0.843 & 13.940 & 6.451 \\
+        \textbf{stack5} & \textbf{MLP} & \textbf{6} & \textbf{0.847} & \textbf{13.759} & \textbf{6.401} \\
         \hline
     \end{tabular}
     \caption{Resultados de las diferentes configuraciones de stacking utilizando IFN2 e IFN3 como explicativos de la variable en toneladas de carbono.}
@@ -689,54 +688,53 @@ TODO: comprobar que sean los valores finales
 
 TODO: corregir las combinaciones para el stack. No coinciden con las descritas arriba ni con las entrenadas para IFN3 como explicativo. Debería ser stack1-6 modelos, satck2-4 modelos, stack3-3 modelos, stack4-3 modelos, stack5-2 modelos
 
-TODO: comprobar que sean los valores finales
 \begin{table}[H]
     \centering
     \small
     \footnotesize
         \begin{tabular}{llcccc}
         \hline
-        \textbf{Stack}  & \textbf{Metamodelo}    & \textbf{Bases} & \textbf{Test $R^2$} & \textbf{RMSE}  & \textbf{MAE}   \\
+        \textbf{Stack}  & \textbf{Metamodelo}    & \textbf{Bases} & $R^2_{\text{test}}$ & $\text{RMSE}_{\text{test}}$  & $\text{MAE}_{\text{test}}$   \\
         \hline
         % ---------- STACK 1 ----------
-        stack1 & GradientBoosting & 2 & 0.78 & 23.33 & 11.63 \\
-        stack1 & LinearRegression & 2 & 0.79 & 22.77 & 11.61 \\
-        stack1 & Ridge            & 2 & 0.79 & 22.77 & 11.61 \\
-        stack1 & RandomForest     & 2 & 0.75 & 24.91 & 12.88 \\
-        stack1 & SVR              & 2 & 0.78 & 23.11 & \textbf{11.37} \\
-        \textbf{stack1} & \textbf{MLP}   & \textbf{2} & \textbf{0.79} & \textbf{22.63} & \textbf{11.58} \\
+        stack1 & GradientBoosting & 2 & 0.770 & 23.648 & 11.663 \\
+        stack1 & LinearRegression & 2 & 0.787 & 22.768 & 11.607 \\
+        stack1 & Ridge            & 2 & 0.787 & 22.769 & 11.607 \\
+        stack1 & RandomForest     & 2 & 0.740 & 25.152 & 12.875 \\
+        stack1 & SVR              & 2 & 0.781 & 23.109 & 11.368 \\
+        \textbf{stack1} & \textbf{MLP}   & \textbf{2} & \textbf{0.789} & \textbf{22.650} & \textbf{11.556} \\
         \hline
         % ---------- STACK 2 ----------
-        stack2 & GradientBoosting & 3 & 0.78 & 23.18 & 11.53 \\
-        stack2 & LinearRegression & 3 & 0.79 & 22.56 & 11.43 \\
-        stack2 & Ridge            & 3 & 0.79 & 22.57 & 11.43 \\
-        stack2 & RandomForest     & 3 & 0.75 & 24.45 & 12.35 \\
-        stack2 & SVR              & 3 & 0.79 & 22.85 & \textbf{11.21} \\
-        \textbf{stack2} & \textbf{MLP} & \textbf{3} & \textbf{0.79} & \textbf{22.40} & \textbf{11.40} \\
+        stack2 & GradientBoosting & 3 & 0.779 & 23.183 & 11.527 \\
+        stack2 & LinearRegression & 3 & 0.791 & 22.565 & 11.429 \\
+        stack2 & Ridge            & 3 & 0.791 & 22.566 & 11.429 \\
+        stack2 & RandomForest     & 3 & 0.755 & 24.446 & 12.345 \\
+        stack2 & SVR              & 3 & 0.786 & 22.853 & 11.214 \\
+        \textbf{stack2} & \textbf{MLP} & \textbf{3} & \textbf{0.794} & \textbf{22.405} & \textbf{11.403} \\
         \hline
         % ---------- STACK 3 ----------
-        stack3 & GradientBoosting & 4 & 0.78 & 23.21 & 11.45 \\
-        stack3 & LinearRegression & 4 & 0.79 & 22.73 & 11.46 \\
-        stack3 & Ridge            & 4 & 0.79 & 22.74 & 11.45 \\
-        stack3 & RandomForest     & 4 & 0.75 & 24.78 & 12.41 \\
-        stack3 & SVR              & 4 & 0.78 & 23.00 & \textbf{11.22} \\
-        \textbf{stack3} & \textbf{MLP}              & \textbf{4} & \textbf{0.79} & \textbf{22.78} & \textbf{11.34} \\
+        stack3 & GradientBoosting & 4 & 0.774 & 23.442 & 11.477 \\
+        stack3 & LinearRegression & 4 & 0.788 & 22.735 & 11.456 \\
+        stack3 & Ridge            & 4 & 0.788 & 22.735 & 11.454 \\
+        stack3 & RandomForest     & 4 & 0.748 & 24.768 & 12.394 \\
+        stack3 & SVR              & 4 & 0.783 & 22.995 & 11.218 \\
+        \textbf{stack3} & \textbf{MLP}              & \textbf{4} & \textbf{0.787} & \textbf{22.774} & \textbf{11.333} \\
         \hline
         % ---------- STACK 4 ----------
-        stack4 & GradientBoosting & 5 & 0.77 & 23.53 & 11.48 \\
-        stack4 & LinearRegression & 5 & 0.79 & 22.60 & 11.42 \\
-        stack4 & Ridge            & 5 & 0.79 & 22.60 & 11.41 \\
-        stack4 & RandomForest     & 5 & 0.75 & 24.73 & 12.22 \\
-        stack4 & SVR              & 5 & 0.79 & 22.87 & \textbf{11.18} \\
-        \textbf{stack4} & \textbf{MLP}              & \textbf{5} & \textbf{0.79} & \textbf{22.53} & \textbf{11.31} \\
+        stack4 & GradientBoosting & 5 & 0.772 & 23.553 & 11.476 \\
+        stack4 & LinearRegression & 5 & 0.790 & 22.602 & 11.416 \\
+        stack4 & Ridge            & 5 & 0.790 & 22.601 & 11.415 \\
+        stack4 & RandomForest     & 5 & 0.751 & 24.650 & 12.208 \\
+        stack4 & SVR              & 5 & 0.785 & 22.873 & 11.183 \\
+        \textbf{stack4} & \textbf{MLP}              & \textbf{5} & \textbf{0.792} & \textbf{22.531} & \textbf{11.315} \\
         \hline
         % ---------- STACK 5 ----------
-        stack5 & GradientBoosting & 6 & 0.78 & 23.28 & 11.42 \\
-        stack5 & LinearRegression & 6 & 0.79 & 22.57 & 11.39 \\
-        stack5 & Ridge            & 6 & 0.79 & 22.57 & 11.38 \\
-        stack5 & RandomForest     & 6 & 0.76 & 24.15 & 12.03 \\
-        stack5 & SVR              & 6 & 0.79 & 22.86 & \textbf{11.16} \\
-        \textbf{stack5} & \textbf{MLP} & \textbf{6} & \textbf{0.79} & \textbf{22.39} & \textbf{11.32} \\
+        stack5 & GradientBoosting & 6 & 0.773 & 23.492 & 11.421 \\
+        stack5 & LinearRegression & 6 & 0.791 & 22.571 & 11.387 \\
+        stack5 & Ridge            & 6 & 0.791 & 22.572 & 11.384 \\
+        stack5 & RandomForest     & 6 & 0.760 & 24.187 & 12.029 \\
+        stack5 & SVR              & 6 & 0.785 & 22.864 & 11.162 \\
+        \textbf{stack5} & \textbf{MLP} & \textbf{6} & \textbf{0.794} & \textbf{22.387} & \textbf{11.307} \\
         \hline
     \end{tabular}
     \caption{Resultados de las diferentes configuraciones de stacking utilizando IFN2 e IFN3 como explicativos de la variable en tC/ha.}

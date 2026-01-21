@@ -1,20 +1,60 @@
 % sections/03_revision_literatura.tex
 \section{Revisión de la Literatura}
 
-El secuestro de carbono en ecosistemas forestales ha cobrado una importancia creciente en la literatura científica, impulsada tanto por los compromisos internacionales en materia de cambio climático como por el auge de los mercados de créditos de carbono. Esto ha motivado el desarrollo de modelos orientados a cuantificar la biomasa forestal y estimar el contenido de carbono, aprovechando avances recientes en sensores remotos y técnicas de inteligencia artificial (IA).
+La cuantificación precisa de los recursos forestales ha constituido, históricamente, una de las piedras angulares de la gestión territorial y la economía de recursos naturales. La evolución de las técnicas para medir el crecimiento de los árboles y, más recientemente, para estimar su biomasa y contenido de carbono, refleja una transformación profunda en las prioridades de la sociedad humana respecto a los ecosistemas forestales. Lo que comenzó en la Europa medieval como una necesidad logística para asegurar el suministro de leña y madera estructural ante el temor de la escasez, se ha metamorfoseado en el siglo XXI en una disciplina científica de alta tecnología impulsada por la urgencia climática global.
+
+La dendrometría tradicional, pilar de los inventarios forestales modernos, se fundamenta en el uso de relaciones alométricas para estimar la biomasa ($w$) y otros parámetros ecológicos a partir de variables de fácil medición en campo, principalmente el diámetro a la altura del pecho ($D$) y la altura total ($H$). Estas estimaciones suelen articularse mediante ecuaciones de la forma:
+\begin{equation}
+    w = a D^b H^c
+\end{equation}
+o sus transformaciones logarítmicas:
+\begin{equation}
+    \lg w = a + b \lg D + c \lg H
+\end{equation}
+donde los parámetros $a, b$ y $c$ son coeficientes de regresión empíricos. En este contexto, la precisión de las mediciones primarias es crítica, ya que, dada la naturaleza potencial de estas funciones, los errores en la toma de datos de $D$ y $H$ se propagan y magnifican exponencialmente en el cálculo final del volumen y el contenido de carbono. Pese a la aparente sencillez del ajuste, los resultados pueden llegar a ser muy buenos, como se muestra en la Figura \ref{fig:moso_bamboo}. No obstante, existe una tensión en la literatura entre el uso de ecuaciones ``pantropicales'' o generalizadas y ecuaciones específicas de especie o sitio, ya que se pueden introducir sesgos si la arquitectura de los árboles locales difiere de la global \cite{shang2025allometric}.
+
+\begin{figure}
+      \centering
+      \includegraphics[width=0.5\textwidth]{figuras/03_revision_literatura/moso_bamboo.png}
+      \caption{Relación entre la biomasa total en kilogramos y el diámetro a la altura del pecho en centímetros para el bambú moso \textit{(Phyllostachys edulis)}. Visto en \cite{shi2017methods}, siendo \cite{qi2016combining} la fuente original.}
+      \label{fig:moso_bamboo}
+\end{figure}
 
 
-Una de las estrategias más consolidadas para la cuantificación del carbono forestal es la estimación del carbono almacenado en un momento dado a partir de datos de teledetección. Goetz et al. (2009) \cite{goetz2009remote} revisan el uso de observaciones satelitales, incluyendo sensores ópticos como MODIS y Landsat, en modelos empíricos de biomasa aérea, destacando su aplicabilidad a escala regional, especialmente en ecosistemas boreales. Este tipo de estimaciones suele basarse en regresiones lineales o modelos de mínimos cuadrados generalizados, con coeficientes de determinación habitualmente entre 0.6 y 0.8, dependiendo de la resolución espacial y la heterogeneidad del ecosistema.
 
-La aplicación de aprendizaje profundo ha permitido mejorar sustancialmente la precisión y resolución espacial de estas estimaciones. Por ejemplo, Zhang et al. (2022) \cite{zhang2022carbon} integran imágenes Sentinel-2 con redes neuronales convolucionales, alcanzando un \(R^2\) de 0.84 para estimar el carbono en bosques subtropicales. Del mismo modo, Jiang et al. (2022) \cite{jiang2022integrating} desarrollan el modelo \textit{ForestCarbonAI}, entrenado con datos multiespectrales y LIDAR, con el que generan mapas de carbono forestal de alta resolución (10 m), reportando errores medios absolutos (MAE) inferiores a 3.5 tC/ha en zonas templadas. Otros trabajos recientes, como Reiersen et al. (2022) \cite{reiersen2022reforestree} o Dong et al. (2023) \cite{dong2023forest}, también demuestran la eficacia del \textit{deep learning} para estimaciones estáticas, aunque se centran en contextos tropicales y no consideran el componente temporal.
+La medición de la altura de los árboles ha supuesto históricamente un desafío mayor que la del diámetro. Hasta la década de 1990, predominaron hipsómetros mecánicos basados en trigonometría, que requerían medir manualmente la distancia al árbol y una línea de visión despejada \cite{nyakudanga_treemes}. Estos métodos sufrían limitaciones de precisión y ergonomía. La introducción de la electrónica marcó un punto de inflexión al utilizar ultrasonidos para medir distancias automáticamente, permitiendo trabajar en sotobosques densos y mejorando la precisión por debajo del 1\% \cite{nyakudanga_treemes}. Paralelamente, las forcípulas (aparato de medición de la distancia lineal entre dos tangentes paralelas al fuste del árbol) electrónicas modernas han digitalizado la toma de datos, integrando medición y registro de metadatos para minimizar errores de transcripción \cite{nyakudanga_treemes}.
+
+Posteriormente, la introducción de la tecnología de escaneo láser supuso una revolución en la mensura forestal, superando las limitaciones logísticas y de precisión de los métodos tradicionales. Esta tecnología se despliega principalmente en dos modalidades: el escaneo láser terrestre (TLS, por sus siglas en inglés), que captura la estructura tridimensional del bosque desde el suelo con detalle milimétrico, y el LiDAR aerotransportado, que permite el mapeo masivo de grandes extensiones obteniendo un modelo de altura de las copas (\textit{CHM, Canopy Height Model}). Podemos ver un ejemplo en la Figura \ref{fig:chm_example}.
+
+\begin{figure}[htbp]
+    \centering
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figuras/03_revision_literatura/CHM_1.png}
+        \caption{Visualización $3$D de un bosque escaneado con LiDAR. Cada árbol se ha identificado de un color distinto.}
+        \label{fig:sub1}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figuras/03_revision_literatura/CHM_2.png}
+        \caption{Mismo mapeo pero visto de arriba como un mapa $2$D. Cada árbol está marcado con un \textbf{x}.}
+        \label{fig:sub2}
+    \end{subfigure}
+    \caption{Visualización de un bosque escaneado con LiDAR. Vemos las posibilidades de identificar árboles individuales en un entorno forestal denso.}
+    \label{fig:chm_example}
+\end{figure}
+
+La principal desventaja del LiDAR aerotransportado es su coste, lo que hace que no tengamos mapeos a gran escala con una frecuencia adecuada, o que los datos tengan una latencia considerable entre regiones. Además, el procesado de este tipo de datos es notablemente más complejo que el de los métodos anteriores, a lo que se le suma el elevado espacio que ocupan los archivos.
+En la Figura \ref{fig:pnoa_lidar} se muestra el plan de adquisición de datos del Tercer cliclo del proyecto PNOA-LiDAR del Instituto Gográfico Nacional de España, donde se puede apreciar la cadencia con la que se hacen los mapeos.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.5\textwidth]{figuras/03_revision_literatura/plan_lidar_mapeo.png}
+    \caption{Plan de adquisición de datos del Tercer cliclo del proyecto PNOA-LiDAR del Instituto Gográfico Nacional de España.}
+    \label{fig:pnoa_lidar}
+\end{figure}
 
 
-Frente a estos enfoques descriptivos, algunas iniciativas han intentado proyectar la evolución del carbono a futuro. En el ámbito nacional, el Ministerio para la Transición Ecológica (MITECO) ha implementado herramientas como la calculadora ex ante de absorciones \cite{miteco_abexante_2025}, que permite obtener estimaciones simplificadas del carbono que puede fijarse en una plantación forestal en función de la especie y la zona agroclimática. No obstante, este instrumento se basa en coeficientes tabulados y no incorpora variables edafoclimáticas reales ni técnicas de modelización basadas en datos, lo que limita su precisión y capacidad de adaptación a contextos específicos.
-
-
-En este escenario, el presente trabajo propone una metodología innovadora centrada en la predicción dinámica de carbono a largo plazo. A diferencia de los modelos anteriores, que estiman el carbono ya almacenado, este estudio se enfoca en anticipar cuánto carbono capturará un cultivo forestal en un horizonte temporal concreto. Para ello, se estudian diversos modelos de aprendizaje supervisado entrenados con datos históricos del Inventario Forestal Nacional (IFN2, IFN3 e IFN4), variables climáticas de Copernicus, características edáficas y métricas espectrales derivadas de imágenes Landsat \cite{landsat5_data, copernicus_temps, miteco_guia_co2}. Los detalles sobre la arquitectura del modelo, las variables utilizadas, los algoritmos implementados y las métricas de evaluación se desarrollan en las siguientes secciones.
-
-
-
-
+La integración de estos datos estructurales, junto a la teledetección satelital y la capacidad de procesado de grandes volúmenes de datos que ofrecen los algoritmos de aprendizaje automático ha inaugurado un nuevo paradigma: la capacidad de monitorear los recursos forestales a escala global con una precisión sin precedentes. Es en este contexto de ``forestería de precisión'' y observación terrestre a gran escala donde se enmarca la investigación actual, habiéndose logrado resultados muy prometedores que permiten abordar la complejidad de los ecosistemas forestales con una granularidad antes inalcanzable.
 

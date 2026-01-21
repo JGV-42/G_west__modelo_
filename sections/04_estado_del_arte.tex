@@ -1,79 +1,25 @@
 \section{Estado del Arte}
 \label{sec:estado-del-arte}
-TODO: Todo ello
-\subsection{Contexto y formulación del problema}
-% Qué se predice, por qué importa, y cómo se formula (regresión)
-La estimación de \emph{[nombre de la variable objetivo]} se aborda como un problema de regresión supervisada, donde el objetivo es aprender una función $f: \mathbb{R}^p \rightarrow \mathbb{R}$ que minimice el error de predicción bajo criterios como RMSE o MAE \citep{Hastie2009,James2021}. 
-Se requieren diseños de validación que eviten fuga de información (\emph{leakage}) y respeten la estructura de los datos (por ejemplo, validación por grupos o espacio-temporal) \citep{Roberts2017}.
 
-\subsection{Modelado predictivo para variables continuas}
-% Modelos clásicos y modernos; cuándo se usan; ventajas/limitaciones
-Los enfoques más empleados incluyen modelos lineales regularizados (Ridge, Lasso, Elastic Net) \citep{Tibshirani1996,Zou2005}, 
-métodos basados en árboles (Random Forest, Gradient Boosting, XGBoost, LightGBM, CatBoost) \citep{Breiman2001,Friedman2001,Chen2016,Ke2017,Prokhorenkova2018}
-y redes neuronales profundas para tabulares e imagen \citep{Goodfellow2016}. 
-La elección suele balancear interpretabilidad, robustez ante no linealidades e interacción entre variables, coste computacional y requisitos de datos.
+El secuestro de carbono en ecosistemas forestales ha cobrado una importancia creciente en la literatura científica, impulsada tanto por los compromisos internacionales en materia de cambio climático como por el auge de los mercados de créditos de carbono. Esto ha motivado el desarrollo de modelos orientados a cuantificar la biomasa forestal y estimar el contenido de carbono, aprovechando avances recientes en sensores remotos y técnicas de inteligencia artificial (IA).
 
-\subsection{Validación y evaluación}
-% Buenas prácticas de CV, métricas y comparabilidad
-La literatura recomienda validación cruzada estratificada o por grupos para estimar el error fuera de muestra y evitar optimismo en la evaluación \citep{Kohavi1995}. 
-Cuando existen dependencias (espaciales, temporales o por \textit{grupo}), se emplean variantes como GroupKFold o bloqueos espacio-temporales \citep{Roberts2017}. 
-Las métricas habituales para regresión incluyen RMSE, MAE, $R^2$ y, cuando procede, métricas relativas (p.\,ej., MAPE). 
-Es buena práctica reportar distribuciones (mediana, IQR) además de promedios y comparar contra \emph{baselines} fuertes.
 
-\subsection{Selección de variables}
-% Taxonomía de métodos: filter, wrapper, embedded
-Los métodos se agrupan en: (i) \textbf{filtro}, p.\,ej., correlación/ANOVA, información mutua y mRMR \citep{Peng2005}; 
-(ii) \textbf{envoltura} (\emph{wrapper}), como forward/backward selection o RFE \citep{Guyon2002}; 
-y (iii) \textbf{embebidos}, que integran la selección durante el ajuste del modelo (Lasso/Elastic Net, importancia en árboles/boosting) \citep{Zou2005,Breiman2001}. 
-Recientemente, se han popularizado enfoques de \emph{stability selection} y métodos de importancia condicional para reducir sesgos por colinealidad \citep{Meinshausen2010,Strobl2008}.
+Una de las estrategias más consolidadas para la cuantificación del carbono forestal es la estimación del carbono almacenado en un momento dado a partir de datos de teledetección. Goetz et al. (2009) \cite{goetz2009remote} revisan el uso de observaciones satelitales, incluyendo sensores ópticos como MODIS y Landsat, en modelos empíricos de biomasa aérea, destacando su aplicabilidad a escala regional, especialmente en ecosistemas boreales. Este tipo de estimaciones suele basarse en regresiones lineales o modelos de mínimos cuadrados generalizados, con coeficientes de determinación habitualmente entre 0.6 y 0.8, dependiendo de la resolución espacial y la heterogeneidad del ecosistema.
 
-\subsection{Datos, preprocesado y fuga de información}
-% Tratamiento de NA, codificación, escalado, fugas
-La literatura subraya la importancia de: imputación apropiada, codificación de categóricas (one-hot, target encoding con CV anidada), 
-tratamiento de outliers y escalado cuando el modelo lo requiere \citep{Kuhn2013}. 
-Debe evitarse la fuga de información aplicando todo el preprocesado dentro del \emph{pipeline} y re-ajustándolo por pliegue.
+La aplicación de aprendizaje profundo ha permitido mejorar sustancialmente la precisión y resolución espacial de estas estimaciones. Por ejemplo, Zhang et al. (2022) \cite{zhang2022carbon} integran imágenes Sentinel-2 con redes neuronales convolucionales, alcanzando un \(R^2\) de 0.84 para estimar el carbono en bosques subtropicales. Del mismo modo, Jiang et al. (2022) \cite{jiang2022integrating} desarrollan el modelo \textit{ForestCarbonAI}, entrenado con datos multiespectrales y LIDAR, con el que generan mapas de carbono forestal de alta resolución (10 m), reportando errores medios absolutos (MAE) inferiores a 3.5 tC/ha en zonas templadas. Otros trabajos recientes, como Reiersen et al. (2022) \cite{reiersen2022reforestree} o Dong et al. (2023) \cite{dong2023forest}, también demuestran la eficacia del \textit{deep learning} para estimaciones estáticas, aunque se centran en contextos tropicales y no consideran el componente temporal.
 
-\subsection{Explicabilidad e incertidumbre}
-% SHAP/PI/PD y cuantificación de incertidumbre
-Para interpretar predictores y robustez se usan curvas de dependencia parcial, perfiles acumulados y explicaciones SHAP \citep{Lundberg2017,Molnar2019}. 
-La estimación de la incertidumbre puede abordarse con ensambles, \emph{quantile regression}, conformal prediction o bayesianos aproximados \citep{Angelopoulos2023}.
 
-\subsection{Trabajos relacionados y brechas}
-% Qué se ha hecho (citar), comparación, limitaciones abiertas
-Estudios previos han aplicado \emph{[modelos]} sobre \emph{[dominio/datos]} con \emph{[métricas]} y \emph{[protocolos de CV]} \citep{AutorAño1,AutorAño2}. 
-Persisten brechas en: (i) control explícito de fuga por grupos/espacio-tiempo; 
-(ii) evaluación sistemática del impacto de la selección de variables; 
-(iii) análisis de incertidumbre y generalización fuera de dominio.
+Frente a estos enfoques descriptivos, algunas iniciativas han intentado proyectar la evolución del carbono a futuro. En el ámbito nacional, el Ministerio para la Transición Ecológica (MITECO) ha implementado herramientas como la calculadora ex ante de absorciones \cite{miteco_abexante_2025}, que permite obtener estimaciones simplificadas del carbono que puede fijarse en una plantación forestal en función de la especie y la zona agroclimática. No obstante, este instrumento se basa en coeficientes tabulados y no incorpora variables edafoclimáticas reales ni técnicas de modelización basadas en datos, lo que limita su precisión y capacidad de adaptación a contextos específicos.
 
-\subsection{Síntesis}
-% Qué tomas de la literatura para tu propuesta
-En resumen, el estado del arte respalda: (1) protocolos de validación estrictos (p.\,ej., GroupKFold), 
-(2) comparación de familias de modelos con \emph{baselines} fuertes, 
-(3) selección de variables combinando filtros (mRMR/MI) y técnicas embebidas, 
-y (4) reporte de interpretabilidad e incertidumbre. 
-Sobre esta base se diseña la metodología presentada en la Sección~\ref{sec:metodos}.
+En el ámbito europeo destaca el trabajo de Fasihi et al. (2024) \cite{fasihi2024assessing}, que aplica un enfoque afín al propuesto en este estudio en la región de Friuli-Venezia Giulia (Italia). Su objetivo es estimar tanto el \textit{stock} actual de carbono como su tasa de absorción anual (secuestro), basándose en datos de dendrocronología del Inventario Forestal Nacional italiano. Estas mediciones, realizadas entre 2017 y 2019, cuantifican el crecimiento radial de los últimos cinco años para estimar la biomasa mediante ecuaciones alométricas y su conversión a carbono según directrices del IPCC. Luego, entrenan modelos predictivos utilizando variables meteorológicas, geomorfológicas, índices de vegetación y métricas derivadas de LiDAR, intentando predecir los valores obtenidos con datos de campo.
 
-% ====== Ejemplos de elementos opcionales ======
-% Tabla comparativa de trabajos (rellenar)
-% \begin{table}[t]
-% \centering
-% \small
-% \caption{Resumen de trabajos previos: datos, modelo, validación y métricas.}
-% \label{tab:related}
-% \begin{tabular}{lcccc}
-% \toprule
-% Trabajo & Datos & Modelo & Validación & Métrica \\
-% \midrule
-% \citep{AutorAño1} & \dots & \dots & KFold (k=5) & RMSE=\dots \\
-% \citep{AutorAño2} & \dots & \dots & GroupKFold & MAE=\dots \\
-% \bottomrule
-% \end{tabular}
-% \end{table}
+Los autores evalúan diversos modelos de conjunto (\textit{ensemble}), reportando que combinaciones de algoritmos como Random Forest, AdaBoost y CatBoost ofrecen el mejor rendimiento. En la predicción del \textit{stock} de carbono, alcanzan un $R^2$ de $0.73 \pm 0.07$ y un RMSE de $31.55 \pm 9.35$ tC/ha. Para la tasa de secuestro, los resultados son más modestos, con un $R^2$ de $0.42 \pm 0.08$ y un RMSE de $0.90 \pm 0.08$ tC/ha/año. Un hallazgo clave del estudio es que la inclusión de datos LiDAR mejora drásticamente la precisión de las estimaciones.
 
-% Figura de taxonomía de selección de variables (rellenar)
-% \begin{figure}[t]
-% \centering
-% \includegraphics[width=0.8\linewidth]{figuras/feature_selection_taxonomy.pdf}
-% \caption{Taxonomía de métodos de selección de variables.}
-% \label{fig:feat-sel-tax}
-% \end{figure}
+
+
+
+En este escenario, el presente trabajo propone una metodología innovadora centrada en la predicción dinámica de carbono a largo plazo. A diferencia de los modelos anteriores, que estiman el carbono ya almacenado, este estudio se enfoca en anticipar cuánto carbono capturará un cultivo forestal en un horizonte temporal concreto. Para ello, se estudian diversos modelos de aprendizaje supervisado entrenados con datos históricos del Inventario Forestal Nacional (IFN2, IFN3 e IFN4), variables climáticas de Copernicus, características edáficas y métricas espectrales derivadas de imágenes Landsat \cite{landsat5_data, copernicus_temps, miteco_guia_co2}. Los detalles sobre la arquitectura del modelo, las variables utilizadas, los algoritmos implementados y las métricas de evaluación se desarrollan en las siguientes secciones.
+
+
+
+

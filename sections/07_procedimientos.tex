@@ -31,7 +31,7 @@ el proceso de reducción dimensional en torno a los siguientes bloques conceptua
     \item \textbf{Bloque de índices de vegetación}: recoge información espectral relacionada con el estado hídrico, vigor y actividad fotosintética de la vegetación.
 \end{itemize}
 
-En total, la base de datos contenía inicialmente 445 variables candidatas distribuidas entre estos bloques temáticos. Tras aplicar el procedimiento de selección manual, apoyado en criterios estadísticos, ecológicos y en la comparación del rendimiento del modelo; el conjunto se redujo a 44 variables representativas. Las variables finalmente seleccionadas dentro de cada bloque fueron las siguientes:
+En total, la base de datos contenía inicialmente 445 variables candidatas distribuidas entre estos bloques temáticos. Tras aplicar el procedimiento de selección manual, apoyado en criterios estadísticos, ecológicos y en la comparación del rendimiento del modelo, el conjunto se redujo a 44 variables representativas. Las variables finalmente seleccionadas dentro de cada bloque fueron las siguientes:
 
 \begin{itemize}
     \item \textbf{Bloque de variables fijas}:
@@ -122,25 +122,25 @@ Con el objetivo de estudiar el compromiso entre diversidad del ensamble, coste c
         \toprule
         \textbf{Config.} & \textbf{Modelos base} \\
         \midrule
-        1 & CatBoost, LightGBM, XGBoost, Random Forest, GBDT, BaggedDT \\
-        2 & CatBoost, LightGBM, Random Forest, GBDT \\
+        1 & LightGBM, Random Forest \\
+        2 & CatBoost, Random Forest, GBDT \\
         3 & LightGBM, XGBoost, GBDT \\
-        4 & CatBoost, Random Forest, GBDT \\
-        5 & LightGBM, Random Forest \\
+        4 & CatBoost, LightGBM, Random Forest, GBDT \\
+        5 & CatBoost, LightGBM, XGBoost, Random Forest, GBDT, BaggedDT \\
         \bottomrule
     \end{tabular}
 \end{table}
 
 \begin{itemize}
-    \item \textbf{Configuración 1:} incluye todos los modelos con rendimiento competitivo. Esta configuración es la más rica en términos de variedad de arquitecturas, aunque también la más costosa computacionalmente y potencialmente más propensa al sobreajuste si no se controla adecuadamente.
+    \item \textbf{Configuración 1:} es la configuración más simple. LightGBM compite con CatBoost en rendimiento, mientras que Random Forest aporta un sesgo diferente al basarse en bagging en lugar de boosting. Esta configuración sirve como referencia de un ensamble muy ligero, con bajo coste computacional y, al mismo tiempo, razonablemente diverso.
     
-    \item \textbf{Configuración 2:} reduce el número de modelos, eliminando XGBoost y BaggedDT, que aportan menos mejora marginal respecto a sus alternativas (LightGBM y Random Forest). Esta combinación mantiene una buena diversidad con menor complejidad y coste computacional.
+    \item \textbf{Configuración 2:} combina un modelo de boosting basado en manejo robusto de variables categóricas (CatBoost) con Random Forest (bagging de árboles) y GBDT (boosting clásico). La idea es mezclar enfoques de bagging y boosting, manteniendo un número moderado de modelos y una buena diversidad estructural.
     
     \item \textbf{Configuración 3:} agrupa únicamente modelos de la familia de \textit{gradient boosting}. El objetivo es analizar el efecto de combinar variantes de un mismo paradigma y evaluar hasta qué punto diferentes implementaciones de boosting proporcionan suficiente diversidad como para ser beneficiosa en un ensamble.
     
-    \item \textbf{Configuración 4:} combina un modelo de boosting basado en manejo robusto de variables categóricas (CatBoost) con Random Forest (bagging de árboles) y GBDT (boosting clásico). La idea es mezclar enfoques de bagging y boosting, manteniendo un número moderado de modelos y una buena diversidad estructural.
+    \item \textbf{Configuración 4:} reduce el número de modelos en comparación con la configuración siguiente (que incluye todos los modelos competitivos), eliminando XGBoost y BaggedDT, que aportan menos mejora marginal respecto a sus alternativas (LightGBM y Random Forest). Esta combinación mantiene una buena diversidad con menor complejidad y coste computacional.
     
-    \item \textbf{Configuración 5:} es la configuración más simple. LightGBM compite con CatBoost en rendimiento, mientras que Random Forest aporta un sesgo diferente al basarse en bagging en lugar de boosting. Esta configuración sirve como referencia de un ensamble muy ligero, con bajo coste computacional y, al mismo tiempo, razonablemente diverso.
+    \item \textbf{Configuración 5:} incluye todos los modelos con rendimiento competitivo. Esta configuración es la más rica en términos de variedad de arquitecturas, aunque también la más costosa computacionalmente y potencialmente más propensa al sobreajuste si no se controla adecuadamente.
 \end{itemize}
 
 El objetivo es que el meta-modelo reciba como entradas predicciones de alta calidad y suficientemente diversas, en lugar de introducir ruido procedente de modelos débiles.

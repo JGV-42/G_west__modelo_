@@ -2,88 +2,297 @@
 \label{sec:discusion}
 
 \vspace{1cm}
-\hline
+\hrule
 \vspace{1cm}
 
-Por simplicidad se hará la discusión únicamente para los modelos entrenados con los datos del IFN2 y el IFN3. Esto es porque se puede comprobar que estos modelos se reducen al modelo con el IFN2 cuando los datos de entrada (se ha comprobado con el test) proceden del IFN3 (las métricas son ligeramente peores por la ``contaminación'' de los datos del IFN2, pero en esencia se comportan de la misma manera). Además, como se verá en los siguientes apartados, la distinción entre cuándo el modelo obtiene la información de un modelo o de otro está muy clara en las métricas.
 
-\subsection{Variable \textttt{c4} (en toneladas de carbono por hectárea)}
 
-\subsubsection{Modelos base}
+\subsection{Discusión sobre los modelos}
+\label{sec:discusion_modelos}
 
-La variable \texttt{periodo} (el número de años entre la medición y la predicción) tiene una gran importancia en el estudio de los modelos. Es por esto que en las Figuras \ref{fig:LightGBM_rmse_cuantiles} y \ref{fig:LightGBM_rmse_porcentual_cuantiles} se incluyen métricas en función de esta variable. En la Figura \ref{fig:LightGBM_rmse_cuantiles} se muestra la evolución del RMSE en cuantiles en función de la variable \texttt{periodo}, junto con un histograma que nos permite visualizar la cantidad de datos en el conjunto de entrenamiento para cada valor de \texttt{periodo}. A su vez, la Figura \ref{fig:LightGBM_rmse_porcentual_cuantiles} es muy similar pero mostrando el RMSE porcentual en cuantiles en función de la variable \texttt{periodo}.
+Por simplicidad se hará la discusión únicamente para los modelos entrenados con los datos del IFN2 y el IFN3. Esto es porque se puede comprobar que estos modelos se reducen al modelo con el IFN3 cuando los datos de entrada (se ha comprobado con el test) proceden del IFN3 (las métricas son ligeramente peores por la ``contaminación'' de los datos del IFN2, pero en esencia se comportan de la misma manera). Además, como se verá en los siguientes apartados, la distinción cuando el modelo obtiene la información de un inventario o de otro está muy clara en las métricas.
 
-TODO: colorear las barras del hostograma según el origen de cada punto en función si viene del IFN2 o 3
-TODO: añadir medias
-\begin{figure}
-      \centering
-      \includegraphics[width=0.8\textwidth]{figuras/LightGBM_rmse_cuantiles.pdf}
-      \caption{Evolución del RMSE en cuantiles en función de la variable \texttt{periodo} para el modelo LightGBM con IFN2 e IFN3 como explicativos.}
-      \label{fig:LightGBM_rmse_cuantiles}
-\end{figure}
+\subsubsection{Variable \texttt{c4} (en toneladas de carbono por hectárea)}
+\vspace{0.3cm}
+\paragraph{Modelos base}
+
+La variable \texttt{periodo} (el número de años entre la medición y la predicción) tiene una gran importancia en el estudio de los modelos. Es por esto que en la Figura \ref{fig:LightGBM_rmse_y_pct_rmse_cuantiles} se incluyen métricas en función de esta variable, donde se muestra la evolución del RMSE y el \%RMSE en cuantiles en función de la variable \texttt{periodo}, junto con un histograma que nos permite visualizar la cantidad de datos en el conjunto de entrenamiento para cada valor de \texttt{periodo}.
 
 \begin{figure}
       \centering
-      \includegraphics[width=0.8\textwidth]{figuras/LightGBM_pct_rmse_cuantiles.pdf}
-      \caption{Evolución del RMSE porcentual en cuantiles en función de la variable \texttt{periodo} para el modelo LightGBM con IFN2 e IFN3 como explicativos.}
-      \label{fig:LightGBM_rmse_porcentual_cuantiles}
+      \begin{subfigure}[b]{0.43\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{figuras/09_discusion/c4_LightGBM_metrics.pdf}
+            \caption{Evolución del error absoluto y el error absoluto porcentual en cuantiles}
+            \label{fig:LightGBM_rmse_y_pct_rmse_cuantiles}
+      \end{subfigure}
+      \hfill
+      \begin{subfigure}[b]{0.48\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{figuras/09_discusion/c4_LightGBM_density.pdf}
+            \caption{Densidad de predicciones frente a valores reales}
+            \label{fig:density_LightGBM_0-300}
+      \end{subfigure}
+      \caption{Análisis del modelo LightGBM para la variable \texttt{c4}. (a) Evolución de métricas de error en función del periodo. (b) Densidad de predicciones frente a valores reales.}
+      \label{fig:LightGBM_analisis_combined}
 \end{figure}
   
-Tanto en la Figura \ref{fig:LightGBM_rmse_cuantiles} como en la Figura \ref{fig:LightGBM_rmse_porcentual_cuantiles} se observa el mismo comportamiento: las mejores mediciones se obtienen aquellos casos en los que los datos de entrenamiento provienen del IFN3. Esto se ve claramente en la forma en la que aumentan los errores (sobre todo los del cuantil $90$) cuando se intenta predecir valores para un periodo mayor a $17$ años, valor a partir del cuál los datos del IFN3 se acaban. Observamos que a partir de los $17$ años aumenta en gran medida los valores grandes de error (cuantil $90$) junto con los valores grandes - medios (cuantil $75$). No obstante, los valores medianos y los pequeños - medios (cuantil $25$) se mantienen relativamente estables, aumentando ligeramente con el periodo.
+% Tanto en la Figura \ref{fig:LightGBM_rmse_cuantiles} como en la Figura \ref{fig:LightGBM_rmse_porcentual_cuantiles} se observa el mismo comportamiento: las mejores predicciones se obtienen en aquellos casos en los que los datos de entrenamiento provienen del IFN3. Esto se ve claramente en la forma en la que aumentan los errores (sobre todo los del cuantil $90$) cuando se intenta predecir valores para un periodo mayor a $17$ años, valor a partir del cuál los datos del IFN3 se acaban. Observamos que a partir de los $17$ años aumenta en gran medida los valores grandes de error (cuantil $90$) junto con los valores grandes - medios (cuantil $75$). No obstante, los valores medianos y los pequeños - medios (cuantil $25$) se mantienen relativamente estables, aumentando ligeramente con el periodo.
 
-En las Figuras observamos algo que podíamos preveer: la dificultad de la predicción depende de una combinación entre cómo de lejos quieres hacer la predicción y la calidad de los datos de entrenamiento. Empezando en terreno del IFN3, podemos observar que para los primeros años ($5$, y $6$), pese a tener pocos datos, los errores son relativamente comedidos A medida que aumenta el periodo (entre $10$ y $17$ años) los errores se mantienen relaticamente estables pase a disponer de, en general, más datos de entrenamiento. Cuando entramos en el rango de años donde los datos de entrenamiento proceden del IFN2 principalmente (el rando entre $20$ y $30$ años), aunque la mediana y los valores pequeños - medios (cuantil $25$) se mantienen relativamente estables, los valores grandes - medios (cuantil $75$) y los grandes (cuantil $90$) aumentan en gran medida. Esto es un indicativo de que, aún disponiendo de una gran cantidad de datos de entrenamiento (especialmente para los años $27$ y $28$), la combinación entre la peor calidad de los datos (comparando siempre con el IFN3) y la predicción a valores lejanos dificulta en gran medida la predicción del modelo.
+Podemos observar algo que podíamos prever: la dificultad de la predicción depende de una combinación entre cómo de lejos quieres hacer la predicción y la calidad y cantidad de los datos de entrenamiento. Empezando en terreno del IFN3, podemos observar que para los primeros años ($5$, y $6$), pese a tener pocos datos, los errores son comedidos. A medida que aumenta el periodo (entre $10$ y $17$ años) los errores medios y medianos se mantienen relativamente estables pese a disponer de, en general, más datos de entrenamiento. Los errores grandes extremos (cuantil $90$) experimentan un aumento generalizado. Cuando entramos en el rango de años donde los datos de entrenamiento proceden del IFN2 principalmente (el rango entre $20$ y $30$ años), aunque la mediana y los valores pequeños - medios (cuantil $25$) se mantienen estables, los valores grandes - medios (cuantil $75$) y los grandes (cuantil $90$) aumentan en gran medida. Esto es un indicativo de que, aún disponiendo de una gran cantidad de datos de entrenamiento (especialmente para los años $27$ y $28$), la combinación entre la peor calidad de los datos (comparando siempre con el IFN3) y la predicción a valores lejanos dificultan la predicción del modelo. Además, como podemos observar en la Figura \ref{fig:distribucion_variables_combinado}, los valores de los primeros años del IFN2 presentan una gran variabilidad, siendo en su mayoría valores más altos que los del IFN3 para esos mismos años, y con una mayor variabilidad. Esto, unido a que la cantidad de datos para esos años no es excesivamente grande, hace que el modelo obtenga peores predicciones.
 
+El hecho de que los valores medianos se mantengan relativamente estables a lo largo de todos los periodos indica que el modelo asimila correctamente el comportamiento de la variable objetivo tanto con datos del IFN2 como del IFN3. Por otro lado, que los errores del cuantil $90$ sean tan elevados se explica por varios factores: la alta variabilidad del conjunto de datos, el menor número de variables de campo recogidas en el IFN2 (lo que reduce la información disponible) y la mayor dificultad inherente a predecir a horizontes temporales lejanos. Esta combinación hace que los casos particulares o atípicos sean menos reconocibles por el modelo, especialmente cuando proceden del IFN2, donde la capacidad de discriminación es menor que en el IFN3. La variabilidad mencionada se observa claramente en la Figura~\ref{fig:density_LightGBM_0-300}, que muestra los valores predichos frente a los reales para el modelo con mejores métricas, junto con un histograma de distribución.
 
+\paragraph{Modelos de stacking}
 
-\subsection{Conjunto de datos de entrenamiento}
-TODO: Revisar teiendo en cuenta los resultados completos
-Uno de los resultados más consistentes del presente trabajo es que los modelos entrenados utilizando exclusivamente el IFN3 como conjunto de variables explicativas alcanzan un rendimiento sistemáticamente superior al de aquellos entrenados de forma conjunta con IFN2 e IFN3, tanto para la predicción del carbono total (tC) como del carbono normalizado por superficie (tC/ha). Esta mejora se manifiesta de forma clara en valores más elevados de $R^2$ y en reducciones apreciables de las métricas de error (RMSE y MAE), y se observa de manera estable en todos los algoritmos evaluados.
+La incorporación de esquemas de \textit{stacking} no produce incrementos sustanciales, aunque sí sistemáticos, en el coeficiente de determinación respecto a los mejores modelos individuales. Fijándonos en la Tabla \ref{tab:stack_ifn2_ifn3c_resultados} podemos observar que los modelos de stacking presentan mejores métricas en la gran mayoría de casos, siempre comparando con los modelos bases. Los mejores parámetros los obtiene el modelo de stacking con configuración 5, que mantiene todos los modelos con rendimiento competitivo, junto con el metamodelo de la red neuronal.
 
-Una explicación plausible de este comportamiento está relacionada con la calidad y homogeneidad de los datos. El IFN3 fue realizado aproximadamente una década después del IFN2, incorporando avances metodológicos y tecnológicos relevantes en la recogida de información de campo, así como protocolos más refinados para la medición de variables estructurales y de estado de las masas forestales. A esto se une el aumento de variables que se miden en cada apeo de las parcelas. Esta mayor precisión y cantidad en las variables explicativas reduce el ruido inherente al proceso de modelización y facilita el aprendizaje de relaciones más consistentes entre predictores y variable objetivo. En este contexto, la inclusión de datos procedentes del IFN2 podría introducir heterogeneidad adicional asociada a diferencias metodológicas entre inventarios, lo que penaliza el rendimiento predictivo global.
+El hecho de que todos los ensembles mejoren a los modelos base es un síntoma de que esta mejora no es una excepción estadística, sino una mejora real. Esto es, no se trata de que las métricas sean mejores por estocasticidad de los parámetros del metamodelo, sino porque el montaje realmente mejora el resultado final. Obviamente, reentrenar los metamodelos con otros parámetros haría variar las métricas, pero el hecho es que la función de mejorar las predicciones realmente se alcanza con los ensembles. No obstante, la mejora es pequeña, lo que puede hacer que según el caso se prefiera la simplicidad de emplear uno de los modelos base en comparación a uno de los ensembles. 
 
-Por otro lado, el número de observaciones disponibles para el entrenamiento difiere entre configuraciones. El entrenamiento exclusivo con datos del IFN3 se realiza sobre un conjunto de menor tamaño y que, además, incorpora filtros de calidad más estrictos, (filtro por \texttt{fccarb}$>20$), que no está disponible en el IFN2. A pesar de estas diferencias en tamaño muestral y criterios de selección, los resultados no muestran indicios de sobreajuste en ninguno de los casos. 
+En la Figura \ref{fig:Stack5_MLP_rmse_y_pct_rmse_cuantiles} se muestra la evolución del RMSE y el RMSE porcentual en cuantiles para el modelo ensemble con mejores métricas, el stacking con configuración 5 y metamodelo MLP. Podemos observar que el comportamiento es prácticamente idéntico a aquel del LightGBM, el que obtuvo mejores métricas de los modelos base. 
+Por otro lado, en la Figura \ref{fig:Stack5_MLP_density} podemos observar el gráfico de puntos de las predicciones frente a los valores reales para el modelo de stacking con configuración 5 y metamodelo MLP para la variable \texttt{c4} (tC/ha).
 
-En conjunto, estos resultados ponen de manifiesto que, en este caso de estudio, la calidad y coherencia temporal del inventario parecen tener un impacto más relevante en el rendimiento predictivo que la simple agregación de información procedente de inventarios previos. Este hallazgo es especialmente relevante de cara a futuras aplicaciones operativas, ya que sugiere que modelos entrenados sobre inventarios recientes y metodológicamente homogéneos pueden ofrecer estimaciones más precisas y fiables del carbono forestal, incluso cuando se dispone de menos fuentes de información histórica.
-
-A modo de conclusión, los resultados obtenidos indican que la elección del conjunto de entrenamiento debe adaptarse al horizonte temporal de predicción considerado. En particular, el modelo entrenado exclusivamente con datos del IFN3 resulta más adecuado para predicciones a medio plazo, en un horizonte temporal aproximado de entre 9 y 17 años, donde la mayor calidad y coherencia metodológica de este inventario se traduce en estimaciones más precisas y estables del carbono forestal. Por el contrario, cuando el objetivo es realizar predicciones a más largo plazo, con horizontes temporales superiores y que pueden extenderse hasta los 30 años, el uso combinado de datos procedentes del IFN2 y del IFN3 se hace obligatorio, ya que ofrece una base temporal más amplia que permite capturar mejor la evolución de las masas forestales en periodos prolongados. En este contexto, aunque el rendimiento predictivo sea ligeramente inferior, la integración de ambos inventarios aporta robustez frente a escenarios de extrapolación temporal, lo que hace recomendable su empleo para proyecciones de largo plazo.
-
-\subsection{Variable objetivo}
-En la interpretación de los resultados es fundamental contextualizar la diferencia entre las dos variables objetivo empleadas en el estudio: el carbono expresado en toneladas absolutas (\texttt{tC}) y el carbono normalizado por superficie (\texttt{tC/ha}). Tal y como se observa en la Tabla~\ref{tab:resumen_variables}, la variable \texttt{carbono_bruto4} (tC) muestra una media inferior, pero una elevada dispersión relativa, con un rango amplio y valores extremos asociados a parcelas con estructuras muy heterogéneas. Por su parte, la variable \texttt{c4} (tC/ha) presenta una media más alta y una variabilidad absoluta mayor.
-
-Estas diferencias estructurales tienen implicaciones directas sobre la capacidad predictiva de los modelos. En términos generales, la variable expresada en tC resulta más sencilla de modelizar, ya que integra implícitamente la superficie y reduce parte de la variabilidad introducida por la normalización por hectárea. Como consecuencia, los modelos entrenados para predecir carbono total alcanzan sistemáticamente valores más altos de $R^2$ y errores más bajos (RMSE y MAE) que aquellos orientados a la predicción de tC/ha. Esto indica que una mayor fracción de la varianza es explicada por las variables explicativas disponibles cuando la respuesta se expresa en términos absolutos.
-
-En cambio, la predicción en tC/ha constituye un problema más exigente desde el punto de vista estadístico, al amplificar la heterogeneidad intra-parcela y la influencia de factores locales no completamente capturados por los predictores. No obstante, esta variable resulta especialmente relevante para aplicaciones de comparación espacial, evaluación de productividad y análisis de eficiencia en el secuestro de carbono, lo que justifica su inclusión a pesar de presentar métricas de ajuste ligeramente inferiores. En conjunto, los resultados ponen de manifiesto que la elección de la variable objetivo debe alinearse con el objetivo final del análisis, asumiendo el compromiso existente entre interpretabilidad ecológica y rendimiento predictivo.
-
-\subsection{Distribución del error}
-El análisis conjunto de las métricas globales de los modelos predictivos muestra de forma consistente que el valor del RMSE es aproximadamente el doble del MAE. Dado que el RMSE penaliza de manera más severa los errores de gran magnitud, esta diferencia indica que, aunque el error medio absoluto se mantiene en niveles moderados, existen observaciones concretas en las que los modelos cometen desviaciones significativamente mayores.
-
-Este patrón sugiere que la dificultad predictiva no es homogénea a lo largo de todo el rango de la variable objetivo, sino que se concentra en determinados valores o contextos específicos. En este sentido, resulta necesario complementar la evaluación con métricas relativas como el SMAPE, que permiten analizar el error en proporción a la magnitud de la variable, así como con representaciones gráficas —como los diagramas de dispersión entre valores observados y predichos— que facilitan la identificación visual de sesgos, heterocedasticidad o rangos problemáticos del modelo.
-
-En la Figura~\ref{fig:dispersion_densidad_c4} se representa la dispersión entre los valores observados y las predicciones obtenidas por el modelo LightGBM (el de mayor R$^2$) para la variable objetivo \texttt{c4} (tC/ha)empleando como explicativos los inventarios IFN2 y IFN3. También se incluye un histograma de la densidad de puntos.
-
-TODO: hace falta otra igual para carbono_bruto4. No se que modelo es el de la foto. Actualizar la imagen. Poner el caption de la foto en CASTELLANO.
-
-Aunque \texttt{c4} presenta un rango muy amplio, desde valores próximos a cero hasta aproximadamente $880$~tC/ha, la figura pone de manifiesto que la mayor concentración de observaciones se sitúa en el intervalo comprendido entre $0$ y $200$~tC/ha. En este rango, que además concentra la mayor parte de la masa de datos, la nube de puntos se alinea de forma clara en torno a la diagonal identidad.
-
-Si bien existen casos puntuales en los que las predicciones se desvían notablemente de los valores reales, especialmente en los extremos superiores del rango, la estructura general del gráfico indica que el modelo reproduce de manera consistente la relación media entre valores observados y predichos. Este comportamiento es coherente con la diferencia observada entre RMSE y MAE, y refuerza la idea de que los errores más elevados se concentran en un subconjunto reducido de observaciones, mientras que el ajuste es sólido en las regiones donde se acumula la mayor densidad de datos.
 
 \begin{figure}
-\centering
-\includegraphics[width=0.8\textwidth]{figuras/density_LightGBM_0-300.pdf}
-\caption{Dispersión de las predicciones frente a los valores reales para la variable objetivo \texttt{c4}. Se representa únicamente el rango $[0,300]$~tC.}
-\label{fig:dispersion_densidad_c4}
+      \centering
+      \begin{subfigure}[b]{0.43\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{figuras/09_discusion/c4_Stack5_MLP_metrics.pdf}
+            \caption{Evolución del error absoluto y el error absoluto porcentual en cuantiles}
+            \label{fig:Stack5_MLP_rmse_y_pct_rmse_cuantiles}
+      \end{subfigure}
+      \hfill
+      \begin{subfigure}[b]{0.48\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{figuras/09_discusion/c4_Stack5_MLP_density.pdf}
+            \caption{Gráfico de puntos de las predicciones frente a los valores reales}
+            \label{fig:Stack5_MLP_density}
+      \end{subfigure}
+      \caption{Análisis del modelo Stacking (Conf. 5, MLP) para la variable \texttt{c4}. (a) Evolución de métricas de error. (b) Densidad de predicciones frente a valores reales.}
+      \label{fig:Stack5_MLP_analisis_combined}
 \end{figure}
 
-Este comportamiento se analiza de forma explícita en la Figura~\ref{fig:smape_c4}, donde se representan, por intervalos de la variable objetivo \texttt{c4}, los valores de SMAPE y RMSE obtenidos por los distintos modelos base, junto con un histograma que muestra el número de observaciones disponibles en cada rango. Esta figura permite evaluar simultáneamente la magnitud del error y su dependencia de la densidad de datos a lo largo del dominio de la variable.
 
-Los resultados confirman que el error relativo no es homogéneo. En los rangos intermedios de carbono, donde existe una combinación favorable de volumen de datos, comportamiento más estable del sistema y una cantidad de carbono suficientemente grande como para permitir un margen de error razonable (no es lo mismo un error de una toneladas en una parcela de 2 toneladas totales que en otra de 100 toneladas), el SMAPE alcanza valores mínimos, bajando del $20\%$ de error. En cambio, para valores bajos de \texttt{c4}, el SMAPE es elevado pese a la abundancia de observaciones, lo que refleja una alta variabilidad relativa en este régimen y una mala precisión de los modelos. Finalmente, en los valores más altos de carbono, el incremento del SMAPE coincide con una fuerte reducción del número de datos, evidenciando que la escasez de observaciones en los extremos de la distribución limita la capacidad de generalización del modelo.
+
+
+En cuanto a la estructura de los ensambles, los mejores resultados se obtienen cuando se combinan modelos base de alta calidad y naturaleza similar (principalmente variantes de \textit{gradient boosting}) y se emplean metamodelos con complejidad moderada, como MLP o SVR lineal. Por el contrario, los \textit{stacks} con pocos modelos base o aquellos que incorporan metamodelos excesivamente flexibles, como Random Forest en el segundo nivel, tienden a ofrecer un rendimiento inferior, probablemente debido a la baja dimensionalidad del espacio de meta-predictores o a un sobreajuste innecesario del ruido residual.
+
+
+
+\subsubsection{Variable \texttt{carbono\_bruto4} (en toneladas de carbono)}
+\vspace{0.3cm}
+\paragraph{Modelos base}
+
+De igual forma que en los apartados anteriores, en la Figura \ref{fig:CatBoost_combined} se muestra la evolución del RMSE y el \%RMSE en cuantiles en función de la variable \texttt{periodo} para el modelo CatBoost (aquel que obtuvo mejores métricas entre los modelos base) con IFN2 e IFN3 como explicativos para la variable en toneladas de carbono, junto con el histograma de distribución de los datos de entrenamiento en función de la variable periodo.
 
 \begin{figure}
-\centering
-\includegraphics[width=0.8\textwidth]{figuras/c4_base_models_SMAPE_RMSE_combined_bins.pdf}
-\caption{SMAPE y RMSE por rangos de la variable objetivo \texttt{c4} para los modelos base, junto con la distribución del número de observaciones en cada intervalo.}
-\label{fig:smape_c4}
+      \centering
+      \begin{subfigure}[b]{0.43\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{figuras/09_discusion/carbono_bruto4_CatBoost_metrics.pdf}
+            \caption{Evolución del error absoluto y el error absoluto porcentual en cuantiles}
+            \label{fig:CatBoost_combined}
+      \end{subfigure}
+      \hfill
+      \begin{subfigure}[b]{0.48\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{figuras/09_discusion/carbono_bruto4_CatBoost_density.pdf}
+            \caption{Gráfico de puntos de las predicciones frente a los valores reales}
+            \label{fig:CatBoost_density}
+      \end{subfigure}
+      \caption{Análisis del modelo CatBoost para la variable \texttt{carbono\_bruto4}. (a) Evolución de métricas de error. (b) Densidad de predicciones frente a valores reales.}
+      \label{fig:CatBoost_analisis_combined}
 \end{figure}
 
-TODO: Tal vez conviene hablar aqui sobre como de bien predice según PERIODO. Un grafico y tal. 
+Atendiendo a la Figura \ref{fig:CatBoost_combined} observamos el mismo comportamiento cualitativo que en el caso de la variable \texttt{c4} (con la particularidad de que cambian las unidades y el rango de valores): el error entre los cuantiles $25$ y $75$ se mantiene en valores relativamente pequeños y constantes, si bien es verdad que empieza siendo menor y va aumentando ligeramente a medida que lo hace la variable periodo. Los errores extremos (cuantil $90$) siguen siendo altos. De hecho, si nos fijamos en los valores más altos del RMSE porcentual para el cuantil $90$, observamos que se alcanzan valores notablemente más altos que en el caso de la variable \texttt{c4}, llegando hasta el $130\%$ cuando para \texttt{c4} apenas se superó el $100\%$ para el peor de los casos. Esto es de destacar, ya que las métricas globales para las predicciones de la variable \texttt{carbono\_bruto4} (ver Tabla \ref{tab:resultados_modelos_base_tc_resultados}) son sistemáticamente mejores que las de la variable \texttt{c4} (ver Tabla \ref{tab:resultados_modelos_base_THA_resultados}). Esto es, la variable \texttt{carbono\_bruto4} (toneladas) es más fácil de predecir en general para los modelos que la variable \texttt{c4} (toneladas por hectárea), pero ocurre lo contrario en los casos particulares, donde los errores más altos se disparan de una manera más exagerada que en el mismo caso para la variable \texttt{c4}. También se observa el aumento del error al pasar del rango de años del IFN2 a IFN3, causado por el aumento de la variabilidad de los datos del segundo inventario (ver Figura \ref{fig:distribucion_variables_combinado}). 
+
+Al igual que en los apartados anteriores, en la Figura \ref{fig:CatBoost_density} podemos observar un scatter plot de las predicciones frente a los valores reales para el modelo CatBoost del caso que estamos considerando.
+
+
+
+
+\paragraph{Modelos con stacking}
+
+Los resultados obtenidos en este apartado son muy similares a aquellos que se han obtenido con los modelos stacking para la variable \texttt{c4} (tC/ha). Esto es, encontramos una mejora sistemática en todos los modelos de stacking frente a los base, pero esa mejora es pequeña. Esto causa que los resultados sean estrictamente mejores, como se puede ver en la Tabla \ref{tab:stack_ifn2_ifn3_tc_resultados} comparando con las métricas de los modelos base de la Tabla \ref{tab:resultados_modelos_base_tc_resultados}. De nuevo, que la mejora de los modelos stacking respecto a los base sea sistemática indica que no nos encontramos frente a un incidente estadístico, sino que el formato del stacking es capaz de mejorar las predicciones de los modelos escogiendo las mejores decisiones de cada uno de ellos. No obstante, como ya se comentó anteriormente, la complejidad de entrenar cinco modelos además del metamodelo puede resultar incómoda frente a la posibilidad de usar, por ejemplo, el mejor de los modelos individuales.
+
+El modelo ensemble que mejores métricas proporciona para la predicción de la variable \texttt{carbono\_bruto4} (tC) es la configuración 5 y metamodelo MLP, al igual que ocurrió con la variable \texttt{c4} (tC/ha). La evolución del RMSE y el RMSE porcentual en cuantiles en función de la variable \texttt{periodo} para este modelo se puede visualizar en la Figura \ref{fig:Stack5_MLP_combined_rmse_y_pct_rmse_cuantiles}.
+
+\begin{figure}
+      \centering
+      \begin{subfigure}[b]{0.43\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{figuras/09_discusion/carbono_bruto4_Stack5_MLP_metrics.pdf}
+            \caption{Evolución del error absoluto y el error absoluto porcentual en cuantiles}
+            \label{fig:Stack5_MLP_combined_rmse_y_pct_rmse_cuantiles}
+      \end{subfigure}
+      \hfill
+      \begin{subfigure}[b]{0.48\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{figuras/09_discusion/carbono_bruto4_Stack5_MLP_density.pdf}
+            \caption{Gráfico de puntos de las predicciones frente a los valores reales}
+            \label{fig:Stack5_MLP_density_carbono_bruto4}
+      \end{subfigure}
+      \caption{Análisis del modelo Stacking (Conf. 5, MLP) para la variable \texttt{carbono\_bruto4}. (a) Evolución de métricas de error. (b) Densidad de predicciones frente a valores reales.}
+      \label{fig:Stack5_MLP_carbono_bruto4_analisis_combined}
+\end{figure}
+
+
+Por otro lado, en la Figura \ref{fig:Stack5_MLP_density_carbono_bruto4} se muestra un scatter plot de las predicciones frente a los valores reales para el modelo de stacking con configuración 5 y metamodelo MLP y la variable \texttt{carbono\_bruto4} (tC).
+
+% \subsubsection{Comportamiento global de los modelos}
+
+\subsubsection{Asimilación del comportamiento de las variables objetivo}
+
+Con las métricas que hemos planteado y el análisis que se ha hecho en esta sección parece claro que, si bien los resultados no son ni mucho menos perfectos, los modelos son capaces de entender la lógica y el significado de cada variable para obtener una predicción con un grado de acierto que depende de la naturaleza de la instancia que se trate. Otra prueba que podemos hacer para comprobar si los resultados de los modelos son lógicos es la que mostramos en la Figura \ref{fig:sensibilidad_escenarios}.
+
+
+\begin{figure}
+      \centering
+      \begin{subfigure}[b]{0.48\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{figuras/09_discusion/sensibilidad_escenarios_c4_P10_P35_P65_P90.pdf}
+            \caption{Cantidad de carbono en toneladas por hectárea para varios escenarios.}
+            \label{fig:sensibilidad_escenarios_c4}
+      \end{subfigure}
+      \hfill
+      \begin{subfigure}[b]{0.48\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{figuras/09_discusion/sensibilidad_escenarios_carbono_bruto4_P10_P35_P65_P90.pdf}
+            \caption{Cantidad de carbono en toneladas para varios escenarios.}
+            \label{fig:sensibilidad_escenarios_carbono_bruto4}
+      \end{subfigure}
+      \caption{Evolución de la cantidad de carbono en toneladas para varios escenarios.}
+      \label{fig:sensibilidad_escenarios}
+\end{figure}
+
+Esta Figura muestra la evolución de varios casos particulares a medida que avanza el tiempo entre medida y predicción. Los casos seleccionados son reales dentro de los datos disponibles. Se seleccionaron con la idea de mostrar cómo se comportan los modelos para configuraciones de carbono inicial más o menos comunes. Para ello se sumaron, para cada instancia de los datos, las variables \texttt{npies_x}, y luego se seleccionaron los valores más cercanos a los percentiles 10, 35, 65 y 90 para la variable resultante. Así evitamos posibles problemas fruto de seleccionar ejemplos poco realistas. 
+
+Podemos señalar las siguientes características:
+\begin{itemize}
+      \item Las líneas de los modelos base y los ensembles para cada caso están muy cerca una de la otra, lo que concuerda con las métricas obtenidas, que eran muy similares entre sí.
+      \item La tendencia general es ascendente, es decir, los modelos capturan de forma correcta el comportamiento del crecimiento de los árboles con el tiempo para los años estudiados.
+      \item En el año $17$ tenemos un crecimiento abrupto generalizado, el cual es más exagerado cuanto más pequeño es el percentil del caso de estudio. Esto es sencillo de entender mirando a los datos, ya que los valores de la variable a predecir experimentan un aumento generalizado al pasar de los años del IFN2 a aquellos del IFN3, como se puede ver en la Figura \ref{fig:distribucion_variables_combinado}. Este cambio (que el modelo empiece a ingerir datos del IFN2 en lugar del IFN3) ocurre principalmente en el año $17$. Esto puede verse en el histograma de la Figura \ref{fig:Stack5_MLP_combined_rmse_y_pct_rmse_cuantiles}, por ejemplo. La razón por la que ocurre el salto a percentiles pequeños es porque estos valores pequeños en los datos del IFN2 apenas existen o son menos comunes. El modelo ha visto que para esos años los valores de carbono son, en general, mayores, y eso es lo que predice. De hecho, en la Figura \ref{fig:distribucion_variables_combinado} que para los años iniciales de los datos del IFN2 los valores de carbono aumentan para luego disminuir, y esto es justo lo que vemos en las predicciones: un aumento y una posterior disminución.
+      \item También podemos ver una subida abrupta en muchos casos al pasar del año $29$ al $30$, sobre todo en el caso de la variable en toneladas de carbono bruto (Figura \ref{fig:sensibilidad_escenarios_carbono_bruto4}). Estos años coinciden con una carencia de datos, como podemos ver en el histograma de la Figura \ref{fig:distribucion_variables_combinado}. Es de esperar que las predicciones de esos años sean menos fiables, sobre todo siendo un valor extremo. 
+\end{itemize}
+
+\subsubsection{Rendimiento de los modelos en función del valor de la variable objetivo}
+
+Si echamos un vistazo a las métricas globales de las tablas de la sección \ref{sec:resultados} nos damos cuenta de que los valores del RMSE son notablemente mayores que los valores de MAE, concretamente cerca del doble en la mayoría de casos. Debido a que el RMSE penaliza mucho más los errores grandes que el MAE, esto es indicativo de la presencia de outliers en el error. Ya hemos visto a lo largo de esta sección que los mayores errores ocurren en el rango de años en que el IFN2 es la principal fuente de datos como podemos ver en las Figuras \ref{fig:LightGBM_rmse_y_pct_rmse_cuantiles}, \ref{fig:Stack5_MLP_rmse_y_pct_rmse_cuantiles}, \ref{fig:CatBoost_combined} y \ref{fig:Stack5_MLP_combined_rmse_y_pct_rmse_cuantiles}, y la principal conclusión que podemos sacar es que la calidad o cantidad de información contenida en este inventario es peor. No obstante, esto no responde del todo a la pregunta de en qué casos el modelo predice mejor, salvo la obviedad de que la predicción será mejor cuanto más cerca esté en el tiempo y más datos haya de ese año. Es por esto que la Figura \ref{fig:SMAPE_RMSE_deciles_c4_carbono_bruto4} nos puede ser útil. Esta Figura muestra la distribución de errores, concretamente el RMSE y el SMAPE, en función de la variable objetivo para \texttt{c4} y \texttt{carbono\_bruto4} en deciles para los modelos base.
+
+\begin{figure}
+      \centering
+      \begin{subfigure}[b]{0.48\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{figuras/09_discusion/c4_base_models_SMAPE_RMSE_percentiles.pdf}
+            \caption{Distribución de errores en función de la variable objetivo para \texttt{c4}.}
+            \label{fig:distribucion_c4_combinado}
+      \end{subfigure}
+      \hfill
+      \begin{subfigure}[b]{0.48\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{figuras/09_discusion/carbono_bruto4_base_models_SMAPE_RMSE_percentiles.pdf}
+            \caption{Distribución de errores en función de la variable objetivo para \texttt{carbono\_bruto4}.}
+            \label{fig:distribucion_carbono_bruto4_combinado}
+      \end{subfigure}
+      \caption{Distribución del SMAPE y RMSE en función de la variable objetivo para \texttt{c4} y \texttt{carbono\_bruto4} en deciles.}
+      \label{fig:SMAPE_RMSE_deciles_c4_carbono_bruto4}
+\end{figure}
+
+
+Rápidamente nos damos cuenta de lo siguiente: las predicciones para valores pequeños de carbono objetivo (primeros deciles) son malas (SMAPE grande) pese a ser aquellas con un error absoluto menor (RMSE pequeño). Luego, a medida que aumenta el carbono objetivo, el RMSE aumenta ligeramente mientras que el SMAPE disminuye mucho más rápido, llegando a valores cercanos al $25\%$. En ambos casos los mejores resultados se logran cuando el carbono objetivo es mayor, pese a que observamos un aumento significativo del RMSE entre el penúltimo y último decil. Como esto se produce para todos los modelos, sugiere que la dificultad de predicción no es homogénea para todos las situaciones o cantidades de carbono, y que pese a ser los percentiles de menor carbono aquellos con un RMSE menor, la precisión de los modelos no es la suficiente como para hacer una predicción decente en situaciones con poca biomasa. Esto era predecible, ya que un error absoluto mayor para una parcela de bosque mayor no implica necesariamente un peor error relativo.
+
+También es llamativo el hecho de que los deciles iniciales tienen unos rangos de carbono muy cercanos, sobre todo en el caso de la variable \texttt{carbono\_bruto4}, donde el primer decil abarca desde $0.0003$ tC hasta $0.002$ tC. Esta gran cantidad de valores no sirve a los modelos para obtener una buena predicción, por otra parte. Las densidades mayores para valores pequeños de carbono se ven claramente en las Figuras \ref{fig:density_LightGBM_0-300}, \ref{fig:Stack5_MLP_density}, \ref{fig:CatBoost_density} y \ref{fig:Stack5_MLP_density_carbono_bruto4}.
+
+\vspace{1cm}
+\hrule 
+\vspace{1cm}
+
+
+
+% Comienzo parte Maider
+% \subsection{Conjunto de datos de entrenamiento}
+
+
+% TODO: Revisar teiendo en cuenta los resultados completos
+% TODO: comentar siguiente imagen
+
+
+% \begin{figure}
+%       \centering
+%       \begin{subfigure}[b]{0.48\textwidth}
+%             \centering
+%             \includegraphics[width=\textwidth]{figuras/09_discusion/distribucion_c4_combinado.pdf}
+%             \caption{Distribución de la variable \texttt{c4} (toneladas por hectárea).}
+%             \label{fig:distribucion_c4_combinado}
+%       \end{subfigure}
+%       \hfill
+%       \begin{subfigure}[b]{0.48\textwidth}
+%             \centering
+%             \includegraphics[width=\textwidth]{figuras/09_discusion/distribucion_carbono_bruto4_combinado.pdf}
+%             \caption{Distribución de la variable \texttt{carbono\_bruto4} (toneladas por hectárea).}
+%             \label{fig:distribucion_carbono_bruto4_combinado}
+%       \end{subfigure}
+%       \caption{Distribución de las variables a predecir en percentiles.}
+%       \label{fig:distribucion_variables_combinado}
+% \end{figure}
+
+% Esta Figura muestra la evolución de varios casos particulares a medida que avanza el tiempo entre medida y predicción. Los casos seleccionado son reales dentro de los datos disponibles. Se seleccionaron con la idea de mostrar cómo se comportan los modelos para configuraciones de carbono inicial más o menos comunes. Para ello se sumaron, para cada instancia de los datos, las variables \texttt{npies_x}, y luego se seleccionaron los valores más cercanos a los percentiles 10, 35, 65 y 90 para la variable resultante. Así evitamos posibles problemas de seleccionar ejemplos poco realistas. 
+
+% Podemos señalar las siguientes características:
+% \begin{itemize}
+%       \item Las líneas de los modelos base y los ensembles para cada caso están muy cercas una de la otra, lo que concuerda con las métricas obtenidas, que eran muy similares entre sí.
+%       \item La tendencia general es ascendente, es decir, los modelos campturas de forma correcta el comportamiento de crecimiento de los árboles con el tiempo.
+%       \item 
+
+
+
+% Uno de los resultados más consistentes del presente trabajo es que los modelos entrenados utilizando exclusivamente el IFN3 como conjunto de variables explicativas alcanzan un rendimiento sistemáticamente superior al de aquellos entrenados de forma conjunta con IFN2 e IFN3, tanto para la predicción del carbono total (tC) como del carbono normalizado por superficie (tC/ha). Esta mejora se manifiesta de forma clara en valores más elevados de $R^2$ y en reducciones apreciables de las métricas de error (RMSE y MAE), y se observa de manera estable en todos los algoritmos evaluados.
+
+% Una explicación plausible de este comportamiento está relacionada con la calidad y homogeneidad de los datos. El IFN3 fue realizado aproximadamente una década después del IFN2, incorporando avances metodológicos y tecnológicos relevantes en la recogida de información de campo, así como protocolos más refinados para la medición de variables estructurales y de estado de las masas forestales. A esto se une el aumento de variables que se miden en cada apeo de las parcelas. Esta mayor precisión y cantidad en las variables explicativas reduce el ruido inherente al proceso de modelización y facilita el aprendizaje de relaciones más consistentes entre predictores y variable objetivo. En este contexto, la inclusión de datos procedentes del IFN2 podría introducir heterogeneidad adicional asociada a diferencias metodológicas entre inventarios, lo que penaliza el rendimiento predictivo global.
+
+% Por otro lado, el número de observaciones disponibles para el entrenamiento difiere entre configuraciones. El entrenamiento exclusivo con datos del IFN3 se realiza sobre un conjunto de menor tamaño y que, además, incorpora filtros de calidad más estrictos, (filtro por \texttt{fccarb}$>20$), que no está disponible en el IFN2. A pesar de estas diferencias en tamaño muestral y criterios de selección, los resultados no muestran indicios de sobreajuste en ninguno de los casos. 
+
+% En conjunto, estos resultados ponen de manifiesto que, en este caso de estudio, la calidad y coherencia temporal del inventario parecen tener un impacto más relevante en el rendimiento predictivo que la simple agregación de información procedente de inventarios previos. Este hallazgo es especialmente relevante de cara a futuras aplicaciones operativas, ya que sugiere que modelos entrenados sobre inventarios recientes y metodológicamente homogéneos pueden ofrecer estimaciones más precisas y fiables del carbono forestal, incluso cuando se dispone de menos fuentes de información histórica.
+
+% A modo de conclusión, los resultados obtenidos indican que la elección del conjunto de entrenamiento debe adaptarse al horizonte temporal de predicción considerado. En particular, el modelo entrenado exclusivamente con datos del IFN3 resulta más adecuado para predicciones a medio plazo, en un horizonte temporal aproximado de entre 9 y 17 años, donde la mayor calidad y coherencia metodológica de este inventario se traduce en estimaciones más precisas y estables del carbono forestal. Por el contrario, cuando el objetivo es realizar predicciones a más largo plazo, con horizontes temporales superiores y que pueden extenderse hasta los 30 años, el uso combinado de datos procedentes del IFN2 y del IFN3 se hace obligatorio, ya que ofrece una base temporal más amplia que permite capturar mejor la evolución de las masas forestales en periodos prolongados. En este contexto, aunque el rendimiento predictivo sea ligeramente inferior, la integración de ambos inventarios aporta robustez frente a escenarios de extrapolación temporal, lo que hace recomendable su empleo para proyecciones de largo plazo.
+
+% \subsection{Variable objetivo}
+% En la interpretación de los resultados es fundamental contextualizar la diferencia entre las dos variables objetivo empleadas en el estudio: el carbono expresado en toneladas absolutas (\texttt{tC}) y el carbono normalizado por superficie (\texttt{tC/ha}). Tal y como se observa en la Tabla~\ref{tab:resumen_variables}, la variable \texttt{carbono_bruto4} (tC) muestra una media inferior, pero una elevada dispersión relativa, con un rango amplio y valores extremos asociados a parcelas con estructuras muy heterogéneas. Por su parte, la variable \texttt{c4} (tC/ha) presenta una media más alta y una variabilidad absoluta mayor.
+
+% Estas diferencias estructurales tienen implicaciones directas sobre la capacidad predictiva de los modelos. En términos generales, la variable expresada en tC resulta más sencilla de modelizar, ya que integra implícitamente la superficie y reduce parte de la variabilidad introducida por la normalización por hectárea. Como consecuencia, los modelos entrenados para predecir carbono total alcanzan sistemáticamente valores más altos de $R^2$ y errores más bajos (RMSE y MAE) que aquellos orientados a la predicción de tC/ha. Esto indica que una mayor fracción de la varianza es explicada por las variables explicativas disponibles cuando la respuesta se expresa en términos absolutos.
+
+% En cambio, la predicción en tC/ha constituye un problema más exigente desde el punto de vista estadístico, al amplificar la heterogeneidad intra-parcela y la influencia de factores locales no completamente capturados por los predictores. No obstante, esta variable resulta especialmente relevante para aplicaciones de comparación espacial, evaluación de productividad y análisis de eficiencia en el secuestro de carbono, lo que justifica su inclusión a pesar de presentar métricas de ajuste ligeramente inferiores. En conjunto, los resultados ponen de manifiesto que la elección de la variable objetivo debe alinearse con el objetivo final del análisis, asumiendo el compromiso existente entre interpretabilidad ecológica y rendimiento predictivo.
+
+% \subsection{Distribución del error}
+% El análisis conjunto de las métricas globales de los modelos predictivos muestra de forma consistente que el valor del RMSE es aproximadamente el doble del MAE. Dado que el RMSE penaliza de manera más severa los errores de gran magnitud, esta diferencia indica que, aunque el error medio absoluto se mantiene en niveles moderados, existen observaciones concretas en las que los modelos cometen desviaciones significativamente mayores.
+
+% Este patrón sugiere que la dificultad predictiva no es homogénea a lo largo de todo el rango de la variable objetivo, sino que se concentra en determinados valores o contextos específicos. En este sentido, resulta necesario complementar la evaluación con métricas relativas como el SMAPE, que permiten analizar el error en proporción a la magnitud de la variable, así como con representaciones gráficas —como los diagramas de dispersión entre valores observados y predichos— que facilitan la identificación visual de sesgos, heterocedasticidad o rangos problemáticos del modelo.
+
+% En la Figura~\ref{fig:dispersion_densidad_c4} se representa la dispersión entre los valores observados y las predicciones obtenidas por el modelo LightGBM (el de mayor R$^2$) para la variable objetivo \texttt{c4} (tC/ha)empleando como explicativos los inventarios IFN2 y IFN3. También se incluye un histograma de la densidad de puntos.
+
+% TODO: hace falta otra igual para carbono_bruto4. No se que modelo es el de la foto. Actualizar la imagen. Poner el caption de la foto en CASTELLANO.
+
+% Aunque \texttt{c4} presenta un rango muy amplio, desde valores próximos a cero hasta aproximadamente $880$~tC/ha, la figura pone de manifiesto que la mayor concentración de observaciones se sitúa en el intervalo comprendido entre $0$ y $200$~tC/ha. En este rango, que además concentra la mayor parte de la masa de datos, la nube de puntos se alinea de forma clara en torno a la diagonal identidad.
+
+% Si bien existen casos puntuales en los que las predicciones se desvían notablemente de los valores reales, especialmente en los extremos superiores del rango, la estructura general del gráfico indica que el modelo reproduce de manera consistente la relación media entre valores observados y predichos. Este comportamiento es coherente con la diferencia observada entre RMSE y MAE, y refuerza la idea de que los errores más elevados se concentran en un subconjunto reducido de observaciones, mientras que el ajuste es sólido en las regiones donde se acumula la mayor densidad de datos.
+
+% \begin{figure}
+% \centering
+% \includegraphics[width=0.8\textwidth]{figuras/08_resultados/density_LightGBM_0-300.pdf}
+% \caption{Dispersión de las predicciones frente a los valores reales para la variable objetivo \texttt{c4}. Se representa únicamente el rango $[0,300]$~tC.}
+% \label{fig:dispersion_densidad_c4}
+% \end{figure}
+
+% Este comportamiento se analiza de forma explícita en la Figura~\ref{fig:smape_c4}, donde se representan, por intervalos de la variable objetivo \texttt{c4}, los valores de SMAPE y RMSE obtenidos por los distintos modelos base, junto con un histograma que muestra el número de observaciones disponibles en cada rango. Esta figura permite evaluar simultáneamente la magnitud del error y su dependencia de la densidad de datos a lo largo del dominio de la variable.
+
+% Los resultados confirman que el error relativo no es homogéneo. En los rangos intermedios de carbono, donde existe una combinación favorable de volumen de datos, comportamiento más estable del sistema y una cantidad de carbono suficientemente grande como para permitir un margen de error razonable (no es lo mismo un error de una toneladas en una parcela de 2 toneladas totales que en otra de 100 toneladas), el SMAPE alcanza valores mínimos, bajando del $20\%$ de error. En cambio, para valores bajos de \texttt{c4}, el SMAPE es elevado pese a la abundancia de observaciones, lo que refleja una alta variabilidad relativa en este régimen y una mala precisión de los modelos. Finalmente, en los valores más altos de carbono, el incremento del SMAPE coincide con una fuerte reducción del número de datos, evidenciando que la escasez de observaciones en los extremos de la distribución limita la capacidad de generalización del modelo.
+
+% \begin{figure}
+% \centering
+% \includegraphics[width=0.8\textwidth]{figuras/09_discusion/c4_base_models_SMAPE_RMSE_combined_bins.pdf}
+% \caption{SMAPE y RMSE por rangos de la variable objetivo \texttt{c4} para los modelos base, junto con la distribución del número de observaciones en cada intervalo.}
+% \label{fig:smape_c4}
+% \end{figure}
+
+% TODO: Tal vez conviene hablar aqui sobre como de bien predice según PERIODO. Un grafico y tal. 
 

@@ -91,6 +91,11 @@
 \usetikzlibrary{shapes.geometric,arrows}
 \usepackage{pdflscape}      % Páginas horizontales
 \usepackage{etoolbox}       % Hooks
+\usepackage{etoolbox}       % Hooks
+\usepackage[normalem]{ulem} % Tachado para correcciones
+\definecolor{ForestGreen}{RGB}{34,139,34}
+\newcommand{\correccion}[2]{\textcolor{orange}{\sout{#1}} \textcolor{ForestGreen}{#2}}
+
 
 %----------------------------------------------------------------------------------------
 % NUMERACIÓN
@@ -105,3 +110,11 @@
 %----------------------------------------------------------------------------------------
 % Comando para código inline con mejor formato
 \newcommand{\code}[1]{\texttt{#1}}
+
+% Redefinir paragraph para que no sea run-in (introducir salto de línea tras el título)
+\makeatletter
+\renewcommand\paragraph{\@startsection{paragraph}{4}{\z@}%
+  {3.25ex \@plus1ex \@minus.2ex}%
+  {0.5em}%
+  {\normalfont\normalsize\bfseries}}
+\makeatother

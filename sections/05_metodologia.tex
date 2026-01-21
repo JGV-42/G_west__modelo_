@@ -39,7 +39,7 @@ Finalmente, se incorporan índices espectrales derivados de imágenes satelitale
 \end{itemize}
 
 
-\subsubsection{Estrutura de la base de datos}
+\subsubsection{Estructura de la base de datos}
 Estos datos se organizan en las siguientes entidades troncales (tablas):
 
 \begin{itemize}
@@ -47,7 +47,7 @@ Estos datos se organizan en las siguientes entidades troncales (tablas):
     \item \textbf{parcela\_inventario}: describe el estado de cada parcela en un inventario determinado, incluyendo atributos edáficos y de contexto (p. ej., textura del suelo, fracción de cabida cubierta\dots).
     \item \textbf{parcela\_inventario\_especie}: detalla la presencia y condición de cada especie dentro de una parcela e inventario, incorporando descriptores de masa y tratamientos silvícolas.
     \item \textbf{parcela\_inventario\_especie\_cd}: describe las poblaciones arbóreas por parcela, especie y \emph{clase diamétrica}: n.º de pies, área basimétrica, volúmenes, altura de los especímenes, carbono captura\cdots
-    \item \textbf{parcela\_especie\_arbol}: caracteriza los pies mayores identificados por parcela y especie en el inventario cuarto. Recoge las caracteristicas particulares de cada pie como altura, diámetros, ubicación respecto del centro de la parcela, volumen y carbono capturado.
+    \item \textbf{parcela\_especie\_arbol}: caracteriza los pies mayores identificados por parcela y especie en el inventario cuarto. Recoge las características particulares de cada pie como altura, diámetros, ubicación respecto del centro de la parcela, volumen y carbono capturado.
     \item \textbf{parcela\_inventario\_estacion}: almacena agregados climático-biofísicos por estación en la misma granularidad parcela–inventario, incluyendo variables como precipitación y temperatura, junto a índices de vegetación (NDVI, EVI, NDII, GNDVI).
     \item \textbf{especies} y \textbf{grupos}: recogen la información taxonómica y su clasificación jerárquica, estableciendo la relación entre especies individuales y grupos funcionales.
 \end{itemize}
@@ -58,8 +58,8 @@ La Figura~\ref{fig:GWestBBDD} muestra el esquema general de las tablas troncales
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.9\textwidth]{figuras/Estrctr_BBDD_GWest.png}
-    \caption{Esquema relacional de las tablas principales de la base de datos. Tabla extraida de \cite{greenwestdb}, donde se pueden consultar más detalles sobre las variables.}
+    \includegraphics[width=0.9\textwidth]{figuras/05_metodologia/Estrctr_BBDD_GWest.png}
+    \caption{Esquema relacional de las tablas principales de la base de datos. Tabla extraída de \cite{greenwestdb}, donde se pueden consultar más detalles sobre las variables.}
     \label{fig:GWestBBDD}
 \end{figure}
 
@@ -67,7 +67,7 @@ La Figura~\ref{fig:GWestBBDD} muestra el esquema general de las tablas troncales
 \footnotesize
 \setlength{\LTcapwidth}{\textwidth}
 \begin{longtable}{@{}p{2.8cm} p{6.8cm} p{2.2cm} p{2.2cm}@{}}
-    \caption{Resumen de variables principales por entidad. Tabla extraida de \cite{greenwestdb}.}                                                                                                  \\
+    \caption{Resumen de variables principales por entidad. Tabla extraída de \cite{greenwestdb}.}                                                                                                  \\
     \toprule
     \textbf{Variable}                                                      & \textbf{Descripción}                                           & \textbf{Unidad}              & \textbf{Tipo de dato} \\
     \midrule
@@ -225,9 +225,10 @@ Como ya se ha introducido, para que un proyecto forestal sea elegible en program
 
           El intervalo de tiempo entre los inventarios \textbf{IFN3} e \textbf{IFN4} es relativamente corto: la Figura~\ref{fig:periodo34} muestra la distribución de la diferencia de años entre las mediciones del IFN3 y el IFN4. Como puede observarse, la mayoría de las parcelas presentan intervalos comprendidos entre 6 y 17 años, un rango demasiado estrecho para evaluar la estabilidad del modelo en horizontes más amplios.
 
+          TODO: indicar con colores cuántos elementos proceden de cada inventario. hacer la figura más pequeña
           \begin{figure}[H]
               \centering
-              \includegraphics[width=0.9\textwidth]{figuras/periodo34.png}
+              \includegraphics[width=0.9\textwidth]{figuras/05_metodologia/periodo34.png}
               \caption{Distribución de la diferencia de años entre los inventarios tercero y cuarto.}
               \label{fig:periodo34}
           \end{figure}
@@ -236,7 +237,7 @@ Como ya se ha introducido, para que un proyecto forestal sea elegible en program
 
           \begin{figure}[H]
               \centering
-              \includegraphics[width=0.9\textwidth]{figuras/periodo234.png}
+              \includegraphics[width=0.9\textwidth]{figuras/05_metodologia/periodo234.png}
               \caption{Distribución de la diferencia de años entre los inventarios IFN2--IFN3 e IFN3--IFN4.}
               \label{fig:periodo234}
           \end{figure}

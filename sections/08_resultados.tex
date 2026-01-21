@@ -1,4 +1,5 @@
 \section{Resultados}
+\label{sec:resultados}
 % Aquí es donde analizas lo que significan tus resultados.
 % - Interpretación de los resultados: ¿Qué significan los valores de tus métricas? ¿El modelo es bueno, aceptable, o tiene problemas?
 % - Comparación con la literatura: ¿Cómo se comparan tus resultados con estudios similares en el campo? ¿Superas, igualas o quedas por debajo de lo esperado? ¿Por qué?
@@ -9,9 +10,181 @@
 
 %--------------------------------------------------
 
-Para estructurar de forma clara el análisis, dividiremos este apartado en dos secciones, sesgún se hayan entrenado los modelos solo con el IFN3 o bien con el IFN2 e IFN3 como explicativos. A su vez, en sección contendrá una explicación distinta para cada una de las cantidades predichas (tC o tC/ha).
+A continuación expondremos los resultados obtenidos a partir de varias métricas de evaluación de los modelos sobre el conjunto de datos de test. Dividiremos la sección según el origen de los datos de entrenamiento (IFN3 o IFN2 e IFN3) y según la variable a predecir (toneladas de carbono o toneladas de carbono por hectárea).
 
 \subsection{Resultados IFN3}
+
+\subsubsection{Toneladas de carbono por hectárea}
+
+\subsubsubsection{Modelos base}
+
+Una vez entrenados los modelos, algunos parámetros globales como el $R^2$, RMSE y MAE se presentan en la Tabla \ref{tab:resultados_modelos_base_ifn3_THA_resultados}.
+
+\begin{table}[H]
+    \centering
+    \caption{Resumen del rendimiento de los modelos para la predicción de la variable de carbono en tC/ha con el conjunto de datos que emplea IFN3 como explicativo.}
+    \label{tab:resultados_modelos_base_ifn3_THA_resultados}
+    \begin{tabular}{lrrr}
+        \toprule
+        Modelo            & $R^2_{\text{test}}$ & RMSE$_{\text{test}}$ & MAE$_{\text{test}}$ \\
+        \midrule
+        \textbf{LightGBM} & \textbf{0.858}      & \textbf{17.816}      & \textbf{9.246}     \\
+        XGBoost           & 0.851               & 18.232               & 9.203              \\
+        CatBoost          & 0.849               & 18.385               & 9.746              \\
+        GBDT              & 0.843               & 18.718               & 9.893              \\
+        MLP               & 0.840               & 18.947               & 9.297              \\
+        BaggedDT          & 0.820               & 20.085               & 10.699              \\
+        Random Forest     & 0.796               & 21.353               & 10.839              \\
+        BayesianNN        & 0.774               & 22.507               & 12.332              \\
+        KNN               & 0.756               & 23.357               & 12.585              \\
+        SVR               & 0.737               & 24.280               & 9.877              \\
+        AdaBoost          & 0.314               & 39.189               & 33.180              \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\subsubsubsection{Modelos con stacking}
+
+En la Tabla \ref{tab:stack_ifn3_THA_resultados} se muestra el resumen del rendimiento de los modelos de stacking para la predicción de la variable de carbono en tC/ha con el conjunto de datos que emplea IFN3 como explicativo.
+
+\begin{table}[H]
+    \centering
+    \small
+    \footnotesize
+        \begin{tabular}{llcccc}
+        \hline
+        \textbf{Stack}  & \textbf{Metamodelo}    & \textbf{Bases} & $R^2_{\text{test}}$ & $\text{RMSE}_{\text{test}}$  & $\text{MAE}_{\text{test}}$   \\
+        \hline
+        % ---------- STACK 1 ----------
+        \textbf{stack1} & \textbf{GradientBoosting} & \textbf{2} & \textbf{0.859} & \textbf{17.740} & \textbf{9.273} \\
+        stack1 & LinearRegression & 2 & 0.857 & 17.873 & 9.244 \\
+        stack1 & Ridge            & 2 & 0.857 & 17.875 & 9.245 \\
+        stack1 & RandomForest     & 2 & 0.835 & 19.224 & 10.450 \\
+        stack1 & SVR              & 2 & 0.854 & 18.053 & 9.114 \\
+        stack1 & MLP   & 2 & 0.858 & 17.834 & 9.264 \\
+        \hline
+        % ---------- STACK 2 ----------
+        \textbf{stack2} & \textbf{GradientBoosting} & \textbf{3} & \textbf{0.863} & \textbf{17.538} & \textbf{9.097} \\
+        stack2 & LinearRegression & 3 & 0.859 & 17.767 & 9.097 \\
+        stack2 & Ridge            & 3 & 0.859 & 17.773 & 9.107 \\
+        stack2 & RandomForest     & 3 & 0.839 & 18.988 & 9.887 \\
+        stack2 & SVR              & 3 & 0.856 & 17.954 & 8.935 \\
+        stack2 & MLP & 3 & 0.860 & 17.704 & 9.038 \\
+        \hline
+        % ---------- STACK 3 ----------
+        \textbf{stack3} & \textbf{GradientBoosting} & \textbf{4} & \textbf{0.855} & \textbf{18.026} & \textbf{9.534} \\
+        stack3 & LinearRegression & 4 & 0.850 & 18.309 & 9.580 \\
+        stack3 & Ridge            & 4 & 0.850 & 18.316 & 9.581 \\
+        stack3 & RandomForest     & 4 & 0.849 & 18.375 & 10.159 \\
+        stack3 & SVR              & 4 & 0.846 & 18.552 & 9.397 \\
+        stack3 & MLP              & 4 & 0.852 & 18.171 & 9.500 \\
+        \hline
+        % ---------- STACK 4 ----------
+        \textbf{stack4} & \textbf{GradientBoosting} & \textbf{5} & \textbf{0.866} & \textbf{17.303} & \textbf{9.134} \\
+        stack4 & LinearRegression & 5 & 0.860 & 17.718 & 9.190 \\
+        stack4 & Ridge            & 5 & 0.860 & 17.721 & 9.191 \\
+        stack4 & RandomForest     & 5 & 0.852 & 18.199 & 9.748 \\
+        stack4 & SVR              & 5 & 0.858 & 17.851 & 9.011 \\
+        stack4 & MLP              & 5 & 0.861 & 17.647 & 9.147 \\
+        \hline
+        % ---------- STACK 5 ----------
+        \textbf{stack5} & \textbf{GradientBoosting} & \textbf{6} & \textbf{0.865} & \textbf{17.369} & \textbf{9.037} \\
+        stack5 & LinearRegression & 6 & 0.861 & 17.644 & 9.049 \\
+        stack5 & Ridge            & 6 & 0.861 & 17.646 & 9.050 \\
+        stack5 & RandomForest     & 6 & 0.858 & 17.819 & 9.445 \\
+        stack5 & SVR              & 6 & 0.858 & 17.816 & 8.879 \\
+        stack5 & MLP & 6 & 0.862 & 17.572 & 8.950 \\
+        \hline
+    \end{tabular}
+    \caption{Resultados de las diferentes configuraciones de stacking utilizando IFN3 como explicativo de la variable en tC/ha.}
+    \label{tab:stack_ifn3_THA_resultados}
+\end{table}
+
+\subsubsection{Toneladas de carbono}
+
+\subsubsubsection{Modelos base}
+
+En la Tabla \ref{tab:resultados_modelos_base_ifn3_tc_resultados} se muestra el resumen del rendimiento de los modelos para la predicción de la variable de carbono en toneladas (carbono\_bruto4) con el conjunto de datos que emplea IFN3 como explicativo.
+
+\begin{table}[H]
+    \centering
+    \caption{Resumen del rendimiento de los modelos para la predicción de la variable de carbono en toneladas (carbono\_bruto4) con el conjunto de datos que emplea IFN3 como explicativo.}
+    \label{tab:resultados_modelos_base_ifn3_tc_resultados}
+    \begin{tabular}{lrrr}
+        \toprule
+        Modelo            & $R^2_{\text{test}}$ & RMSE$_{\text{test}}$ & MAE$_{\text{test}}$ \\
+        \midrule
+        \textbf{LightGBM} & \textbf{0.898}      & \textbf{10.641}      & \textbf{4.687}      \\
+        XGBoost           & 0.895               & 10.761               & 4.713               \\
+        CatBoost          & 0.896               & 10.737               & 4.789               \\
+        MLP               & 0.885               & 11.287               & 4.803               \\
+        GBDT              & 0.888               & 11.135               & 5.044               \\
+        BaggedDT          & 0.873               & 11.830               & 5.183               \\
+        Random Forest     & 0.871               & 11.965               & 5.217               \\
+        SVR               & 0.810               & 14.505               & 5.269               \\
+        KNN               & 0.793               & 15.128               & 6.251               \\
+        BayesianNN        & 0.836               & 13.455               & 6.773               \\
+        AdaBoost          & 0.349               & 26.829               & 23.857              \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\subsubsubsection{Modelos con stacking}
+
+En la Tabla \ref{tab:stack_ifn3_tc_resultados} se muestra el resumen del rendimiento de los modelos con stacking para la predicción de la variable de carbono en toneladas (carbono\_bruto4) con el conjunto de datos que emplea IFN3 como explicativo.
+
+\begin{table}[H]
+    \centering
+    \small
+    \footnotesize
+    \begin{tabular}{llcccc}
+        \hline
+        \textbf{Stack}  & \textbf{Metamodelo}    & \textbf{Bases} & $R^2_{\text{test}}$ & $\text{RMSE}_{\text{test}}$  & $\text{MAE}_{\text{test}}$  \\
+        \hline
+        % ---------- STACK 1 ----------
+        \textbf{stack1} & \textbf{MLP}              & \textbf{2} & \textbf{0.898} & \textbf{10.617} & \textbf{4.579} \\
+        stack1 & GradientBoosting & 2 & 0.897 & 10.660 & 4.620 \\
+        stack1 & LinearRegression & 2 & 0.898 & 10.625 & 4.667 \\
+        stack1 & Ridge            & 2 & 0.898 & 10.626 & 4.667 \\
+        stack1 & RandomForest     & 2 & 0.881 & 11.483 & 5.127 \\
+        stack1 & SVR              & 2 & 0.895 & 10.787 & 4.613 \\
+        \hline
+        % ---------- STACK 2 ----------
+        \textbf{stack2} & \textbf{MLP}              & \textbf{3} & \textbf{0.900} & \textbf{10.540} & \textbf{4.581} \\
+        stack2 & GradientBoosting & 3 & 0.899 & 10.582 & 4.610 \\
+        stack2 & LinearRegression & 3 & 0.899 & 10.572 & 4.651 \\
+        stack2 & Ridge            & 3 & 0.899 & 10.573 & 4.654 \\
+        stack2 & RandomForest     & 3 & 0.887 & 11.165 & 4.916 \\
+        stack2 & SVR              & 3 & 0.896 & 10.706 & 4.580 \\
+        \hline
+        % ---------- STACK 3 ----------
+        \textbf{stack3} & \textbf{MLP}              & \textbf{4} & \textbf{0.899} & \textbf{10.572} & \textbf{4.611} \\
+        stack3 & GradientBoosting & 4 & 0.897 & 10.671 & 4.637 \\
+        stack3 & LinearRegression & 4 & 0.897 & 10.674 & 4.757 \\
+        stack3 & Ridge            & 4 & 0.897 & 10.675 & 4.757 \\
+        stack3 & RandomForest     & 4 & 0.887 & 11.157 & 4.967 \\
+        stack3 & SVR              & 4 & 0.893 & 10.865 & 4.672 \\
+        \hline
+        % ---------- STACK 4 ----------
+        \textbf{stack4} & \textbf{MLP}              & \textbf{5} & \textbf{0.902} & \textbf{10.407} & \textbf{4.517} \\
+        stack4 & GradientBoosting & 5 & 0.901 & 10.450 & 4.541 \\
+        stack4 & LinearRegression & 5 & 0.900 & 10.511 & 4.648 \\
+        stack4 & Ridge            & 5 & 0.900 & 10.511 & 4.648 \\
+        stack4 & RandomForest     & 5 & 0.895 & 10.782 & 4.775 \\
+        stack4 & SVR              & 5 & 0.897 & 10.655 & 4.556 \\
+        \hline
+        % ---------- STACK 5 ----------
+        \textbf{stack5} & \textbf{MLP} & \textbf{6} & \textbf{0.901} & \textbf{10.447} & \textbf{4.454} \\
+        stack5 & GradientBoosting & 6 & 0.902 & 10.434 & 4.540 \\
+        stack5 & LinearRegression & 6 & 0.900 & 10.492 & 4.624 \\
+        stack5 & Ridge            & 6 & 0.900 & 10.494 & 4.624 \\
+        stack5 & RandomForest     & 6 & 0.895 & 10.755 & 4.721 \\
+        stack5 & SVR              & 6 & 0.898 & 10.638 & 4.541 \\
+        \hline
+    \end{tabular}
+    \caption{Resultados de las diferentes configuraciones de stacking utilizando IFN3 como explicativo de la variable en toneladas de carbono.}
+    \label{tab:stack_ifn3_tc_resultados}
+\end{table}
 
 \subsection{Resultados IFN2 e IFN3}
 
@@ -25,7 +198,7 @@ Una vez entrenados los modelos, algunos parámetros globales como el $R^2$, RMSE
 \begin{table}[H]
     \centering
     \caption{Resumen del rendimiento de los modelos para la predicción de la variable de carbono en tC/ha con el conjunto de datos que emplea IFN2 e IFN3 como explicativos.}
-    \label{tab:resultadosmodelosbaseTHA}
+    \label{tab:resultados_modelos_base_THA_resultados}
     \begin{tabular}{lrrr}
         \toprule
         Modelo            & $R^2_{\text{test}}$ & RMSE$_{\text{test}}$ & MAE$_{\text{test}}$ \\
@@ -43,20 +216,63 @@ Una vez entrenados los modelos, algunos parámetros globales como el $R^2$, RMSE
     \end{tabular}
 \end{table}
 
-% Globalmente el mejor resultado lo obtiene el modelo LightGBM con un $R^2_{\text{test}}$ de 0.787, un RMSE$_{\text{test}}$ de 22.767 tC/ha y un MAE$_{\text{test}}$ de 11.650 tC/ha. El siguiente modelo de la tabla, XGBoost, obtiene métricas muy similares, y de hecho tienen un MAE$_{\text{test}}$ ligeramente menor. Exceptuando los últimos dos modelos, el resto obtienen resultados muy similares. 
-
-En la Figura \ref{fig:density_LightGBM_0-300} se muestra la distribución de predicciones frente a valores reales para el modelo LightGBM (el que se ha escogido como el mejor) con IFN2 e IFN3 como explicativos para el rango de predicciones entre 0 y 300 tC/ha (para facilitar la visualización). También se incluye un código de colores para facilitar la visualización de la densidad de puntos y un histograma de la distribución tanto de los valores reales como de las predicciones.
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=\textwidth]{figuras/density_LightGBM_0-300.pdf}
-    \caption{Distribución de predicciones frente a valores reales para el modelo LightGBM con IFN2 e IFN3 como explicativos. Solo se muestra el intervalo de predicciones entre 0 y 300 tC/ha.}
-    \label{fig:density_LightGBM_0-300}
-\end{figure}
-
-
 
 \subsubsubsection{Modelos con stacking}
+
+En la Tabla \ref{tab:stack_ifn2_ifn3c_resultados} se muestra el resumen del rendimiento de los modelos de stacking para la predicción de la variable de carbono en tC/ha con el conjunto de datos que emplea IFN2 e IFN3 como explicativos.
+
+\begin{table}[H]
+    \centering
+    \small
+    \footnotesize
+        \begin{tabular}{llcccc}
+        \hline
+        \textbf{Stack}  & \textbf{Metamodelo}    & \textbf{Bases} & $R^2_{\text{test}}$ & $\text{RMSE}_{\text{test}}$  & $\text{MAE}_{\text{test}}$   \\
+        \hline
+        % ---------- STACK 1 ----------
+        stack1 & GradientBoosting & 2 & 0.770 & 23.648 & 11.663 \\
+        stack1 & LinearRegression & 2 & 0.787 & 22.768 & 11.607 \\
+        stack1 & Ridge            & 2 & 0.787 & 22.769 & 11.607 \\
+        stack1 & RandomForest     & 2 & 0.740 & 25.152 & 12.875 \\
+        stack1 & SVR              & 2 & 0.781 & 23.109 & 11.368 \\
+        \textbf{stack1} & \textbf{MLP}   & \textbf{2} & \textbf{0.789} & \textbf{22.650} & \textbf{11.556} \\
+        \hline
+        % ---------- STACK 2 ----------
+        stack2 & GradientBoosting & 3 & 0.779 & 23.183 & 11.527 \\
+        stack2 & LinearRegression & 3 & 0.791 & 22.565 & 11.429 \\
+        stack2 & Ridge            & 3 & 0.791 & 22.566 & 11.429 \\
+        stack2 & RandomForest     & 3 & 0.755 & 24.446 & 12.345 \\
+        stack2 & SVR              & 3 & 0.786 & 22.853 & 11.214 \\
+        \textbf{stack2} & \textbf{MLP} & \textbf{3} & \textbf{0.794} & \textbf{22.405} & \textbf{11.403} \\
+        \hline
+        % ---------- STACK 3 ----------
+        stack3 & GradientBoosting & 4 & 0.774 & 23.442 & 11.477 \\
+        stack3 & LinearRegression & 4 & 0.788 & 22.735 & 11.456 \\
+        stack3 & Ridge            & 4 & 0.788 & 22.735 & 11.454 \\
+        stack3 & RandomForest     & 4 & 0.748 & 24.768 & 12.394 \\
+        stack3 & SVR              & 4 & 0.783 & 22.995 & 11.218 \\
+        \textbf{stack3} & \textbf{MLP}              & \textbf{4} & \textbf{0.787} & \textbf{22.774} & \textbf{11.333} \\
+        \hline
+        % ---------- STACK 4 ----------
+        stack4 & GradientBoosting & 5 & 0.772 & 23.553 & 11.476 \\
+        stack4 & LinearRegression & 5 & 0.790 & 22.602 & 11.416 \\
+        stack4 & Ridge            & 5 & 0.790 & 22.601 & 11.415 \\
+        stack4 & RandomForest     & 5 & 0.751 & 24.650 & 12.208 \\
+        stack4 & SVR              & 5 & 0.785 & 22.873 & 11.183 \\
+        \textbf{stack4} & \textbf{MLP}              & \textbf{5} & \textbf{0.792} & \textbf{22.531} & \textbf{11.315} \\
+        \hline
+        % ---------- STACK 5 ----------
+        stack5 & GradientBoosting & 6 & 0.773 & 23.492 & 11.421 \\
+        stack5 & LinearRegression & 6 & 0.791 & 22.571 & 11.387 \\
+        stack5 & Ridge            & 6 & 0.791 & 22.572 & 11.384 \\
+        stack5 & RandomForest     & 6 & 0.760 & 24.187 & 12.029 \\
+        stack5 & SVR              & 6 & 0.785 & 22.864 & 11.162 \\
+        \textbf{stack5} & \textbf{MLP} & \textbf{6} & \textbf{0.794} & \textbf{22.387} & \textbf{11.307} \\
+        \hline
+    \end{tabular}
+    \caption{Resultados de las diferentes configuraciones de stacking utilizando IFN2 e IFN3 como explicativos de la variable en tC/ha.}
+    \label{tab:stack_ifn2_ifn3c_resultados}
+\end{table}
 
 
 \subsubsection{Toneladas de carbono}
@@ -87,133 +303,168 @@ En la Tabla \ref{tab:resultados_modelos_base_tc_resultados} se muestra el resume
     \end{tabular}
 \end{table}
 
-Al igual que en apartado anterior, en la Figura \ref{fig:density_CatBoost_0-150} se muestra la distribución de predicciones frente a valores reales para el modelo CatBoost (el que se ha escogido como el mejor) con IFN2 e IFN3 como explicativos para el rango de predicciones entre 0 y 150 tC/ha (para facilitar la visualización). También se incluye un código de colores para facilitar la visualización de la densidad de puntos y un histograma de la distribución tanto de los valores reales como de las predicciones.
 
-\begin{figure}
-      \centering
-      \includegraphics[width=0.8\textwidth]{figuras/density_CatBoost_0-150.pdf}
-      \caption{Distribución de predicciones frente a valores reales para el modelo CatBoost con IFN2 e IFN3 como explicativos para el rango de predicciones entre 0 y 150 tC/ha (para facilitar la visualización).}
-      \label{fig:density_CatBoost_0-150}
-\end{figure}
+\subsubsubsection{Modelos con stacking}
 
-Por otro lado, en las Figuras \ref{fig:CatBoost_rmse_cuantiles} y \ref{fig:CatBoost_pct_rmse_cuantiles} se muestra la evolución del RMSE en cuantiles y el RMSE porcentual en cuantiles en función de la variable \texttt{periodo} para el modelo CatBoost con IFN2 e IFN3 como explicativos, junto con el histograma de distribución de los datos de entrenamiento en función de la variable periodo.
+En la Tabla \ref{tab:stack_ifn2_ifn3_tc_resultados} se muestra el resumen del rendimiento de los modelos con stacking para la predicción de la variable de carbono en toneladas con el conjunto de datos que emplea el IFN2 e IFN3 como explicativos.
 
-\begin{figure}
-      \centering
-      \includegraphics[width=0.8\textwidth]{figuras/CatBoost_rmse_cuantiles.pdf}
-      \caption{Evolución del RMSE en cuantiles en función de la variable \texttt{periodo} para el modelo CatBoost con IFN2 e IFN3 como explicativos.}
-      \label{fig:CatBoost_rmse_cuantiles}
-\end{figure}
-
-\begin{figure}
-      \centering
-      \includegraphics[width=0.8\textwidth]{figuras/CatBoost_pct_rmse_cuantiles.pdf}
-      \caption{Evolución del RMSE porcentual en cuantiles en función de la variable \texttt{periodo} para el modelo CatBoost con IFN2 e IFN3 como explicativos.}
-      \label{fig:CatBoost_pct_rmse_cuantiles}
-\end{figure}
-
-
-\vspace{1cm}
-\hline
-\vspace{1cm}
-\subsection{Resultados}
-\label{subsec:resultados_modelos}
-
-En esta sección se presentan los resultados obtenidos por los modelos descritos en la Sección~\ref{subsec:modelosevaluados}. Las tablas de resultados completas se pueden consultar en el \ref{anexo:resultados}.
-
-En conjunto, los resultados obtenidos a lo largo de las cuatro configuraciones de entrenamiento analizadas (IFN3 o IFN2 y 3 como explicativos / variable objetivo en tC o tC/ha) muestran un comportamiento notablemente estable y coherente entre versiones, tanto en términos de capacidad predictiva como de generalización. De forma sistemática, los modelos basados en árboles de decisión y \textit{gradient boosting} son los que alcanzan los mejores niveles de rendimiento, destacando de manera consistente CatBoost y LightGBM como las alternativas más competitivas entre los modelos individuales, independientemente del inventario empleado o de la forma en que se expresa la variable objetivo.
-
-Un aspecto especialmente relevante es la alta similitud entre los valores de $R^2$ obtenidos en validación cruzada y en el conjunto de test, lo que indica que los modelos presentan una buena capacidad de generalización y no muestran síntomas apreciables de sobreajuste. Esta estabilidad se observa tanto en los escenarios con mayor volumen de información (IFN2+IFN3) como en aquellos más simples (IFN3), reforzando la robustez de los enfoques basados en árboles frente a variaciones en la disponibilidad de datos.
-
-La incorporación de esquemas de \textit{stacking} no produce incrementos sustanciales en el coeficiente de determinación respecto a los mejores modelos individuales. No obstante, sí se aprecia una mejora sistemática en el error absoluto medio (MAE), con reducciones que oscilan aproximadamente entre 210 y 371 kg de carbono (o kg/ha), dependiendo del escenario considerado. Esta reducción, aunque moderada en términos relativos, resulta relevante desde un punto de vista práctico, ya que implica predicciones más precisas en el rango de error típico y justifica la consideración del \textit{stacking} como una estrategia complementaria.
-
-En cuanto a la estructura de los ensambles, los mejores resultados se obtienen cuando se combinan modelos base de alta calidad y naturaleza similar (principalmente variantes de \textit{gradient boosting}) y se emplean metamodelos con complejidad moderada, como MLP o SVR lineal. Por el contrario, los \textit{stacks} con pocos modelos base o aquellos que incorporan metamodelos excesivamente flexibles, como Random Forest en el segundo nivel, tienden a ofrecer un rendimiento inferior, probablemente debido a la baja dimensionalidad del espacio de meta-predictores o a un sobreajuste innecesario del ruido residual.
-
-En síntesis, los resultados confirman que los modelos individuales basados en árboles constituyen una solución sólida y eficiente, mientras que el \textit{stacking} aporta mejoras incrementales principalmente en términos de reducción del error medio.
 
 \begin{table}[H]
-\centering
-\scriptsize
-\caption{Comparación sintética del rendimiento de los modelos según inventarios utilizados y variable objetivo.}
-\label{tab:comparativa_global_modelos}
-\begin{tabular}{lllrcccc}
-\toprule
-\textbf{IFN} & \textbf{Variable objetivo} & \textbf{Modelo} & \textbf{Modelos} & $\boldsymbol{R^2}$ & \textbf{RMSE} & \textbf{MAE} \\
-\midrule
-2 y 3 & tC/ha & LightGBM & 1  & 0.79 & 22.77 & 11.65 \\
-2 y 3 & tC/ha & stack1 + MLP & 6   & 0.79 & 22.39 & 11.32 \\
-\midrule
-2 y 3 & tC & CatBoost & 1  & 0.84 & 13.85 & 6.61 \\
-2 y 3 & tC & stack1 + MLP & 6    & 0.85 & 13.76 & 6.40 \\
-\midrule
-3 & tC/ha & CatBoost & 1  & 0.8598 & 17.7087 & 9.2504 \\
-3 & tC/ha & stack1 + MLP & 6     & 0.8656 & 17.3380 & 8.8789 \\
-\midrule
-3 & tC & LightGBM & 1  & 0.9091 & 10.6623 & 5.4774 \\
-3 & tC & stack1 + MLP & 6   & 0.9140 & 10.3723 & 5.2515 \\
-\bottomrule
-\end{tabular}
+    \centering
+    \small
+    \footnotesize
+    \begin{tabular}{llcccc}
+        \hline
+        \textbf{Stack}  & \textbf{Metamodelo}    & \textbf{Bases} & $R^2_{\text{test}}$ & $\text{RMSE}_{\text{test}}$  & $\text{MAE}_{\text{test}}$  \\
+        \hline
+        % ---------- STACK 1 ----------
+        stack1 & GradientBoosting & 2 & 0.840 & 14.042 & 6.532 \\
+        stack1 & LinearRegression & 2 & 0.842 & 13.974 & 6.621 \\
+        stack1 & Ridge            & 2 & 0.842 & 13.974 & 6.621 \\
+        stack1 & RandomForest     & 2 & 0.815 & 15.108 & 7.254 \\
+        stack1 & SVR              & 2 & 0.838 & 14.150 & 6.534 \\
+        \textbf{stack1} & \textbf{MLP}              & \textbf{2} & \textbf{0.842} & \textbf{13.969} & \textbf{6.482} \\
+        \hline
+        % ---------- STACK 2 ----------
+        stack2 & GradientBoosting & 3 & 0.842 & 13.977 & 6.525 \\
+        stack2 & LinearRegression & 3 & 0.843 & 13.913 & 6.586 \\
+        stack2 & Ridge            & 3 & 0.843 & 13.913 & 6.586 \\
+        stack2 & RandomForest     & 3 & 0.826 & 14.652 & 7.017 \\
+        stack2 & SVR              & 3 & 0.840 & 14.064 & 6.511 \\
+        \textbf{stack2} & \textbf{MLP}              & \textbf{3} & \textbf{0.843} & \textbf{13.913} & \textbf{6.507} \\
+        \hline
+        % ---------- STACK 3 ----------
+        stack3 & GradientBoosting & 4 & 0.844 & 13.862 & 6.440 \\
+        stack3 & LinearRegression & 4 & 0.846 & 13.813 & 6.557 \\
+        stack3 & Ridge            & 4 & 0.846 & 13.813 & 6.557 \\
+        stack3 & RandomForest     & 4 & 0.829 & 14.545 & 6.920 \\
+        stack3 & SVR              & 4 & 0.842 & 13.978 & 6.473 \\
+        \textbf{stack3} & \textbf{MLP}              & \textbf{4} & \textbf{0.846} & \textbf{13.785} & \textbf{6.364} \\
+        \hline
+        % ---------- STACK 4 ----------
+        stack4 & GradientBoosting & 5 & 0.845 & 13.827 & 6.428 \\
+        stack4 & LinearRegression & 5 & 0.846 & 13.784 & 6.533 \\
+        stack4 & Ridge            & 5 & 0.846 & 13.784 & 6.533 \\
+        stack4 & RandomForest     & 5 & 0.834 & 14.309 & 6.771 \\
+        stack4 & SVR              & 5 & 0.843 & 13.943 & 6.452 \\
+        \textbf{stack4} & \textbf{MLP}              & \textbf{5} & \textbf{0.847} & \textbf{13.768} & \textbf{6.458} \\
+        \hline
+        % ---------- STACK 5 ----------
+        stack5 & GradientBoosting & 6 & 0.846 & 13.812 & 6.423 \\
+        stack5 & LinearRegression & 6 & 0.846 & 13.787 & 6.541 \\
+        stack5 & Ridge            & 6 & 0.846 & 13.787 & 6.541 \\
+        stack5 & RandomForest     & 6 & 0.836 & 14.212 & 6.716 \\
+        stack5 & SVR              & 6 & 0.843 & 13.940 & 6.451 \\
+        \textbf{stack5} & \textbf{MLP} & \textbf{6} & \textbf{0.847} & \textbf{13.759} & \textbf{6.401} \\
+        \hline
+    \end{tabular}
+    \caption{Resultados de las diferentes configuraciones de stacking utilizando IFN2 e IFN3 como explicativos de la variable en toneladas de carbono.}
+    \label{tab:stack_ifn2_ifn3_tc_resultados}
 \end{table}
 
-La Tabla~\ref{tab:comparativa_global_modelos} sintetiza el rendimiento de los mejores modelos identificados en cada una de las cuatro líneas de entrenamiento consideradas, permitiendo una comparación directa entre inventarios utilizados, variable objetivo y complejidad del modelo. En todos los escenarios se observa un patrón consistente: los modelos individuales basados en \textit{gradient boosting} (LightGBM o CatBoost) ofrecen un rendimiento sólido, que se ve ligeramente mejorado mediante la incorporación de esquemas de \textit{stacking}.
 
-Cuando se emplean conjuntamente los inventarios IFN2 e IFN3 y se predice la variable normalizada en tC/ha, el rendimiento del modelo individual (LightGBM) y del \textit{stack} es prácticamente equivalente en términos de $R^2$, si bien el \textit{stacking} logra una reducción apreciable del MAE, pasando de 11.65 a 11.32 tC/ha. Un comportamiento análogo se observa al predecir carbono total (tC) con IFN2 e IFN3, donde CatBoost alcanza ya valores elevados de $R^2$ (0.84), y el \textit{stack} introduce una mejora moderada pero consistente tanto en $R^2$ como en los errores (RMSE y MAE).
+% Parte hecha por Maider
+% \vspace{1cm}
+% \hline
+% \vspace{1cm}
+% \subsection{Resultados}
+% \label{subsec:resultados_modelos}
 
-En los escenarios basados exclusivamente en IFN3, los niveles de rendimiento son, en general, superiores. Para la variable en tC/ha, CatBoost explica cerca del 86\% de la varianza observada, mientras que el \textit{stack} incrementa ligeramente este valor y reduce el MAE en aproximadamente 0.37 tC/ha. De forma aún más clara, al predecir carbono total (tC), LightGBM alcanza un $R^2$ superior a 0.91, y el \textit{stacking} vuelve a aportar una mejora incremental, reduciendo el error absoluto medio hasta valores en torno a 5.25 tC.
+% En esta sección se presentan los resultados obtenidos por los modelos descritos en la Sección~\ref{subsec:modelosevaluados}. Las tablas de resultados completas se pueden consultar en el \ref{anexo:resultados}.
 
-En conjunto, estos resultados confirman que la mayor ganancia del \textit{stacking} no reside tanto en aumentos sustanciales del $R^2$, sino en una reducción sistemática del error medio, lo que se traduce en predicciones más precisas en términos absolutos. Al mismo tiempo, la tabla pone de manifiesto que los enfoques basados en árboles constituyen una base extremadamente robusta, sobre la que los ensambles apilados actúan como un refinamiento adicional más que como un cambio de paradigma.
+% En conjunto, los resultados obtenidos a lo largo de las cuatro configuraciones de entrenamiento analizadas (IFN3 o IFN2 y 3 como explicativos / variable objetivo en tC o tC/ha) muestran un comportamiento notablemente estable y coherente entre versiones, tanto en términos de capacidad predictiva como de generalización. De forma sistemática, los modelos basados en árboles de decisión y \textit{gradient boosting} son los que alcanzan los mejores niveles de rendimiento, destacando de manera consistente CatBoost y LightGBM como las alternativas más competitivas entre los modelos individuales, independientemente del inventario empleado o de la forma en que se expresa la variable objetivo.
 
-\subsection{Síntesis de resultados}
-\label{subsec:resultados_sintesis}
+% Un aspecto especialmente relevante es la alta similitud entre los valores de $R^2$ obtenidos en validación cruzada y en el conjunto de test, lo que indica que los modelos presentan una buena capacidad de generalización y no muestran síntomas apreciables de sobreajuste. Esta estabilidad se observa tanto en los escenarios con mayor volumen de información (IFN2+IFN3) como en aquellos más simples (IFN3), reforzando la robustez de los enfoques basados en árboles frente a variaciones en la disponibilidad de datos.
 
-A partir del análisis realizado, pueden resumirse las principales conclusiones en los siguientes puntos:
+% La incorporación de esquemas de \textit{stacking} no produce incrementos sustanciales en el coeficiente de determinación respecto a los mejores modelos individuales. No obstante, sí se aprecia una mejora sistemática en el error absoluto medio (MAE), con reducciones que oscilan aproximadamente entre 210 y 371 kg de carbono (o kg/ha), dependiendo del escenario considerado. Esta reducción, aunque moderada en términos relativos, resulta relevante desde un punto de vista práctico, ya que implica predicciones más precisas en el rango de error típico y justifica la consideración del \textit{stacking} como una estrategia complementaria.
 
-\begin{itemize}
-    \item El conjunto de datos depurado muestra una variables objetivos marcadas con gran variabilidad:
-          \texttt{carbono\_bruto4} presenta menor dispersión (SD $\approx 36$ tC/ha)
-          que \texttt{c4} (SD $\approx 47$ tC/ha), lo que anticipa un problema predictivo más complejo
-          para esta última.
+% En cuanto a la estructura de los ensambles, los mejores resultados se obtienen cuando se combinan modelos base de alta calidad y naturaleza similar (principalmente variantes de \textit{gradient boosting}) y se emplean metamodelos con complejidad moderada, como MLP o SVR lineal. Por el contrario, los \textit{stacks} con pocos modelos base o aquellos que incorporan metamodelos excesivamente flexibles, como Random Forest en el segundo nivel, tienden a ofrecer un rendimiento inferior, probablemente debido a la baja dimensionalidad del espacio de meta-predictores o a un sobreajuste innecesario del ruido residual.
 
-    \item El análisis ANOVA confirma que el \textit{periodo} tiene un efecto estadísticamente
-          significativo sobre ambas variables de carbono, evidenciando la existencia de variaciones
-          temporales sistemáticas relevantes para su modelización.
+% En síntesis, los resultados confirman que los modelos individuales basados en árboles constituyen una solución sólida y eficiente, mientras que el \textit{stacking} aporta mejoras incrementales principalmente en términos de reducción del error medio.
 
-    \item Entre las estrategias de selección de variables evaluadas (manual, FeatureWiz y mRMR),
-          la selección manual, basada en bloques temáticos con coherencia ecológica, ofrece el mejor
-          equilibrio entre simplicidad y rendimiento, superando en precisión y error a las selecciones
-          automáticas.
+% \begin{table}[H]
+% \centering
+% \scriptsize
+% \caption{Comparación sintética del rendimiento de los modelos según inventarios utilizados y variable objetivo.}
+% \label{tab:comparativa_global_modelos}
+% \begin{tabular}{lllrcccc}
+% \toprule
+% \textbf{IFN} & \textbf{Variable objetivo} & \textbf{Modelo} & \textbf{Modelos} & $\boldsymbol{R^2}$ & \textbf{RMSE} & \textbf{MAE} \\
+% \midrule
+% 2 y 3 & tC/ha & LightGBM & 1  & 0.79 & 22.77 & 11.65 \\
+% 2 y 3 & tC/ha & stack1 + MLP & 6   & 0.79 & 22.39 & 11.32 \\
+% \midrule
+% 2 y 3 & tC & CatBoost & 1  & 0.84 & 13.85 & 6.61 \\
+% 2 y 3 & tC & stack1 + MLP & 6    & 0.85 & 13.76 & 6.40 \\
+% \midrule
+% 3 & tC/ha & CatBoost & 1  & 0.8598 & 17.7087 & 9.2504 \\
+% 3 & tC/ha & stack1 + MLP & 6     & 0.8656 & 17.3380 & 8.8789 \\
+% \midrule
+% 3 & tC & LightGBM & 1  & 0.9091 & 10.6623 & 5.4774 \\
+% 3 & tC & stack1 + MLP & 6   & 0.9140 & 10.3723 & 5.2515 \\
+% \bottomrule
+% \end{tabular}
+% \end{table}
 
-    \item Los bloques de variables más informativos son, en orden aproximado de importancia:
-          estructura de la masa forestal, características de especie, condiciones edáficas y topográficas,
-          índices de vegetación e información climática estacional. La mayor parte del poder predictivo se
-          concentra en las características estructurales y de especie.
+% La Tabla~\ref{tab:comparativa_global_modelos} sintetiza el rendimiento de los mejores modelos identificados en cada una de las cuatro líneas de entrenamiento consideradas, permitiendo una comparación directa entre inventarios utilizados, variable objetivo y complejidad del modelo. En todos los escenarios se observa un patrón consistente: los modelos individuales basados en \textit{gradient boosting} (LightGBM o CatBoost) ofrecen un rendimiento sólido, que se ve ligeramente mejorado mediante la incorporación de esquemas de \textit{stacking}.
 
-    \item Los modelos individuales muestran que los métodos basados en árboles y
-          \textit{gradient boosting} (CatBoost, LightGBM, XGBoost y GBDT) alcanzan el mejor rendimiento
-          global, con valores de $R^2$ de hasta $0.85$ y errores moderados (inferiores al $50\%$ de
-          la desviación típica de la variable).
+% Cuando se emplean conjuntamente los inventarios IFN2 e IFN3 y se predice la variable normalizada en tC/ha, el rendimiento del modelo individual (LightGBM) y del \textit{stack} es prácticamente equivalente en términos de $R^2$, si bien el \textit{stacking} logra una reducción apreciable del MAE, pasando de 11.65 a 11.32 tC/ha. Un comportamiento análogo se observa al predecir carbono total (tC) con IFN2 e IFN3, donde CatBoost alcanza ya valores elevados de $R^2$ (0.84), y el \textit{stack} introduce una mejora moderada pero consistente tanto en $R^2$ como en los errores (RMSE y MAE).
 
-    \item CatBoost destaca como el mejor modelo individual, gracias a su capacidad para capturar
-          relaciones no lineales y manejar adecuadamente la complejidad y heterogeneidad de los datos.
+% En los escenarios basados exclusivamente en IFN3, los niveles de rendimiento son, en general, superiores. Para la variable en tC/ha, CatBoost explica cerca del 86\% de la varianza observada, mientras que el \textit{stack} incrementa ligeramente este valor y reduce el MAE en aproximadamente 0.37 tC/ha. De forma aún más clara, al predecir carbono total (tC), LightGBM alcanza un $R^2$ superior a 0.91, y el \textit{stacking} vuelve a aportar una mejora incremental, reduciendo el error absoluto medio hasta valores en torno a 5.25 tC.
 
-    \item Métodos como AdaBoost, KNN o BayesianNN muestran un rendimiento sustancialmente inferior,
-          lo que los descarta como candidatos eficaces para este tipo de predicción.
+% En conjunto, estos resultados confirman que la mayor ganancia del \textit{stacking} no reside tanto en aumentos sustanciales del $R^2$, sino en una reducción sistemática del error medio, lo que se traduce en predicciones más precisas en términos absolutos. Al mismo tiempo, la tabla pone de manifiesto que los enfoques basados en árboles constituyen una base extremadamente robusta, sobre la que los ensambles apilados actúan como un refinamiento adicional más que como un cambio de paradigma.
 
-    \item Las técnicas de \textit{stacking} aportan mejoras sistemáticas en el error absoluto medio de los modelos,
-          reduciendolos, en la mejor configuración, en torno a un 5\%.
+% \subsection{Síntesis de resultados}
+% \label{subsec:resultados_sintesis}
+
+% A partir del análisis realizado, pueden resumirse las principales conclusiones en los siguientes puntos:
+
+% \begin{itemize}
+%     \item El conjunto de datos depurado muestra una variables objetivos marcadas con gran variabilidad:
+%           \texttt{carbono\_bruto4} presenta menor dispersión (SD $\approx 36$ tC/ha)
+%           que \texttt{c4} (SD $\approx 47$ tC/ha), lo que anticipa un problema predictivo más complejo
+%           para esta última.
+
+%     \item El análisis ANOVA confirma que el \textit{periodo} tiene un efecto estadísticamente
+%           significativo sobre ambas variables de carbono, evidenciando la existencia de variaciones
+%           temporales sistemáticas relevantes para su modelización.
+
+%     \item Entre las estrategias de selección de variables evaluadas (manual, FeatureWiz y mRMR),
+%           la selección manual, basada en bloques temáticos con coherencia ecológica, ofrece el mejor
+%           equilibrio entre simplicidad y rendimiento, superando en precisión y error a las selecciones
+%           automáticas.
+
+%     \item Los bloques de variables más informativos son, en orden aproximado de importancia:
+%           estructura de la masa forestal, características de especie, condiciones edáficas y topográficas,
+%           índices de vegetación e información climática estacional. La mayor parte del poder predictivo se
+%           concentra en las características estructurales y de especie.
+
+%     \item Los modelos individuales muestran que los métodos basados en árboles y
+%           \textit{gradient boosting} (CatBoost, LightGBM, XGBoost y GBDT) alcanzan el mejor rendimiento
+%           global, con valores de $R^2$ de hasta $0.85$ y errores moderados (inferiores al $50\%$ de
+%           la desviación típica de la variable).
+
+%     \item CatBoost destaca como el mejor modelo individual, gracias a su capacidad para capturar
+%           relaciones no lineales y manejar adecuadamente la complejidad y heterogeneidad de los datos.
+
+%     \item Métodos como AdaBoost, KNN o BayesianNN muestran un rendimiento sustancialmente inferior,
+%           lo que los descarta como candidatos eficaces para este tipo de predicción.
+
+%     \item Las técnicas de \textit{stacking} aportan mejoras sistemáticas en el error absoluto medio de los modelos,
+%           reduciendolos, en la mejor configuración, en torno a un 5\%.
     
-    \item El rendimiento del \textit{stacking} depende del meta-modelo: los modelos lineales
-          (Regresión Lineal y Ridge) ofrecen combinaciones estables y robustas; los meta-modelos Random
-          Forest tienden al sobreajuste; y los meta-modelos moderadamente no lineales (SVR y MLP)
-          proporcionan las mayores mejoras.
+%     \item El rendimiento del \textit{stacking} depende del meta-modelo: los modelos lineales
+%           (Regresión Lineal y Ridge) ofrecen combinaciones estables y robustas; los meta-modelos Random
+%           Forest tienden al sobreajuste; y los meta-modelos moderadamente no lineales (SVR y MLP)
+%           proporcionan las mayores mejoras.
 
-    \item \textit{TODO: En este item se habla de la capacidad de predecir del modelo para un horizonte temporal de ``entre 5 y 30 años con un nivel elevado de precisión''. En la discusión se menciona que esta precisión varía mucho dependiendo de la cantidad de carbono, así que igual habría que matizar. Podría ser buena idea que en el apartado de Resultados simplemente se expusieran los resultados obtenidos en el de Discusión se entrase ya en valoraciones.}
+%     \item \textit{TODO: En este item se habla de la capacidad de predecir del modelo para un horizonte temporal de ``entre 5 y 30 años con un nivel elevado de precisión''. En la discusión se menciona que esta precisión varía mucho dependiendo de la cantidad de carbono, así que igual habría que matizar. Podría ser buena idea que en el apartado de Resultados simplemente se expusieran los resultados obtenidos en el de Discusión se entrase ya en valoraciones.}
     
-    El modelo desarrollado es capaz de predecir, a partir de las características estructurales,
-          ecológicas y ambientales de un cultivo forestal, la cantidad de carbono almacenado
-          en un horizonte temporal de entre 5 y 30 años con un nivel elevado de precisión.
-          El mejor modelo obtenido se construye mediante un metamodelo \texttt{MLP} combinando los modelos
-          \texttt{CatBoost,LightGBM,XGBoost, Random Forest, BaggedDT} y \texttt{GBDT} y alcanza un coeficiente de determinación de
-          \textbf{$R^2 = 0.85$}, junto con un error típico de \textbf{RMSE = 13.76 tC} y un error
-          medio absoluto de \textbf{MAE = 6.40 tC}.
-\end{itemize}
+%     El modelo desarrollado es capaz de predecir, a partir de las características estructurales,
+%           ecológicas y ambientales de un cultivo forestal, la cantidad de carbono almacenado
+%           en un horizonte temporal de entre 5 y 30 años con un nivel elevado de precisión.
+%           El mejor modelo obtenido se construye mediante un metamodelo \texttt{MLP} combinando los modelos
+%           \texttt{CatBoost,LightGBM,XGBoost, Random Forest, BaggedDT} y \texttt{GBDT} y alcanza un coeficiente de determinación de
+%           \textbf{$R^2 = 0.85$}, junto con un error típico de \textbf{RMSE = 13.76 tC} y un error
+%           medio absoluto de \textbf{MAE = 6.40 tC}.
+% \end{itemize}

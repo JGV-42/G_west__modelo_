@@ -49,39 +49,74 @@ para el ajuste de los modelos queda compuesto por:
           \end{itemize}
 \end{itemize}
 
-La Tabla~\ref{tab:resumen_variables} resume las principales estadísticas
-descriptivas de las variables utilizadas en el modelado, adicionalmente en la Figura~\ref{fig:hist_c4} se muestra la distribución de las mismas.
+La Tabla~\ref{tab:resumen_variables} resume las principales estadísticas descriptivas de las variables objetivo utilizadas en el modelado.
+
 
 \begin{table}[htbp]
     \centering
     \caption{Estadísticos descriptivos del conjunto de datos depurado.}
     \label{tab:resumen_variables}
-    \begin{tabular}{lrrrrr}
+    \begin{tabular}{lccccc}
         \toprule
         Variable        & N        & Media   & Desv.\ estándar & Mín.     & Máx.       \\
         \midrule
-        carbono\_bruto4 & 136\,325 & 24.6168 & 35.8198         & 0.000327 & 420.498829 \\
-        carbono\_bruto  & 114\,485 & 15.9326 & 26.3052         & 0        & 359.805707 \\
-        c4              & 105\,714 & 38.3789 & 47.0348         & 0.484695 & 883.462735 \\
-        c               & 92\,372  & 23.4399 & 34.9622         & 0        & 842.739088 \\
-        periodo         & 105\,709 & 18.3167 & 6.4853          & 0        & 34         \\
+        carbono\_bruto4 & 133\,119 & 20.79 & 35.09 & 0.00 & 420.50 \\
+        carbono\_bruto  & 111\,923 & 12.27 & 24.80 & 0.00 & 359.81 \\
+        c4              & 103\,790 & 38.83 & 47.27 & 0.48 & 883.46 \\
+        c               & 90\,802  & 23.78 & 35.15 & 0.00 & 842.74 \\
+        periodo\_agrupado & 103\,785 & 18.47 & 6.47 & 5.00 & 30.00 \\
         \bottomrule
     \end{tabular}
 \end{table}
 
-Se observa que la variable \texttt{carbono\_bruto4} presenta una media de 24.62 y una desviación estándar de 35.82, mientras que la variable
-\texttt{c4} muestra valores notablemente superiores (media de 38.38 y desviación estándar de 47.03). La variable \texttt{c4} es más dispersa y heterogénea que \texttt{carbono\_bruto4}. En general, una mayor variabilidad en la variable objetivo se traduce en un problema de predicción más complejo, ya que el modelo debe capturar relaciones más inestables y sujetas a mayor ruido.
+Se observa que la variable \texttt{carbono\_bruto4} presenta una media de 20.79 y una desviación estándar de 35.09, mientras que la variable
+\texttt{c4} muestra valores notablemente superiores (media de 38.83 y desviación estándar de 47.27). Podemos encontrar un histograma de la distribución de las variables objetivo en la Figura \ref{fig:histograma_datos_combinado}. 
 
-Por tanto, incluso antes de evaluar los modelos, es razonable esperar que una misma familia de algoritmos obtenga valores de $R^2$ más elevados y errores más bajos (RMSE, MAE) al predecir \texttt{carbono\_bruto4}, cuya estructura estadística es menos dispersa, que al predecir \texttt{c4}.
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=1\textwidth]{figuras/histograma_c.png}
-    \caption{Distribución de las variables \texttt{c4} y \texttt{carbono\_bruto4} en el conjunto depurado.}
-    \label{fig:hist_c4}
+    \begin{subfigure}{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figuras/06_desarrollo_modelo/histogram_c4_post_log.pdf}
+        \caption{Histograma de la variable \texttt{c4} en escala logarítmica.}
+        \label{fig:hist_c4_sub}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figuras/06_desarrollo_modelo/histogram_carbono_bruto4_post_log.pdf}
+        \caption{Histograma de la variable \texttt{carbono\_bruto4} en escala logarítmica.}
+        \label{fig:hist_carbono_bruto4_sub}
+    \end{subfigure}
+    \caption{Histograma de las variables \texttt{c4} y \texttt{carbono\_bruto4} en el conjunto depurado.}
+    \label{fig:histograma_datos_combinado}
 \end{figure}
 
-Observamos una clara distribución asimétrica a la izquierda con una larga cola en ambas variables. No existe un factor de escala único que lleve de una variable a la otra porque la generalización a hectárea tiene en cuenta la densidad forestal particular de cada parcela.
+En la Figura \ref{fig:distribucion_variables_combinado} podemos ver las distribuciones de las variables objetivo separadas por inventarios, y podemos ver que la variable \texttt{c4} es más dispersa y heterogénea que \texttt{carbono\_bruto4}. En general, una mayor variabilidad en la variable objetivo se traduce en un problema de predicción más complejo, ya que el modelo debe capturar relaciones más inestables y sujetas a mayor ruido.
+
+\begin{figure}[htbp]
+    \centering
+    \begin{subfigure}{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figuras/06_desarrollo_modelo/distribucion_c4_combinado.pdf}
+        \caption{Distribución de la variable \texttt{c4} en escala logarítmica.}
+        \label{fig:distribucion_c4_sub}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figuras/06_desarrollo_modelo/distribucion_carbono_bruto4_combinado.pdf}
+        \caption{Distribución de la variable \texttt{carbono\_bruto4} en escala logarítmica.}
+        \label{fig:distribucion_carbono_bruto4_sub}
+    \end{subfigure}
+    \caption{Distribución de las variables \texttt{c4} y \texttt{carbono\_bruto4} en el conjunto depurado separadas por inventario.}
+    \label{fig:distribucion_variables_combinado}
+\end{figure}
+
+Por tanto, incluso antes de evaluar los modelos, es razonable esperar que una misma familia de algoritmos obtenga valores de $R^2$ más elevados y errores más bajos (RMSE, MAE) al predecir \texttt{carbono\_bruto4}, cuya estructura estadística es menos dispersa, que al predecir \texttt{c4}.
+
+
+
 
 \subsubsection{Efecto del periodo sobre el carbono}
 \label{subsec:resultados_periodo_anova}
