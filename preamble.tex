@@ -91,7 +91,6 @@
 \usetikzlibrary{shapes.geometric,arrows}
 \usepackage{pdflscape}      % Páginas horizontales
 \usepackage{etoolbox}       % Hooks
-\usepackage{etoolbox}       % Hooks
 \usepackage[normalem]{ulem} % Tachado para correcciones
 \definecolor{ForestGreen}{RGB}{34,139,34}
 \newcommand{\correccion}[2]{\textcolor{orange}{\sout{#1}} \textcolor{ForestGreen}{#2}}
@@ -117,4 +116,5 @@
   {3.25ex \@plus1ex \@minus.2ex}%
   {0.5em}%
   {\normalfont\normalsize\bfseries}}
+\newcommand{\subsubsubsection}[1]{\paragraph{#1}}
 \makeatother

@@ -6,11 +6,10 @@
 \vspace{1cm}
 
 
+En primer lugar se analizarán los modelos ``globales'', es decir, aquellos entrenados con todos los datos (IFN2 e IFN3) al mismo tiempo. Posteriormente se analizarán los modelos entrenador solo con un inventario y se comparán con los globales.
 
-\subsection{Discusión sobre los modelos}
-\label{sec:discusion_modelos}
 
-Por simplicidad se hará la discusión únicamente para los modelos entrenados con los datos del IFN2 y el IFN3. Esto es porque se puede comprobar que estos modelos se reducen al modelo con el IFN3 cuando los datos de entrada (se ha comprobado con el test) proceden del IFN3 (las métricas son ligeramente peores por la ``contaminación'' de los datos del IFN2, pero en esencia se comportan de la misma manera). Además, como se verá en los siguientes apartados, la distinción cuando el modelo obtiene la información de un inventario o de otro está muy clara en las métricas.
+\subsection{Modelos globales}
 
 \subsubsection{Variable \texttt{c4} (en toneladas de carbono por hectárea)}
 \vspace{0.3cm}
@@ -37,9 +36,9 @@ La variable \texttt{periodo} (el número de años entre la medición y la predic
       \label{fig:LightGBM_analisis_combined}
 \end{figure}
   
-% Tanto en la Figura \ref{fig:LightGBM_rmse_cuantiles} como en la Figura \ref{fig:LightGBM_rmse_porcentual_cuantiles} se observa el mismo comportamiento: las mejores predicciones se obtienen en aquellos casos en los que los datos de entrenamiento provienen del IFN3. Esto se ve claramente en la forma en la que aumentan los errores (sobre todo los del cuantil $90$) cuando se intenta predecir valores para un periodo mayor a $17$ años, valor a partir del cuál los datos del IFN3 se acaban. Observamos que a partir de los $17$ años aumenta en gran medida los valores grandes de error (cuantil $90$) junto con los valores grandes - medios (cuantil $75$). No obstante, los valores medianos y los pequeños - medios (cuantil $25$) se mantienen relativamente estables, aumentando ligeramente con el periodo.
+% Tanto en la Figura \ref{fig:LightGBM_rmse_cuantiles} como en la Figura \ref{fig:LightGBM_rmse_porcentual_cuantiles} se observa el mismo comportamiento: las mejores predicciones se obtienen en aquellos casos en los que los datos de entrenamiento provienen del IFN3. Esto se ve claramente en la forma en la que aumentan los errores (sobre todo los del cuantil $90$) cuando se intenta predecir valores para un periodo mayor a $17$ años, valor a partir del cuál los datos del IFN3 se acaban. Observamos que a partir de los $17$ años aumentan en gran medida los valores grandes de error (cuantil $90$) junto con los valores grandes - medios (cuantil $75$). No obstante, los valores medianos y los pequeños - medios (cuantil $25$) se mantienen relativamente estables, aumentando ligeramente con el periodo.
 
-Podemos observar algo que podíamos prever: la dificultad de la predicción depende de una combinación entre cómo de lejos quieres hacer la predicción y la calidad y cantidad de los datos de entrenamiento. Empezando en terreno del IFN3, podemos observar que para los primeros años ($5$, y $6$), pese a tener pocos datos, los errores son comedidos. A medida que aumenta el periodo (entre $10$ y $17$ años) los errores medios y medianos se mantienen relativamente estables pese a disponer de, en general, más datos de entrenamiento. Los errores grandes extremos (cuantil $90$) experimentan un aumento generalizado. Cuando entramos en el rango de años donde los datos de entrenamiento proceden del IFN2 principalmente (el rango entre $20$ y $30$ años), aunque la mediana y los valores pequeños - medios (cuantil $25$) se mantienen estables, los valores grandes - medios (cuantil $75$) y los grandes (cuantil $90$) aumentan en gran medida. Esto es un indicativo de que, aún disponiendo de una gran cantidad de datos de entrenamiento (especialmente para los años $27$ y $28$), la combinación entre la peor calidad de los datos (comparando siempre con el IFN3) y la predicción a valores lejanos dificultan la predicción del modelo. Además, como podemos observar en la Figura \ref{fig:distribucion_variables_combinado}, los valores de los primeros años del IFN2 presentan una gran variabilidad, siendo en su mayoría valores más altos que los del IFN3 para esos mismos años, y con una mayor variabilidad. Esto, unido a que la cantidad de datos para esos años no es excesivamente grande, hace que el modelo obtenga peores predicciones.
+Podemos observar algo que podíamos prever: la dificultad de la predicción depende de una combinación entre cuán lejos se desea realizar la predicción y la calidad y cantidad de los datos de entrenamiento. Empezando en terreno del IFN3, podemos observar que para los primeros años ($5$, y $6$), pese a tener pocos datos, los errores son comedidos. A medida que aumenta el periodo (entre $10$ y $17$ años) los errores medios y medianos se mantienen relativamente estables pese a disponer de, en general, más datos de entrenamiento. Los errores grandes extremos (cuantil $90$) experimentan un aumento generalizado. Cuando entramos en el rango de años donde los datos de entrenamiento proceden del IFN2 principalmente (el rango entre $20$ y $30$ años), aunque la mediana y los valores pequeños - medios (cuantil $25$) se mantienen estables, los valores grandes - medios (cuantil $75$) y los grandes (cuantil $90$) aumentan en gran medida. Esto es un indicativo de que, aun disponiendo de una gran cantidad de datos de entrenamiento (especialmente para los años $27$ y $28$), la combinación entre la peor calidad de los datos (comparando siempre con el IFN3) y la predicción a valores lejanos dificultan la predicción del modelo. Además, como podemos observar en la Figura \ref{fig:distribucion_variables_combinado}, los valores de los primeros años del IFN2 presentan una gran variabilidad, siendo en su mayoría valores más altos que los del IFN3 para esos mismos años, y con una mayor variabilidad. Esto, unido a que la cantidad de datos para esos años no es excesivamente grande, hace que el modelo obtenga peores predicciones.
 
 El hecho de que los valores medianos se mantengan relativamente estables a lo largo de todos los periodos indica que el modelo asimila correctamente el comportamiento de la variable objetivo tanto con datos del IFN2 como del IFN3. Por otro lado, que los errores del cuantil $90$ sean tan elevados se explica por varios factores: la alta variabilidad del conjunto de datos, el menor número de variables de campo recogidas en el IFN2 (lo que reduce la información disponible) y la mayor dificultad inherente a predecir a horizontes temporales lejanos. Esta combinación hace que los casos particulares o atípicos sean menos reconocibles por el modelo, especialmente cuando proceden del IFN2, donde la capacidad de discriminación es menor que en el IFN3. La variabilidad mencionada se observa claramente en la Figura~\ref{fig:density_LightGBM_0-300}, que muestra los valores predichos frente a los reales para el modelo con mejores métricas, junto con un histograma de distribución.
 
@@ -47,7 +46,7 @@ El hecho de que los valores medianos se mantengan relativamente estables a lo la
 
 La incorporación de esquemas de \textit{stacking} no produce incrementos sustanciales, aunque sí sistemáticos, en el coeficiente de determinación respecto a los mejores modelos individuales. Fijándonos en la Tabla \ref{tab:stack_ifn2_ifn3c_resultados} podemos observar que los modelos de stacking presentan mejores métricas en la gran mayoría de casos, siempre comparando con los modelos bases. Los mejores parámetros los obtiene el modelo de stacking con configuración 5, que mantiene todos los modelos con rendimiento competitivo, junto con el metamodelo de la red neuronal.
 
-El hecho de que todos los ensembles mejoren a los modelos base es un síntoma de que esta mejora no es una excepción estadística, sino una mejora real. Esto es, no se trata de que las métricas sean mejores por estocasticidad de los parámetros del metamodelo, sino porque el montaje realmente mejora el resultado final. Obviamente, reentrenar los metamodelos con otros parámetros haría variar las métricas, pero el hecho es que la función de mejorar las predicciones realmente se alcanza con los ensembles. No obstante, la mejora es pequeña, lo que puede hacer que según el caso se prefiera la simplicidad de emplear uno de los modelos base en comparación a uno de los ensembles. 
+El hecho de que todos los ensembles mejoren a los modelos base es un síntoma de que esta mejora no es una excepción estadística, sino una mejora real. Esto es, no se trata de que las métricas sean mejores por estocasticidad de los parámetros del metamodelo, sino porque el montaje realmente mejora el resultado final. Obviamente, reentrenar los metamodelos con otros parámetros haría variar las métricas, pero el hecho es que la función de mejorar las predicciones realmente se alcanza con los ensembles. No obstante, la mejora es pequeña, lo que puede hacer que según el caso se prefiera la simplicidad de emplear uno de los modelos base en comparación con uno de los ensembles. 
 
 En la Figura \ref{fig:Stack5_MLP_rmse_y_pct_rmse_cuantiles} se muestra la evolución del RMSE y el RMSE porcentual en cuantiles para el modelo ensemble con mejores métricas, el stacking con configuración 5 y metamodelo MLP. Podemos observar que el comportamiento es prácticamente idéntico a aquel del LightGBM, el que obtuvo mejores métricas de los modelos base. 
 Por otro lado, en la Figura \ref{fig:Stack5_MLP_density} podemos observar el gráfico de puntos de las predicciones frente a los valores reales para el modelo de stacking con configuración 5 y metamodelo MLP para la variable \texttt{c4} (tC/ha).
@@ -139,11 +138,56 @@ El modelo ensemble que mejores métricas proporciona para la predicción de la v
 
 Por otro lado, en la Figura \ref{fig:Stack5_MLP_density_carbono_bruto4} se muestra un scatter plot de las predicciones frente a los valores reales para el modelo de stacking con configuración 5 y metamodelo MLP y la variable \texttt{carbono\_bruto4} (tC).
 
+\subsection{Modelos individuales entrenados solo con el IFN2 o IFN3.}
+
+Al comparar el rendimiento de los modelos ``globales'' (entrenados con el conjunto combinado de IFN2 e IFN3) frente a los modelos ``locales'' (entrenados exclusivamente con IFN2 o IFN3), se observa un comportamiento diferenciado según el inventario de prueba. En el caso del IFN3, los modelos locales superan a los globales en términos de métricas de precisión. Por el contrario, para el IFN2, los modelos globales muestran un desempeño superior.
+
+Una posible explicación para este fenómeno radica en la calidad y cantidad de información contenida en cada inventario. Los datos del IFN2, al ser menos informativos o presentar menos variables, parecen beneficiarse del aprendizaje conjunto con los del IFN3, lo que permite a los modelos capturar patrones adicionales y mejorar su capacidad de generalización sobre el segundo inventario. En cambio, para el IFN3, cuyos datos poseen una mayor calidad intrínseca, la inclusión de registros del IFN2 durante el entrenamiento podría estar introduciendo ruido o variabilidad no deseada, lo que acaba penalizando la precisión de las predicciones del modelo final sobre este conjunto.
+
+\begin{figure}[htbp]
+      \centering
+      \begin{subfigure}[b]{0.48\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{figuras/09_discusion/Consolidado_IFN2_c4_paper.pdf}
+            \caption{Resultados para \texttt{c4} en el IFN2.}
+            \label{fig:sub1}
+      \end{subfigure}
+      \hfill
+      \begin{subfigure}[b]{0.48\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{figuras/09_discusion/Consolidado_IFN3_c4_paper.pdf}
+            \caption{Resultados para \texttt{c4} en el IFN3.}
+            \label{fig:sub2}
+      \end{subfigure}
+
+      \vspace{0.5cm}
+
+      \begin{subfigure}[b]{0.48\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{figuras/09_discusion/Consolidado_IFN2_carbono_bruto4_paper.pdf}
+            \caption{Resultados para \texttt{carbono\_bruto4} en el IFN2.}
+            \label{fig:sub3}
+      \end{subfigure}
+      \hfill
+      \begin{subfigure}[b]{0.48\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{figuras/09_discusion/Consolidado_IFN3_carbono_bruto4_paper.pdf}
+            \caption{Resultados para \texttt{carbono\_bruto4} en el IFN3.}
+            \label{fig:sub4}
+      \end{subfigure}
+      \caption{Comparación del error absoluto entre mejores modelos base globales vs. locales (arriba), mejores modelos de stacking globales vs. locales (medio) y mejor modelo base vs. mejor modelo de stacking (abajo).}
+      \label{fig:comparativa_mejores}
+\end{figure}
+
+En la Figura \ref{fig:comparativa_mejores} se muestra una comparativa entre los mejores modelos base globales vs. locales (arriba), mejores modelos de stacking globales vs. locales (medio) y mejor modelo base vs. mejor modelo de stacking (abajo). Observamos que en general los errores menores para el IFN2 los cometen los modelos globales, mientras que para el IFN3 son los locales los que realizan un mejor trabajo.
+
+
 % \subsubsection{Comportamiento global de los modelos}
 
 \subsubsection{Asimilación del comportamiento de las variables objetivo}
 
 Con las métricas que hemos planteado y el análisis que se ha hecho en esta sección parece claro que, si bien los resultados no son ni mucho menos perfectos, los modelos son capaces de entender la lógica y el significado de cada variable para obtener una predicción con un grado de acierto que depende de la naturaleza de la instancia que se trate. Otra prueba que podemos hacer para comprobar si los resultados de los modelos son lógicos es la que mostramos en la Figura \ref{fig:sensibilidad_escenarios}.
+Esta figura muestra la evolución de varios casos particulares a medida que avanza el tiempo entre medida y predicción. Los casos seleccionados son reales dentro de los datos disponibles. Se seleccionaron con la idea de mostrar cómo se comportan los modelos para configuraciones de carbono inicial más o menos comunes. Para ello se sumaron, para cada instancia de los datos, las variables \texttt{npies_x}, y luego se seleccionaron los valores más cercanos a los percentiles 10, 35, 65 y 90 para la variable resultante. Así evitamos posibles problemas fruto de seleccionar ejemplos poco realistas. 
 
 
 \begin{figure}
@@ -165,19 +209,18 @@ Con las métricas que hemos planteado y el análisis que se ha hecho en esta sec
       \label{fig:sensibilidad_escenarios}
 \end{figure}
 
-Esta Figura muestra la evolución de varios casos particulares a medida que avanza el tiempo entre medida y predicción. Los casos seleccionados son reales dentro de los datos disponibles. Se seleccionaron con la idea de mostrar cómo se comportan los modelos para configuraciones de carbono inicial más o menos comunes. Para ello se sumaron, para cada instancia de los datos, las variables \texttt{npies_x}, y luego se seleccionaron los valores más cercanos a los percentiles 10, 35, 65 y 90 para la variable resultante. Así evitamos posibles problemas fruto de seleccionar ejemplos poco realistas. 
-
 Podemos señalar las siguientes características:
 \begin{itemize}
       \item Las líneas de los modelos base y los ensembles para cada caso están muy cerca una de la otra, lo que concuerda con las métricas obtenidas, que eran muy similares entre sí.
       \item La tendencia general es ascendente, es decir, los modelos capturan de forma correcta el comportamiento del crecimiento de los árboles con el tiempo para los años estudiados.
-      \item En el año $17$ tenemos un crecimiento abrupto generalizado, el cual es más exagerado cuanto más pequeño es el percentil del caso de estudio. Esto es sencillo de entender mirando a los datos, ya que los valores de la variable a predecir experimentan un aumento generalizado al pasar de los años del IFN2 a aquellos del IFN3, como se puede ver en la Figura \ref{fig:distribucion_variables_combinado}. Este cambio (que el modelo empiece a ingerir datos del IFN2 en lugar del IFN3) ocurre principalmente en el año $17$. Esto puede verse en el histograma de la Figura \ref{fig:Stack5_MLP_combined_rmse_y_pct_rmse_cuantiles}, por ejemplo. La razón por la que ocurre el salto a percentiles pequeños es porque estos valores pequeños en los datos del IFN2 apenas existen o son menos comunes. El modelo ha visto que para esos años los valores de carbono son, en general, mayores, y eso es lo que predice. De hecho, en la Figura \ref{fig:distribucion_variables_combinado} que para los años iniciales de los datos del IFN2 los valores de carbono aumentan para luego disminuir, y esto es justo lo que vemos en las predicciones: un aumento y una posterior disminución.
+      \item En el año $17$ tenemos un crecimiento abrupto generalizado, el cual es más exagerado cuanto más pequeño es el percentil del caso de estudio. Esto es sencillo de entender mirando a los datos, ya que los valores de la variable a predecir experimentan un aumento generalizado al pasar de los años del IFN2 a aquellos del IFN3, como se puede ver en la Figura \ref{fig:distribucion_variables_combinado}. Este cambio (que el modelo empiece a ingerir datos del IFN2 en lugar del IFN3) ocurre principalmente en el año $17$. Esto puede verse en el histograma de la Figura \ref{fig:Stack5_MLP_combined_rmse_y_pct_rmse_cuantiles}, por ejemplo. La razón por la que ocurre el salto a percentiles pequeños es porque estos valores pequeños en los datos del IFN2 apenas existen o son menos comunes. El modelo ha visto que para esos años los valores de carbono son, en general, mayores, y eso es lo que predice. De hecho, en la Figura \ref{fig:distribucion_variables_combinado} se observa que para los años iniciales de los datos del IFN2 los valores de carbono aumentan para luego disminuir, y esto es justo lo que vemos en las predicciones: un aumento y una posterior disminución.
       \item También podemos ver una subida abrupta en muchos casos al pasar del año $29$ al $30$, sobre todo en el caso de la variable en toneladas de carbono bruto (Figura \ref{fig:sensibilidad_escenarios_carbono_bruto4}). Estos años coinciden con una carencia de datos, como podemos ver en el histograma de la Figura \ref{fig:distribucion_variables_combinado}. Es de esperar que las predicciones de esos años sean menos fiables, sobre todo siendo un valor extremo. 
 \end{itemize}
 
+
 \subsubsection{Rendimiento de los modelos en función del valor de la variable objetivo}
 
-Si echamos un vistazo a las métricas globales de las tablas de la sección \ref{sec:resultados} nos damos cuenta de que los valores del RMSE son notablemente mayores que los valores de MAE, concretamente cerca del doble en la mayoría de casos. Debido a que el RMSE penaliza mucho más los errores grandes que el MAE, esto es indicativo de la presencia de outliers en el error. Ya hemos visto a lo largo de esta sección que los mayores errores ocurren en el rango de años en que el IFN2 es la principal fuente de datos como podemos ver en las Figuras \ref{fig:LightGBM_rmse_y_pct_rmse_cuantiles}, \ref{fig:Stack5_MLP_rmse_y_pct_rmse_cuantiles}, \ref{fig:CatBoost_combined} y \ref{fig:Stack5_MLP_combined_rmse_y_pct_rmse_cuantiles}, y la principal conclusión que podemos sacar es que la calidad o cantidad de información contenida en este inventario es peor. No obstante, esto no responde del todo a la pregunta de en qué casos el modelo predice mejor, salvo la obviedad de que la predicción será mejor cuanto más cerca esté en el tiempo y más datos haya de ese año. Es por esto que la Figura \ref{fig:SMAPE_RMSE_deciles_c4_carbono_bruto4} nos puede ser útil. Esta Figura muestra la distribución de errores, concretamente el RMSE y el SMAPE, en función de la variable objetivo para \texttt{c4} y \texttt{carbono\_bruto4} en deciles para los modelos base.
+Si se analizan las métricas globales de las tablas de la sección \ref{sec:resultados} nos damos cuenta de que los valores del RMSE son notablemente mayores que los valores de MAE, concretamente cerca del doble en la mayoría de casos. Debido a que el RMSE penaliza mucho más los errores grandes que el MAE, esto es indicativo de la presencia de outliers en el error. Ya hemos visto a lo largo de esta sección que los mayores errores ocurren en el rango de años en que el IFN2 es la principal fuente de datos como podemos ver en las Figuras \ref{fig:LightGBM_rmse_y_pct_rmse_cuantiles}, \ref{fig:Stack5_MLP_rmse_y_pct_rmse_cuantiles}, \ref{fig:CatBoost_combined} y \ref{fig:Stack5_MLP_combined_rmse_y_pct_rmse_cuantiles}, y la principal conclusión que podemos sacar es que la calidad o cantidad de información contenida en este inventario es peor. No obstante, esto no responde del todo a la pregunta de en qué casos el modelo predice mejor, salvo la obviedad de que la predicción será mejor cuanto más cerca esté en el tiempo y más datos haya de ese año. Es por esto que la Figura \ref{fig:SMAPE_RMSE_deciles_c4_carbono_bruto4} nos puede ser útil. Esta figura muestra la distribución de errores, concretamente el RMSE y el SMAPE, en función de la variable objetivo para \texttt{c4} y \texttt{carbono\_bruto4} en deciles para los modelos base.
 
 \begin{figure}
       \centering
@@ -199,7 +242,7 @@ Si echamos un vistazo a las métricas globales de las tablas de la sección \ref
 \end{figure}
 
 
-Rápidamente nos damos cuenta de lo siguiente: las predicciones para valores pequeños de carbono objetivo (primeros deciles) son malas (SMAPE grande) pese a ser aquellas con un error absoluto menor (RMSE pequeño). Luego, a medida que aumenta el carbono objetivo, el RMSE aumenta ligeramente mientras que el SMAPE disminuye mucho más rápido, llegando a valores cercanos al $25\%$. En ambos casos los mejores resultados se logran cuando el carbono objetivo es mayor, pese a que observamos un aumento significativo del RMSE entre el penúltimo y último decil. Como esto se produce para todos los modelos, sugiere que la dificultad de predicción no es homogénea para todos las situaciones o cantidades de carbono, y que pese a ser los percentiles de menor carbono aquellos con un RMSE menor, la precisión de los modelos no es la suficiente como para hacer una predicción decente en situaciones con poca biomasa. Esto era predecible, ya que un error absoluto mayor para una parcela de bosque mayor no implica necesariamente un peor error relativo.
+Rápidamente nos damos cuenta de lo siguiente: las predicciones para valores pequeños de carbono objetivo (primeros deciles) son malas (SMAPE grande) pese a ser aquellas con un error absoluto menor (RMSE pequeño). Luego, a medida que aumenta el carbono objetivo, el RMSE aumenta ligeramente mientras que el SMAPE disminuye mucho más rápido, llegando a valores cercanos al $25\%$. En ambos casos los mejores resultados se logran cuando el carbono objetivo es mayor, pese a que observamos un aumento significativo del RMSE entre el penúltimo y último decil. Como esto se produce para todos los modelos, sugiere que la dificultad de predicción no es homogénea para todas las situaciones o cantidades de carbono, y que pese a ser los percentiles de menor carbono aquellos con un RMSE menor, la precisión de los modelos no es la suficiente como para hacer una predicción decente en situaciones con poca biomasa. Esto era predecible, ya que un error absoluto mayor para una parcela de bosque mayor no implica necesariamente un peor error relativo.
 
 También es llamativo el hecho de que los deciles iniciales tienen unos rangos de carbono muy cercanos, sobre todo en el caso de la variable \texttt{carbono\_bruto4}, donde el primer decil abarca desde $0.0003$ tC hasta $0.002$ tC. Esta gran cantidad de valores no sirve a los modelos para obtener una buena predicción, por otra parte. Las densidades mayores para valores pequeños de carbono se ven claramente en las Figuras \ref{fig:density_LightGBM_0-300}, \ref{fig:Stack5_MLP_density}, \ref{fig:CatBoost_density} y \ref{fig:Stack5_MLP_density_carbono_bruto4}.
 

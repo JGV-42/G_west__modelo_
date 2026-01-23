@@ -10,7 +10,247 @@
 
 %--------------------------------------------------
 
-A continuación expondremos los resultados obtenidos a partir de varias métricas de evaluación de los modelos sobre el conjunto de datos de test. Dividiremos la sección según el origen de los datos de entrenamiento (IFN3 o IFN2 e IFN3) y según la variable a predecir (toneladas de carbono o toneladas de carbono por hectárea).
+A continuación expondremos los resultados obtenidos a partir de varias métricas de evaluación de los modelos sobre el conjunto de datos de test. Dividiremos la sección según el origen de los datos de entrenamiento (IFN2, IFN3 o IFN2 e IFN3) y según la variable a predecir (toneladas de carbono o toneladas de carbono por hectárea).
+
+\subsection{Resultados IFN2}
+
+\subsubsection{Toneladas de carbono por hectárea}
+
+\subsubsubsection{Modelos base}
+
+Una vez entrenados los modelos, algunos parámetros globales como el $R^2$, RMSE y MAE se presentan en la Tabla \ref{tab:resultados_modelos_base_ifn2_THA_resultados}.
+
+\begin{table}[H]
+    \centering
+    \caption{Resumen del rendimiento de los modelos para la predicción de la variable de carbono en tC/ha con el conjunto de datos que emplea IFN2 como explicativo.}
+    \label{tab:resultados_modelos_base_ifn2_THA_resultados}
+    \begin{tabular}{lrrr}
+        \toprule
+        Modelo            & $R^2_{\text{test}}$ & RMSE$_{\text{test}}$ & MAE$_{\text{test}}$ \\
+        \midrule
+        \textbf{LightGBM}$_{\text{global}}$ & \textbf{0.719} & \textbf{26.806} & \textbf{14.689} \\
+        LightGBM & 0.712 & 26.435 & 14.755 \\
+        CatBoost$_{\text{global}}$ & 0.708 & 27.359 & 14.832 \\
+        XGBoost$_{\text{global}}$ & 0.708 & 27.361 & 14.620 \\
+        GBDT$_{\text{global}}$ & 0.705 & 27.505 & 14.772 \\
+        XGBoost & 0.704 & 26.779 & 14.773 \\
+        CatBoost & 0.701 & 26.928 & 15.066 \\
+        MLP$_{\text{global}}$ & 0.687 & 28.335 & 15.668 \\
+        BaggedDT & 0.676 & 28.036 & 15.683 \\
+        GBDT & 0.673 & 28.161 & 15.614 \\
+        Random Forest & 0.663 & 28.595 & 15.807 \\
+        BaggedDT$_{\text{global}}$ & 0.659 & 29.574 & 15.933 \\
+        Random Forest$_{\text{global}}$ & 0.653 & 29.803 & 15.577 \\
+        MLP & 0.637 & 29.650 & 15.543 \\
+        BayesianNN & 0.606 & 30.904 & 17.384 \\
+        BayesianNN$_{\text{global}}$ & 0.588 & 32.482 & 17.725 \\
+        KNN & 0.565 & 32.480 & 17.611 \\
+        SVR$_{\text{global}}$ & 0.465 & 37.013 & 16.674 \\
+        SVR & 0.445 & 36.667 & 17.361 \\
+        AdaBoost & -2.126 & 87.062 & 81.700 \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\subsubsubsection{Modelos con stacking}
+
+En la Tabla \ref{tab:stack_ifn2_THA_resultados} se muestra el resumen del rendimiento de los modelos de stacking para la predicción de la variable de carbono en tC/ha con el conjunto de datos que emplea IFN2 como explicativo.
+
+\begin{longtable}{lrrr}
+    \caption{Resumen del rendimiento de los modelos de stacking para la predicción de la variable de carbono en tC/ha con el conjunto de datos que emplea IFN2 como explicativo.}
+    \label{tab:stack_ifn2_THA_resultados} \\
+    \toprule
+    Modelo            & $R^2_{\text{test}}$ & RMSE$_{\text{test}}$ & MAE$_{\text{test}}$ \\
+    \midrule
+    \endfirsthead
+
+    \toprule
+    Modelo            & $R^2_{\text{test}}$ & RMSE$_{\text{test}}$ & MAE$_{\text{test}}$ \\
+    \midrule
+    \endhead
+
+    \midrule
+    \multicolumn{4}{r}{{Continúa en la siguiente página...}} \\
+    \endfoot
+
+    \bottomrule
+    \endlastfoot
+
+    \textbf{Stack5 GradientBoosting} & \textbf{0.724} & \textbf{25.889} & \textbf{14.531} \\
+    Stack1 MLP$_{\text{global}}$ & 0.722 & 26.683 & 14.582 \\
+    Stack2 MLP$_{\text{global}}$ & 0.721 & 26.726 & 14.475 \\
+    Stack5 MLP$_{\text{global}}$ & 0.721 & 26.742 & 14.502 \\
+    Stack3 GradientBoosting & 0.720 & 26.054 & 14.847 \\
+    Stack1 LinearRegression$_{\text{global}}$ & 0.719 & 26.827 & 14.609 \\
+    Stack1 Ridge$_{\text{global}}$ & 0.719 & 26.829 & 14.609 \\
+    Stack5 MLP & 0.718 & 26.127 & 14.452 \\
+    Stack4 MLP$_{\text{global}}$ & 0.718 & 26.852 & 14.479 \\
+    Stack2 LinearRegression$_{\text{global}}$ & 0.718 & 26.877 & 14.505 \\
+    Stack2 Ridge$_{\text{global}}$ & 0.718 & 26.883 & 14.507 \\
+    Stack4 MLP & 0.717 & 26.177 & 14.551 \\
+    Stack5 LinearRegression$_{\text{global}}$ & 0.717 & 26.906 & 14.552 \\
+    Stack5 Ridge$_{\text{global}}$ & 0.717 & 26.910 & 14.547 \\
+    Stack4 LinearRegression$_{\text{global}}$ & 0.717 & 26.913 & 14.590 \\
+    Stack4 Ridge$_{\text{global}}$ & 0.717 & 26.913 & 14.584 \\
+    Stack5 Ridge & 0.716 & 26.247 & 14.600 \\
+    Stack5 LinearRegression & 0.716 & 26.247 & 14.600 \\
+    Stack1 MLP & 0.716 & 26.257 & 14.669 \\
+    Stack4 LinearRegression & 0.715 & 26.271 & 14.621 \\
+    Stack4 Ridge & 0.715 & 26.271 & 14.621 \\
+    Stack2 GradientBoosting$_{\text{global}}$ & 0.715 & 27.001 & 14.536 \\
+    Stack1 Ridge & 0.714 & 26.339 & 14.689 \\
+    Stack1 LinearRegression & 0.714 & 26.339 & 14.689 \\
+    Stack4 GradientBoosting & 0.713 & 26.383 & 14.607 \\
+    Stack2 MLP & 0.713 & 26.402 & 14.587 \\
+    Stack3 LinearRegression$_{\text{global}}$ & 0.712 & 27.155 & 14.647 \\
+    Stack3 Ridge$_{\text{global}}$ & 0.712 & 27.157 & 14.640 \\
+    Stack2 Ridge & 0.712 & 26.430 & 14.632 \\
+    Stack2 LinearRegression & 0.712 & 26.429 & 14.632 \\
+    Stack3 MLP$_{\text{global}}$ & 0.711 & 27.212 & 14.529 \\
+    Stack2 SVR$_{\text{global}}$ & 0.711 & 27.212 & 14.225 \\
+    Stack4 SVR$_{\text{global}}$ & 0.711 & 27.225 & 14.249 \\
+    Stack5 SVR$_{\text{global}}$ & 0.710 & 27.237 & 14.218 \\
+    Stack1 SVR$_{\text{global}}$ & 0.710 & 27.240 & 14.307 \\
+    Stack3 MLP & 0.709 & 26.544 & 14.875 \\
+    Stack5 SVR & 0.709 & 26.550 & 14.241 \\
+    Stack4 SVR & 0.708 & 26.600 & 14.320 \\
+    Stack5 Random Forest & 0.708 & 26.595 & 15.177 \\
+    Stack3 SVR$_{\text{global}}$ & 0.706 & 27.453 & 14.305 \\
+    Stack1 SVR & 0.705 & 26.729 & 14.400 \\
+    Stack2 SVR & 0.704 & 26.784 & 14.279 \\
+    Stack3 LinearRegression & 0.703 & 26.832 & 14.942 \\
+    Stack3 Ridge & 0.703 & 26.832 & 14.942 \\
+    Stack4 Random Forest & 0.702 & 26.897 & 15.442 \\
+    Stack5 GradientBoosting$_{\text{global}}$ & 0.701 & 27.690 & 14.571 \\
+    Stack1 GradientBoosting$_{\text{global}}$ & 0.700 & 27.740 & 14.641 \\
+    Stack3 GradientBoosting$_{\text{global}}$ & 0.699 & 27.770 & 14.643 \\
+    Stack3 SVR & 0.696 & 27.146 & 14.613 \\
+    Stack1 GradientBoosting & 0.695 & 27.176 & 14.815 \\
+    Stack4 GradientBoosting$_{\text{global}}$ & 0.693 & 28.026 & 14.640 \\
+    Stack2 GradientBoosting & 0.690 & 27.429 & 14.710 \\
+    Stack2 Random Forest$_{\text{global}}$ & 0.690 & 28.187 & 15.317 \\
+    Stack2 Random Forest & 0.688 & 27.488 & 15.562 \\
+    Stack3 Random Forest & 0.685 & 27.622 & 15.914 \\
+    Stack1 Random Forest$_{\text{global}}$ & 0.681 & 28.578 & 15.738 \\
+    Stack5 Random Forest$_{\text{global}}$ & 0.679 & 28.674 & 15.225 \\
+    Stack4 Random Forest$_{\text{global}}$ & 0.673 & 28.956 & 15.339 \\
+    Stack1 Random Forest & 0.672 & 28.194 & 16.193 \\
+    Stack3 Random Forest$_{\text{global}}$ & 0.667 & 29.218 & 15.575 \\
+\end{longtable}
+
+\subsubsection{Toneladas de carbono}
+
+\subsubsubsection{Modelos base}
+
+En la Tabla \ref{tab:resultados_modelos_base_ifn2_tc_resultados} se muestra el resumen del rendimiento de los modelos para la predicción de la variable de carbono en toneladas (carbono\_bruto4) con el conjunto de datos que emplea IFN2 como explicativo.
+
+\begin{table}[H]
+    \centering
+    \caption{Resumen del rendimiento de los modelos para la predicción de la variable de carbono en toneladas (carbono\_bruto4) con el conjunto de datos que emplea IFN2 como explicativo.}
+    \label{tab:resultados_modelos_base_ifn2_tc_resultados}
+    \begin{tabular}{lrrr}
+        \toprule
+        Modelo            & $R^2_{\text{test}}$ & RMSE$_{\text{test}}$ & MAE$_{\text{test}}$ \\
+        \midrule
+        \textbf{CatBoost}$_{\text{global}}$ & \textbf{0.765} & \textbf{18.533} & \textbf{10.402} \\
+        LightGBM$_{\text{global}}$ & 0.763 & 18.627 & 10.417 \\
+        XGBoost$_{\text{global}}$ & 0.762 & 18.644 & 10.428 \\
+        GBDT$_{\text{global}}$ & 0.759 & 18.765 & 10.474 \\
+        CatBoost & 0.748 & 19.071 & 11.036 \\
+        LightGBM & 0.747 & 19.121 & 10.858 \\
+        MLP$_{\text{global}}$ & 0.747 & 19.220 & 10.732 \\
+        XGBoost & 0.742 & 19.300 & 10.962 \\
+        BaggedDT$_{\text{global}}$ & 0.738 & 19.550 & 11.216 \\
+        Random Forest$_{\text{global}}$ & 0.735 & 19.695 & 10.928 \\
+        GBDT & 0.732 & 19.692 & 11.550 \\
+        Random Forest & 0.730 & 19.770 & 11.294 \\
+        BaggedDT & 0.728 & 19.832 & 11.349 \\
+        BayesianNN & 0.693 & 21.069 & 12.830 \\
+        MLP & 0.690 & 21.162 & 11.419 \\
+        BayesianNN$_{\text{global}}$ & 0.683 & 21.530 & 12.827 \\
+        KNN & 0.632 & 23.046 & 12.994 \\
+        SVR$_{\text{global}}$ & 0.577 & 24.861 & 12.305 \\
+        SVR & 0.566 & 25.034 & 12.818 \\
+        AdaBoost & -0.538 & 47.138 & 41.856 \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\subsubsubsection{Modelos con stacking}
+
+En la Tabla \ref{tab:stack_ifn2_tc_resultados} se muestra el resumen del rendimiento de los modelos de stacking para la predicción de la variable de carbono en toneladas (carbono\_bruto4) con el conjunto de datos que emplea IFN2 como explicativo.
+
+\begin{longtable}{lrrr}
+    \caption{Resumen del rendimiento de los modelos de stacking para la predicción de la variable de carbono en toneladas (carbono\_bruto4) con el conjunto de datos que emplea IFN2 como explicativo.}
+    \label{tab:stack_ifn2_tc_resultados} \\
+    \toprule
+    Modelo            & $R^2_{\text{test}}$ & RMSE$_{\text{test}}$ & MAE$_{\text{test}}$ \\
+    \midrule
+    \endfirsthead
+
+    \toprule
+    Modelo            & $R^2_{\text{test}}$ & RMSE$_{\text{test}}$ & MAE$_{\text{test}}$ \\
+    \midrule
+    \endhead
+
+    \midrule
+    \multicolumn{4}{r}{{Continúa en la siguiente página...}} \\
+    \endfoot
+
+    \bottomrule
+    \endlastfoot
+
+    \textbf{Stack5 MLP}$_{\text{global}}$ & \textbf{0.768} & \textbf{18.405} & \textbf{10.210} \\
+    Stack5 LinearRegression$_{\text{global}}$ & 0.768 & 18.419 & 10.306 \\
+    Stack5 Ridge$_{\text{global}}$ & 0.768 & 18.419 & 10.306 \\
+    Stack4 MLP$_{\text{global}}$ & 0.767 & 18.433 & 10.229 \\
+    Stack4 LinearRegression$_{\text{global}}$ & 0.767 & 18.435 & 10.297 \\
+    Stack4 Ridge$_{\text{global}}$ & 0.767 & 18.435 & 10.296 \\
+    Stack3 MLP$_{\text{global}}$ & 0.767 & 18.450 & 10.184 \\
+    Stack5 GradientBoosting$_{\text{global}}$ & 0.767 & 18.457 & 10.224 \\
+    Stack3 Ridge$_{\text{global}}$ & 0.767 & 18.466 & 10.318 \\
+    Stack3 LinearRegression$_{\text{global}}$ & 0.767 & 18.466 & 10.318 \\
+    Stack4 GradientBoosting$_{\text{global}}$ & 0.766 & 18.485 & 10.216 \\
+    Stack2 LinearRegression$_{\text{global}}$ & 0.765 & 18.521 & 10.333 \\
+    Stack2 Ridge$_{\text{global}}$ & 0.765 & 18.521 & 10.333 \\
+    Stack3 GradientBoosting$_{\text{global}}$ & 0.765 & 18.530 & 10.230 \\
+    Stack2 MLP$_{\text{global}}$ & 0.765 & 18.531 & 10.285 \\
+    Stack5 SVR$_{\text{global}}$ & 0.763 & 18.595 & 10.155 \\
+    Stack4 SVR$_{\text{global}}$ & 0.763 & 18.601 & 10.169 \\
+    Stack1 MLP$_{\text{global}}$ & 0.763 & 18.602 & 10.261 \\
+    Stack1 Ridge$_{\text{global}}$ & 0.763 & 18.606 & 10.377 \\
+    Stack1 LinearRegression$_{\text{global}}$ & 0.763 & 18.606 & 10.377 \\
+    Stack2 GradientBoosting$_{\text{global}}$ & 0.763 & 18.616 & 10.297 \\
+    Stack3 SVR$_{\text{global}}$ & 0.762 & 18.643 & 10.193 \\
+    Stack1 GradientBoosting$_{\text{global}}$ & 0.761 & 18.676 & 10.316 \\
+    Stack2 SVR$_{\text{global}}$ & 0.761 & 18.678 & 10.222 \\
+    Stack1 SVR$_{\text{global}}$ & 0.758 & 18.821 & 10.260 \\
+    Stack5 Random Forest$_{\text{global}}$ & 0.756 & 18.880 & 10.606 \\
+    Stack4 Random Forest$_{\text{global}}$ & 0.756 & 18.886 & 10.704 \\
+    Stack4 MLP & 0.755 & 18.828 & 10.636 \\
+    Stack5 GradientBoosting & 0.753 & 18.880 & 10.692 \\
+    Stack5 MLP & 0.753 & 18.890 & 10.632 \\
+    Stack3 MLP & 0.753 & 18.896 & 10.746 \\
+    Stack4 GradientBoosting & 0.752 & 18.921 & 10.654 \\
+    Stack2 MLP & 0.751 & 18.954 & 10.765 \\
+    Stack2 GradientBoosting & 0.751 & 18.978 & 10.769 \\
+    Stack4 SVR & 0.750 & 18.988 & 10.523 \\
+    Stack5 SVR & 0.750 & 18.993 & 10.530 \\
+    Stack3 GradientBoosting & 0.749 & 19.027 & 10.783 \\
+    Stack1 MLP & 0.749 & 19.043 & 10.736 \\
+    Stack3 SVR & 0.747 & 19.116 & 10.656 \\
+    Stack2 SVR & 0.747 & 19.116 & 10.603 \\
+    Stack1 GradientBoosting & 0.746 & 19.174 & 10.778 \\
+    Stack3 Random Forest$_{\text{global}}$ & 0.745 & 19.286 & 10.840 \\
+    Stack1 SVR & 0.745 & 19.187 & 10.596 \\
+    Stack2 Random Forest$_{\text{global}}$ & 0.741 & 19.455 & 10.979 \\
+    Stack5 Random Forest & 0.734 & 19.588 & 11.135 \\
+    Stack1 Random Forest$_{\text{global}}$ & 0.734 & 19.711 & 11.235 \\
+    Stack3 Random Forest & 0.727 & 19.848 & 11.483 \\
+    Stack4 Random Forest & 0.727 & 19.848 & 11.194 \\
+    Stack2 Random Forest & 0.720 & 20.098 & 11.538 \\
+    Stack1 Random Forest & 0.713 & 20.375 & 11.767 \\
+\end{longtable}
 
 \subsection{Resultados IFN3}
 
@@ -33,11 +273,20 @@ Una vez entrenados los modelos, algunos parámetros globales como el $R^2$, RMSE
         CatBoost          & 0.849               & 18.385               & 9.746              \\
         GBDT              & 0.843               & 18.718               & 9.893              \\
         MLP               & 0.840               & 18.947               & 9.297              \\
+        GBDT$_{\text{global}}$ & 0.839 & 19.409 & 9.559 \\
+        XGBoost$_{\text{global}}$ & 0.839 & 19.424 & 9.548 \\
+        CatBoost$_{\text{global}}$ & 0.838 & 19.500 & 9.433 \\
+        LightGBM$_{\text{global}}$ & 0.836 & 19.580 & 9.602 \\
+        MLP$_{\text{global}}$ & 0.833 & 19.791 & 10.009 \\
         BaggedDT          & 0.820               & 20.085               & 10.699              \\
+        BaggedDT$_{\text{global}}$ & 0.800 & 21.649 & 11.058 \\
         Random Forest     & 0.796               & 21.353               & 10.839              \\
+        Random Forest$_{\text{global}}$ & 0.789 & 22.223 & 11.109 \\
         BayesianNN        & 0.774               & 22.507               & 12.332              \\
         KNN               & 0.756               & 23.357               & 12.585              \\
+        BayesianNN$_{\text{global}}$ & 0.743 & 24.561 & 12.643 \\
         SVR               & 0.737               & 24.280               & 9.877              \\
+        SVR$_{\text{global}}$ & 0.613 & 30.113 & 11.708 \\
         AdaBoost          & 0.314               & 39.189               & 33.180              \\
         \bottomrule
     \end{tabular}
@@ -47,58 +296,87 @@ Una vez entrenados los modelos, algunos parámetros globales como el $R^2$, RMSE
 
 En la Tabla \ref{tab:stack_ifn3_THA_resultados} se muestra el resumen del rendimiento de los modelos de stacking para la predicción de la variable de carbono en tC/ha con el conjunto de datos que emplea IFN3 como explicativo.
 
-\begin{table}[H]
-    \centering
-    \small
-    \footnotesize
-        \begin{tabular}{llcccc}
-        \hline
-        \textbf{Stack}  & \textbf{Metamodelo}    & \textbf{Bases} & $R^2_{\text{test}}$ & $\text{RMSE}_{\text{test}}$  & $\text{MAE}_{\text{test}}$   \\
-        \hline
-        % ---------- STACK 1 ----------
-        \textbf{stack1} & \textbf{GradientBoosting} & \textbf{2} & \textbf{0.859} & \textbf{17.740} & \textbf{9.273} \\
-        stack1 & LinearRegression & 2 & 0.857 & 17.873 & 9.244 \\
-        stack1 & Ridge            & 2 & 0.857 & 17.875 & 9.245 \\
-        stack1 & RandomForest     & 2 & 0.835 & 19.224 & 10.450 \\
-        stack1 & SVR              & 2 & 0.854 & 18.053 & 9.114 \\
-        stack1 & MLP   & 2 & 0.858 & 17.834 & 9.264 \\
-        \hline
-        % ---------- STACK 2 ----------
-        \textbf{stack2} & \textbf{GradientBoosting} & \textbf{3} & \textbf{0.863} & \textbf{17.538} & \textbf{9.097} \\
-        stack2 & LinearRegression & 3 & 0.859 & 17.767 & 9.097 \\
-        stack2 & Ridge            & 3 & 0.859 & 17.773 & 9.107 \\
-        stack2 & RandomForest     & 3 & 0.839 & 18.988 & 9.887 \\
-        stack2 & SVR              & 3 & 0.856 & 17.954 & 8.935 \\
-        stack2 & MLP & 3 & 0.860 & 17.704 & 9.038 \\
-        \hline
-        % ---------- STACK 3 ----------
-        \textbf{stack3} & \textbf{GradientBoosting} & \textbf{4} & \textbf{0.855} & \textbf{18.026} & \textbf{9.534} \\
-        stack3 & LinearRegression & 4 & 0.850 & 18.309 & 9.580 \\
-        stack3 & Ridge            & 4 & 0.850 & 18.316 & 9.581 \\
-        stack3 & RandomForest     & 4 & 0.849 & 18.375 & 10.159 \\
-        stack3 & SVR              & 4 & 0.846 & 18.552 & 9.397 \\
-        stack3 & MLP              & 4 & 0.852 & 18.171 & 9.500 \\
-        \hline
-        % ---------- STACK 4 ----------
-        \textbf{stack4} & \textbf{GradientBoosting} & \textbf{5} & \textbf{0.866} & \textbf{17.303} & \textbf{9.134} \\
-        stack4 & LinearRegression & 5 & 0.860 & 17.718 & 9.190 \\
-        stack4 & Ridge            & 5 & 0.860 & 17.721 & 9.191 \\
-        stack4 & RandomForest     & 5 & 0.852 & 18.199 & 9.748 \\
-        stack4 & SVR              & 5 & 0.858 & 17.851 & 9.011 \\
-        stack4 & MLP              & 5 & 0.861 & 17.647 & 9.147 \\
-        \hline
-        % ---------- STACK 5 ----------
-        \textbf{stack5} & \textbf{GradientBoosting} & \textbf{6} & \textbf{0.865} & \textbf{17.369} & \textbf{9.037} \\
-        stack5 & LinearRegression & 6 & 0.861 & 17.644 & 9.049 \\
-        stack5 & Ridge            & 6 & 0.861 & 17.646 & 9.050 \\
-        stack5 & RandomForest     & 6 & 0.858 & 17.819 & 9.445 \\
-        stack5 & SVR              & 6 & 0.858 & 17.816 & 8.879 \\
-        stack5 & MLP & 6 & 0.862 & 17.572 & 8.950 \\
-        \hline
-    \end{tabular}
+\begin{longtable}{lrrr}
     \caption{Resultados de las diferentes configuraciones de stacking utilizando IFN3 como explicativo de la variable en tC/ha.}
-    \label{tab:stack_ifn3_THA_resultados}
-\end{table}
+    \label{tab:stack_ifn3_THA_resultados} \\
+    \toprule
+    Modelo            & $R^2_{\text{test}}$ & RMSE$_{\text{test}}$ & MAE$_{\text{test}}$ \\
+    \midrule
+    \endfirsthead
+
+    \toprule
+    Modelo            & $R^2_{\text{test}}$ & RMSE$_{\text{test}}$ & MAE$_{\text{test}}$ \\
+    \midrule
+    \endhead
+
+    \midrule
+    \multicolumn{4}{r}{{Continúa en la siguiente página...}} \\
+    \endfoot
+
+    \bottomrule
+    \endlastfoot
+
+    \textbf{Stack4 GradientBoosting} & \textbf{0.866} & \textbf{17.303} & \textbf{9.134} \\
+    Stack5 GradientBoosting & 0.865 & 17.369 & 9.037 \\
+    Stack2 GradientBoosting & 0.863 & 17.538 & 9.097 \\
+    Stack5 MLP & 0.862 & 17.572 & 8.950 \\
+    Stack5 LinearRegression & 0.861 & 17.644 & 9.049 \\
+    Stack5 Ridge & 0.861 & 17.646 & 9.050 \\
+    Stack4 MLP & 0.861 & 17.647 & 9.147 \\
+    Stack4 LinearRegression & 0.860 & 17.718 & 9.190 \\
+    Stack4 Ridge & 0.860 & 17.721 & 9.191 \\
+    Stack2 MLP & 0.860 & 17.704 & 9.038 \\
+    Stack2 LinearRegression & 0.859 & 17.767 & 9.097 \\
+    Stack2 Ridge & 0.859 & 17.773 & 9.107 \\
+    Stack1 GradientBoosting & 0.859 & 17.740 & 9.273 \\
+    Stack5 SVR & 0.858 & 17.816 & 8.879 \\
+    Stack5 Random Forest & 0.858 & 17.819 & 9.445 \\
+    Stack4 SVR & 0.858 & 17.851 & 9.011 \\
+    Stack1 MLP & 0.858 & 17.834 & 9.264 \\
+    Stack1 LinearRegression & 0.857 & 17.873 & 9.244 \\
+    Stack1 Ridge & 0.857 & 17.875 & 9.245 \\
+    Stack2 SVR & 0.856 & 17.954 & 8.935 \\
+    Stack3 GradientBoosting & 0.855 & 18.026 & 9.534 \\
+    Stack1 SVR & 0.854 & 18.053 & 9.114 \\
+    Stack4 Random Forest & 0.852 & 18.199 & 9.748 \\
+    Stack3 MLP & 0.852 & 18.171 & 9.500 \\
+    Stack3 LinearRegression & 0.850 & 18.309 & 9.580 \\
+    Stack3 Ridge & 0.850 & 18.316 & 9.581 \\
+    Stack3 Random Forest & 0.849 & 18.375 & 10.159 \\
+    Stack5 MLP$_{\text{global}}$ & 0.848 & 18.892 & 9.178 \\
+    Stack2 MLP$_{\text{global}}$ & 0.847 & 18.943 & 9.332 \\
+    Stack3 SVR & 0.846 & 18.552 & 9.397 \\
+    Stack4 MLP$_{\text{global}}$ & 0.845 & 19.067 & 9.180 \\
+    Stack5 Ridge$_{\text{global}}$ & 0.844 & 19.100 & 9.252 \\
+    Stack5 LinearRegression$_{\text{global}}$ & 0.844 & 19.102 & 9.253 \\
+    Stack2 Ridge$_{\text{global}}$ & 0.844 & 19.115 & 9.355 \\
+    Stack2 LinearRegression$_{\text{global}}$ & 0.844 & 19.117 & 9.356 \\
+    Stack4 Ridge$_{\text{global}}$ & 0.843 & 19.154 & 9.278 \\
+    Stack4 LinearRegression$_{\text{global}}$ & 0.843 & 19.156 & 9.277 \\
+    Stack3 Ridge$_{\text{global}}$ & 0.843 & 19.187 & 9.305 \\
+    Stack3 LinearRegression$_{\text{global}}$ & 0.843 & 19.188 & 9.304 \\
+    Stack3 MLP$_{\text{global}}$ & 0.842 & 19.216 & 9.188 \\
+    Stack5 SVR$_{\text{global}}$ & 0.840 & 19.367 & 9.101 \\
+    Stack2 SVR$_{\text{global}}$ & 0.840 & 19.369 & 9.185 \\
+    Stack2 Random Forest & 0.839 & 18.988 & 9.887 \\
+    Stack4 SVR$_{\text{global}}$ & 0.839 & 19.400 & 9.116 \\
+    Stack3 SVR$_{\text{global}}$ & 0.839 & 19.423 & 9.138 \\
+    Stack1 MLP$_{\text{global}}$ & 0.839 & 19.436 & 9.564 \\
+    Stack3 GradientBoosting$_{\text{global}}$ & 0.837 & 19.548 & 9.290 \\
+    Stack1 Ridge$_{\text{global}}$ & 0.837 & 19.565 & 9.582 \\
+    Stack1 LinearRegression$_{\text{global}}$ & 0.837 & 19.564 & 9.582 \\
+    Stack1 Random Forest & 0.835 & 19.224 & 10.450 \\
+    Stack5 GradientBoosting$_{\text{global}}$ & 0.833 & 19.768 & 9.291 \\
+    Stack1 GradientBoosting$_{\text{global}}$ & 0.832 & 19.820 & 9.600 \\
+    Stack1 SVR$_{\text{global}}$ & 0.832 & 19.852 & 9.388 \\
+    Stack4 GradientBoosting$_{\text{global}}$ & 0.830 & 19.940 & 9.344 \\
+    Stack2 GradientBoosting$_{\text{global}}$ & 0.826 & 20.206 & 9.499 \\
+    Stack5 Random Forest$_{\text{global}}$ & 0.820 & 20.540 & 9.871 \\
+    Stack3 Random Forest$_{\text{global}}$ & 0.807 & 21.266 & 10.271 \\
+    Stack4 Random Forest$_{\text{global}}$ & 0.804 & 21.415 & 10.123 \\
+    Stack2 Random Forest$_{\text{global}}$ & 0.802 & 21.562 & 10.342 \\
+    Stack1 Random Forest$_{\text{global}}$ & 0.792 & 22.090 & 10.962 \\
+\end{longtable}
 
 \subsubsection{Toneladas de carbono}
 
@@ -115,15 +393,24 @@ En la Tabla \ref{tab:resultados_modelos_base_ifn3_tc_resultados} se muestra el r
         Modelo            & $R^2_{\text{test}}$ & RMSE$_{\text{test}}$ & MAE$_{\text{test}}$ \\
         \midrule
         \textbf{LightGBM} & \textbf{0.898}      & \textbf{10.641}      & \textbf{4.687}      \\
-        XGBoost           & 0.895               & 10.761               & 4.713               \\
         CatBoost          & 0.896               & 10.737               & 4.789               \\
-        MLP               & 0.885               & 11.287               & 4.803               \\
+        XGBoost           & 0.895               & 10.761               & 4.713               \\
+        CatBoost$_{\text{global}}$ & 0.889 & 10.931 & 4.813 \\
         GBDT              & 0.888               & 11.135               & 5.044               \\
+        MLP               & 0.885               & 11.287               & 4.803               \\
+        LightGBM$_{\text{global}}$ & 0.884 & 11.153 & 4.863 \\
+        XGBoost$_{\text{global}}$ & 0.883 & 11.230 & 4.859 \\
+        GBDT$_{\text{global}}$ & 0.881 & 11.327 & 4.937 \\
+        MLP$_{\text{global}}$ & 0.879 & 11.431 & 5.123 \\
         BaggedDT          & 0.873               & 11.830               & 5.183               \\
         Random Forest     & 0.871               & 11.965               & 5.217               \\
+        BaggedDT$_{\text{global}}$ & 0.866 & 11.997 & 5.410 \\
+        Random Forest$_{\text{global}}$ & 0.865 & 12.053 & 5.331 \\
+        BayesianNN        & 0.836               & 13.455               & 6.773               \\
+        BayesianNN$_{\text{global}}$ & 0.824 & 13.774 & 7.041 \\
         SVR               & 0.810               & 14.505               & 5.269               \\
         KNN               & 0.793               & 15.128               & 6.251               \\
-        BayesianNN        & 0.836               & 13.455               & 6.773               \\
+        SVR$_{\text{global}}$ & 0.731 & 17.033 & 6.154 \\
         AdaBoost          & 0.349               & 26.829               & 23.857              \\
         \bottomrule
     \end{tabular}
@@ -133,58 +420,87 @@ En la Tabla \ref{tab:resultados_modelos_base_ifn3_tc_resultados} se muestra el r
 
 En la Tabla \ref{tab:stack_ifn3_tc_resultados} se muestra el resumen del rendimiento de los modelos con stacking para la predicción de la variable de carbono en toneladas (carbono\_bruto4) con el conjunto de datos que emplea IFN3 como explicativo.
 
-\begin{table}[H]
-    \centering
-    \small
-    \footnotesize
-    \begin{tabular}{llcccc}
-        \hline
-        \textbf{Stack}  & \textbf{Metamodelo}    & \textbf{Bases} & $R^2_{\text{test}}$ & $\text{RMSE}_{\text{test}}$  & $\text{MAE}_{\text{test}}$  \\
-        \hline
-        % ---------- STACK 1 ----------
-        \textbf{stack1} & \textbf{MLP}              & \textbf{2} & \textbf{0.898} & \textbf{10.617} & \textbf{4.579} \\
-        stack1 & GradientBoosting & 2 & 0.897 & 10.660 & 4.620 \\
-        stack1 & LinearRegression & 2 & 0.898 & 10.625 & 4.667 \\
-        stack1 & Ridge            & 2 & 0.898 & 10.626 & 4.667 \\
-        stack1 & RandomForest     & 2 & 0.881 & 11.483 & 5.127 \\
-        stack1 & SVR              & 2 & 0.895 & 10.787 & 4.613 \\
-        \hline
-        % ---------- STACK 2 ----------
-        \textbf{stack2} & \textbf{MLP}              & \textbf{3} & \textbf{0.900} & \textbf{10.540} & \textbf{4.581} \\
-        stack2 & GradientBoosting & 3 & 0.899 & 10.582 & 4.610 \\
-        stack2 & LinearRegression & 3 & 0.899 & 10.572 & 4.651 \\
-        stack2 & Ridge            & 3 & 0.899 & 10.573 & 4.654 \\
-        stack2 & RandomForest     & 3 & 0.887 & 11.165 & 4.916 \\
-        stack2 & SVR              & 3 & 0.896 & 10.706 & 4.580 \\
-        \hline
-        % ---------- STACK 3 ----------
-        \textbf{stack3} & \textbf{MLP}              & \textbf{4} & \textbf{0.899} & \textbf{10.572} & \textbf{4.611} \\
-        stack3 & GradientBoosting & 4 & 0.897 & 10.671 & 4.637 \\
-        stack3 & LinearRegression & 4 & 0.897 & 10.674 & 4.757 \\
-        stack3 & Ridge            & 4 & 0.897 & 10.675 & 4.757 \\
-        stack3 & RandomForest     & 4 & 0.887 & 11.157 & 4.967 \\
-        stack3 & SVR              & 4 & 0.893 & 10.865 & 4.672 \\
-        \hline
-        % ---------- STACK 4 ----------
-        \textbf{stack4} & \textbf{MLP}              & \textbf{5} & \textbf{0.902} & \textbf{10.407} & \textbf{4.517} \\
-        stack4 & GradientBoosting & 5 & 0.901 & 10.450 & 4.541 \\
-        stack4 & LinearRegression & 5 & 0.900 & 10.511 & 4.648 \\
-        stack4 & Ridge            & 5 & 0.900 & 10.511 & 4.648 \\
-        stack4 & RandomForest     & 5 & 0.895 & 10.782 & 4.775 \\
-        stack4 & SVR              & 5 & 0.897 & 10.655 & 4.556 \\
-        \hline
-        % ---------- STACK 5 ----------
-        \textbf{stack5} & \textbf{MLP} & \textbf{6} & \textbf{0.901} & \textbf{10.447} & \textbf{4.454} \\
-        stack5 & GradientBoosting & 6 & 0.902 & 10.434 & 4.540 \\
-        stack5 & LinearRegression & 6 & 0.900 & 10.492 & 4.624 \\
-        stack5 & Ridge            & 6 & 0.900 & 10.494 & 4.624 \\
-        stack5 & RandomForest     & 6 & 0.895 & 10.755 & 4.721 \\
-        stack5 & SVR              & 6 & 0.898 & 10.638 & 4.541 \\
-        \hline
-    \end{tabular}
+\begin{longtable}{lrrr}
     \caption{Resultados de las diferentes configuraciones de stacking utilizando IFN3 como explicativo de la variable en toneladas de carbono.}
-    \label{tab:stack_ifn3_tc_resultados}
-\end{table}
+    \label{tab:stack_ifn3_tc_resultados} \\
+    \toprule
+    Modelo            & $R^2_{\text{test}}$ & RMSE$_{\text{test}}$ & MAE$_{\text{test}}$ \\
+    \midrule
+    \endfirsthead
+
+    \toprule
+    Modelo            & $R^2_{\text{test}}$ & RMSE$_{\text{test}}$ & MAE$_{\text{test}}$ \\
+    \midrule
+    \endhead
+
+    \midrule
+    \multicolumn{4}{r}{{Continúa en la siguiente página...}} \\
+    \endfoot
+
+    \bottomrule
+    \endlastfoot
+
+    \textbf{Stack4 MLP} & \textbf{0.902} & \textbf{10.407} & \textbf{4.517} \\
+    Stack5 GradientBoosting & 0.902 & 10.434 & 4.540 \\
+    Stack5 MLP & 0.901 & 10.447 & 4.454 \\
+    Stack4 GradientBoosting & 0.901 & 10.450 & 4.541 \\
+    Stack2 MLP & 0.900 & 10.540 & 4.581 \\
+    Stack4 LinearRegression & 0.900 & 10.511 & 4.648 \\
+    Stack4 Ridge & 0.900 & 10.511 & 4.648 \\
+    Stack5 LinearRegression & 0.900 & 10.492 & 4.624 \\
+    Stack5 Ridge & 0.900 & 10.494 & 4.624 \\
+    Stack2 GradientBoosting & 0.899 & 10.582 & 4.610 \\
+    Stack2 LinearRegression & 0.899 & 10.572 & 4.651 \\
+    Stack2 Ridge & 0.899 & 10.573 & 4.654 \\
+    Stack3 MLP & 0.899 & 10.572 & 4.611 \\
+    Stack1 MLP & 0.898 & 10.617 & 4.579 \\
+    Stack1 LinearRegression & 0.898 & 10.625 & 4.667 \\
+    Stack1 Ridge & 0.898 & 10.626 & 4.667 \\
+    Stack5 SVR & 0.898 & 10.638 & 4.541 \\
+    Stack1 GradientBoosting & 0.897 & 10.660 & 4.620 \\
+    Stack3 GradientBoosting & 0.897 & 10.671 & 4.637 \\
+    Stack3 LinearRegression & 0.897 & 10.674 & 4.757 \\
+    Stack3 Ridge & 0.897 & 10.675 & 4.757 \\
+    Stack4 SVR & 0.897 & 10.655 & 4.556 \\
+    Stack2 SVR & 0.896 & 10.706 & 4.580 \\
+    Stack1 SVR & 0.895 & 10.787 & 4.613 \\
+    Stack4 Random Forest & 0.895 & 10.782 & 4.775 \\
+    Stack5 Random Forest & 0.895 & 10.755 & 4.721 \\
+    Stack3 SVR & 0.893 & 10.865 & 4.672 \\
+    Stack4 MLP$_{\text{global}}$ & 0.890 & 10.862 & 4.621 \\
+    Stack5 MLP$_{\text{global}}$ & 0.890 & 10.866 & 4.586 \\
+    Stack3 MLP$_{\text{global}}$ & 0.890 & 10.880 & 4.544 \\
+    Stack4 Ridge$_{\text{global}}$ & 0.890 & 10.891 & 4.741 \\
+    Stack4 LinearRegression$_{\text{global}}$ & 0.890 & 10.890 & 4.741 \\
+    Stack5 GradientBoosting$_{\text{global}}$ & 0.890 & 10.905 & 4.612 \\
+    Stack5 LinearRegression$_{\text{global}}$ & 0.890 & 10.908 & 4.747 \\
+    Stack5 Ridge$_{\text{global}}$ & 0.889 & 10.909 & 4.747 \\
+    Stack3 Ridge$_{\text{global}}$ & 0.889 & 10.921 & 4.766 \\
+    Stack3 LinearRegression$_{\text{global}}$ & 0.889 & 10.921 & 4.766 \\
+    Stack3 GradientBoosting$_{\text{global}}$ & 0.888 & 10.959 & 4.626 \\
+    Stack4 GradientBoosting$_{\text{global}}$ & 0.888 & 10.978 & 4.625 \\
+    Stack2 Random Forest & 0.887 & 11.165 & 4.916 \\
+    Stack3 Random Forest & 0.887 & 11.157 & 4.967 \\
+    Stack4 SVR$_{\text{global}}$ & 0.887 & 11.053 & 4.682 \\
+    Stack5 SVR$_{\text{global}}$ & 0.886 & 11.056 & 4.687 \\
+    Stack2 MLP$_{\text{global}}$ & 0.886 & 11.058 & 4.709 \\
+    Stack2 Ridge$_{\text{global}}$ & 0.886 & 11.065 & 4.802 \\
+    Stack2 LinearRegression$_{\text{global}}$ & 0.886 & 11.065 & 4.803 \\
+    Stack3 SVR$_{\text{global}}$ & 0.886 & 11.088 & 4.701 \\
+    Stack1 MLP$_{\text{global}}$ & 0.886 & 11.102 & 4.680 \\
+    Stack2 GradientBoosting$_{\text{global}}$ & 0.885 & 11.108 & 4.729 \\
+    Stack1 LinearRegression$_{\text{global}}$ & 0.885 & 11.111 & 4.833 \\
+    Stack1 Ridge$_{\text{global}}$ & 0.885 & 11.111 & 4.833 \\
+    Stack1 GradientBoosting$_{\text{global}}$ & 0.884 & 11.172 & 4.732 \\
+    Stack2 SVR$_{\text{global}}$ & 0.883 & 11.220 & 4.745 \\
+    Stack1 SVR$_{\text{global}}$ & 0.882 & 11.271 & 4.760 \\
+    Stack1 RandomForest & 0.881 & 11.483 & 5.127 \\
+    Stack5 Random Forest$_{\text{global}}$ & 0.880 & 11.347 & 4.848 \\
+    Stack4 Random Forest$_{\text{global}}$ & 0.879 & 11.429 & 4.919 \\
+    Stack3 Random Forest$_{\text{global}}$ & 0.875 & 11.586 & 5.023 \\
+    Stack2 Random Forest$_{\text{global}}$ & 0.873 & 11.693 & 5.131 \\
+    Stack1 Random Forest$_{\text{global}}$ & 0.858 & 12.368 & 5.383 \\
+\end{longtable}
 
 \subsection{Resultados IFN2 e IFN3}
 
@@ -203,15 +519,15 @@ Una vez entrenados los modelos, algunos parámetros globales como el $R^2$, RMSE
         \toprule
         Modelo            & $R^2_{\text{test}}$ & RMSE$_{\text{test}}$ & MAE$_{\text{test}}$ \\
         \midrule
-        \textbf{LightGBM} & \textbf{0.787}      & \textbf{22.767}      & \textbf{11.650}     \\
-        XGBoost           & 0.784               & 22.952               & 11.590              \\
-        CatBoost          & 0.783               & 22.990               & 11.607              \\
-        GBDT              & 0.783               & 23.014               & 11.658              \\
-        MLP               & 0.771               & 23.607               & 12.287              \\
-        BaggedDT          & 0.740               & 25.142               & 13.021              \\
-        Random Forest     & 0.732               & 25.547               & 12.908              \\
-        BayesianNN        & 0.678               & 28.021               & 14.689              \\
-        SVR               & 0.551               & 33.065               & 13.708              \\
+        \textbf{LightGBM}$_{\text{global}}$ & \textbf{0.787}      & \textbf{22.767}      & \textbf{11.650}     \\
+        XGBoost$_{\text{global}}$           & 0.784               & 22.952               & 11.590              \\
+        CatBoost$_{\text{global}}$          & 0.783               & 22.990               & 11.607              \\
+        GBDT$_{\text{global}}$              & 0.783               & 23.014               & 11.658              \\
+        MLP$_{\text{global}}$               & 0.771               & 23.607               & 12.287              \\
+        BaggedDT$_{\text{global}}$          & 0.740               & 25.142               & 13.021              \\
+        Random Forest$_{\text{global}}$     & 0.732               & 25.547               & 12.908              \\
+        BayesianNN$_{\text{global}}$        & 0.678               & 28.021               & 14.689              \\
+        SVR$_{\text{global}}$               & 0.551               & 33.065               & 13.708              \\
         \bottomrule
     \end{tabular}
 \end{table}
@@ -230,44 +546,44 @@ En la Tabla \ref{tab:stack_ifn2_ifn3c_resultados} se muestra el resumen del rend
         \textbf{Stack}  & \textbf{Metamodelo}    & \textbf{Bases} & $R^2_{\text{test}}$ & $\text{RMSE}_{\text{test}}$  & $\text{MAE}_{\text{test}}$   \\
         \hline
         % ---------- STACK 1 ----------
-        stack1 & GradientBoosting & 2 & 0.770 & 23.648 & 11.663 \\
-        stack1 & LinearRegression & 2 & 0.787 & 22.768 & 11.607 \\
-        stack1 & Ridge            & 2 & 0.787 & 22.769 & 11.607 \\
-        stack1 & RandomForest     & 2 & 0.740 & 25.152 & 12.875 \\
-        stack1 & SVR              & 2 & 0.781 & 23.109 & 11.368 \\
-        \textbf{stack1} & \textbf{MLP}   & \textbf{2} & \textbf{0.789} & \textbf{22.650} & \textbf{11.556} \\
+        stack1 & GradientBoosting$_{\text{global}}$ & 2 & 0.770 & 23.648 & 11.663 \\
+        stack1 & LinearRegression$_{\text{global}}$ & 2 & 0.787 & 22.768 & 11.607 \\
+        stack1 & Ridge$_{\text{global}}$            & 2 & 0.787 & 22.769 & 11.607 \\
+        stack1 & RandomForest$_{\text{global}}$     & 2 & 0.740 & 25.152 & 12.875 \\
+        stack1 & SVR$_{\text{global}}$              & 2 & 0.781 & 23.109 & 11.368 \\
+        \textbf{stack1} & \textbf{MLP}$_{\text{global}}$   & \textbf{2} & \textbf{0.789} & \textbf{22.650} & \textbf{11.556} \\
         \hline
         % ---------- STACK 2 ----------
-        stack2 & GradientBoosting & 3 & 0.779 & 23.183 & 11.527 \\
-        stack2 & LinearRegression & 3 & 0.791 & 22.565 & 11.429 \\
-        stack2 & Ridge            & 3 & 0.791 & 22.566 & 11.429 \\
-        stack2 & RandomForest     & 3 & 0.755 & 24.446 & 12.345 \\
-        stack2 & SVR              & 3 & 0.786 & 22.853 & 11.214 \\
-        \textbf{stack2} & \textbf{MLP} & \textbf{3} & \textbf{0.794} & \textbf{22.405} & \textbf{11.403} \\
+        stack2 & GradientBoosting$_{\text{global}}$ & 3 & 0.779 & 23.183 & 11.527 \\
+        stack2 & LinearRegression$_{\text{global}}$ & 3 & 0.791 & 22.565 & 11.429 \\
+        stack2 & Ridge$_{\text{global}}$            & 3 & 0.791 & 22.566 & 11.429 \\
+        stack2 & RandomForest$_{\text{global}}$     & 3 & 0.755 & 24.446 & 12.345 \\
+        stack2 & SVR$_{\text{global}}$              & 3 & 0.786 & 22.853 & 11.214 \\
+        \textbf{stack2} & \textbf{MLP}$_{\text{global}}$ & \textbf{3} & \textbf{0.794} & \textbf{22.405} & \textbf{11.403} \\
         \hline
         % ---------- STACK 3 ----------
-        stack3 & GradientBoosting & 4 & 0.774 & 23.442 & 11.477 \\
-        stack3 & LinearRegression & 4 & 0.788 & 22.735 & 11.456 \\
-        stack3 & Ridge            & 4 & 0.788 & 22.735 & 11.454 \\
-        stack3 & RandomForest     & 4 & 0.748 & 24.768 & 12.394 \\
-        stack3 & SVR              & 4 & 0.783 & 22.995 & 11.218 \\
-        \textbf{stack3} & \textbf{MLP}              & \textbf{4} & \textbf{0.787} & \textbf{22.774} & \textbf{11.333} \\
+        stack3 & GradientBoosting$_{\text{global}}$ & 4 & 0.774 & 23.442 & 11.477 \\
+        stack3 & LinearRegression$_{\text{global}}$ & 4 & 0.788 & 22.735 & 11.456 \\
+        stack3 & Ridge$_{\text{global}}$            & 4 & 0.788 & 22.735 & 11.454 \\
+        stack3 & RandomForest$_{\text{global}}$     & 4 & 0.748 & 24.768 & 12.394 \\
+        stack3 & SVR$_{\text{global}}$              & 4 & 0.783 & 22.995 & 11.218 \\
+        \textbf{stack3} & \textbf{MLP}$_{\text{global}}$              & \textbf{4} & \textbf{0.787} & \textbf{22.774} & \textbf{11.333} \\
         \hline
         % ---------- STACK 4 ----------
-        stack4 & GradientBoosting & 5 & 0.772 & 23.553 & 11.476 \\
-        stack4 & LinearRegression & 5 & 0.790 & 22.602 & 11.416 \\
-        stack4 & Ridge            & 5 & 0.790 & 22.601 & 11.415 \\
-        stack4 & RandomForest     & 5 & 0.751 & 24.650 & 12.208 \\
-        stack4 & SVR              & 5 & 0.785 & 22.873 & 11.183 \\
-        \textbf{stack4} & \textbf{MLP}              & \textbf{5} & \textbf{0.792} & \textbf{22.531} & \textbf{11.315} \\
+        stack4 & GradientBoosting$_{\text{global}}$ & 5 & 0.772 & 23.553 & 11.476 \\
+        stack4 & LinearRegression$_{\text{global}}$ & 5 & 0.790 & 22.602 & 11.416 \\
+        stack4 & Ridge$_{\text{global}}$            & 5 & 0.790 & 22.601 & 11.415 \\
+        stack4 & RandomForest$_{\text{global}}$     & 5 & 0.751 & 24.650 & 12.208 \\
+        stack4 & SVR$_{\text{global}}$              & 5 & 0.785 & 22.873 & 11.183 \\
+        \textbf{stack4} & \textbf{MLP}$_{\text{global}}$              & \textbf{5} & \textbf{0.792} & \textbf{22.531} & \textbf{11.315} \\
         \hline
         % ---------- STACK 5 ----------
-        stack5 & GradientBoosting & 6 & 0.773 & 23.492 & 11.421 \\
-        stack5 & LinearRegression & 6 & 0.791 & 22.571 & 11.387 \\
-        stack5 & Ridge            & 6 & 0.791 & 22.572 & 11.384 \\
-        stack5 & RandomForest     & 6 & 0.760 & 24.187 & 12.029 \\
-        stack5 & SVR              & 6 & 0.785 & 22.864 & 11.162 \\
-        \textbf{stack5} & \textbf{MLP} & \textbf{6} & \textbf{0.794} & \textbf{22.387} & \textbf{11.307} \\
+        stack5 & GradientBoosting$_{\text{global}}$ & 6 & 0.773 & 23.492 & 11.421 \\
+        stack5 & LinearRegression$_{\text{global}}$ & 6 & 0.791 & 22.571 & 11.387 \\
+        stack5 & Ridge$_{\text{global}}$            & 6 & 0.791 & 22.572 & 11.384 \\
+        stack5 & RandomForest$_{\text{global}}$     & 6 & 0.760 & 24.187 & 12.029 \\
+        stack5 & SVR$_{\text{global}}$              & 6 & 0.785 & 22.864 & 11.162 \\
+        \textbf{stack5} & \textbf{MLP}$_{\text{global}}$ & \textbf{6} & \textbf{0.794} & \textbf{22.387} & \textbf{11.307} \\
         \hline
     \end{tabular}
     \caption{Resultados de las diferentes configuraciones de stacking utilizando IFN2 e IFN3 como explicativos de la variable en tC/ha.}
@@ -290,15 +606,15 @@ En la Tabla \ref{tab:resultados_modelos_base_tc_resultados} se muestra el resume
         \toprule
         Modelo            & $R^2_{\text{test}}$ & RMSE$_{\text{test}}$ & MAE$_{\text{test}}$ \\
         \midrule
-        \textbf{CatBoost} & \textbf{0.845}      & \textbf{13.846}      & \textbf{6.615}      \\
-        LightGBM          & 0.841               & 14.006               & 6.654               \\
-        XGBoost           & 0.840               & 14.054               & 6.655               \\
-        GBDT              & 0.838               & 14.159               & 6.722               \\
-        MLP               & 0.832               & 14.410               & 6.931               \\
-        BaggedDT          & 0.821               & 14.858               & 7.282               \\
-        Random Forest     & 0.819               & 14.950               & 7.135               \\
-        BayesianNN        & 0.775               & 16.674               & 8.906               \\
-        SVR               & 0.679               & 19.897               & 8.137               \\
+        \textbf{CatBoost}$_{\text{global}}$ & \textbf{0.845}      & \textbf{13.846}      & \textbf{6.615}      \\
+        LightGBM$_{\text{global}}$          & 0.841               & 14.006               & 6.654               \\
+        XGBoost$_{\text{global}}$           & 0.840               & 14.054               & 6.655               \\
+        GBDT$_{\text{global}}$              & 0.838               & 14.159               & 6.722               \\
+        MLP$_{\text{global}}$               & 0.832               & 14.410               & 6.931               \\
+        BaggedDT$_{\text{global}}$          & 0.821               & 14.858               & 7.282               \\
+        Random Forest$_{\text{global}}$     & 0.819               & 14.950               & 7.135               \\
+        BayesianNN$_{\text{global}}$        & 0.775               & 16.674               & 8.906               \\
+        SVR$_{\text{global}}$               & 0.679               & 19.897               & 8.137               \\
         \bottomrule
     \end{tabular}
 \end{table}
@@ -318,44 +634,44 @@ En la Tabla \ref{tab:stack_ifn2_ifn3_tc_resultados} se muestra el resumen del re
         \textbf{Stack}  & \textbf{Metamodelo}    & \textbf{Bases} & $R^2_{\text{test}}$ & $\text{RMSE}_{\text{test}}$  & $\text{MAE}_{\text{test}}$  \\
         \hline
         % ---------- STACK 1 ----------
-        stack1 & GradientBoosting & 2 & 0.840 & 14.042 & 6.532 \\
-        stack1 & LinearRegression & 2 & 0.842 & 13.974 & 6.621 \\
-        stack1 & Ridge            & 2 & 0.842 & 13.974 & 6.621 \\
-        stack1 & RandomForest     & 2 & 0.815 & 15.108 & 7.254 \\
-        stack1 & SVR              & 2 & 0.838 & 14.150 & 6.534 \\
-        \textbf{stack1} & \textbf{MLP}              & \textbf{2} & \textbf{0.842} & \textbf{13.969} & \textbf{6.482} \\
+        stack1 & GradientBoosting$_{\text{global}}$ & 2 & 0.840 & 14.042 & 6.532 \\
+        stack1 & LinearRegression$_{\text{global}}$ & 2 & 0.842 & 13.974 & 6.621 \\
+        stack1 & Ridge$_{\text{global}}$            & 2 & 0.842 & 13.974 & 6.621 \\
+        stack1 & RandomForest$_{\text{global}}$     & 2 & 0.815 & 15.108 & 7.254 \\
+        stack1 & SVR$_{\text{global}}$              & 2 & 0.838 & 14.150 & 6.534 \\
+        \textbf{stack1} & \textbf{MLP}$_{\text{global}}$              & \textbf{2} & \textbf{0.842} & \textbf{13.969} & \textbf{6.482} \\
         \hline
         % ---------- STACK 2 ----------
-        stack2 & GradientBoosting & 3 & 0.842 & 13.977 & 6.525 \\
-        stack2 & LinearRegression & 3 & 0.843 & 13.913 & 6.586 \\
-        stack2 & Ridge            & 3 & 0.843 & 13.913 & 6.586 \\
-        stack2 & RandomForest     & 3 & 0.826 & 14.652 & 7.017 \\
-        stack2 & SVR              & 3 & 0.840 & 14.064 & 6.511 \\
-        \textbf{stack2} & \textbf{MLP}              & \textbf{3} & \textbf{0.843} & \textbf{13.913} & \textbf{6.507} \\
+        stack2 & GradientBoosting$_{\text{global}}$ & 3 & 0.842 & 13.977 & 6.525 \\
+        stack2 & LinearRegression$_{\text{global}}$ & 3 & 0.843 & 13.913 & 6.586 \\
+        stack2 & Ridge$_{\text{global}}$            & 3 & 0.843 & 13.913 & 6.586 \\
+        stack2 & RandomForest$_{\text{global}}$     & 3 & 0.826 & 14.652 & 7.017 \\
+        stack2 & SVR$_{\text{global}}$              & 3 & 0.840 & 14.064 & 6.511 \\
+        \textbf{stack2} & \textbf{MLP}$_{\text{global}}$              & \textbf{3} & \textbf{0.843} & \textbf{13.913} & \textbf{6.507} \\
         \hline
         % ---------- STACK 3 ----------
-        stack3 & GradientBoosting & 4 & 0.844 & 13.862 & 6.440 \\
-        stack3 & LinearRegression & 4 & 0.846 & 13.813 & 6.557 \\
-        stack3 & Ridge            & 4 & 0.846 & 13.813 & 6.557 \\
-        stack3 & RandomForest     & 4 & 0.829 & 14.545 & 6.920 \\
-        stack3 & SVR              & 4 & 0.842 & 13.978 & 6.473 \\
-        \textbf{stack3} & \textbf{MLP}              & \textbf{4} & \textbf{0.846} & \textbf{13.785} & \textbf{6.364} \\
+        stack3 & GradientBoosting$_{\text{global}}$ & 4 & 0.844 & 13.862 & 6.440 \\
+        stack3 & LinearRegression$_{\text{global}}$ & 4 & 0.846 & 13.813 & 6.557 \\
+        stack3 & Ridge$_{\text{global}}$            & 4 & 0.846 & 13.813 & 6.557 \\
+        stack3 & RandomForest$_{\text{global}}$     & 4 & 0.829 & 14.545 & 6.920 \\
+        stack3 & SVR$_{\text{global}}$              & 4 & 0.842 & 13.978 & 6.473 \\
+        \textbf{stack3} & \textbf{MLP}$_{\text{global}}$              & \textbf{4} & \textbf{0.846} & \textbf{13.785} & \textbf{6.364} \\
         \hline
         % ---------- STACK 4 ----------
-        stack4 & GradientBoosting & 5 & 0.845 & 13.827 & 6.428 \\
-        stack4 & LinearRegression & 5 & 0.846 & 13.784 & 6.533 \\
-        stack4 & Ridge            & 5 & 0.846 & 13.784 & 6.533 \\
-        stack4 & RandomForest     & 5 & 0.834 & 14.309 & 6.771 \\
-        stack4 & SVR              & 5 & 0.843 & 13.943 & 6.452 \\
-        \textbf{stack4} & \textbf{MLP}              & \textbf{5} & \textbf{0.847} & \textbf{13.768} & \textbf{6.458} \\
+        stack4 & GradientBoosting$_{\text{global}}$ & 5 & 0.845 & 13.827 & 6.428 \\
+        stack4 & LinearRegression$_{\text{global}}$ & 5 & 0.846 & 13.784 & 6.533 \\
+        stack4 & Ridge$_{\text{global}}$            & 5 & 0.846 & 13.784 & 6.533 \\
+        stack4 & RandomForest$_{\text{global}}$     & 5 & 0.834 & 14.309 & 6.771 \\
+        stack4 & SVR$_{\text{global}}$              & 5 & 0.843 & 13.943 & 6.452 \\
+        \textbf{stack4} & \textbf{MLP}$_{\text{global}}$              & \textbf{5} & \textbf{0.847} & \textbf{13.768} & \textbf{6.458} \\
         \hline
         % ---------- STACK 5 ----------
-        stack5 & GradientBoosting & 6 & 0.846 & 13.812 & 6.423 \\
-        stack5 & LinearRegression & 6 & 0.846 & 13.787 & 6.541 \\
-        stack5 & Ridge            & 6 & 0.846 & 13.787 & 6.541 \\
-        stack5 & RandomForest     & 6 & 0.836 & 14.212 & 6.716 \\
-        stack5 & SVR              & 6 & 0.843 & 13.940 & 6.451 \\
-        \textbf{stack5} & \textbf{MLP} & \textbf{6} & \textbf{0.847} & \textbf{13.759} & \textbf{6.401} \\
+        stack5 & GradientBoosting$_{\text{global}}$ & 6 & 0.846 & 13.812 & 6.423 \\
+        stack5 & LinearRegression$_{\text{global}}$ & 6 & 0.846 & 13.787 & 6.541 \\
+        stack5 & Ridge$_{\text{global}}$            & 6 & 0.846 & 13.787 & 6.541 \\
+        stack5 & RandomForest$_{\text{global}}$     & 6 & 0.836 & 14.212 & 6.716 \\
+        stack5 & SVR$_{\text{global}}$              & 6 & 0.843 & 13.940 & 6.451 \\
+        \textbf{stack5} & \textbf{MLP}$_{\text{global}}$ & \textbf{6} & \textbf{0.847} & \textbf{13.759} & \textbf{6.401} \\
         \hline
     \end{tabular}
     \caption{Resultados de las diferentes configuraciones de stacking utilizando IFN2 e IFN3 como explicativos de la variable en toneladas de carbono.}

@@ -1,7 +1,7 @@
 % sections/03_revision_literatura.tex
 \section{Revisión de la Literatura}
 
-La cuantificación precisa de los recursos forestales ha constituido, históricamente, una de las piedras angulares de la gestión territorial y la economía de recursos naturales. La evolución de las técnicas para medir el crecimiento de los árboles y, más recientemente, para estimar su biomasa y contenido de carbono, refleja una transformación profunda en las prioridades de la sociedad humana respecto a los ecosistemas forestales. Lo que comenzó en la Europa medieval como una necesidad logística para asegurar el suministro de leña y madera estructural ante el temor de la escasez, se ha metamorfoseado en el siglo XXI en una disciplina científica de alta tecnología impulsada por la urgencia climática global.
+La cuantificación precisa de los recursos forestales ha constituido, históricamente, una de las piedras angulares de la gestión territorial y la economía de recursos naturales. La evolución de las técnicas para medir el crecimiento de los árboles y, más recientemente, para estimar su biomasa y contenido de carbono, refleja una transformación profunda en las prioridades de la sociedad humana respecto a los ecosistemas forestales. Lo que comenzó en la Europa medieval como una necesidad logística para asegurar el suministro de leña y madera estructural ante el temor de la escasez, se ha metamorfoseado en el siglo XXI en una disciplina científica de alta tecnología impulsada por la urgencia climática global \cite{brack_history_2000}.
 
 La dendrometría tradicional, pilar de los inventarios forestales modernos, se fundamenta en el uso de relaciones alométricas para estimar la biomasa ($w$) y otros parámetros ecológicos a partir de variables de fácil medición en campo, principalmente el diámetro a la altura del pecho ($D$) y la altura total ($H$). Estas estimaciones suelen articularse mediante ecuaciones de la forma:
 \begin{equation}
@@ -11,20 +11,29 @@ o sus transformaciones logarítmicas:
 \begin{equation}
     \lg w = a + b \lg D + c \lg H
 \end{equation}
-donde los parámetros $a, b$ y $c$ son coeficientes de regresión empíricos. En este contexto, la precisión de las mediciones primarias es crítica, ya que, dada la naturaleza potencial de estas funciones, los errores en la toma de datos de $D$ y $H$ se propagan y magnifican exponencialmente en el cálculo final del volumen y el contenido de carbono. Pese a la aparente sencillez del ajuste, los resultados pueden llegar a ser muy buenos, como se muestra en la Figura \ref{fig:moso_bamboo}. No obstante, existe una tensión en la literatura entre el uso de ecuaciones ``pantropicales'' o generalizadas y ecuaciones específicas de especie o sitio, ya que se pueden introducir sesgos si la arquitectura de los árboles locales difiere de la global \cite{shang2025allometric}.
+donde los parámetros $a, b$ y $c$ son coeficientes de regresión empíricos \cite{shi2017methods}. En este contexto, la precisión de las mediciones primarias es crítica, ya que, dada la naturaleza potencial de estas funciones, los errores en la toma de datos de $D$ y $H$ se propagan y magnifican en el cálculo final del volumen y el contenido de carbono. Pese a la aparente sencillez del ajuste, los resultados pueden llegar a ser muy buenos, como se muestra en la Figura \ref{fig:moso_bamboo}. No obstante, existe una tensión en la literatura entre el uso de ecuaciones ``pantropicales'' o generalizadas y ecuaciones específicas de especie o sitio, ya que se pueden introducir sesgos si la arquitectura de los árboles locales difiere de la global \cite{shang2025allometric}.
 
 \begin{figure}
-      \centering
-      \includegraphics[width=0.5\textwidth]{figuras/03_revision_literatura/moso_bamboo.png}
-      \caption{Relación entre la biomasa total en kilogramos y el diámetro a la altura del pecho en centímetros para el bambú moso \textit{(Phyllostachys edulis)}. Visto en \cite{shi2017methods}, siendo \cite{qi2016combining} la fuente original.}
-      \label{fig:moso_bamboo}
+    \centering
+    \includegraphics[width=0.5\textwidth]{figuras/03_revision_literatura/moso_bamboo.png}
+    \caption{Relación entre la biomasa total en kilogramos y el diámetro a la altura del pecho en centímetros para el bambú moso \textit{(Phyllostachys edulis)}. Visto en \cite{shi2017methods}, siendo \cite{qi2016combining} la fuente original.}
+    \label{fig:moso_bamboo}
 \end{figure}
 
 
 
 La medición de la altura de los árboles ha supuesto históricamente un desafío mayor que la del diámetro. Hasta la década de 1990, predominaron hipsómetros mecánicos basados en trigonometría, que requerían medir manualmente la distancia al árbol y una línea de visión despejada \cite{nyakudanga_treemes}. Estos métodos sufrían limitaciones de precisión y ergonomía. La introducción de la electrónica marcó un punto de inflexión al utilizar ultrasonidos para medir distancias automáticamente, permitiendo trabajar en sotobosques densos y mejorando la precisión por debajo del 1\% \cite{nyakudanga_treemes}. Paralelamente, las forcípulas (aparato de medición de la distancia lineal entre dos tangentes paralelas al fuste del árbol) electrónicas modernas han digitalizado la toma de datos, integrando medición y registro de metadatos para minimizar errores de transcripción \cite{nyakudanga_treemes}.
 
-Posteriormente, la introducción de la tecnología de escaneo láser supuso una revolución en la mensura forestal, superando las limitaciones logísticas y de precisión de los métodos tradicionales. Esta tecnología se despliega principalmente en dos modalidades: el escaneo láser terrestre (TLS, por sus siglas en inglés), que captura la estructura tridimensional del bosque desde el suelo con detalle milimétrico, y el LiDAR aerotransportado, que permite el mapeo masivo de grandes extensiones obteniendo un modelo de altura de las copas (\textit{CHM, Canopy Height Model}). Podemos ver un ejemplo en la Figura \ref{fig:chm_example}.
+Posteriormente, la introducción de la tecnología de escaneo láser supuso una revolución en la mensura forestal, superando las limitaciones logísticas y de precisión de los métodos tradicionales. Esta tecnología se despliega principalmente en dos modalidades: el escaneo láser terrestre (TLS, por sus siglas en inglés), que captura la estructura tridimensional del bosque desde el suelo con detalle milimétrico \cite{Kristiansen2018}, y el LiDAR aerotransportado. Este último consiste es un método que usa pulsos de luz para medir distancias. Los mapeos masivos suelen consistir en un sistema LiDAR montado en un avión, helicóptero, dron o satélite, el cuál mide la distancia a los objetos debajo de él. Una ventaja es que, al igual que la luz puede llegar al suelo a través de los huecos de las copas de los árboles, los pulsos láser del LiDAR también lo hacen, como podemos observar en la Figura \ref{fig:lidar_avion}.
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{figuras/03_revision_literatura/lidar_avion.png}
+    \caption{Diagrama de el escaneo de un árbol por un sistema LiDAR aerotransportado y los diversos pulsos reflejados. Imagen obtenida de \cite{opentopography_lidar_basics}.}
+    \label{fig:lidar_avion}
+\end{figure}
+Esto hace que mediante un solo sobrevuelo se puedan captar diversas capas a varias alturas, lo que permite realizar reconstrucciones en $3$D de las zona escaneada. El detalle que se puede lograr es tán alto que se pueden identificar los árboles individuales, como se ve en la \ref{fig:chm_example}.
+
+
 
 \begin{figure}[htbp]
     \centering
@@ -38,20 +47,19 @@ Posteriormente, la introducción de la tecnología de escaneo láser supuso una 
     \begin{subfigure}[b]{0.48\textwidth}
         \centering
         \includegraphics[width=\textwidth]{figuras/03_revision_literatura/CHM_2.png}
-        \caption{Mismo mapeo pero visto de arriba como un mapa $2$D. Cada árbol está marcado con un \textbf{x}.}
+        \caption{Mismo mapeo pero visto de arriba como un mapa $2$D. Cada árbol está marcado con una \textbf{x}.}
         \label{fig:sub2}
     \end{subfigure}
     \caption{Visualización de un bosque escaneado con LiDAR. Vemos las posibilidades de identificar árboles individuales en un entorno forestal denso.}
     \label{fig:chm_example}
 \end{figure}
 
-La principal desventaja del LiDAR aerotransportado es su coste, lo que hace que no tengamos mapeos a gran escala con una frecuencia adecuada, o que los datos tengan una latencia considerable entre regiones. Además, el procesado de este tipo de datos es notablemente más complejo que el de los métodos anteriores, a lo que se le suma el elevado espacio que ocupan los archivos.
-En la Figura \ref{fig:pnoa_lidar} se muestra el plan de adquisición de datos del Tercer cliclo del proyecto PNOA-LiDAR del Instituto Gográfico Nacional de España, donde se puede apreciar la cadencia con la que se hacen los mapeos.
+Las principales limitaciones del LiDAR aerotransportado residen en su elevado coste y complejidad logística. Estos factores dificultan la obtención de coberturas a gran escala con una periodicidad óptima, generando además una latencia significativa en la disponibilidad de datos regionales. Asimismo, el procesamiento de esta información es más exigente que en métodos previos, a lo que se suma el desafío técnico de gestionar y almacenar grandes volúmenes de datos En la Figura \ref{fig:pnoa_lidar} se muestra el plan de adquisición de datos del Tercer ciclo del proyecto PNOA-LiDAR del Instituto Geográfico Nacional de España, donde se puede apreciar la cadencia con la que se hacen los mapeos.
 
 \begin{figure}
     \centering
     \includegraphics[width=0.5\textwidth]{figuras/03_revision_literatura/plan_lidar_mapeo.png}
-    \caption{Plan de adquisición de datos del Tercer cliclo del proyecto PNOA-LiDAR del Instituto Gográfico Nacional de España.}
+    \caption{Plan de adquisición de datos del Tercer ciclo del proyecto PNOA-LiDAR del Instituto Geográfico Nacional de España.}
     \label{fig:pnoa_lidar}
 \end{figure}
 

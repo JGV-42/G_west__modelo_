@@ -26,7 +26,7 @@
 \contentsline {subsubsection}{\numberline {5.6.4}Selección Secuencial Supervisada basada en Rendimiento Predictivo (SSSRP)}{37}{subsubsection.5.6.4}%
 \contentsline {subsection}{\numberline {5.7}Modelos evaluados}{37}{subsection.5.7}%
 \contentsline {subsubsection}{\numberline {5.7.1}Modelos ensemble}{37}{subsubsection.5.7.1}%
-\contentsline {paragraph}{Técnicas empleadas:}{38}{section*.9}%
+\contentsline {paragraph}{Técnicas empleadas:}{38}{section*.10}%
 \contentsline {subsubsection}{\numberline {5.7.2}Boosting y aprendizaje secuencial}{38}{subsubsection.5.7.2}%
 \contentsline {subsubsection}{\numberline {5.7.3}Bagging}{38}{subsubsection.5.7.3}%
 \contentsline {subsubsection}{\numberline {5.7.4}Otros modelos evaluados}{39}{subsubsection.5.7.4}%
@@ -45,45 +45,61 @@
 \contentsline {subsubsection}{\numberline {7.1.4}Discusión de la selección de variables}{51}{subsubsection.7.1.4}%
 \contentsline {subsection}{\numberline {7.2}Ensamblado tipo \textit {stacking} de modelos de regresión}{52}{subsection.7.2}%
 \contentsline {section}{\numberline {8}Resultados}{56}{section.8}%
-\contentsline {subsection}{\numberline {8.1}Resultados IFN3}{56}{subsection.8.1}%
+\contentsline {subsection}{\numberline {8.1}Resultados IFN2}{56}{subsection.8.1}%
 \contentsline {subsubsection}{\numberline {8.1.1}Toneladas de carbono por hectárea}{56}{subsubsection.8.1.1}%
-\contentsline {subsubsection}{\numberline {8.1.2}Toneladas de carbono}{57}{subsubsection.8.1.2}%
-\contentsline {subsection}{\numberline {8.2}Resultados IFN2 e IFN3}{59}{subsection.8.2}%
-\contentsline {subsubsection}{\numberline {8.2.1}Toneladas de carbono por hectárea}{59}{subsubsection.8.2.1}%
-\contentsline {subsubsection}{\numberline {8.2.2}Toneladas de carbono}{61}{subsubsection.8.2.2}%
-\contentsline {section}{\numberline {9}Discusión}{65}{section.9}%
-\contentsline {subsection}{\numberline {9.1}Discusión sobre los modelos}{65}{subsection.9.1}%
-\contentsline {subsubsection}{\numberline {9.1.1}Variable \texttt {c4} (en toneladas de carbono por hectárea)}{65}{subsubsection.9.1.1}%
-\contentsline {paragraph}{Modelos base}{65}{section*.25}%
-\contentsline {paragraph}{Modelos de stacking}{67}{section*.27}%
-\contentsline {subsubsection}{\numberline {9.1.2}Variable \texttt {carbono\_bruto4} (en toneladas de carbono)}{68}{subsubsection.9.1.2}%
-\contentsline {paragraph}{Modelos base}{68}{section*.29}%
-\contentsline {paragraph}{Modelos con stacking}{69}{section*.31}%
-\contentsline {subsubsection}{\numberline {9.1.3}Asimilación del comportamiento de las variables objetivo}{70}{subsubsection.9.1.3}%
-\contentsline {subsubsection}{\numberline {9.1.4}Rendimiento de los modelos en función del valor de la variable objetivo}{72}{subsubsection.9.1.4}%
-\contentsline {section}{\numberline {10}Conclusiones}{76}{section.10}%
-\contentsline {section}{\numberline {11}Recomendaciones para Futuras Investigaciones}{79}{section.11}%
+\contentsline {paragraph}{Modelos base}{56}{section*.18}%
+\contentsline {paragraph}{Modelos con stacking}{57}{section*.20}%
+\contentsline {subsubsection}{\numberline {8.1.2}Toneladas de carbono}{60}{subsubsection.8.1.2}%
+\contentsline {paragraph}{Modelos base}{60}{section*.21}%
+\contentsline {paragraph}{Modelos con stacking}{61}{section*.23}%
+\contentsline {subsection}{\numberline {8.2}Resultados IFN3}{63}{subsection.8.2}%
+\contentsline {subsubsection}{\numberline {8.2.1}Toneladas de carbono por hectárea}{63}{subsubsection.8.2.1}%
+\contentsline {paragraph}{Modelos base}{63}{section*.24}%
+\contentsline {paragraph}{Modelos con stacking}{64}{section*.26}%
+\contentsline {subsubsection}{\numberline {8.2.2}Toneladas de carbono}{67}{subsubsection.8.2.2}%
+\contentsline {paragraph}{Modelos base}{67}{section*.27}%
+\contentsline {paragraph}{Modelos con stacking}{68}{section*.29}%
+\contentsline {subsection}{\numberline {8.3}Resultados IFN2 e IFN3}{71}{subsection.8.3}%
+\contentsline {subsubsection}{\numberline {8.3.1}Toneladas de carbono por hectárea}{71}{subsubsection.8.3.1}%
+\contentsline {paragraph}{Modelos base}{71}{section*.30}%
+\contentsline {paragraph}{Modelos con stacking}{71}{section*.32}%
+\contentsline {subsubsection}{\numberline {8.3.2}Toneladas de carbono}{72}{subsubsection.8.3.2}%
+\contentsline {paragraph}{Modelos base}{72}{section*.34}%
+\contentsline {paragraph}{Modelos con stacking}{73}{section*.36}%
+\contentsline {section}{\numberline {9}Discusión}{76}{section.9}%
+\contentsline {subsection}{\numberline {9.1}Modelos globales}{76}{subsection.9.1}%
+\contentsline {subsubsection}{\numberline {9.1.1}Variable \texttt {c4} (en toneladas de carbono por hectárea)}{76}{subsubsection.9.1.1}%
+\contentsline {paragraph}{Modelos base}{76}{section*.38}%
+\contentsline {paragraph}{Modelos de stacking}{78}{section*.40}%
+\contentsline {subsubsection}{\numberline {9.1.2}Variable \texttt {carbono\_bruto4} (en toneladas de carbono)}{79}{subsubsection.9.1.2}%
+\contentsline {paragraph}{Modelos base}{79}{section*.42}%
+\contentsline {paragraph}{Modelos con stacking}{80}{section*.44}%
+\contentsline {subsection}{\numberline {9.2}Modelos individuales entrenados solo con el IFN2 o IFN3.}{81}{subsection.9.2}%
+\contentsline {subsubsection}{\numberline {9.2.1}Asimilación del comportamiento de las variables objetivo}{82}{subsubsection.9.2.1}%
+\contentsline {subsubsection}{\numberline {9.2.2}Rendimiento de los modelos en función del valor de la variable objetivo}{85}{subsubsection.9.2.2}%
+\contentsline {section}{\numberline {10}Conclusiones}{88}{section.10}%
+\contentsline {section}{\numberline {11}Recomendaciones para Futuras Investigaciones}{91}{section.11}%
 \let \numberline \tmptocnumberline 
-\contentsline {section}{\numberline {Ap\'{e}ndice~A}Apéndices}{88}{appendix.Alph1}%
-\contentsline {subsection}{\numberline {Ap\'{e}ndice~A.1}Origen y cálculo de las variables \texttt {ca} y \texttt {cr}}{88}{subsection.Alph1.1}%
-\contentsline {subsection}{\numberline {Ap\'{e}ndice~A.2}Estado de las Poblaciones (\texttt {estado\_id})}{89}{subsection.Alph1.2}%
-\contentsline {subsection}{\numberline {Ap\'{e}ndice~A.3}Forma Principal de Masa (IFN3 e IFN4: \texttt {fpmasa\_id})}{90}{subsection.Alph1.3}%
-\contentsline {subsection}{\numberline {Ap\'{e}ndice~A.4}Tratamiento de la Masa (IFN3 e IFN4: \texttt {tratmasa\_id})}{90}{subsection.Alph1.4}%
-\contentsline {subsection}{\numberline {Ap\'{e}ndice~A.5}Origen de la Masa (IFN3 e IFN4: \texttt {orgmasa\_id})}{90}{subsection.Alph1.5}%
-\contentsline {subsection}{\numberline {Ap\'{e}ndice~A.6}Tipo de Suelo (\texttt {tipsuelo1\_id}, \texttt {tipsuelo2\_id}, \texttt {tipsuelo3\_id})}{90}{subsection.Alph1.6}%
-\contentsline {subsection}{\numberline {Ap\'{e}ndice~A.7}Rocosidad (\texttt {rocosidad\_id}) }{92}{subsection.Alph1.7}%
-\contentsline {subsection}{\numberline {Ap\'{e}ndice~A.8}Textura del Suelo (\texttt {textura\_id})}{92}{subsection.Alph1.8}%
-\contentsline {subsection}{\numberline {Ap\'{e}ndice~A.9}Contenido en Materia Orgánica (IFN3 e IFN4: \texttt {matorg\_id})}{92}{subsection.Alph1.9}%
-\contentsline {subsection}{\numberline {Ap\'{e}ndice~A.10}Modelo de Combustible (IFN3 e IFN4: \texttt {modcomb\_id})}{93}{subsection.Alph1.10}%
-\contentsline {subsection}{\numberline {Ap\'{e}ndice~A.11}Distribución Espacial (\texttt {disesp\_id})}{94}{subsection.Alph1.11}%
-\contentsline {subsection}{\numberline {Ap\'{e}ndice~A.12}Composición Específica (\texttt {comesp\_id})}{94}{subsection.Alph1.12}%
-\contentsline {subsection}{\numberline {Ap\'{e}ndice~A.13}Manifestaciones Erosivas (\texttt {merosiva\_id})}{94}{subsection.Alph1.13}%
-\contentsline {subsection}{\numberline {Ap\'{e}ndice~A.14}Nivel de usos del suelo (IFN3 e IFN4: \texttt {nivel1\_id})}{95}{subsection.Alph1.14}%
-\contentsline {subsection}{\numberline {Ap\'{e}ndice~A.15}Nivel morfoestructural (IFN3 e IFN4: \texttt {nivel2\_id})}{96}{subsection.Alph1.15}%
-\contentsline {subsection}{\numberline {Ap\'{e}ndice~A.16}Código de los grupos taxonómicos de las especies (\texttt {grupo\_id})}{97}{subsection.Alph1.16}%
-\contentsline {subsection}{\numberline {Ap\'{e}ndice~A.17}Código de las especies (\texttt {especie\_id})}{97}{subsection.Alph1.17}%
-\contentsline {subsection}{\numberline {Ap\'{e}ndice~A.18}Resultados}{103}{subsection.Alph1.18}%
-\contentsline {subsubsection}{\numberline {Ap\'{e}ndice~A.18.1}IFN2 e IFN3 como explicativos para \texttt {carbono\_bruto4} (tC)}{103}{subsubsection.Alph1.18.1}%
-\contentsline {subsubsection}{\numberline {Ap\'{e}ndice~A.18.2}IFN2 e IFN3 como explicativos para \texttt {c4} (tC/ha)}{105}{subsubsection.Alph1.18.2}%
-\contentsline {subsubsection}{\numberline {Ap\'{e}ndice~A.18.3}IFN3 como explicativo para \texttt {carbono\_bruto4} (tC)}{107}{subsubsection.Alph1.18.3}%
-\contentsline {subsubsection}{\numberline {Ap\'{e}ndice~A.18.4}IFN3 como explicativo para \texttt {c4} (tC/ha)}{109}{subsubsection.Alph1.18.4}%
+\contentsline {section}{\numberline {Ap\'{e}ndice~A}Apéndices}{100}{appendix.Alph1}%
+\contentsline {subsection}{\numberline {Ap\'{e}ndice~A.1}Origen y cálculo de las variables \texttt {ca} y \texttt {cr}}{100}{subsection.Alph1.1}%
+\contentsline {subsection}{\numberline {Ap\'{e}ndice~A.2}Estado de las Poblaciones (\texttt {estado\_id})}{102}{subsection.Alph1.2}%
+\contentsline {subsection}{\numberline {Ap\'{e}ndice~A.3}Forma Principal de Masa (IFN3 e IFN4: \texttt {fpmasa\_id})}{102}{subsection.Alph1.3}%
+\contentsline {subsection}{\numberline {Ap\'{e}ndice~A.4}Tratamiento de la Masa (IFN3 e IFN4: \texttt {tratmasa\_id})}{102}{subsection.Alph1.4}%
+\contentsline {subsection}{\numberline {Ap\'{e}ndice~A.5}Origen de la Masa (IFN3 e IFN4: \texttt {orgmasa\_id})}{103}{subsection.Alph1.5}%
+\contentsline {subsection}{\numberline {Ap\'{e}ndice~A.6}Tipo de Suelo (\texttt {tipsuelo1\_id}, \texttt {tipsuelo2\_id}, \texttt {tipsuelo3\_id})}{103}{subsection.Alph1.6}%
+\contentsline {subsection}{\numberline {Ap\'{e}ndice~A.7}Rocosidad (\texttt {rocosidad\_id}) }{104}{subsection.Alph1.7}%
+\contentsline {subsection}{\numberline {Ap\'{e}ndice~A.8}Textura del Suelo (\texttt {textura\_id})}{105}{subsection.Alph1.8}%
+\contentsline {subsection}{\numberline {Ap\'{e}ndice~A.9}Contenido en Materia Orgánica (IFN3 e IFN4: \texttt {matorg\_id})}{105}{subsection.Alph1.9}%
+\contentsline {subsection}{\numberline {Ap\'{e}ndice~A.10}Modelo de Combustible (IFN3 e IFN4: \texttt {modcomb\_id})}{105}{subsection.Alph1.10}%
+\contentsline {subsection}{\numberline {Ap\'{e}ndice~A.11}Distribución Espacial (\texttt {disesp\_id})}{106}{subsection.Alph1.11}%
+\contentsline {subsection}{\numberline {Ap\'{e}ndice~A.12}Composición Específica (\texttt {comesp\_id})}{107}{subsection.Alph1.12}%
+\contentsline {subsection}{\numberline {Ap\'{e}ndice~A.13}Manifestaciones Erosivas (\texttt {merosiva\_id})}{107}{subsection.Alph1.13}%
+\contentsline {subsection}{\numberline {Ap\'{e}ndice~A.14}Nivel de usos del suelo (IFN3 e IFN4: \texttt {nivel1\_id})}{107}{subsection.Alph1.14}%
+\contentsline {subsection}{\numberline {Ap\'{e}ndice~A.15}Nivel morfoestructural (IFN3 e IFN4: \texttt {nivel2\_id})}{108}{subsection.Alph1.15}%
+\contentsline {subsection}{\numberline {Ap\'{e}ndice~A.16}Código de los grupos taxonómicos de las especies (\texttt {grupo\_id})}{110}{subsection.Alph1.16}%
+\contentsline {subsection}{\numberline {Ap\'{e}ndice~A.17}Código de las especies (\texttt {especie\_id})}{110}{subsection.Alph1.17}%
+\contentsline {subsection}{\numberline {Ap\'{e}ndice~A.18}Resultados}{116}{subsection.Alph1.18}%
+\contentsline {subsubsection}{\numberline {Ap\'{e}ndice~A.18.1}IFN2 e IFN3 como explicativos para \texttt {carbono\_bruto4} (tC)}{116}{subsubsection.Alph1.18.1}%
+\contentsline {subsubsection}{\numberline {Ap\'{e}ndice~A.18.2}IFN2 e IFN3 como explicativos para \texttt {c4} (tC/ha)}{118}{subsubsection.Alph1.18.2}%
+\contentsline {subsubsection}{\numberline {Ap\'{e}ndice~A.18.3}IFN3 como explicativo para \texttt {carbono\_bruto4} (tC)}{120}{subsubsection.Alph1.18.3}%
+\contentsline {subsubsection}{\numberline {Ap\'{e}ndice~A.18.4}IFN3 como explicativo para \texttt {c4} (tC/ha)}{122}{subsubsection.Alph1.18.4}%

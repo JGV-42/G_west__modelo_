@@ -46,8 +46,8 @@ Estos datos se organizan en las siguientes entidades troncales (tablas):
     \item \textbf{parcelas}: contiene la información básica ligada a la localización de cada parcela (características edáficas y climáticas).
     \item \textbf{parcela\_inventario}: describe el estado de cada parcela en un inventario determinado, incluyendo atributos edáficos y de contexto (p. ej., textura del suelo, fracción de cabida cubierta\dots).
     \item \textbf{parcela\_inventario\_especie}: detalla la presencia y condición de cada especie dentro de una parcela e inventario, incorporando descriptores de masa y tratamientos silvícolas.
-    \item \textbf{parcela\_inventario\_especie\_cd}: describe las poblaciones arbóreas por parcela, especie y \emph{clase diamétrica}: n.º de pies, área basimétrica, volúmenes, altura de los especímenes, carbono captura\cdots
-    \item \textbf{parcela\_especie\_arbol}: caracteriza los pies mayores identificados por parcela y especie en el inventario cuarto. Recoge las características particulares de cada pie como altura, diámetros, ubicación respecto del centro de la parcela, volumen y carbono capturado.
+    \item \textbf{parcela\_inventario\_especie\_cd}: describe las poblaciones arbóreas por parcela, especie y \emph{clase diamétrica}: n.º de pies, área basimétrica, volúmenes, altura de los especímenes, carbono capturado\dots
+    \item \textbf{parcela\_especie\_arbol}: caracteriza los pies mayores identificados por parcela y especie en el cuarto inventario. Recoge las características particulares de cada pie como altura, diámetros, ubicación respecto del centro de la parcela, volumen y carbono capturado.
     \item \textbf{parcela\_inventario\_estacion}: almacena agregados climático-biofísicos por estación en la misma granularidad parcela–inventario, incluyendo variables como precipitación y temperatura, junto a índices de vegetación (NDVI, EVI, NDII, GNDVI).
     \item \textbf{especies} y \textbf{grupos}: recogen la información taxonómica y su clasificación jerárquica, estableciendo la relación entre especies individuales y grupos funcionales.
 \end{itemize}
@@ -220,7 +220,7 @@ Como ya se ha introducido, para que un proyecto forestal sea elegible en program
 
     \item \textbf{Permanencia mínima.} Para caracterizar el crecimiento de las parcelas forestales en los datos que alimentan el modelo, es necesario disponer de dos mediciones sucesivas de cada parcela, separadas por un intervalo temporal conocido. Estas mediciones permiten cuantificar la evolución de las variables forestales y, por tanto, estimar el incremento de carbono asociado al crecimiento del arbolado durante dicho periodo.
 
-          En este trabajo, el objetivo es predecir el contenido de carbono correspondiente al \textbf{IFN4}, utilizando como información explicativa las variables observadas en inventarios anteriores. Dado que los inventarios tercero y cuarto comparten una estructura homogénea y un conjunto de variables comparable la elección más directa para el entrenamiento del modelo sería emplear exclusivamente estos dos inventarios. Esta estrategia aprovecha la coherencia estructural de los inventarios más recientes, que incluyen un mayor número de variables y una caracterización más detallada del terreno.
+          En este trabajo, el objetivo es predecir el contenido de carbono correspondiente al \textbf{IFN4}, utilizando como información explicativa las variables observadas en inventarios anteriores. Dado que los inventarios tercero y cuarto comparten una estructura homogénea y un conjunto de variables comparable, la elección más directa para el entrenamiento del modelo sería emplear exclusivamente estos dos inventarios. Esta estrategia aprovecha la coherencia estructural de los inventarios más recientes, que incluyen un mayor número de variables y una caracterización más detallada del terreno.
 
 
           El intervalo de tiempo entre los inventarios \textbf{IFN3} e \textbf{IFN4} es relativamente corto: la Figura~\ref{fig:periodo34} muestra la distribución de la diferencia de años entre las mediciones del IFN3 y el IFN4. Como puede observarse, la mayoría de las parcelas presentan intervalos comprendidos entre 6 y 17 años, un rango demasiado estrecho para evaluar la estabilidad del modelo en horizontes más amplios.
@@ -258,7 +258,7 @@ Como ya se ha introducido, para que un proyecto forestal sea elegible en program
 % Cálculo de variables derivadas (carbono\_bruto)
 % Codificación y escalado
 
-Como ya se ha introducido el entrenamiento se realiza en dos líneas según la variable objetivo: carbono en toneladas por hectárea (\texttt{c} de \textbf{IFN4}) o carbono en toneladas (\texttt{carbono\_bruto} de \textbf{IFN4}); y según la información que se usa como explicativa: \textbf{IFN3} o \textbf{IFN3} e \textbf{IFN2}. Se plantea la preparación y filtrado de los datos en términos generales.
+Como ya se ha introducido, el entrenamiento se realiza en dos líneas según la variable objetivo: carbono en toneladas por hectárea (\texttt{c} de \textbf{IFN4}) o carbono en toneladas (\texttt{carbono\_bruto} de \textbf{IFN4}); y según la información que se usa como explicativa: \textbf{IFN3} o \textbf{IFN3} e \textbf{IFN2}. Se plantea la preparación y filtrado de los datos en términos generales.
 
 \subsubsection{Filtrado de registros}\label{subsec:filtradoregistros}
 
@@ -414,7 +414,7 @@ A continuación se describe el procedimiento seguido para la selección, optimiz
 
 \subsubsection{Modelos ensemble}
 
-Se utilizaron diversos métodos de \textit{ensemble learning} con el fin de aumentar precisión y robustez del sistema predictivo. El principio fundamental consiste en combinar predicciones de múltiples modelos, aprovechando su diversidad para reducir varianza, sesgo o ambos.
+Se utilizaron diversos métodos de \textit{ensemble learning} con el fin de aumentar la precisión y robustez del sistema predictivo. El principio fundamental consiste en combinar predicciones de múltiples modelos, aprovechando su diversidad para reducir varianza, sesgo o ambos.
 
 \paragraph{Técnicas empleadas:}
 \begin{itemize}
