@@ -1,0 +1,32 @@
+\begin{table}[H]
+    \centering
+    \caption{Comparativa Modelos Base en IFN3 (c4)}
+    \label{tab:base_comp_ifn3_c4}
+    \begin{tabular}{lrrrrrr}
+        \toprule
+        Modelo & $R^2_{\text{test}}$ & RMSE$_{\text{test}}$ & MAE$_{\text{test}}$ & wMAPE & SMAPE & Bias \\
+        \midrule
+        \textbf{LightGBM} & \textbf{0.858} & \textbf{17.816} & \textbf{9.246} & \textbf{24.609} & \textbf{37.327} & \textbf{0.017} \\
+        XGBoost & 0.851 & 18.232 & 9.203 & 24.494 & 37.033 & -0.021 \\
+        CatBoost & 0.849 & 18.385 & 9.746 & 25.941 & 40.139 & -0.114 \\
+        GBDT & 0.843 & 18.718 & 9.893 & 26.330 & 40.046 & 0.005 \\
+        MLP & 0.840 & 18.947 & 9.296 & 24.743 & 36.827 & -3.555 \\
+        GBDT$_{\text{global}}$ & 0.839 & 19.408 & 9.559 & 25.792 & 38.647 & 0.378 \\
+        XGBoost$_{\text{global}}$ & 0.839 & 19.424 & 9.548 & 25.763 & 39.032 & 0.206 \\
+        CatBoost$_{\text{global}}$ & 0.838 & 19.500 & 9.433 & 25.451 & 39.540 & 0.056 \\
+        LightGBM$_{\text{global}}$ & 0.836 & 19.580 & 9.602 & 25.909 & 39.178 & 0.237 \\
+        MLP$_{\text{global}}$ & 0.833 & 19.791 & 10.008 & 27.005 & 44.150 & 0.107 \\
+        BaggedDT & 0.820 & 20.085 & 10.699 & 28.476 & 40.585 & 0.098 \\
+        BaggedDT$_{\text{global}}$ & 0.800 & 21.649 & 11.058 & 29.838 & 44.515 & 1.538 \\
+        RandomForest & 0.796 & 21.353 & 10.839 & 28.849 & 40.827 & -0.092 \\
+        RandomForest$_{\text{global}}$ & 0.789 & 22.223 & 11.109 & 29.974 & 41.901 & 1.399 \\
+        BayesianNN & 0.774 & 22.507 & 12.332 & 32.823 & 55.074 & 0.201 \\
+        KNN & 0.756 & 23.357 & 12.585 & 33.495 & 48.029 & -5.178 \\
+        BayesianNN$_{\text{global}}$ & 0.743 & 24.561 & 12.643 & 34.113 & 56.226 & 0.572 \\
+        SVR & 0.737 & 24.279 & 9.877 & 26.289 & 37.234 & -3.632 \\
+        SVR$_{\text{global}}$ & 0.613 & 30.113 & 11.708 & 31.590 & 42.962 & -4.778 \\
+        AdaBoost & 0.314 & 39.189 & 33.180 & 88.310 & 91.289 & 22.855 \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+

@@ -356,16 +356,54 @@ Para obtener una estimación imparcial del rendimiento y evitar \emph{fugas de i
 \noindent\textbf{Validación cruzada para selección de hiperparámetros.} La selección de hiperparámetros se lleva a cabo exclusivamente sobre el conjunto de entrenamiento mediante \texttt{GridSearchCV} con métrica de optimización $R^2$. Se utiliza \texttt{GroupKFold} con $k=5$ pliegues, imponiendo que no exista solape de parcelas entre pliegues (esto es, la agrupación se respeta tanto en el \emph{hold-out} como en la validación interna). 
 
 \vspace{0.25em}
-\noindent\textbf{Métricas de evaluación.} El rendimiento se informa con un conjunto de medidas complementarias:
+\vspace{0.25em}
+\noindent\textbf{Métricas de evaluación.} En este estudio se emplea un conjunto de métricas complementarias para evaluar el rendimiento desde distintas perspectivas (precisión, sesgo, ajuste relativo). En las siguientes expresiones, $y_i$ denota el valor observado, $\hat{y}_i$ el valor predicho, $\bar{y}$ la media de los valores observados y $n$ el número de observaciones:
 
 \begin{itemize}
-    \item \textbf{RMSE (Root Mean Squared Error):} raíz del error cuadrático medio entre valores observados y predichos; se expresa en las mismas unidades que la variable objetivo y penaliza con mayor peso los errores grandes. Valores más bajos indican mejor ajuste.
+    \item \textbf{RMSE (Root Mean Squared Error):} raíz del error cuadrático medio. Mide la magnitud promedio de los errores penalizando fuertemente las grandes desviaciones. Se expresa en las mismas unidades que la variable objetivo.
+    \begin{equation}
+        \text{RMSE} = \sqrt{\frac{1}{n} \sum_{i=1}^{n} (y_i - \hat{y}_i)^2}
+    \end{equation}
 
-    \item \boldmath\textbf{$R^2$}\unboldmath{} (coeficiente de determinación): proporción de la varianza observada explicada por el modelo (idealmente en $[0,1]$). Valores cercanos a 1 denotan alta capacidad explicativa; puede ser negativo si el modelo es peor que la predicción constante.
+    \item \textbf{RMSE Porcentual (RMSE\%):} expresa el RMSE como porcentaje respecto a la media de los valores observados. Facilita la interpretación relativa del error independientemente de la escala.
+    \begin{equation}
+        \text{RMSE}_{\%} = \frac{\text{RMSE}}{\bar{y}} \times 100
+    \end{equation}
 
-    \item \textbf{MAE (Mean Absolute Error):} media aritmética del error absoluto, que cuantifica la desviación media entre las predicciones y los valores observados. Penaliza todos los errores de forma lineal y es más interpretable que el RMSE. Valores más bajos indican mejor ajuste.
+    \item \boldmath\textbf{$R^2$}\unboldmath{} \textbf{(Coeficiente de determinación):} proporción de la varianza total de la variable objetivo que es explicada por el modelo. Valores cercanos a 1 indican un alto poder explicativo.
+    \begin{equation}
+        R^2 = 1 - \frac{\sum_{i=1}^{n} (y_i - \hat{y}_i)^2}{\sum_{i=1}^{n} (y_i - \bar{y})^2}
+    \end{equation}
 
-    \item \textbf{SMAPE (Symmetric Mean Absolute Percentage Error):} error porcentual absoluto medio simétrico, que mide la discrepancia relativa entre valores observados y predichos normalizada por su magnitud media. Es especialmente útil para comparar el rendimiento del modelo entre distintos rangos de la variable objetivo y reduce la asimetría presente en métricas porcentuales tradicionales. Valores más bajos indican mejor ajuste relativo.
+    \item \textbf{MAE (Mean Absolute Error):} media aritmética de las diferencias absolutas entre predicciones y observaciones. Es una métrica de error lineal, más robusta frente a valores atípicos que el RMSE y de fácil interpretación directa.
+    \begin{equation}
+        \text{MAE} = \frac{1}{n} \sum_{i=1}^{n} |y_i - \hat{y}_i|
+    \end{equation}
+
+    \item \textbf{MAPE (Mean Absolute Percentage Error):} promedio del error absoluto relativo al valor real, expresado en porcentaje. Permite evaluar la calidad de la predicción en términos relativos.
+    \begin{equation}
+        \text{MAPE} = \frac{1}{n} \sum_{i=1}^{n} \left| \frac{y_i - \hat{y}_i}{y_i} \right| \times 100
+    \end{equation}
+
+    \item \textbf{wMAPE (Weighted Mean Absolute Percentage Error):} variante ponderada del MAPE donde el error se normaliza por el volumen total de la variable real. Evita problemas de inestabilidad cuando los valores observados son cercanos a cero.
+    \begin{equation}
+        \text{wMAPE} = \frac{\sum_{i=1}^{n} |y_i - \hat{y}_i|}{\sum_{i=1}^{n} |y_i|} \times 100
+    \end{equation}
+
+    \item \textbf{SMAPE (Symmetric Mean Absolute Percentage Error):} error porcentual simétrico que normaliza la discrepancia por la magnitud media de los valores observados y predichos. Reduce la asimetría del MAPE y está acotado.
+    \begin{equation}
+        \text{SMAPE} = \frac{100}{n} \sum_{i=1}^{n} \frac{|y_i - \hat{y}_i|}{(|y_i| + |\hat{y}_i|)/2}
+    \end{equation}
+
+    \item \textbf{MedAE (Median Absolute Error):} mediana de los errores absolutos. Proporciona una medida de error robusta y resistente a la presencia de valores atípicos extremos (\textit{outliers}).
+    \begin{equation}
+        \text{MedAE} = \text{mediana}(|y_1 - \hat{y}_1|, \dots, |y_n - \hat{y}_n|)
+    \end{equation}
+
+    \item \textbf{Bias (Sesgo Medio):} evalúa la tendencia sistemática del modelo a sobreestimar (valor positivo) o subestimar (valor negativo) las observaciones reales.
+    \begin{equation}
+        \text{Bias} = \frac{1}{n} \sum_{i=1}^{n} (\hat{y}_i - y_i)
+    \end{equation}
 \end{itemize}
 
 %\vspace{0.25em}
@@ -405,10 +443,7 @@ La selección manual integró criterios estadísticos (correlaciones, ANOVA y an
 
 \subsubsection{Selección Secuencial Supervisada basada en Rendimiento Predictivo (SSSRP)}
 
-El método SSSRP complementó las estrategias anteriores mediante un enfoque explícitamente orientado al rendimiento predictivo. Se partió de un \emph{bloque base} de variables estructurales y se evaluó el impacto marginal de cada candidato añadiéndolo individualmente y comparando el cambio en \(R^{2}\) y RMSE mediante un modelo CatBoost con validación holdout estratificada por parcela. A continuación, se aplicó una estrategia de \textit{forward selection} codiciosa, incorporando en cada iteración la variable que proporcionaba la mayor mejora y deteniendo el proceso cuando la ganancia resultaba inferior a un umbral predefinido (\(\Delta R^{2} > 10^{-5}\)). Este procedimiento produjo un conjunto final de predictores reducido, no redundante y específicamente optimizado para maximizar el rendimiento del modelo.
-
-
-\subsection{Modelos evaluados}\label{subsec:modelosevaluados}
+El método SSSRP complementó las estrategias anteriores mediante un enfoque explícitamente orientado al rendimiento predictivo. Se partió de un \emph{bloque base} de variables estructurales y se evaluó el impacto marginal de cada candidato añadiéndolo individualmente y comparando el cambio en \(R^{2}\) y RMSE mediante un modelo CatBoost con validación holdout estratificada por parcela. A continuación, se aplicó una estrategia de \textit{forward selection} codiciosa, incorporando en cada iteración la variable que proporcionaba la mayor mejora y deteniendo el proceso cuando la ganancia resultaba inferior a un umbral predefinido (\(\Delta R^{2} > 10^{-5}\)). Este procedimiento produjo un conjunto final de predictores reducido, no redundante y específicamente optimizado para maximizar el rendimiento del modelo.\subsection{Modelos evaluados}\label{subsec:modelosevaluados}
 
 A continuación se describe el procedimiento seguido para la selección, optimización y combinación de modelos. El objetivo es construir un conjunto de predictores base sólidos y posteriormente integrarlos en un \textit{stack-ensemble} capaz de mejorar la capacidad de generalización.
 

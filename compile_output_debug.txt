@@ -1,0 +1,2695 @@
+
+--- Limpiando archivos auxiliares... ---
+
+--- PASO 1: Ejecutando pdflatex (primera pasada)... ---
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2025/dev/Debian) (preloaded format=pdflatex)
+ restricted \write18 enabled.
+entering extended mode
+(./main.tex
+LaTeX2e <2024-11-01> patch level 2
+L3 programming layer <2025-01-18>
+(/usr/share/texlive/texmf-dist/tex/latex/elsarticle/elsarticle.cls
+Document Class: elsarticle 2025/01/11, 3.4c: Elsevier Ltd
+(/usr/share/texlive/texmf-dist/tex/latex/base/fontenc.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/l3kernel/expl3.sty
+(/usr/share/texlive/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def))
+(/usr/share/texlive/texmf-dist/tex/latex/l3packages/xparse/xparse.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/etoolbox/etoolbox.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/base/article.cls
+Document Class: article 2024/06/29 v1.4n Standard LaTeX document class
+(/usr/share/texlive/texmf-dist/tex/latex/base/size12.clo))
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/graphicx.sty
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/keyval.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/graphics.sty
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/trig.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/graphics-cfg/graphics.cfg)
+(/usr/share/texlive/texmf-dist/tex/latex/graphics-def/pdftex.def))) (./main.spl
+)) (./preamble.tex (/usr/share/texlive/texmf-dist/tex/generic/babel/babel.sty
+(/usr/share/texlive/texmf-dist/tex/generic/babel/txtbabel.def)
+(/usr/share/texlive/texmf-dist/tex/generic/babel-spanish/spanish.ldf))
+(/usr/share/texlive/texmf-dist/tex/generic/babel/locale/es/babel-spanish.tex)
+(/usr/share/texlive/texmf-dist/tex/latex/base/inputenc.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/base/fontenc.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/biblatex/biblatex.sty
+(/usr/share/texlive/texmf-dist/tex/generic/pdftexcmds/pdftexcmds.sty
+(/usr/share/texlive/texmf-dist/tex/generic/infwarerr/infwarerr.sty)
+(/usr/share/texlive/texmf-dist/tex/generic/iftex/iftex.sty)
+(/usr/share/texlive/texmf-dist/tex/generic/ltxcmds/ltxcmds.sty))
+(/usr/share/texlive/texmf-dist/tex/latex/kvoptions/kvoptions.sty
+(/usr/share/texlive/texmf-dist/tex/latex/kvsetkeys/kvsetkeys.sty))
+(/usr/share/texlive/texmf-dist/tex/latex/logreq/logreq.sty
+(/usr/share/texlive/texmf-dist/tex/latex/logreq/logreq.def))
+(/usr/share/texlive/texmf-dist/tex/latex/base/ifthen.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/url/url.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/biblatex/blx-dm.def)
+(/usr/share/texlive/texmf-dist/tex/latex/biblatex/blx-compat.def)
+(/usr/share/texlive/texmf-dist/tex/latex/biblatex/biblatex.def)
+(/usr/share/texlive/texmf-dist/tex/latex/biblatex/blx-natbib.def)
+(/usr/share/texlive/texmf-dist/tex/latex/biblatex/bbx/numeric.bbx
+(/usr/share/texlive/texmf-dist/tex/latex/biblatex/bbx/standard.bbx))
+(/usr/share/texlive/texmf-dist/tex/latex/biblatex/cbx/numeric.cbx)
+(/usr/share/texlive/texmf-dist/tex/latex/biblatex/biblatex.cfg)
+(/usr/share/texlive/texmf-dist/tex/latex/biblatex/blx-case-expl3.sty))
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsmath.sty
+For additional information on amsmath, use the `?' option.
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amstext.sty
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsgen.sty))
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsbsy.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsopn.sty))
+(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/amsfonts.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/amssymb.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/amscls/amsthm.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/booktabs/booktabs.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/tools/array.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/tools/tabularx.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/tools/longtable.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/multirow/multirow.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/float/float.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/caption/subcaption.sty
+(/usr/share/texlive/texmf-dist/tex/latex/caption/caption.sty
+(/usr/share/texlive/texmf-dist/tex/latex/caption/caption3.sty
+(/usr/share/texlive/texmf-dist/tex/latex/caption/caption-elsarticle.sto))
+(/usr/share/texlive/texmf-dist/tex/latex/caption/ltcaption.sty)))
+(/usr/share/texlive/texmf-dist/tex/latex/xcolor/xcolor.sty
+(/usr/share/texlive/texmf-dist/tex/latex/graphics-cfg/color.cfg)
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/mathcolor.ltx))
+(/usr/share/texlive/texmf-dist/tex/latex/colortbl/colortbl.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/dvipsnam.def)
+(/usr/share/texlive/texmf-dist/tex/latex/hyperref/hyperref.sty
+(/usr/share/texlive/texmf-dist/tex/generic/kvdefinekeys/kvdefinekeys.sty)
+(/usr/share/texlive/texmf-dist/tex/generic/pdfescape/pdfescape.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/hycolor/hycolor.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
+(/usr/share/texlive/texmf-dist/tex/latex/refcount/refcount.sty)
+(/usr/share/texlive/texmf-dist/tex/generic/gettitlestring/gettitlestring.sty))
+(/usr/share/texlive/texmf-dist/tex/generic/stringenc/stringenc.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/hyperref/pd1enc.def)
+(/usr/share/texlive/texmf-dist/tex/generic/intcalc/intcalc.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/hyperref/puenc.def)
+(/usr/share/texlive/texmf-dist/tex/generic/bitset/bitset.sty
+(/usr/share/texlive/texmf-dist/tex/generic/bigintcalc/bigintcalc.sty))
+(/usr/share/texlive/texmf-dist/tex/latex/base/atbegshi-ltx.sty))
+(/usr/share/texlive/texmf-dist/tex/latex/hyperref/hpdftex.def
+(/usr/share/texlive/texmf-dist/tex/latex/base/atveryend-ltx.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/rerunfilecheck/rerunfilecheck.sty
+(/usr/share/texlive/texmf-dist/tex/generic/uniquecounter/uniquecounter.sty)))
+(/usr/share/texlive/texmf-dist/tex/latex/enumitem/enumitem.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/listings/listings.sty
+(/usr/share/texlive/texmf-dist/tex/latex/listings/lstpatch.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/listings/lstmisc.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/listings/listings.cfg))
+(/usr/share/texlive/texmf-dist/tex/latex/underscore/underscore.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/firstaid/underscore-ltx.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/siunitx/siunitx.sty
+(/usr/share/texlive/texmf-dist/tex/latex/translations/translations.sty))
+(/usr/share/texlive/texmf-dist/tex/latex/pgf/frontendlayer/tikz.sty
+(/usr/share/texlive/texmf-dist/tex/latex/pgf/basiclayer/pgf.sty
+(/usr/share/texlive/texmf-dist/tex/latex/pgf/utilities/pgfrcs.sty
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfutil-common.tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfutil-latex.def)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfrcs.code.tex
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/pgf.revision.tex)))
+(/usr/share/texlive/texmf-dist/tex/latex/pgf/basiclayer/pgfcore.sty
+(/usr/share/texlive/texmf-dist/tex/latex/pgf/systemlayer/pgfsys.sty
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/systemlayer/pgfsys.code.tex
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfkeys.code.tex
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfkeyslibraryfiltered
+.code.tex)) (/usr/share/texlive/texmf-dist/tex/generic/pgf/systemlayer/pgf.cfg)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/systemlayer/pgfsys-pdftex.def
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/systemlayer/pgfsys-common-pdf.de
+f)))
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/systemlayer/pgfsyssoftpath.code.
+tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/systemlayer/pgfsysprotocol.code.
+tex))
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcore.code.tex
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmath.code.tex
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathutil.code.tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathparser.code.tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.code.tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.basic.code
+.tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.trigonomet
+ric.code.tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.random.cod
+e.tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.comparison
+.code.tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.base.code.
+tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.round.code
+.tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.misc.code.
+tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.integerari
+thmetics.code.tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathcalc.code.tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfloat.code.tex))
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfint.code.tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepoints.code.te
+x)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepathconstruct.
+code.tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepathusage.code
+.tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorescopes.code.te
+x)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoregraphicstate.c
+ode.tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoretransformation
+s.code.tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorequick.code.tex
+)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreobjects.code.t
+ex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepathprocessing
+.code.tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorearrows.code.te
+x)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreshade.code.tex
+)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreimage.code.tex
+)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreexternal.code.
+tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorelayers.code.te
+x)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoretransparency.c
+ode.tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepatterns.code.
+tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorerdf.code.tex))
+)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/modules/pgfmoduleshapes.code.tex
+) (/usr/share/texlive/texmf-dist/tex/generic/pgf/modules/pgfmoduleplot.code.tex
+)
+(/usr/share/texlive/texmf-dist/tex/latex/pgf/compatibility/pgfcomp-version-0-65
+.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/pgf/compatibility/pgfcomp-version-1-18
+.sty)) (/usr/share/texlive/texmf-dist/tex/latex/pgf/utilities/pgffor.sty
+(/usr/share/texlive/texmf-dist/tex/latex/pgf/utilities/pgfkeys.sty
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfkeys.code.tex))
+(/usr/share/texlive/texmf-dist/tex/latex/pgf/math/pgfmath.sty
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmath.code.tex))
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgffor.code.tex))
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/tikz.code.tex
+
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/libraries/pgflibraryplothandlers
+.code.tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/modules/pgfmodulematrix.code.tex
+)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tik
+zlibrarytopaths.code.tex)))
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tik
+zlibraryshapes.geometric.code.tex
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/libraries/shapes/pgflibraryshape
+s.geometric.code.tex))
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tik
+zlibraryarrows.code.tex
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/libraries/pgflibraryarrows.code.
+tex)) (/usr/share/texlive/texmf-dist/tex/latex/pdflscape/pdflscape.sty
+(/usr/share/texlive/texmf-dist/tex/latex/pdflscape/pdflscape-nometadata.sty
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/lscape.sty)))
+(/usr/share/texlive/texmf-dist/tex/generic/ulem/ulem.sty))
+
+Package biblatex Warning: 'babel/polyglossia' detected but 'csquotes' missing.
+(biblatex)                Loading 'csquotes' recommended.
+
+No file main.aux.
+(/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+) (/usr/share/texlive/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
+(/usr/share/texlive/texmf-dist/tex/latex/grfext/grfext.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg))
+(/usr/share/texlive/texmf-dist/tex/latex/biblatex/lbx/spanish.lbx)
+No file main.bbl.
+
+(/usr/share/texlive/texmf-dist/tex/latex/translations/translations-basic-dictio
+nary-spanish.trsl) (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd)
+(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd)
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\<def>-command' on input line 57.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\cnotenum' on input line 57.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\<def>-command' on input line 57.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\@corref' on input line 57.
+
+[1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}{/usr/share/texmf/fonts/en
+c/dvips/cm-super/cm-super-t1.enc}]
+[2] (./main.toc
+Overfull \hbox (0.84543pt too wide) in paragraph at lines 18--18
+ [][] [][][]\T1/cmr/m/n/12 Reclasificación de las va-ria-bles \T1/cmtt/m/n/12 p
+endiente \T1/cmr/m/n/12 y \T1/cmtt/m/n/12 orientacion[][] [][]  
+
+Overfull \hbox (2.44997pt too wide) in paragraph at lines 26--26
+ [][] [][][]\T1/cmr/m/n/12 Selección Se-cuen-cial Su-per-vi-sa-da ba-sa-da en R
+en-di-mien- 
+
+[3])
+[4] (./sections/01_introduccion.tex
+
+LaTeX Warning: Citation 'IPCC2007' on page 5 undefined on input line 3.
+
+
+LaTeX Warning: Citation 'UNFCCC1997' on page 5 undefined on input line 6.
+
+
+LaTeX Warning: Citation 'UNFCCC2015' on page 5 undefined on input line 6.
+
+
+LaTeX Warning: Citation 'UNFCCCMarrakech' on page 5 undefined on input line 9.
+
+
+LaTeX Warning: Citation 'UNFCCCSpainReview' on page 5 undefined on input line 9
+.
+
+
+LaTeX Warning: Citation 'UNFCCCMarrakech' on page 5 undefined on input line 13.
+
+
+
+LaTeX Warning: Citation 'UNFCCCMarrakech' on page 5 undefined on input line 16.
+
+
+
+LaTeX Warning: Citation 'EULULUCF2018' on page 5 undefined on input line 16.
+
+
+[5]
+
+LaTeX Warning: Citation 'UNFCCCSpainReview' on page 6 undefined on input line 1
+9.
+
+
+LaTeX Warning: Citation 'UNFCCCSpainReview' on page 6 undefined on input line 2
+2.
+
+
+LaTeX Warning: Citation 'UNFCCCSpainReview' on page 6 undefined on input line 2
+5.
+
+
+LaTeX Warning: Citation 'ifn' on page 6 undefined on input line 30.
+
+
+LaTeX Warning: Citation 'era5land' on page 6 undefined on input line 30.
+
+
+LaTeX Warning: Citation 'landsatc2' on page 6 undefined on input line 30.
+
+
+LaTeX Warning: Citation 'greenwestdb' on page 6 undefined on input line 30.
+
+
+[6])
+[7]
+[8] (./sections/02_objetivos.tex
+[9])
+[10]
+[11] (./sections/03_revision_literatura.tex
+
+LaTeX Warning: Citation 'brack_history_2000' on page 12 undefined on input line
+ 4.
+
+
+LaTeX Warning: Citation 'shi2017methods' on page 12 undefined on input line 14.
+
+
+
+LaTeX Warning: Reference `fig:moso_bamboo' on page 12 undefined on input line 1
+4.
+
+
+LaTeX Warning: Citation 'shang2025allometric' on page 12 undefined on input lin
+e 14.
+
+
+Overfull \hbox (52.17337pt too wide) in paragraph at lines 13--15
+\T1/cmr/m/n/12 donde los pa-rá-me-tros $\OML/cmm/m/it/12 a; b$ \T1/cmr/m/n/12 y
+ $\OML/cmm/m/it/12 c$ \T1/cmr/m/n/12 son co-efi-cien-tes de re-gre-sión em-pí-r
+i-cos [[]].
+
+LaTeX Warning: Citation 'shi2017methods' on page 12 undefined on input line 19.
+
+
+
+LaTeX Warning: Citation 'qi2016combining' on page 12 undefined on input line 19
+.
+
+
+LaTeX Warning: Citation 'shi2017methods' on page 12 undefined on input line 19.
+
+
+
+LaTeX Warning: Citation 'qi2016combining' on page 12 undefined on input line 19
+.
+
+
+LaTeX Warning: Citation 'nyakudanga_treemes' on page 12 undefined on input line
+ 25.
+
+
+LaTeX Warning: Citation 'nyakudanga_treemes' on page 12 undefined on input line
+ 25.
+
+
+LaTeX Warning: Citation 'nyakudanga_treemes' on page 12 undefined on input line
+ 25.
+
+
+Overfull \hbox (37.2775pt too wide) in paragraph at lines 25--26
+\T1/cmr/m/n/12 men-te la dis-tan-cia al ár-bol y una lí-nea de vi-sión des-pe-j
+a-da [[]].
+
+[12]
+
+LaTeX Warning: Citation 'Kristiansen2018' on page 13 undefined on input line 27
+.
+
+
+LaTeX Warning: Reference `fig:lidar_avion' on page 13 undefined on input line 2
+7.
+
+
+LaTeX Warning: Citation 'opentopography_lidar_basics' on page 13 undefined on i
+nput line 31.
+
+
+LaTeX Warning: Citation 'opentopography_lidar_basics' on page 13 undefined on i
+nput line 31.
+
+
+Underfull \hbox (badness 2460) in paragraph at lines 31--31
+[]\T1/cmr/bx/n/10.95 Figura 3.2. |\T1/cmr/m/n/10.95 Dia-gra-ma de el es-ca-neo 
+de un ár-bol por un sis-te-ma Li-
+
+LaTeX Warning: Reference `fig:chm_example' on page 13 undefined on input line 3
+4.
+
+
+LaTeX Warning: Reference `fig:pnoa_lidar' on page 13 undefined on input line 57
+.
+
+
+[13 <./figuras/03_revision_literatura/moso_bamboo.png>]
+[14 <./figuras/03_revision_literatura/lidar_avion.png> <./figuras/03_revision_l
+iteratura/CHM_1.png (PNG copy)> <./figuras/03_revision_literatura/CHM_2.png (PN
+G copy)>])
+[15 <./figuras/03_revision_literatura/plan_lidar_mapeo.png>]
+[16] (./sections/04_estado_del_arte.tex
+
+LaTeX Warning: Citation 'goetz2009remote' on page 17 undefined on input line 7.
+
+
+
+LaTeX Warning: Citation 'zhang2022carbon' on page 17 undefined on input line 9.
+
+
+
+LaTeX Warning: Citation 'jiang2022integrating' on page 17 undefined on input li
+ne 9.
+
+
+LaTeX Warning: Citation 'reiersen2022reforestree' on page 17 undefined on input
+ line 9.
+
+
+LaTeX Warning: Citation 'dong2023forest' on page 17 undefined on input line 9.
+
+
+LaTeX Warning: Citation 'miteco_abexante_2025' on page 17 undefined on input li
+ne 12.
+
+
+[17]
+
+LaTeX Warning: Citation 'fasihi2024assessing' on page 18 undefined on input lin
+e 14.
+
+
+Overfull \hbox (58.1984pt too wide) in paragraph at lines 14--15
+[]\T1/cmr/m/n/12 En el ám-bi-to eu-ro-peo des-ta-ca el tra-ba-jo de Fa-sihi et 
+al. (2024) [[]],
+
+LaTeX Warning: Citation 'ifn' on page 18 undefined on input line 21.
+
+
+LaTeX Warning: Citation 'copernicus_temps' on page 18 undefined on input line 2
+1.
+
+
+LaTeX Warning: Citation 'copernicus_pr' on page 18 undefined on input line 21.
+
+
+LaTeX Warning: Citation 'landsat5_data' on page 18 undefined on input line 21.
+
+)
+[18]
+[19] (./sections/05_metodologia.tex
+
+LaTeX Warning: Citation 'IPCC2006' on page 20 undefined on input line 11.
+
+
+[20]
+Overfull \hbox (13.85645pt too wide) in paragraph at lines 51--52
+[]\T1/cmr/bx/n/12 parcela_-in-ven-ta-rio_-es-ta-cion\T1/cmr/m/n/12 : al-ma-ce-n
+a agre-ga-dos climático-biofísicos
+
+[21{/usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-ts1.enc}]
+
+LaTeX Warning: Reference `fig:GWestBBDD' on page 22 undefined on input line 57.
+
+
+
+LaTeX Warning: Citation 'greenwestdb' on page 22 undefined on input line 62.
+
+
+LaTeX Warning: Citation 'greenwestdb' on page 22 undefined on input line 62.
+
+
+LaTeX Warning: Citation 'greenwestdb' on page 22 undefined on input line 70.
+
+
+LaTeX Warning: Citation 'greenwestdb' on page 22 undefined on input line 70.
+
+
+Overfull \hbox (44.33855pt too wide) in alignment at lines 69--74
+ [] [] [] [] 
+
+Overfull \hbox (44.33855pt too wide) in alignment at lines 74--78
+ [] [] [] [] 
+
+Overfull \hbox (44.33855pt too wide) in alignment at lines 78--82
+ [] [] [] [] 
+
+Overfull \hbox (44.33855pt too wide) in alignment at lines 82--84
+ [] [] [] [] 
+
+Underfull \hbox (badness 10000) in paragraph at lines 88--88
+[]|\T1/cmtt/m/n/10 latitud\T1/cmr/m/n/10 ,
+
+Underfull \hbox (badness 10000) in paragraph at lines 94--94
+[]|\T1/cmtt/m/n/10 tipsuelo1_-id\T1/cmr/m/n/10 ,
+
+Underfull \hbox (badness 10000) in paragraph at lines 94--94
+\T1/cmtt/m/n/10 tipsuelo2_-id\T1/cmr/m/n/10 ,
+
+Underfull \hbox (badness 10000) in paragraph at lines 96--96
+[]|\T1/cmtt/m/n/10 radio\T1/cmr/m/n/10 ,
+
+Underfull \hbox (badness 10000) in paragraph at lines 100--100
+[]|\T1/cmtt/m/n/10 parcela_-id\T1/cmr/m/n/10 ,
+
+Underfull \hbox (badness 10000) in paragraph at lines 102--102
+[]|\T1/cmtt/m/n/10 nivel1_-id\T1/cmr/m/n/10 ,
+
+Underfull \hbox (badness 10000) in paragraph at lines 113--113
+[]|\T1/cmtt/m/n/10 parcela_-id\T1/cmr/m/n/10 ,
+
+Underfull \hbox (badness 10000) in paragraph at lines 113--113
+\T1/cmtt/m/n/10 inventario_-id\T1/cmr/m/n/10 ,
+
+Underfull \hbox (badness 10000) in paragraph at lines 113--113
+[]|\T1/cmr/m/n/10 Clave com-pues-ta (parcela-inventario-
+
+Underfull \hbox (badness 10000) in paragraph at lines 124--124
+[]|\T1/cmtt/m/n/10 parcela_-id\T1/cmr/m/n/10 ,
+
+Underfull \hbox (badness 10000) in paragraph at lines 124--124
+\T1/cmtt/m/n/10 inventario_-id\T1/cmr/m/n/10 ,
+
+Underfull \hbox (badness 10000) in paragraph at lines 124--124
+[]|\T1/cmr/m/n/10 Clave com-pues-ta ( parcela-inventario-
+
+Underfull \hbox (badness 10000) in paragraph at lines 136--136
+[]|\T1/cmtt/m/n/10 parcela_-id\T1/cmr/m/n/10 ,
+
+Underfull \hbox (badness 2735) in paragraph at lines 138--138
+[]|\T1/cmr/m/n/10 grados cen-te-
+
+Underfull \hbox (badness 10000) in paragraph at lines 150--150
+[]|\T1/cmtt/m/n/10 parcela_-id\T1/cmr/m/n/10 ,
+
+Underfull \hbox (badness 10000) in paragraph at lines 150--150
+\T1/cmtt/m/n/10 inventario_-id\T1/cmr/m/n/10 ,
+
+Underfull \hbox (badness 10000) in paragraph at lines 151--151
+[]|\T1/cmr/m/n/10 mm/(m$[]\OMS/cmsy/m/n/10 ^^A$\T1/cmr/m/n/10 día),
+
+Underfull \hbox (badness 10000) in paragraph at lines 154--154
+[]|\T1/cmtt/m/n/10 NDVI_-*\T1/cmr/m/n/10 , \T1/cmtt/m/n/10 EVI_-*\T1/cmr/m/n/10
+ ,
+
+Underfull \hbox (badness 10000) in paragraph at lines 159--159
+[]|\T1/cmtt/m/n/10 nombre\T1/cmr/m/n/10 ,
+
+Overfull \hbox (14.80913pt too wide) in paragraph at lines 162--162
+[]|\T1/cmtt/m/n/10 grupos.nombregrupo| 
+
+Overfull \hbox (44.33855pt too wide) in alignment at lines 84--163
+ [] [] [] [] 
+
+[22 <./figuras/05_metodologia/Estrctr_BBDD_GWest.png>] [23] [24]
+[25]
+
+LaTeX Warning: Citation 'chave2014' on page 26 undefined on input line 201.
+
+
+LaTeX Warning: Citation 'IPCC2006' on page 26 undefined on input line 201.
+
+
+[26]
+
+LaTeX Warning: Citation 'greenwestdb' on page 27 undefined on input line 211.
+
+
+Overfull \hbox (21.01761pt too wide) in paragraph at lines 211--212
+[]\T1/cmr/m/n/12 Para ma-yor de-ta-lle so-bre el ori-gen de es-tas va-ria-bles 
+con-sul-tar [[]]. 
+
+LaTeX Warning: Citation 'IPCC2006' on page 27 undefined on input line 216.
+
+
+LaTeX Warning: Citation 'miteco_guia_co2' on page 27 undefined on input line 21
+6.
+
+
+[27]
+
+LaTeX Warning: Reference `fig:periodo34' on page 28 undefined on input line 226
+.
+
+
+[28 <./figuras/05_metodologia/periodo34.png (PNG copy)>]
+[29 <./figuras/05_metodologia/periodo234.png (PNG copy)>]
+[30]
+
+LaTeX Warning: Reference `tab:entradamodelo' on page 31 undefined on input line
+ 276.
+
+
+LaTeX Warning: Reference `sec:especies' on page 31 undefined on input line 291.
+
+
+
+LaTeX Warning: Reference `sec:gruposespecies' on page 31 undefined on input lin
+e 291.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 295--295
+[]|[]\T1/cmtt/m/n/10 estado_-id[]\T1/cmr/m/n/10 ,
+
+Underfull \hbox (badness 10000) in paragraph at lines 295--295
+\T1/cmtt/m/n/10 fpmasa_-id\T1/cmr/m/n/10 ,
+
+Underfull \hbox (badness 10000) in paragraph at lines 295--295
+\T1/cmtt/m/n/10 tratmasa_-id\T1/cmr/m/n/10 ,
+
+LaTeX Warning: Reference `sec:EstadoIFN34' on page 31 undefined on input line 2
+95.
+
+
+LaTeX Warning: Reference `sec:FPMasa' on page 31 undefined on input line 295.
+
+
+LaTeX Warning: Reference `sec:tratmasa' on page 31 undefined on input line 295.
+
+
+
+LaTeX Warning: Reference `sec:OrgMasa' on page 31 undefined on input line 295.
+
+
+LaTeX Warning: Reference `sec:TipSuelo' on page 31 undefined on input line 297.
+
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 299--299
+[]|[]\T1/cmtt/m/n/10 rocosidad_-
+
+Underfull \hbox (badness 10000) in paragraph at lines 299--299
+\T1/cmtt/m/n/10 id[]\T1/cmr/m/n/10 , \T1/cmtt/m/n/10 textura_-
+
+Underfull \hbox (badness 10000) in paragraph at lines 299--299
+\T1/cmtt/m/n/10 id\T1/cmr/m/n/10 , \T1/cmtt/m/n/10 matorg_-
+
+Underfull \hbox (badness 10000) in paragraph at lines 299--299
+\T1/cmtt/m/n/10 id\T1/cmr/m/n/10 , \T1/cmtt/m/n/10 modcomb_-
+
+Underfull \hbox (badness 10000) in paragraph at lines 299--299
+\T1/cmtt/m/n/10 id\T1/cmr/m/n/10 , \T1/cmtt/m/n/10 disesp_-
+
+Underfull \hbox (badness 10000) in paragraph at lines 299--299
+\T1/cmtt/m/n/10 id\T1/cmr/m/n/10 , \T1/cmtt/m/n/10 comesp_-id\T1/cmr/m/n/10 ,
+
+Underfull \hbox (badness 10000) in paragraph at lines 301--301
+[]|[]\T1/cmtt/m/n/10 radio\T1/cmr/m/n/10 ,
+
+Underfull \hbox (badness 10000) in paragraph at lines 301--301
+\T1/cmtt/m/n/10 orientacion\T1/cmr/m/n/10 ,
+
+Underfull \hbox (badness 10000) in paragraph at lines 301--301
+\T1/cmtt/m/n/10 elevacion\T1/cmr/m/n/10 ,
+
+Underfull \hbox (badness 10000) in paragraph at lines 303--303
+[]|\T1/cmtt/m/n/10 nivel1_-id\T1/cmr/m/n/10 ,
+
+LaTeX Warning: Reference `sec:nivel1' on page 31 undefined on input line 303.
+
+
+LaTeX Warning: Reference `sec:nivel2' on page 31 undefined on input line 303.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 309--309
+[]|[]\T1/cmtt/m/n/10 evi, gndvi, ndii,
+
+Underfull \hbox (badness 10000) in paragraph at lines 311--311
+[]|[]\T1/cmtt/m/n/10 pr, skt, stl1-4,
+
+Overfull \hbox (25.8026pt too wide) in paragraph at lines 283--316
+ [][] 
+
+Overfull \hbox (5.28326pt too wide) in paragraph at lines 322--323
+[]\T1/cmr/m/n/12 Las va-ria-bles to-po-grá-fi-cas ori-gi-na-les \T1/cmtt/m/n/12
+ pendiente \T1/cmr/m/n/12 (en gra-dos) y \T1/cmtt/m/n/12 orientacion
+
+LaTeX Warning: Command \textless invalid in math mode on input line 327.
+
+
+[31]
+[32]
+
+LaTeX Warning: Reference `fig:periodo234' on page 33 undefined on input line 34
+2.
+
+
+[33]
+[34]
+[35]
+[36]
+[37]
+[38]
+[39]
+
+LaTeX Warning: Reference `tab:modelos' on page 40 undefined on input line 517.
+
+
+Underfull \hbox (badness 2865) in paragraph at lines 533--533
+[]|\T1/cmr/m/n/10 Crecimiento leaf-wise, muy
+
+Underfull \hbox (badness 5548) in paragraph at lines 535--535
+[]|\T1/cmr/m/n/10 Codificación or-de-na-da; ro-
+
+Overfull \hbox (35.57623pt too wide) in paragraph at lines 523--550
+ [][] 
+)
+[40]
+[41] (./sections/06_desarrollo_modelo.tex
+
+LaTeX Warning: Reference `subsec:filtradoregistros' on page 42 undefined on inp
+ut line 12.
+
+
+Overfull \hbox (4.48685pt too wide) in paragraph at lines 16--17
+\T1/cmr/m/n/12 un úni-co ob-je-to \T1/cmtt/m/n/12 Pipeline\T1/cmr/m/n/12 , com-
+bi-nan-do \T1/cmtt/m/n/12 ColumnTransformer\T1/cmr/m/n/12 , \T1/cmtt/m/n/12 Sim
+pleImputer\T1/cmr/m/n/12 ,
+
+[42]
+Overfull \hbox (14.26369pt too wide) in paragraph at lines 18--19
+\T1/cmr/m/n/12 mo mo-de-los de dis-tin-ta na-tu-ra-le-za co-mo \T1/cmtt/m/n/12 
+MLPRegressor\T1/cmr/m/n/12 , \T1/cmtt/m/n/12 KNeighborsRegressor\T1/cmr/m/n/12 
+,
+
+LaTeX Warning: Reference `subsec:filtrado_registros' on page 43 undefined on in
+put line 34.
+
+
+[43]
+
+LaTeX Warning: Reference `tab:resumen_variables' on page 44 undefined on input 
+line 52.
+
+
+LaTeX Warning: Reference `fig:histograma_datos_combinado' on page 44 undefined 
+on input line 73.
+
+
+LaTeX Warning: Reference `fig:distribucion_variables_combinado' on page 44 unde
+fined on input line 95.
+
+
+[44]
+[45 <./figuras/06_desarrollo_modelo/histogram_c4_post_log.pdf> <./figuras/06_de
+sarrollo_modelo/histogram_carbono_bruto4_post_log.pdf> <./figuras/06_desarrollo
+_modelo/distribucion_c4_combinado.pdf> <./figuras/06_desarrollo_modelo/distribu
+cion_carbono_bruto4_combinado.pdf>])
+[46]
+[47] (./sections/07_procedimientos.tex
+[48]
+Overfull \hbox (7.68707pt too wide) in paragraph at lines 37--45
+\T1/cmtt/m/n/12 periodo\T1/cmr/m/n/12 , \T1/cmtt/m/n/12 radio\T1/cmr/m/n/12 , \
+T1/cmtt/m/n/12 ocupa\T1/cmr/m/n/12 , \T1/cmtt/m/n/12 npies_-1\T1/cmr/m/n/12 , \
+T1/cmtt/m/n/12 npies_-2\T1/cmr/m/n/12 , \T1/cmtt/m/n/12 npies_-5\T1/cmr/m/n/12 
+, \T1/cmtt/m/n/12 npies_-10\T1/cmr/m/n/12 , \T1/cmtt/m/n/12 npies_-
+
+[49]
+Overfull \hbox (6.34448pt too wide) in paragraph at lines 60--65
+[]\T1/cmr/bx/n/12 Bloque cli-má-ti-co de-ta-lla-do (tem-pe-ra-tu-ra y pre-ci-pi
+-ta-ción)\T1/cmr/m/n/12 : \T1/cmtt/m/n/12 skt_-
+
+[50]
+
+LaTeX Warning: Reference `tab:comparativa_modelos' on page 51 undefined on inpu
+t line 92.
+
+
+LaTeX Warning: Reference `tab:stack_configs' on page 51 undefined on input line
+ 115.
+
+
+[51]
+Overfull \hbox (32.07484pt too wide) in paragraph at lines 121--132
+ [][] 
+
+[52]
+
+LaTeX Warning: Reference `tab:meta_modelos' on page 53 undefined on input line 
+148.
+
+
+[53])
+[54]
+[55] (./sections/08_resultados.tex
+
+LaTeX Warning: Reference `tab:base_comp_ifn2_c4' on page 56 undefined on input 
+line 21.
+
+
+LaTeX Warning: Reference `tab:stack_comp_ifn2_c4' on page 56 undefined on input
+ line 59.
+
+
+[56]
+[57]
+Overfull \vbox (299.51318pt too high) has occurred while \output is active
+[58]
+
+LaTeX Warning: Reference `tab:base_comp_ifn2_carbono_bruto4' on page 59 undefin
+ed on input line 139.
+
+
+LaTeX Warning: Reference `tab:stack_comp_ifn2_carbono_bruto4' on page 59 undefi
+ned on input line 152.
+
+
+[59]
+Overfull \vbox (286.10811pt too high) has occurred while \output is active
+[60]
+
+LaTeX Warning: Reference `tab:base_comp_ifn3_c4' on page 61 undefined on input 
+line 233.
+
+
+LaTeX Warning: Reference `tab:stack_comp_ifn3_c4' on page 61 undefined on input
+ line 271.
+
+
+[61]
+Overfull \vbox (299.51318pt too high) has occurred while \output is active
+[62]
+
+LaTeX Warning: Reference `tab:base_comp_ifn3_carbono_bruto4' on page 63 undefin
+ed on input line 351.
+
+
+LaTeX Warning: Reference `tab:stack_comp_ifn3_carbono_bruto4' on page 63 undefi
+ned on input line 389.
+
+
+[63]
+Overfull \vbox (303.53851pt too high) has occurred while \output is active
+[64]
+
+LaTeX Warning: Reference `tab:base_global_c4' on page 65 undefined on input lin
+e 472.
+
+
+LaTeX Warning: Reference `tab:stack_global_c4' on page 65 undefined on input li
+ne 500.
+
+
+Overfull \hbox (82.8081pt too wide) in alignment at lines 517--548
+ [] [] [] [] [] [] [] 
+
+Package longtable Warning: Column widths have changed
+(longtable)                in table 8.10 on input line 548.
+
+[65]
+
+LaTeX Warning: Reference `tab:base_global_carbono_bruto4' on page 66 undefined 
+on input line 555.
+
+
+[66]
+
+LaTeX Warning: Reference `tab:stack_global_carbono_bruto4' on page 67 undefined
+ on input line 585.
+
+
+Overfull \hbox (87.307pt too wide) in alignment at lines 603--634
+ [] [] [] [] [] [] [] 
+
+Package longtable Warning: Column widths have changed
+(longtable)                in table 8.12 on input line 634.
+
+[67])
+[68]
+[69] (./sections/09_discusion.tex
+
+LaTeX Warning: Reference `fig:LightGBM_rmse_y_pct_rmse_cuantiles' on page 70 un
+defined on input line 18.
+
+
+LaTeX Warning: Reference `fig:distribucion_variables_combinado' on page 70 unde
+fined on input line 41.
+
+
+[70]
+
+LaTeX Warning: Reference `fig:density_LightGBM_0-300' on page 71 undefined on i
+nput line 43.
+
+
+LaTeX Warning: Reference `tab:stack_global_c4' on page 71 undefined on input li
+ne 47.
+
+
+[71 <./figuras/09_discusion/c4_LightGBM_metrics.pdf> <./figuras/09_discusion/c4
+_LightGBM_density.pdf>]
+
+LaTeX Warning: Reference `fig:Stack5_MLP_rmse_y_pct_rmse_cuantiles' on page 72 
+undefined on input line 51.
+
+
+LaTeX Warning: Reference `fig:Stack5_MLP_density' on page 72 undefined on input
+ line 52.
+
+
+LaTeX Warning: Reference `fig:CatBoost_combined' on page 72 undefined on input 
+line 85.
+
+
+[72]
+
+LaTeX Warning: Reference `fig:CatBoost_combined' on page 73 undefined on input 
+line 106.
+
+
+LaTeX Warning: Reference `tab:base_global_carbono_bruto4' on page 73 undefined 
+on input line 106.
+
+
+LaTeX Warning: Reference `tab:base_global_c4' on page 73 undefined on input lin
+e 106.
+
+
+LaTeX Warning: Reference `fig:distribucion_variables_combinado' on page 73 unde
+fined on input line 106.
+
+
+[73 <./figuras/09_discusion/c4_Stack5_MLP_metrics.pdf> <./figuras/09_discusion/
+c4_Stack5_MLP_density.pdf>]
+
+LaTeX Warning: Reference `fig:CatBoost_density' on page 74 undefined on input l
+ine 108.
+
+
+LaTeX Warning: Reference `tab:stack_global_carbono_bruto4' on page 74 undefined
+ on input line 115.
+
+
+LaTeX Warning: Reference `tab:base_global_carbono_bruto4' on page 74 undefined 
+on input line 115.
+
+
+[74 <./figuras/09_discusion/carbono_bruto4_CatBoost_metrics.pdf> <./figuras/09_
+discusion/carbono_bruto4_CatBoost_density.pdf>]
+
+LaTeX Warning: Reference `fig:Stack5_MLP_combined_rmse_y_pct_rmse_cuantiles' on
+ page 75 undefined on input line 117.
+
+
+LaTeX Warning: Reference `fig:Stack5_MLP_density_carbono_bruto4' on page 75 und
+efined on input line 139.
+
+
+[75 <./figuras/09_discusion/carbono_bruto4_Stack5_MLP_metrics.pdf> <./figuras/0
+9_discusion/carbono_bruto4_Stack5_MLP_density.pdf>]
+
+LaTeX Warning: Reference `fig:comparativa_mejores' on page 76 undefined on inpu
+t line 182.
+
+
+LaTeX Warning: Reference `fig:sensibilidad_escenarios' on page 76 undefined on 
+input line 189.
+
+
+[76]
+[77 <./figuras/09_discusion/Consolidado_IFN2_c4_paper.pdf> <./figuras/09_discus
+ion/Consolidado_IFN3_c4_paper.pdf> <./figuras/09_discusion/Consolidado_IFN2_car
+bono_bruto4_paper.pdf> <./figuras/09_discusion/Consolidado_IFN3_carbono_bruto4_
+paper.pdf>]
+
+LaTeX Warning: Reference `fig:distribucion_variables_combinado' on page 78 unde
+fined on input line 216.
+
+
+LaTeX Warning: Reference `fig:Stack5_MLP_combined_rmse_y_pct_rmse_cuantiles' on
+ page 78 undefined on input line 216.
+
+
+LaTeX Warning: Reference `fig:distribucion_variables_combinado' on page 78 unde
+fined on input line 216.
+
+
+[78 <./figuras/09_discusion/sensibilidad_escenarios_c4_P10_P35_P65_P90.pdf> <./
+figuras/09_discusion/sensibilidad_escenarios_carbono_bruto4_P10_P35_P65_P90.pdf
+>]
+
+LaTeX Warning: Reference `fig:sensibilidad_escenarios_carbono_bruto4' on page 7
+9 undefined on input line 217.
+
+
+LaTeX Warning: Reference `fig:distribucion_variables_combinado' on page 79 unde
+fined on input line 217.
+
+
+LaTeX Warning: Reference `sec:resultados' on page 79 undefined on input line 22
+3.
+
+
+LaTeX Warning: Reference `fig:LightGBM_rmse_y_pct_rmse_cuantiles' on page 79 un
+defined on input line 223.
+
+
+LaTeX Warning: Reference `fig:Stack5_MLP_rmse_y_pct_rmse_cuantiles' on page 79 
+undefined on input line 223.
+
+
+LaTeX Warning: Reference `fig:CatBoost_combined' on page 79 undefined on input 
+line 223.
+
+
+LaTeX Warning: Reference `fig:Stack5_MLP_combined_rmse_y_pct_rmse_cuantiles' on
+ page 79 undefined on input line 223.
+
+
+LaTeX Warning: Reference `fig:SMAPE_RMSE_deciles_c4_carbono_bruto4' on page 79 
+undefined on input line 223.
+
+
+[79]
+
+LaTeX Warning: Reference `fig:density_LightGBM_0-300' on page 80 undefined on i
+nput line 247.
+
+
+LaTeX Warning: Reference `fig:Stack5_MLP_density' on page 80 undefined on input
+ line 247.
+
+
+LaTeX Warning: Reference `fig:CatBoost_density' on page 80 undefined on input l
+ine 247.
+
+
+LaTeX Warning: Reference `fig:Stack5_MLP_density_carbono_bruto4' on page 80 und
+efined on input line 247.
+
+)
+[80 <./figuras/09_discusion/c4_base_models_SMAPE_RMSE_percentiles.pdf> <./figur
+as/09_discusion/carbono_bruto4_base_models_SMAPE_RMSE_percentiles.pdf>]
+[81] (./sections/10_conclusiones.tex)
+[82]
+[83] (./sections/11_recomendaciones.tex
+[84])
+[85]
+[86] (./sections/12_agradecimientos.tex)
+[87]
+[88]
+
+LaTeX Warning: Empty bibliography on input line 109.
+
+(./sections/13_anexos.tex
+
+LaTeX Warning: Citation 'montero2009' on page 89 undefined on input line 6.
+
+
+LaTeX Warning: Citation 'ruizpeinado2011' on page 89 undefined on input line 6.
+
+
+
+LaTeX Warning: Citation 'miteco_ifn4_manual' on page 89 undefined on input line
+ 17.
+
+
+Overfull \hbox (26.23666pt too wide) in paragraph at lines 17--18
+[]\T1/cmr/m/n/10.95 Los com-po-nen-tes de bio-ma-sa de-fi-ni-dos en el IFN4 in-
+clu-yen [[]]: 
+
+LaTeX Warning: Citation 'IPCC2006' on page 89 undefined on input line 39.
+
+
+[89]
+
+LaTeX Warning: Citation 'IPCC2006' on page 90 undefined on input line 53.
+
+
+[90]
+[91]
+[92]
+Overfull \hbox (6.3684pt too wide) in alignment at lines 223--229
+ [] [] [] 
+
+Overfull \hbox (6.3684pt too wide) in alignment at lines 229--233
+ [] [] [] 
+
+Overfull \hbox (6.3684pt too wide) in alignment at lines 233--236
+ [] [] [] 
+
+Overfull \hbox (6.3684pt too wide) in alignment at lines 236--238
+ [] [] [] 
+
+Underfull \hbox (badness 3088) in paragraph at lines 249--249
+[]|\T1/cmr/m/n/10 Hojarasca ba-jo
+
+Underfull \hbox (badness 2103) in paragraph at lines 253--253
+[]|\T1/cmr/m/n/10 Restos de cor-
+
+Overfull \hbox (6.3684pt too wide) in alignment at lines 238--256
+ [] [] [] 
+
+[93] [94]
+[95]
+[96]
+[97]
+Overfull \hbox (6.29132pt too wide) in alignment at lines 377--382
+ [] [] [] [] [] 
+
+Overfull \hbox (6.29132pt too wide) in alignment at lines 382--387
+ [] [] [] [] [] 
+
+Overfull \hbox (6.29132pt too wide) in alignment at lines 387--390
+ [] [] [] [] [] 
+
+Overfull \hbox (6.29132pt too wide) in alignment at lines 390--392
+ [] [] [] [] [] 
+
+Underfull \hbox (badness 10000) in paragraph at lines 452--452
+[]|\T1/cmr/m/n/10 Eucalyptus gompho-
+
+Underfull \hbox (badness 1590) in paragraph at lines 492--492
+[]|\T1/cmr/m/n/10 Mezcla de fron-do-sas de
+
+Underfull \hbox (badness 5908) in paragraph at lines 493--493
+[]|\T1/cmr/m/n/10 Frondosas de pe-que-ño por-te
+
+Underfull \hbox (badness 1092) in paragraph at lines 544--544
+[]|\T1/cmr/m/n/10 Chamaecyparis law-so-nia-
+
+Overfull \hbox (6.29132pt too wide) in alignment at lines 392--583
+ [] [] [] [] [] 
+[98] [99] [100] [101] [102] [103]
+[104]
+[105]
+[106]
+[107]
+[108]
+[109]
+[110])
+[111]
+
+Package longtable Warning: Table widths have changed. Rerun LaTeX.
+
+(./main.aux)
+
+LaTeX Warning: There were undefined references.
+
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+
+Package rerunfilecheck Warning: File `main.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+
+Package biblatex Warning: Please (re)run Biber on the file:
+(biblatex)                main
+(biblatex)                and rerun LaTeX afterwards.
+
+ )
+(see the transcript file for additional information)</usr/share/texlive/texmf-d
+ist/fonts/type1/public/amsfonts/cm/cmbx8.pfb></usr/share/texlive/texmf-dist/fon
+ts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dist/fonts/typ
+e1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/pub
+lic/amsfonts/cm/cmmi12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/am
+sfonts/cm/cmmi6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/
+cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi
+b10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb
+></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/
+share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/te
+xlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/te
+xmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-di
+st/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texlive/texmf-dist/font
+s/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texmf/fonts/type1/public/cm-su
+per/sfbi1200.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbx0800.pfb></u
+sr/share/texmf/fonts/type1/public/cm-super/sfbx1000.pfb></usr/share/texmf/fonts
+/type1/public/cm-super/sfbx1095.pfb></usr/share/texmf/fonts/type1/public/cm-sup
+er/sfbx1200.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfit1200.pfb></us
+r/share/texmf/fonts/type1/public/cm-super/sfrm0700.pfb></usr/share/texmf/fonts/
+type1/public/cm-super/sfrm0800.pfb></usr/share/texmf/fonts/type1/public/cm-supe
+r/sfrm1000.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1095.pfb></usr
+/share/texmf/fonts/type1/public/cm-super/sfrm1200.pfb></usr/share/texmf/fonts/t
+ype1/public/cm-super/sfrm1728.pfb></usr/share/texmf/fonts/type1/public/cm-super
+/sfti0700.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfti1000.pfb></usr/
+share/texmf/fonts/type1/public/cm-super/sfti1095.pfb></usr/share/texmf/fonts/ty
+pe1/public/cm-super/sfti1200.pfb></usr/share/texmf/fonts/type1/public/cm-super/
+sftt1000.pfb></usr/share/texmf/fonts/type1/public/cm-super/sftt1095.pfb></usr/s
+hare/texmf/fonts/type1/public/cm-super/sftt1200.pfb>
+Output written on main.pdf (111 pages, 2940683 bytes).
+Transcript written on main.log.
+
+--- PASO 2: Ejecutando biber para la bibliografia... ---
+INFO - This is Biber 2.20
+INFO - Logfile is 'main.blg'
+INFO - Reading 'main.bcf'
+INFO - Found 33 citekeys in bib section 0
+INFO - Processing section 0
+INFO - Looking for bibtex file 'referencias.bib' for section 0
+INFO - LaTeX decoding ...
+INFO - Found BibTeX data source 'referencias.bib'
+INFO - Overriding locale 'es-ES' defaults 'normalization = NFD' with 'normalization = prenormalized'
+INFO - Overriding locale 'es-ES' defaults 'variable = shifted' with 'variable = non-ignorable'
+INFO - Sorting list 'none/global//global/global/global' of type 'entry' with template 'none' and locale 'es-ES'
+INFO - Writing 'main.bbl' with encoding 'UTF-8'
+INFO - Output to main.bbl
+WARN - legacy month field 'February' in entry 'Kristiansen2018' is not an integer - this will probably not sort properly.
+INFO - WARNINGS: 1
+
+--- PASO 3: Ejecutando pdflatex (para incluir bibliografia)... ---
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2025/dev/Debian) (preloaded format=pdflatex)
+ restricted \write18 enabled.
+entering extended mode
+(./main.tex
+LaTeX2e <2024-11-01> patch level 2
+L3 programming layer <2025-01-18>
+(/usr/share/texlive/texmf-dist/tex/latex/elsarticle/elsarticle.cls
+Document Class: elsarticle 2025/01/11, 3.4c: Elsevier Ltd
+(/usr/share/texlive/texmf-dist/tex/latex/base/fontenc.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/l3kernel/expl3.sty
+(/usr/share/texlive/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def))
+(/usr/share/texlive/texmf-dist/tex/latex/l3packages/xparse/xparse.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/etoolbox/etoolbox.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/base/article.cls
+Document Class: article 2024/06/29 v1.4n Standard LaTeX document class
+(/usr/share/texlive/texmf-dist/tex/latex/base/size12.clo))
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/graphicx.sty
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/keyval.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/graphics.sty
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/trig.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/graphics-cfg/graphics.cfg)
+(/usr/share/texlive/texmf-dist/tex/latex/graphics-def/pdftex.def))) (./main.spl
+)) (./preamble.tex (/usr/share/texlive/texmf-dist/tex/generic/babel/babel.sty
+(/usr/share/texlive/texmf-dist/tex/generic/babel/txtbabel.def)
+(/usr/share/texlive/texmf-dist/tex/generic/babel-spanish/spanish.ldf))
+(/usr/share/texlive/texmf-dist/tex/generic/babel/locale/es/babel-spanish.tex)
+(/usr/share/texlive/texmf-dist/tex/latex/base/inputenc.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/base/fontenc.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/biblatex/biblatex.sty
+(/usr/share/texlive/texmf-dist/tex/generic/pdftexcmds/pdftexcmds.sty
+(/usr/share/texlive/texmf-dist/tex/generic/infwarerr/infwarerr.sty)
+(/usr/share/texlive/texmf-dist/tex/generic/iftex/iftex.sty)
+(/usr/share/texlive/texmf-dist/tex/generic/ltxcmds/ltxcmds.sty))
+(/usr/share/texlive/texmf-dist/tex/latex/kvoptions/kvoptions.sty
+(/usr/share/texlive/texmf-dist/tex/latex/kvsetkeys/kvsetkeys.sty))
+(/usr/share/texlive/texmf-dist/tex/latex/logreq/logreq.sty
+(/usr/share/texlive/texmf-dist/tex/latex/logreq/logreq.def))
+(/usr/share/texlive/texmf-dist/tex/latex/base/ifthen.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/url/url.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/biblatex/blx-dm.def)
+(/usr/share/texlive/texmf-dist/tex/latex/biblatex/blx-compat.def)
+(/usr/share/texlive/texmf-dist/tex/latex/biblatex/biblatex.def)
+(/usr/share/texlive/texmf-dist/tex/latex/biblatex/blx-natbib.def)
+(/usr/share/texlive/texmf-dist/tex/latex/biblatex/bbx/numeric.bbx
+(/usr/share/texlive/texmf-dist/tex/latex/biblatex/bbx/standard.bbx))
+(/usr/share/texlive/texmf-dist/tex/latex/biblatex/cbx/numeric.cbx)
+(/usr/share/texlive/texmf-dist/tex/latex/biblatex/biblatex.cfg)
+(/usr/share/texlive/texmf-dist/tex/latex/biblatex/blx-case-expl3.sty))
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsmath.sty
+For additional information on amsmath, use the `?' option.
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amstext.sty
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsgen.sty))
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsbsy.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsopn.sty))
+(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/amsfonts.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/amssymb.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/amscls/amsthm.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/booktabs/booktabs.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/tools/array.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/tools/tabularx.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/tools/longtable.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/multirow/multirow.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/float/float.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/caption/subcaption.sty
+(/usr/share/texlive/texmf-dist/tex/latex/caption/caption.sty
+(/usr/share/texlive/texmf-dist/tex/latex/caption/caption3.sty
+(/usr/share/texlive/texmf-dist/tex/latex/caption/caption-elsarticle.sto))
+(/usr/share/texlive/texmf-dist/tex/latex/caption/ltcaption.sty)))
+(/usr/share/texlive/texmf-dist/tex/latex/xcolor/xcolor.sty
+(/usr/share/texlive/texmf-dist/tex/latex/graphics-cfg/color.cfg)
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/mathcolor.ltx))
+(/usr/share/texlive/texmf-dist/tex/latex/colortbl/colortbl.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/dvipsnam.def)
+(/usr/share/texlive/texmf-dist/tex/latex/hyperref/hyperref.sty
+(/usr/share/texlive/texmf-dist/tex/generic/kvdefinekeys/kvdefinekeys.sty)
+(/usr/share/texlive/texmf-dist/tex/generic/pdfescape/pdfescape.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/hycolor/hycolor.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
+(/usr/share/texlive/texmf-dist/tex/latex/refcount/refcount.sty)
+(/usr/share/texlive/texmf-dist/tex/generic/gettitlestring/gettitlestring.sty))
+(/usr/share/texlive/texmf-dist/tex/generic/stringenc/stringenc.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/hyperref/pd1enc.def)
+(/usr/share/texlive/texmf-dist/tex/generic/intcalc/intcalc.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/hyperref/puenc.def)
+(/usr/share/texlive/texmf-dist/tex/generic/bitset/bitset.sty
+(/usr/share/texlive/texmf-dist/tex/generic/bigintcalc/bigintcalc.sty))
+(/usr/share/texlive/texmf-dist/tex/latex/base/atbegshi-ltx.sty))
+(/usr/share/texlive/texmf-dist/tex/latex/hyperref/hpdftex.def
+(/usr/share/texlive/texmf-dist/tex/latex/base/atveryend-ltx.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/rerunfilecheck/rerunfilecheck.sty
+(/usr/share/texlive/texmf-dist/tex/generic/uniquecounter/uniquecounter.sty)))
+(/usr/share/texlive/texmf-dist/tex/latex/enumitem/enumitem.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/listings/listings.sty
+(/usr/share/texlive/texmf-dist/tex/latex/listings/lstpatch.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/listings/lstmisc.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/listings/listings.cfg))
+(/usr/share/texlive/texmf-dist/tex/latex/underscore/underscore.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/firstaid/underscore-ltx.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/siunitx/siunitx.sty
+(/usr/share/texlive/texmf-dist/tex/latex/translations/translations.sty))
+(/usr/share/texlive/texmf-dist/tex/latex/pgf/frontendlayer/tikz.sty
+(/usr/share/texlive/texmf-dist/tex/latex/pgf/basiclayer/pgf.sty
+(/usr/share/texlive/texmf-dist/tex/latex/pgf/utilities/pgfrcs.sty
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfutil-common.tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfutil-latex.def)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfrcs.code.tex
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/pgf.revision.tex)))
+(/usr/share/texlive/texmf-dist/tex/latex/pgf/basiclayer/pgfcore.sty
+(/usr/share/texlive/texmf-dist/tex/latex/pgf/systemlayer/pgfsys.sty
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/systemlayer/pgfsys.code.tex
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfkeys.code.tex
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfkeyslibraryfiltered
+.code.tex)) (/usr/share/texlive/texmf-dist/tex/generic/pgf/systemlayer/pgf.cfg)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/systemlayer/pgfsys-pdftex.def
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/systemlayer/pgfsys-common-pdf.de
+f)))
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/systemlayer/pgfsyssoftpath.code.
+tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/systemlayer/pgfsysprotocol.code.
+tex))
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcore.code.tex
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmath.code.tex
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathutil.code.tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathparser.code.tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.code.tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.basic.code
+.tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.trigonomet
+ric.code.tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.random.cod
+e.tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.comparison
+.code.tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.base.code.
+tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.round.code
+.tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.misc.code.
+tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.integerari
+thmetics.code.tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathcalc.code.tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfloat.code.tex))
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfint.code.tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepoints.code.te
+x)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepathconstruct.
+code.tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepathusage.code
+.tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorescopes.code.te
+x)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoregraphicstate.c
+ode.tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoretransformation
+s.code.tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorequick.code.tex
+)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreobjects.code.t
+ex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepathprocessing
+.code.tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorearrows.code.te
+x)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreshade.code.tex
+)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreimage.code.tex
+)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreexternal.code.
+tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorelayers.code.te
+x)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoretransparency.c
+ode.tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepatterns.code.
+tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorerdf.code.tex))
+)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/modules/pgfmoduleshapes.code.tex
+) (/usr/share/texlive/texmf-dist/tex/generic/pgf/modules/pgfmoduleplot.code.tex
+)
+(/usr/share/texlive/texmf-dist/tex/latex/pgf/compatibility/pgfcomp-version-0-65
+.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/pgf/compatibility/pgfcomp-version-1-18
+.sty)) (/usr/share/texlive/texmf-dist/tex/latex/pgf/utilities/pgffor.sty
+(/usr/share/texlive/texmf-dist/tex/latex/pgf/utilities/pgfkeys.sty
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfkeys.code.tex))
+(/usr/share/texlive/texmf-dist/tex/latex/pgf/math/pgfmath.sty
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmath.code.tex))
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgffor.code.tex))
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/tikz.code.tex
+
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/libraries/pgflibraryplothandlers
+.code.tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/modules/pgfmodulematrix.code.tex
+)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tik
+zlibrarytopaths.code.tex)))
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tik
+zlibraryshapes.geometric.code.tex
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/libraries/shapes/pgflibraryshape
+s.geometric.code.tex))
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tik
+zlibraryarrows.code.tex
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/libraries/pgflibraryarrows.code.
+tex)) (/usr/share/texlive/texmf-dist/tex/latex/pdflscape/pdflscape.sty
+(/usr/share/texlive/texmf-dist/tex/latex/pdflscape/pdflscape-nometadata.sty
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/lscape.sty)))
+(/usr/share/texlive/texmf-dist/tex/generic/ulem/ulem.sty))
+
+Package biblatex Warning: 'babel/polyglossia' detected but 'csquotes' missing.
+(biblatex)                Loading 'csquotes' recommended.
+
+(./main.aux
+
+LaTeX Warning: Label `fig:sub1' multiply defined.
+
+
+LaTeX Warning: Label `sub@fig:sub1' multiply defined.
+
+
+LaTeX Warning: Label `fig:sub2' multiply defined.
+
+
+LaTeX Warning: Label `sub@fig:sub2' multiply defined.
+
+) (/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+) (/usr/share/texlive/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
+(/usr/share/texlive/texmf-dist/tex/latex/grfext/grfext.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg))
+(/usr/share/texlive/texmf-dist/tex/latex/biblatex/lbx/spanish.lbx) (./main.bbl)
+(./main.out) (./main.out)
+(/usr/share/texlive/texmf-dist/tex/latex/translations/translations-basic-dictio
+nary-spanish.trsl) (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd)
+(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd)
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\<def>-command' on input line 57.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\cnotenum' on input line 57.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\<def>-command' on input line 57.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\@corref' on input line 57.
+
+[1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}{/usr/share/texmf/fonts/en
+c/dvips/cm-super/cm-super-t1.enc}]
+[2] (./main.toc
+Overfull \hbox (0.84543pt too wide) in paragraph at lines 18--18
+ [][] [][][]\T1/cmr/m/n/12 Reclasificación de las va-ria-bles \T1/cmtt/m/n/12 p
+endiente \T1/cmr/m/n/12 y \T1/cmtt/m/n/12 orientacion[][] [][]  
+
+Overfull \hbox (2.44997pt too wide) in paragraph at lines 26--26
+ [][] [][][]\T1/cmr/m/n/12 Selección Se-cuen-cial Su-per-vi-sa-da ba-sa-da en R
+en-di-mien- 
+
+[3]
+[4]
+Overfull \hbox (0.609pt too wide) in paragraph at lines 87--87
+ [][] [][]  [] \T1/cmr/m/n/12 Tra-ta-mien-to de la Ma-sa (IFN3 e IFN4: \T1/cmtt
+/m/n/12 tratmasa_- 
+
+Overfull \hbox (5.56352pt too wide) detected at line 102
+\T1/cmr/m/n/12 Apéndice A.18.1 
+
+Overfull \hbox (9.05435pt too wide) in paragraph at lines 102--102
+ [][] [][]  [] \T1/cmr/m/n/12 IFN2 e IFN3 co-mo ex-pli-ca-ti-vos pa-ra \T1/cmtt
+/m/n/12 carbono_- 
+
+Overfull \hbox (5.56352pt too wide) detected at line 103
+\T1/cmr/m/n/12 Apéndice A.18.2 
+
+Overfull \hbox (5.56352pt too wide) detected at line 104
+\T1/cmr/m/n/12 Apéndice A.18.3 
+
+Overfull \hbox (5.56352pt too wide) detected at line 105
+\T1/cmr/m/n/12 Apéndice A.18.4 
+)
+[5] (./sections/01_introduccion.tex
+[6]
+[7])
+[8]
+[9] (./sections/02_objetivos.tex
+[10])
+[11]
+[12] (./sections/03_revision_literatura.tex
+[13]
+[14 <./figuras/03_revision_literatura/moso_bamboo.png>]
+[15 <./figuras/03_revision_literatura/lidar_avion.png> <./figuras/03_revision_l
+iteratura/CHM_1.png (PNG copy)> <./figuras/03_revision_literatura/CHM_2.png (PN
+G copy)>])
+[16 <./figuras/03_revision_literatura/plan_lidar_mapeo.png>]
+[17] (./sections/04_estado_del_arte.tex
+[18])
+[19]
+[20] (./sections/05_metodologia.tex
+[21]
+Overfull \hbox (13.85645pt too wide) in paragraph at lines 51--52
+[]\T1/cmr/bx/n/12 parcela_-in-ven-ta-rio_-es-ta-cion\T1/cmr/m/n/12 : al-ma-ce-n
+a agre-ga-dos climático-biofísicos
+
+[22{/usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-ts1.enc}]
+Overfull \hbox (44.33855pt too wide) in alignment at lines 69--74
+ [] [] [] [] 
+
+Overfull \hbox (44.33855pt too wide) in alignment at lines 74--78
+ [] [] [] [] 
+
+Overfull \hbox (44.33855pt too wide) in alignment at lines 78--82
+ [] [] [] [] 
+
+Overfull \hbox (44.33855pt too wide) in alignment at lines 82--84
+ [] [] [] [] 
+
+Underfull \hbox (badness 10000) in paragraph at lines 88--88
+[]|\T1/cmtt/m/n/10 latitud\T1/cmr/m/n/10 ,
+
+Underfull \hbox (badness 10000) in paragraph at lines 94--94
+[]|\T1/cmtt/m/n/10 tipsuelo1_-id\T1/cmr/m/n/10 ,
+
+Underfull \hbox (badness 10000) in paragraph at lines 94--94
+\T1/cmtt/m/n/10 tipsuelo2_-id\T1/cmr/m/n/10 ,
+
+Underfull \hbox (badness 10000) in paragraph at lines 96--96
+[]|\T1/cmtt/m/n/10 radio\T1/cmr/m/n/10 ,
+
+Underfull \hbox (badness 10000) in paragraph at lines 100--100
+[]|\T1/cmtt/m/n/10 parcela_-id\T1/cmr/m/n/10 ,
+
+Underfull \hbox (badness 10000) in paragraph at lines 102--102
+[]|\T1/cmtt/m/n/10 nivel1_-id\T1/cmr/m/n/10 ,
+
+Underfull \hbox (badness 10000) in paragraph at lines 113--113
+[]|\T1/cmtt/m/n/10 parcela_-id\T1/cmr/m/n/10 ,
+
+Underfull \hbox (badness 10000) in paragraph at lines 113--113
+\T1/cmtt/m/n/10 inventario_-id\T1/cmr/m/n/10 ,
+
+Underfull \hbox (badness 10000) in paragraph at lines 113--113
+[]|\T1/cmr/m/n/10 Clave com-pues-ta (parcela-inventario-
+
+Underfull \hbox (badness 10000) in paragraph at lines 124--124
+[]|\T1/cmtt/m/n/10 parcela_-id\T1/cmr/m/n/10 ,
+
+Underfull \hbox (badness 10000) in paragraph at lines 124--124
+\T1/cmtt/m/n/10 inventario_-id\T1/cmr/m/n/10 ,
+
+Underfull \hbox (badness 10000) in paragraph at lines 124--124
+[]|\T1/cmr/m/n/10 Clave com-pues-ta ( parcela-inventario-
+
+Underfull \hbox (badness 10000) in paragraph at lines 136--136
+[]|\T1/cmtt/m/n/10 parcela_-id\T1/cmr/m/n/10 ,
+
+Underfull \hbox (badness 2735) in paragraph at lines 138--138
+[]|\T1/cmr/m/n/10 grados cen-te-
+
+Underfull \hbox (badness 10000) in paragraph at lines 150--150
+[]|\T1/cmtt/m/n/10 parcela_-id\T1/cmr/m/n/10 ,
+
+Underfull \hbox (badness 10000) in paragraph at lines 150--150
+\T1/cmtt/m/n/10 inventario_-id\T1/cmr/m/n/10 ,
+
+Underfull \hbox (badness 10000) in paragraph at lines 151--151
+[]|\T1/cmr/m/n/10 mm/(m$[]\OMS/cmsy/m/n/10 ^^A$\T1/cmr/m/n/10 día),
+
+Underfull \hbox (badness 10000) in paragraph at lines 154--154
+[]|\T1/cmtt/m/n/10 NDVI_-*\T1/cmr/m/n/10 , \T1/cmtt/m/n/10 EVI_-*\T1/cmr/m/n/10
+ ,
+
+Underfull \hbox (badness 10000) in paragraph at lines 159--159
+[]|\T1/cmtt/m/n/10 nombre\T1/cmr/m/n/10 ,
+
+Overfull \hbox (14.80913pt too wide) in paragraph at lines 162--162
+[]|\T1/cmtt/m/n/10 grupos.nombregrupo| 
+
+Overfull \hbox (44.33855pt too wide) in alignment at lines 84--163
+ [] [] [] [] 
+
+[23 <./figuras/05_metodologia/Estrctr_BBDD_GWest.png>] [24] [25]
+[26]
+[27]
+[28]
+[29 <./figuras/05_metodologia/periodo34.png (PNG copy)>]
+[30 <./figuras/05_metodologia/periodo234.png (PNG copy)>]
+[31]
+Overfull \hbox (3.2213pt too wide) in paragraph at lines 291--292
+[]|[][]\T1/cmr/m/n/10 Apéndice A.17[][],
+
+Underfull \hbox (badness 10000) in paragraph at lines 291--292
+[][]\T1/cmr/m/n/10 Apén-di-
+
+Underfull \hbox (badness 10000) in paragraph at lines 295--295
+[]|[]\T1/cmtt/m/n/10 estado_-id[]\T1/cmr/m/n/10 ,
+
+Underfull \hbox (badness 10000) in paragraph at lines 295--295
+\T1/cmtt/m/n/10 fpmasa_-id\T1/cmr/m/n/10 ,
+
+Underfull \hbox (badness 10000) in paragraph at lines 295--295
+\T1/cmtt/m/n/10 tratmasa_-id\T1/cmr/m/n/10 ,
+
+Underfull \hbox (badness 2435) in paragraph at lines 297--298
+[]|\T1/cmr/m/n/10 Anexo [][]Apén-
+
+Underfull \hbox (badness 10000) in paragraph at lines 299--299
+[]|[]\T1/cmtt/m/n/10 rocosidad_-
+
+Underfull \hbox (badness 10000) in paragraph at lines 299--299
+\T1/cmtt/m/n/10 id[]\T1/cmr/m/n/10 , \T1/cmtt/m/n/10 textura_-
+
+Underfull \hbox (badness 10000) in paragraph at lines 299--299
+\T1/cmtt/m/n/10 id\T1/cmr/m/n/10 , \T1/cmtt/m/n/10 matorg_-
+
+Underfull \hbox (badness 10000) in paragraph at lines 299--299
+\T1/cmtt/m/n/10 id\T1/cmr/m/n/10 , \T1/cmtt/m/n/10 modcomb_-
+
+Underfull \hbox (badness 10000) in paragraph at lines 299--299
+\T1/cmtt/m/n/10 id\T1/cmr/m/n/10 , \T1/cmtt/m/n/10 disesp_-
+
+Underfull \hbox (badness 10000) in paragraph at lines 299--299
+\T1/cmtt/m/n/10 id\T1/cmr/m/n/10 , \T1/cmtt/m/n/10 comesp_-id\T1/cmr/m/n/10 ,
+
+Underfull \hbox (badness 10000) in paragraph at lines 301--301
+[]|[]\T1/cmtt/m/n/10 radio\T1/cmr/m/n/10 ,
+
+Underfull \hbox (badness 10000) in paragraph at lines 301--301
+\T1/cmtt/m/n/10 orientacion\T1/cmr/m/n/10 ,
+
+Underfull \hbox (badness 10000) in paragraph at lines 301--301
+\T1/cmtt/m/n/10 elevacion\T1/cmr/m/n/10 ,
+
+Underfull \hbox (badness 10000) in paragraph at lines 303--303
+[]|\T1/cmtt/m/n/10 nivel1_-id\T1/cmr/m/n/10 ,
+
+Overfull \hbox (3.2213pt too wide) in paragraph at lines 303--304
+[]|[][]\T1/cmr/m/n/10 Apéndice A.14[][],
+
+Underfull \hbox (badness 10000) in paragraph at lines 303--304
+[][]\T1/cmr/m/n/10 Apén-di-
+
+Underfull \hbox (badness 10000) in paragraph at lines 309--309
+[]|[]\T1/cmtt/m/n/10 evi, gndvi, ndii,
+
+Underfull \hbox (badness 10000) in paragraph at lines 311--311
+[]|[]\T1/cmtt/m/n/10 pr, skt, stl1-4,
+
+Overfull \hbox (25.8026pt too wide) in paragraph at lines 283--316
+ [][] 
+
+Overfull \hbox (5.28326pt too wide) in paragraph at lines 322--323
+[]\T1/cmr/m/n/12 Las va-ria-bles to-po-grá-fi-cas ori-gi-na-les \T1/cmtt/m/n/12
+ pendiente \T1/cmr/m/n/12 (en gra-dos) y \T1/cmtt/m/n/12 orientacion
+
+LaTeX Warning: Command \textless invalid in math mode on input line 327.
+
+
+[32]
+[33]
+[34]
+[35]
+[36]
+[37]
+[38]
+[39]
+[40]
+Underfull \hbox (badness 2865) in paragraph at lines 533--533
+[]|\T1/cmr/m/n/10 Crecimiento leaf-wise, muy
+
+Underfull \hbox (badness 5548) in paragraph at lines 535--535
+[]|\T1/cmr/m/n/10 Codificación or-de-na-da; ro-
+
+Overfull \hbox (35.57623pt too wide) in paragraph at lines 523--550
+ [][] 
+)
+[41]
+[42] (./sections/06_desarrollo_modelo.tex
+Overfull \hbox (4.48685pt too wide) in paragraph at lines 16--17
+\T1/cmr/m/n/12 un úni-co ob-je-to \T1/cmtt/m/n/12 Pipeline\T1/cmr/m/n/12 , com-
+bi-nan-do \T1/cmtt/m/n/12 ColumnTransformer\T1/cmr/m/n/12 , \T1/cmtt/m/n/12 Sim
+pleImputer\T1/cmr/m/n/12 ,
+
+[43]
+Overfull \hbox (14.26369pt too wide) in paragraph at lines 18--19
+\T1/cmr/m/n/12 mo mo-de-los de dis-tin-ta na-tu-ra-le-za co-mo \T1/cmtt/m/n/12 
+MLPRegressor\T1/cmr/m/n/12 , \T1/cmtt/m/n/12 KNeighborsRegressor\T1/cmr/m/n/12 
+,
+
+LaTeX Warning: Reference `subsec:filtrado_registros' on page 44 undefined on in
+put line 34.
+
+
+[44]
+[45]
+[46 <./figuras/06_desarrollo_modelo/histogram_c4_post_log.pdf> <./figuras/06_de
+sarrollo_modelo/histogram_carbono_bruto4_post_log.pdf> <./figuras/06_desarrollo
+_modelo/distribucion_c4_combinado.pdf> <./figuras/06_desarrollo_modelo/distribu
+cion_carbono_bruto4_combinado.pdf>])
+[47]
+[48] (./sections/07_procedimientos.tex
+[49]
+Overfull \hbox (7.68707pt too wide) in paragraph at lines 37--45
+\T1/cmtt/m/n/12 periodo\T1/cmr/m/n/12 , \T1/cmtt/m/n/12 radio\T1/cmr/m/n/12 , \
+T1/cmtt/m/n/12 ocupa\T1/cmr/m/n/12 , \T1/cmtt/m/n/12 npies_-1\T1/cmr/m/n/12 , \
+T1/cmtt/m/n/12 npies_-2\T1/cmr/m/n/12 , \T1/cmtt/m/n/12 npies_-5\T1/cmr/m/n/12 
+, \T1/cmtt/m/n/12 npies_-10\T1/cmr/m/n/12 , \T1/cmtt/m/n/12 npies_-
+
+[50]
+Overfull \hbox (6.34448pt too wide) in paragraph at lines 60--65
+[]\T1/cmr/bx/n/12 Bloque cli-má-ti-co de-ta-lla-do (tem-pe-ra-tu-ra y pre-ci-pi
+-ta-ción)\T1/cmr/m/n/12 : \T1/cmtt/m/n/12 skt_-
+
+[51]
+[52]
+Overfull \hbox (32.07484pt too wide) in paragraph at lines 121--132
+ [][] 
+
+[53]
+[54])
+[55]
+[56] (./sections/08_resultados.tex
+[57]
+[58]
+Overfull \vbox (299.51318pt too high) has occurred while \output is active
+[59]
+
+LaTeX Warning: Reference `tab:base_comp_ifn2_carbono_bruto4' on page 60 undefin
+ed on input line 139.
+
+
+[60]
+Overfull \vbox (286.10811pt too high) has occurred while \output is active
+[61]
+[62]
+Overfull \vbox (299.51318pt too high) has occurred while \output is active
+[63]
+[64]
+Overfull \vbox (303.53851pt too high) has occurred while \output is active
+[65]
+Overfull \hbox (82.8081pt too wide) in alignment at lines 502--508
+ [] [] [] [] [] [] [] 
+
+Overfull \hbox (82.8081pt too wide) in alignment at lines 508--512
+ [] [] [] [] [] [] [] 
+
+Overfull \hbox (82.8081pt too wide) in alignment at lines 512--515
+ [] [] [] [] [] [] [] 
+
+Overfull \hbox (82.8081pt too wide) in alignment at lines 515--517
+ [] [] [] [] [] [] [] 
+
+Overfull \hbox (82.8081pt too wide) in alignment at lines 517--548
+ [] [] [] [] [] [] [] 
+[66]
+[67]
+Overfull \hbox (87.307pt too wide) in alignment at lines 588--594
+ [] [] [] [] [] [] [] 
+
+Overfull \hbox (87.307pt too wide) in alignment at lines 594--598
+ [] [] [] [] [] [] [] 
+
+Overfull \hbox (87.307pt too wide) in alignment at lines 598--601
+ [] [] [] [] [] [] [] 
+
+Overfull \hbox (87.307pt too wide) in alignment at lines 601--603
+ [] [] [] [] [] [] [] 
+
+Overfull \hbox (87.307pt too wide) in alignment at lines 603--634
+ [] [] [] [] [] [] [] 
+[68])
+[69]
+[70] (./sections/09_discusion.tex
+[71]
+[72 <./figuras/09_discusion/c4_LightGBM_metrics.pdf> <./figuras/09_discusion/c4
+_LightGBM_density.pdf>]
+[73]
+[74 <./figuras/09_discusion/c4_Stack5_MLP_metrics.pdf> <./figuras/09_discusion/
+c4_Stack5_MLP_density.pdf>]
+[75 <./figuras/09_discusion/carbono_bruto4_CatBoost_metrics.pdf> <./figuras/09_
+discusion/carbono_bruto4_CatBoost_density.pdf>]
+[76 <./figuras/09_discusion/carbono_bruto4_Stack5_MLP_metrics.pdf> <./figuras/0
+9_discusion/carbono_bruto4_Stack5_MLP_density.pdf>]
+[77]
+[78 <./figuras/09_discusion/Consolidado_IFN2_c4_paper.pdf> <./figuras/09_discus
+ion/Consolidado_IFN3_c4_paper.pdf> <./figuras/09_discusion/Consolidado_IFN2_car
+bono_bruto4_paper.pdf> <./figuras/09_discusion/Consolidado_IFN3_carbono_bruto4_
+paper.pdf>]
+[79 <./figuras/09_discusion/sensibilidad_escenarios_c4_P10_P35_P65_P90.pdf> <./
+figuras/09_discusion/sensibilidad_escenarios_carbono_bruto4_P10_P35_P65_P90.pdf
+>]
+[80])
+[81 <./figuras/09_discusion/c4_base_models_SMAPE_RMSE_percentiles.pdf> <./figur
+as/09_discusion/carbono_bruto4_base_models_SMAPE_RMSE_percentiles.pdf>]
+[82] (./sections/10_conclusiones.tex)
+[83]
+[84] (./sections/11_recomendaciones.tex
+[85])
+[86]
+[87] (./sections/12_agradecimientos.tex)
+[88]
+[89]
+Overfull \hbox (4.97661pt too wide) in paragraph at lines 109--109
+[]\T1/cmr/m/n/12 United Na-tions Fra-me-work Con-ven-tion on Cli-ma-te Chan-ge.
+ \T1/cmr/m/it/12 Pa-ris Agree-
+
+Overfull \hbox (10.16698pt too wide) in paragraph at lines 109--109
+[]\T1/cmr/m/n/12 European Union. \T1/cmr/m/it/12 Re-gu-la-tion (EU) 2018/841 on
+ the in-clu-sion of greenhou-
+
+[90]
+Overfull \hbox (9.45724pt too wide) in paragraph at lines 109--109
+[]\T1/cmr/m/n/12 Justin Nya-ku-dan-ga. \T1/cmr/m/it/12 The Tree-mes story\T1/cm
+r/m/n/12 . SA Fo-restry On-li-ne. \T1/cmr/m/sc/12 url\T1/cmr/m/n/12 : [][]$\T1/
+cmtt/m/n/12 https :
+
+Overfull \hbox (6.0345pt too wide) in paragraph at lines 109--109
+\T1/cmr/m/it/12 eco-logy\T1/cmr/m/n/12 . Ro-yal So-ciety Blog. Feb. de 2018. \T
+1/cmr/m/sc/12 url\T1/cmr/m/n/12 : [][]$\T1/cmtt/m/n/12 https : / / royalsociety
+ .
+
+Overfull \hbox (6.75647pt too wide) in paragraph at lines 109--109
+\T1/cmtt/m/n/12 org / blog / 2018 / 02 / the -[] terrestrial -[] laser -[] scan
+ning -[] revolution -[]
+
+[91]
+[92]
+Overfull \hbox (10.65257pt too wide) in paragraph at lines 109--109
+\T1/cmr/m/n/12 An-ge-li-na Martínez-Yrízar, Wil-son A. Mu-gasha, He-le-ne C. Mu
+ller-Landau,
+
+[93] (./sections/13_anexos.tex
+[94]
+[95]
+[96]
+[97]
+[98]
+Overfull \hbox (6.3684pt too wide) in alignment at lines 223--229
+ [] [] [] 
+
+Overfull \hbox (6.3684pt too wide) in alignment at lines 229--233
+ [] [] [] 
+
+Overfull \hbox (6.3684pt too wide) in alignment at lines 233--236
+ [] [] [] 
+
+Overfull \hbox (6.3684pt too wide) in alignment at lines 236--238
+ [] [] [] 
+
+Underfull \hbox (badness 3088) in paragraph at lines 249--249
+[]|\T1/cmr/m/n/10 Hojarasca ba-jo
+
+Underfull \hbox (badness 2103) in paragraph at lines 253--253
+[]|\T1/cmr/m/n/10 Restos de cor-
+
+Overfull \hbox (6.3684pt too wide) in alignment at lines 238--256
+ [] [] [] 
+[99]
+[100]
+[101]
+[102]
+[103]
+Overfull \hbox (6.29132pt too wide) in alignment at lines 377--382
+ [] [] [] [] [] 
+
+Overfull \hbox (6.29132pt too wide) in alignment at lines 382--387
+ [] [] [] [] [] 
+
+Overfull \hbox (6.29132pt too wide) in alignment at lines 387--390
+ [] [] [] [] [] 
+
+Overfull \hbox (6.29132pt too wide) in alignment at lines 390--392
+ [] [] [] [] [] 
+
+Underfull \hbox (badness 10000) in paragraph at lines 452--452
+[]|\T1/cmr/m/n/10 Eucalyptus gompho-
+
+Underfull \hbox (badness 1590) in paragraph at lines 492--492
+[]|\T1/cmr/m/n/10 Mezcla de fron-do-sas de
+
+Underfull \hbox (badness 5908) in paragraph at lines 493--493
+[]|\T1/cmr/m/n/10 Frondosas de pe-que-ño por-te
+
+Underfull \hbox (badness 1092) in paragraph at lines 544--544
+[]|\T1/cmr/m/n/10 Chamaecyparis law-so-nia-
+
+Overfull \hbox (6.29132pt too wide) in alignment at lines 392--583
+ [] [] [] [] [] 
+[104] [105] [106] [107] [108] [109]
+[110]
+[111]
+[112]
+[113]
+[114]
+[115]
+[116])
+[117] (./main.aux)
+
+LaTeX Warning: There were undefined references.
+
+
+LaTeX Warning: There were multiply-defined labels.
+
+
+Package biblatex Warning: Please rerun LaTeX.
+
+ )
+(see the transcript file for additional information)</usr/share/texlive/texmf-d
+ist/fonts/type1/public/amsfonts/cm/cmbx8.pfb></usr/share/texlive/texmf-dist/fon
+ts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dist/fonts/typ
+e1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/pub
+lic/amsfonts/cm/cmmi12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/am
+sfonts/cm/cmmi6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/
+cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi
+b10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb
+></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/
+share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/te
+xlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/te
+xmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-di
+st/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texlive/texmf-dist/font
+s/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texmf/fonts/type1/public/cm-su
+per/sfbi1200.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbx0800.pfb></u
+sr/share/texmf/fonts/type1/public/cm-super/sfbx1000.pfb></usr/share/texmf/fonts
+/type1/public/cm-super/sfbx1095.pfb></usr/share/texmf/fonts/type1/public/cm-sup
+er/sfbx1200.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfcc1200.pfb></us
+r/share/texmf/fonts/type1/public/cm-super/sfit1200.pfb></usr/share/texmf/fonts/
+type1/public/cm-super/sfrm0700.pfb></usr/share/texmf/fonts/type1/public/cm-supe
+r/sfrm0800.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1000.pfb></usr
+/share/texmf/fonts/type1/public/cm-super/sfrm1095.pfb></usr/share/texmf/fonts/t
+ype1/public/cm-super/sfrm1200.pfb></usr/share/texmf/fonts/type1/public/cm-super
+/sfrm1728.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfti0700.pfb></usr/
+share/texmf/fonts/type1/public/cm-super/sfti1000.pfb></usr/share/texmf/fonts/ty
+pe1/public/cm-super/sfti1095.pfb></usr/share/texmf/fonts/type1/public/cm-super/
+sfti1200.pfb></usr/share/texmf/fonts/type1/public/cm-super/sftt1000.pfb></usr/s
+hare/texmf/fonts/type1/public/cm-super/sftt1095.pfb></usr/share/texmf/fonts/typ
+e1/public/cm-super/sftt1200.pfb>
+Output written on main.pdf (117 pages, 2986048 bytes).
+Transcript written on main.log.
+
+--- PASO 4: Ejecutando pdflatex (para ajustar referencias)... ---
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2025/dev/Debian) (preloaded format=pdflatex)
+ restricted \write18 enabled.
+entering extended mode
+(./main.tex
+LaTeX2e <2024-11-01> patch level 2
+L3 programming layer <2025-01-18>
+(/usr/share/texlive/texmf-dist/tex/latex/elsarticle/elsarticle.cls
+Document Class: elsarticle 2025/01/11, 3.4c: Elsevier Ltd
+(/usr/share/texlive/texmf-dist/tex/latex/base/fontenc.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/l3kernel/expl3.sty
+(/usr/share/texlive/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def))
+(/usr/share/texlive/texmf-dist/tex/latex/l3packages/xparse/xparse.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/etoolbox/etoolbox.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/base/article.cls
+Document Class: article 2024/06/29 v1.4n Standard LaTeX document class
+(/usr/share/texlive/texmf-dist/tex/latex/base/size12.clo))
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/graphicx.sty
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/keyval.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/graphics.sty
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/trig.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/graphics-cfg/graphics.cfg)
+(/usr/share/texlive/texmf-dist/tex/latex/graphics-def/pdftex.def))) (./main.spl
+)) (./preamble.tex (/usr/share/texlive/texmf-dist/tex/generic/babel/babel.sty
+(/usr/share/texlive/texmf-dist/tex/generic/babel/txtbabel.def)
+(/usr/share/texlive/texmf-dist/tex/generic/babel-spanish/spanish.ldf))
+(/usr/share/texlive/texmf-dist/tex/generic/babel/locale/es/babel-spanish.tex)
+(/usr/share/texlive/texmf-dist/tex/latex/base/inputenc.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/base/fontenc.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/biblatex/biblatex.sty
+(/usr/share/texlive/texmf-dist/tex/generic/pdftexcmds/pdftexcmds.sty
+(/usr/share/texlive/texmf-dist/tex/generic/infwarerr/infwarerr.sty)
+(/usr/share/texlive/texmf-dist/tex/generic/iftex/iftex.sty)
+(/usr/share/texlive/texmf-dist/tex/generic/ltxcmds/ltxcmds.sty))
+(/usr/share/texlive/texmf-dist/tex/latex/kvoptions/kvoptions.sty
+(/usr/share/texlive/texmf-dist/tex/latex/kvsetkeys/kvsetkeys.sty))
+(/usr/share/texlive/texmf-dist/tex/latex/logreq/logreq.sty
+(/usr/share/texlive/texmf-dist/tex/latex/logreq/logreq.def))
+(/usr/share/texlive/texmf-dist/tex/latex/base/ifthen.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/url/url.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/biblatex/blx-dm.def)
+(/usr/share/texlive/texmf-dist/tex/latex/biblatex/blx-compat.def)
+(/usr/share/texlive/texmf-dist/tex/latex/biblatex/biblatex.def)
+(/usr/share/texlive/texmf-dist/tex/latex/biblatex/blx-natbib.def)
+(/usr/share/texlive/texmf-dist/tex/latex/biblatex/bbx/numeric.bbx
+(/usr/share/texlive/texmf-dist/tex/latex/biblatex/bbx/standard.bbx))
+(/usr/share/texlive/texmf-dist/tex/latex/biblatex/cbx/numeric.cbx)
+(/usr/share/texlive/texmf-dist/tex/latex/biblatex/biblatex.cfg)
+(/usr/share/texlive/texmf-dist/tex/latex/biblatex/blx-case-expl3.sty))
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsmath.sty
+For additional information on amsmath, use the `?' option.
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amstext.sty
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsgen.sty))
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsbsy.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsopn.sty))
+(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/amsfonts.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/amssymb.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/amscls/amsthm.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/booktabs/booktabs.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/tools/array.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/tools/tabularx.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/tools/longtable.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/multirow/multirow.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/float/float.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/caption/subcaption.sty
+(/usr/share/texlive/texmf-dist/tex/latex/caption/caption.sty
+(/usr/share/texlive/texmf-dist/tex/latex/caption/caption3.sty
+(/usr/share/texlive/texmf-dist/tex/latex/caption/caption-elsarticle.sto))
+(/usr/share/texlive/texmf-dist/tex/latex/caption/ltcaption.sty)))
+(/usr/share/texlive/texmf-dist/tex/latex/xcolor/xcolor.sty
+(/usr/share/texlive/texmf-dist/tex/latex/graphics-cfg/color.cfg)
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/mathcolor.ltx))
+(/usr/share/texlive/texmf-dist/tex/latex/colortbl/colortbl.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/dvipsnam.def)
+(/usr/share/texlive/texmf-dist/tex/latex/hyperref/hyperref.sty
+(/usr/share/texlive/texmf-dist/tex/generic/kvdefinekeys/kvdefinekeys.sty)
+(/usr/share/texlive/texmf-dist/tex/generic/pdfescape/pdfescape.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/hycolor/hycolor.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
+(/usr/share/texlive/texmf-dist/tex/latex/refcount/refcount.sty)
+(/usr/share/texlive/texmf-dist/tex/generic/gettitlestring/gettitlestring.sty))
+(/usr/share/texlive/texmf-dist/tex/generic/stringenc/stringenc.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/hyperref/pd1enc.def)
+(/usr/share/texlive/texmf-dist/tex/generic/intcalc/intcalc.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/hyperref/puenc.def)
+(/usr/share/texlive/texmf-dist/tex/generic/bitset/bitset.sty
+(/usr/share/texlive/texmf-dist/tex/generic/bigintcalc/bigintcalc.sty))
+(/usr/share/texlive/texmf-dist/tex/latex/base/atbegshi-ltx.sty))
+(/usr/share/texlive/texmf-dist/tex/latex/hyperref/hpdftex.def
+(/usr/share/texlive/texmf-dist/tex/latex/base/atveryend-ltx.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/rerunfilecheck/rerunfilecheck.sty
+(/usr/share/texlive/texmf-dist/tex/generic/uniquecounter/uniquecounter.sty)))
+(/usr/share/texlive/texmf-dist/tex/latex/enumitem/enumitem.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/listings/listings.sty
+(/usr/share/texlive/texmf-dist/tex/latex/listings/lstpatch.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/listings/lstmisc.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/listings/listings.cfg))
+(/usr/share/texlive/texmf-dist/tex/latex/underscore/underscore.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/firstaid/underscore-ltx.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/siunitx/siunitx.sty
+(/usr/share/texlive/texmf-dist/tex/latex/translations/translations.sty))
+(/usr/share/texlive/texmf-dist/tex/latex/pgf/frontendlayer/tikz.sty
+(/usr/share/texlive/texmf-dist/tex/latex/pgf/basiclayer/pgf.sty
+(/usr/share/texlive/texmf-dist/tex/latex/pgf/utilities/pgfrcs.sty
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfutil-common.tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfutil-latex.def)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfrcs.code.tex
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/pgf.revision.tex)))
+(/usr/share/texlive/texmf-dist/tex/latex/pgf/basiclayer/pgfcore.sty
+(/usr/share/texlive/texmf-dist/tex/latex/pgf/systemlayer/pgfsys.sty
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/systemlayer/pgfsys.code.tex
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfkeys.code.tex
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfkeyslibraryfiltered
+.code.tex)) (/usr/share/texlive/texmf-dist/tex/generic/pgf/systemlayer/pgf.cfg)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/systemlayer/pgfsys-pdftex.def
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/systemlayer/pgfsys-common-pdf.de
+f)))
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/systemlayer/pgfsyssoftpath.code.
+tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/systemlayer/pgfsysprotocol.code.
+tex))
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcore.code.tex
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmath.code.tex
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathutil.code.tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathparser.code.tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.code.tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.basic.code
+.tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.trigonomet
+ric.code.tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.random.cod
+e.tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.comparison
+.code.tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.base.code.
+tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.round.code
+.tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.misc.code.
+tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.integerari
+thmetics.code.tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathcalc.code.tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfloat.code.tex))
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfint.code.tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepoints.code.te
+x)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepathconstruct.
+code.tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepathusage.code
+.tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorescopes.code.te
+x)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoregraphicstate.c
+ode.tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoretransformation
+s.code.tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorequick.code.tex
+)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreobjects.code.t
+ex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepathprocessing
+.code.tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorearrows.code.te
+x)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreshade.code.tex
+)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreimage.code.tex
+)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreexternal.code.
+tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorelayers.code.te
+x)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoretransparency.c
+ode.tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepatterns.code.
+tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorerdf.code.tex))
+)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/modules/pgfmoduleshapes.code.tex
+) (/usr/share/texlive/texmf-dist/tex/generic/pgf/modules/pgfmoduleplot.code.tex
+)
+(/usr/share/texlive/texmf-dist/tex/latex/pgf/compatibility/pgfcomp-version-0-65
+.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/pgf/compatibility/pgfcomp-version-1-18
+.sty)) (/usr/share/texlive/texmf-dist/tex/latex/pgf/utilities/pgffor.sty
+(/usr/share/texlive/texmf-dist/tex/latex/pgf/utilities/pgfkeys.sty
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfkeys.code.tex))
+(/usr/share/texlive/texmf-dist/tex/latex/pgf/math/pgfmath.sty
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmath.code.tex))
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgffor.code.tex))
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/tikz.code.tex
+
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/libraries/pgflibraryplothandlers
+.code.tex)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/modules/pgfmodulematrix.code.tex
+)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tik
+zlibrarytopaths.code.tex)))
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tik
+zlibraryshapes.geometric.code.tex
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/libraries/shapes/pgflibraryshape
+s.geometric.code.tex))
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tik
+zlibraryarrows.code.tex
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/libraries/pgflibraryarrows.code.
+tex)) (/usr/share/texlive/texmf-dist/tex/latex/pdflscape/pdflscape.sty
+(/usr/share/texlive/texmf-dist/tex/latex/pdflscape/pdflscape-nometadata.sty
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/lscape.sty)))
+(/usr/share/texlive/texmf-dist/tex/generic/ulem/ulem.sty))
+
+Package biblatex Warning: 'babel/polyglossia' detected but 'csquotes' missing.
+(biblatex)                Loading 'csquotes' recommended.
+
+(./main.aux
+
+LaTeX Warning: Label `fig:sub1' multiply defined.
+
+
+LaTeX Warning: Label `sub@fig:sub1' multiply defined.
+
+
+LaTeX Warning: Label `fig:sub2' multiply defined.
+
+
+LaTeX Warning: Label `sub@fig:sub2' multiply defined.
+
+) (/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+) (/usr/share/texlive/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
+(/usr/share/texlive/texmf-dist/tex/latex/grfext/grfext.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg))
+(/usr/share/texlive/texmf-dist/tex/latex/biblatex/lbx/spanish.lbx) (./main.bbl)
+(./main.out) (./main.out)
+(/usr/share/texlive/texmf-dist/tex/latex/translations/translations-basic-dictio
+nary-spanish.trsl) (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd)
+(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd)
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\<def>-command' on input line 57.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\cnotenum' on input line 57.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\<def>-command' on input line 57.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\@corref' on input line 57.
+
+[1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}{/usr/share/texmf/fonts/en
+c/dvips/cm-super/cm-super-t1.enc}]
+[2] (./main.toc
+Overfull \hbox (0.84543pt too wide) in paragraph at lines 18--18
+ [][] [][][]\T1/cmr/m/n/12 Reclasificación de las va-ria-bles \T1/cmtt/m/n/12 p
+endiente \T1/cmr/m/n/12 y \T1/cmtt/m/n/12 orientacion[][] [][]  
+
+Overfull \hbox (2.44997pt too wide) in paragraph at lines 26--26
+ [][] [][][]\T1/cmr/m/n/12 Selección Se-cuen-cial Su-per-vi-sa-da ba-sa-da en R
+en-di-mien- 
+
+[3]
+[4]
+Overfull \hbox (0.609pt too wide) in paragraph at lines 87--87
+ [][] [][]  [] \T1/cmr/m/n/12 Tra-ta-mien-to de la Ma-sa (IFN3 e IFN4: \T1/cmtt
+/m/n/12 tratmasa_- 
+
+Overfull \hbox (5.56352pt too wide) detected at line 102
+\T1/cmr/m/n/12 Apéndice A.18.1 
+
+Overfull \hbox (9.05435pt too wide) in paragraph at lines 102--102
+ [][] [][]  [] \T1/cmr/m/n/12 IFN2 e IFN3 co-mo ex-pli-ca-ti-vos pa-ra \T1/cmtt
+/m/n/12 carbono_- 
+
+Overfull \hbox (5.56352pt too wide) detected at line 103
+\T1/cmr/m/n/12 Apéndice A.18.2 
+
+Overfull \hbox (5.56352pt too wide) detected at line 104
+\T1/cmr/m/n/12 Apéndice A.18.3 
+
+Overfull \hbox (5.56352pt too wide) detected at line 105
+\T1/cmr/m/n/12 Apéndice A.18.4 
+)
+[5] (./sections/01_introduccion.tex
+[6]
+[7])
+[8]
+[9] (./sections/02_objetivos.tex
+[10])
+[11]
+[12] (./sections/03_revision_literatura.tex
+[13]
+[14 <./figuras/03_revision_literatura/moso_bamboo.png>]
+[15 <./figuras/03_revision_literatura/lidar_avion.png> <./figuras/03_revision_l
+iteratura/CHM_1.png (PNG copy)> <./figuras/03_revision_literatura/CHM_2.png (PN
+G copy)>])
+[16 <./figuras/03_revision_literatura/plan_lidar_mapeo.png>]
+[17] (./sections/04_estado_del_arte.tex
+[18])
+[19]
+[20] (./sections/05_metodologia.tex
+[21]
+Overfull \hbox (13.85645pt too wide) in paragraph at lines 51--52
+[]\T1/cmr/bx/n/12 parcela_-in-ven-ta-rio_-es-ta-cion\T1/cmr/m/n/12 : al-ma-ce-n
+a agre-ga-dos climático-biofísicos
+
+[22{/usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-ts1.enc}]
+Overfull \hbox (44.33855pt too wide) in alignment at lines 69--74
+ [] [] [] [] 
+
+Overfull \hbox (44.33855pt too wide) in alignment at lines 74--78
+ [] [] [] [] 
+
+Overfull \hbox (44.33855pt too wide) in alignment at lines 78--82
+ [] [] [] [] 
+
+Overfull \hbox (44.33855pt too wide) in alignment at lines 82--84
+ [] [] [] [] 
+
+Underfull \hbox (badness 10000) in paragraph at lines 88--88
+[]|\T1/cmtt/m/n/10 latitud\T1/cmr/m/n/10 ,
+
+Underfull \hbox (badness 10000) in paragraph at lines 94--94
+[]|\T1/cmtt/m/n/10 tipsuelo1_-id\T1/cmr/m/n/10 ,
+
+Underfull \hbox (badness 10000) in paragraph at lines 94--94
+\T1/cmtt/m/n/10 tipsuelo2_-id\T1/cmr/m/n/10 ,
+
+Underfull \hbox (badness 10000) in paragraph at lines 96--96
+[]|\T1/cmtt/m/n/10 radio\T1/cmr/m/n/10 ,
+
+Underfull \hbox (badness 10000) in paragraph at lines 100--100
+[]|\T1/cmtt/m/n/10 parcela_-id\T1/cmr/m/n/10 ,
+
+Underfull \hbox (badness 10000) in paragraph at lines 102--102
+[]|\T1/cmtt/m/n/10 nivel1_-id\T1/cmr/m/n/10 ,
+
+Underfull \hbox (badness 10000) in paragraph at lines 113--113
+[]|\T1/cmtt/m/n/10 parcela_-id\T1/cmr/m/n/10 ,
+
+Underfull \hbox (badness 10000) in paragraph at lines 113--113
+\T1/cmtt/m/n/10 inventario_-id\T1/cmr/m/n/10 ,
+
+Underfull \hbox (badness 10000) in paragraph at lines 113--113
+[]|\T1/cmr/m/n/10 Clave com-pues-ta (parcela-inventario-
+
+Underfull \hbox (badness 10000) in paragraph at lines 124--124
+[]|\T1/cmtt/m/n/10 parcela_-id\T1/cmr/m/n/10 ,
+
+Underfull \hbox (badness 10000) in paragraph at lines 124--124
+\T1/cmtt/m/n/10 inventario_-id\T1/cmr/m/n/10 ,
+
+Underfull \hbox (badness 10000) in paragraph at lines 124--124
+[]|\T1/cmr/m/n/10 Clave com-pues-ta ( parcela-inventario-
+
+Underfull \hbox (badness 10000) in paragraph at lines 136--136
+[]|\T1/cmtt/m/n/10 parcela_-id\T1/cmr/m/n/10 ,
+
+Underfull \hbox (badness 2735) in paragraph at lines 138--138
+[]|\T1/cmr/m/n/10 grados cen-te-
+
+Underfull \hbox (badness 10000) in paragraph at lines 150--150
+[]|\T1/cmtt/m/n/10 parcela_-id\T1/cmr/m/n/10 ,
+
+Underfull \hbox (badness 10000) in paragraph at lines 150--150
+\T1/cmtt/m/n/10 inventario_-id\T1/cmr/m/n/10 ,
+
+Underfull \hbox (badness 10000) in paragraph at lines 151--151
+[]|\T1/cmr/m/n/10 mm/(m$[]\OMS/cmsy/m/n/10 ^^A$\T1/cmr/m/n/10 día),
+
+Underfull \hbox (badness 10000) in paragraph at lines 154--154
+[]|\T1/cmtt/m/n/10 NDVI_-*\T1/cmr/m/n/10 , \T1/cmtt/m/n/10 EVI_-*\T1/cmr/m/n/10
+ ,
+
+Underfull \hbox (badness 10000) in paragraph at lines 159--159
+[]|\T1/cmtt/m/n/10 nombre\T1/cmr/m/n/10 ,
+
+Overfull \hbox (14.80913pt too wide) in paragraph at lines 162--162
+[]|\T1/cmtt/m/n/10 grupos.nombregrupo| 
+
+Overfull \hbox (44.33855pt too wide) in alignment at lines 84--163
+ [] [] [] [] 
+
+[23 <./figuras/05_metodologia/Estrctr_BBDD_GWest.png>] [24] [25]
+[26]
+[27]
+[28]
+[29 <./figuras/05_metodologia/periodo34.png (PNG copy)>]
+[30 <./figuras/05_metodologia/periodo234.png (PNG copy)>]
+[31]
+Overfull \hbox (3.2213pt too wide) in paragraph at lines 291--292
+[]|[][]\T1/cmr/m/n/10 Apéndice A.17[][],
+
+Underfull \hbox (badness 10000) in paragraph at lines 291--292
+[][]\T1/cmr/m/n/10 Apén-di-
+
+Underfull \hbox (badness 10000) in paragraph at lines 295--295
+[]|[]\T1/cmtt/m/n/10 estado_-id[]\T1/cmr/m/n/10 ,
+
+Underfull \hbox (badness 10000) in paragraph at lines 295--295
+\T1/cmtt/m/n/10 fpmasa_-id\T1/cmr/m/n/10 ,
+
+Underfull \hbox (badness 10000) in paragraph at lines 295--295
+\T1/cmtt/m/n/10 tratmasa_-id\T1/cmr/m/n/10 ,
+
+Underfull \hbox (badness 2435) in paragraph at lines 297--298
+[]|\T1/cmr/m/n/10 Anexo [][]Apén-
+
+Underfull \hbox (badness 10000) in paragraph at lines 299--299
+[]|[]\T1/cmtt/m/n/10 rocosidad_-
+
+Underfull \hbox (badness 10000) in paragraph at lines 299--299
+\T1/cmtt/m/n/10 id[]\T1/cmr/m/n/10 , \T1/cmtt/m/n/10 textura_-
+
+Underfull \hbox (badness 10000) in paragraph at lines 299--299
+\T1/cmtt/m/n/10 id\T1/cmr/m/n/10 , \T1/cmtt/m/n/10 matorg_-
+
+Underfull \hbox (badness 10000) in paragraph at lines 299--299
+\T1/cmtt/m/n/10 id\T1/cmr/m/n/10 , \T1/cmtt/m/n/10 modcomb_-
+
+Underfull \hbox (badness 10000) in paragraph at lines 299--299
+\T1/cmtt/m/n/10 id\T1/cmr/m/n/10 , \T1/cmtt/m/n/10 disesp_-
+
+Underfull \hbox (badness 10000) in paragraph at lines 299--299
+\T1/cmtt/m/n/10 id\T1/cmr/m/n/10 , \T1/cmtt/m/n/10 comesp_-id\T1/cmr/m/n/10 ,
+
+Underfull \hbox (badness 10000) in paragraph at lines 301--301
+[]|[]\T1/cmtt/m/n/10 radio\T1/cmr/m/n/10 ,
+
+Underfull \hbox (badness 10000) in paragraph at lines 301--301
+\T1/cmtt/m/n/10 orientacion\T1/cmr/m/n/10 ,
+
+Underfull \hbox (badness 10000) in paragraph at lines 301--301
+\T1/cmtt/m/n/10 elevacion\T1/cmr/m/n/10 ,
+
+Underfull \hbox (badness 10000) in paragraph at lines 303--303
+[]|\T1/cmtt/m/n/10 nivel1_-id\T1/cmr/m/n/10 ,
+
+Overfull \hbox (3.2213pt too wide) in paragraph at lines 303--304
+[]|[][]\T1/cmr/m/n/10 Apéndice A.14[][],
+
+Underfull \hbox (badness 10000) in paragraph at lines 303--304
+[][]\T1/cmr/m/n/10 Apén-di-
+
+Underfull \hbox (badness 10000) in paragraph at lines 309--309
+[]|[]\T1/cmtt/m/n/10 evi, gndvi, ndii,
+
+Underfull \hbox (badness 10000) in paragraph at lines 311--311
+[]|[]\T1/cmtt/m/n/10 pr, skt, stl1-4,
+
+Overfull \hbox (25.8026pt too wide) in paragraph at lines 283--316
+ [][] 
+
+Overfull \hbox (5.28326pt too wide) in paragraph at lines 322--323
+[]\T1/cmr/m/n/12 Las va-ria-bles to-po-grá-fi-cas ori-gi-na-les \T1/cmtt/m/n/12
+ pendiente \T1/cmr/m/n/12 (en gra-dos) y \T1/cmtt/m/n/12 orientacion
+
+LaTeX Warning: Command \textless invalid in math mode on input line 327.
+
+
+[32]
+[33]
+[34]
+[35]
+[36]
+[37]
+[38]
+[39]
+[40]
+Underfull \hbox (badness 2865) in paragraph at lines 533--533
+[]|\T1/cmr/m/n/10 Crecimiento leaf-wise, muy
+
+Underfull \hbox (badness 5548) in paragraph at lines 535--535
+[]|\T1/cmr/m/n/10 Codificación or-de-na-da; ro-
+
+Overfull \hbox (35.57623pt too wide) in paragraph at lines 523--550
+ [][] 
+)
+[41]
+[42] (./sections/06_desarrollo_modelo.tex
+Overfull \hbox (4.48685pt too wide) in paragraph at lines 16--17
+\T1/cmr/m/n/12 un úni-co ob-je-to \T1/cmtt/m/n/12 Pipeline\T1/cmr/m/n/12 , com-
+bi-nan-do \T1/cmtt/m/n/12 ColumnTransformer\T1/cmr/m/n/12 , \T1/cmtt/m/n/12 Sim
+pleImputer\T1/cmr/m/n/12 ,
+
+[43]
+Overfull \hbox (14.26369pt too wide) in paragraph at lines 18--19
+\T1/cmr/m/n/12 mo mo-de-los de dis-tin-ta na-tu-ra-le-za co-mo \T1/cmtt/m/n/12 
+MLPRegressor\T1/cmr/m/n/12 , \T1/cmtt/m/n/12 KNeighborsRegressor\T1/cmr/m/n/12 
+,
+
+LaTeX Warning: Reference `subsec:filtrado_registros' on page 44 undefined on in
+put line 34.
+
+
+[44]
+[45]
+[46 <./figuras/06_desarrollo_modelo/histogram_c4_post_log.pdf> <./figuras/06_de
+sarrollo_modelo/histogram_carbono_bruto4_post_log.pdf> <./figuras/06_desarrollo
+_modelo/distribucion_c4_combinado.pdf> <./figuras/06_desarrollo_modelo/distribu
+cion_carbono_bruto4_combinado.pdf>])
+[47]
+[48] (./sections/07_procedimientos.tex
+[49]
+Overfull \hbox (7.68707pt too wide) in paragraph at lines 37--45
+\T1/cmtt/m/n/12 periodo\T1/cmr/m/n/12 , \T1/cmtt/m/n/12 radio\T1/cmr/m/n/12 , \
+T1/cmtt/m/n/12 ocupa\T1/cmr/m/n/12 , \T1/cmtt/m/n/12 npies_-1\T1/cmr/m/n/12 , \
+T1/cmtt/m/n/12 npies_-2\T1/cmr/m/n/12 , \T1/cmtt/m/n/12 npies_-5\T1/cmr/m/n/12 
+, \T1/cmtt/m/n/12 npies_-10\T1/cmr/m/n/12 , \T1/cmtt/m/n/12 npies_-
+
+[50]
+Overfull \hbox (6.34448pt too wide) in paragraph at lines 60--65
+[]\T1/cmr/bx/n/12 Bloque cli-má-ti-co de-ta-lla-do (tem-pe-ra-tu-ra y pre-ci-pi
+-ta-ción)\T1/cmr/m/n/12 : \T1/cmtt/m/n/12 skt_-
+
+[51]
+[52]
+Overfull \hbox (32.07484pt too wide) in paragraph at lines 121--132
+ [][] 
+
+[53]
+[54])
+[55]
+[56] (./sections/08_resultados.tex
+[57]
+[58]
+Overfull \vbox (299.51318pt too high) has occurred while \output is active
+[59]
+
+LaTeX Warning: Reference `tab:base_comp_ifn2_carbono_bruto4' on page 60 undefin
+ed on input line 139.
+
+
+[60]
+Overfull \vbox (286.10811pt too high) has occurred while \output is active
+[61]
+[62]
+Overfull \vbox (299.51318pt too high) has occurred while \output is active
+[63]
+[64]
+Overfull \vbox (303.53851pt too high) has occurred while \output is active
+[65]
+Overfull \hbox (82.8081pt too wide) in alignment at lines 502--508
+ [] [] [] [] [] [] [] 
+
+Overfull \hbox (82.8081pt too wide) in alignment at lines 508--512
+ [] [] [] [] [] [] [] 
+
+Overfull \hbox (82.8081pt too wide) in alignment at lines 512--515
+ [] [] [] [] [] [] [] 
+
+Overfull \hbox (82.8081pt too wide) in alignment at lines 515--517
+ [] [] [] [] [] [] [] 
+
+Overfull \hbox (82.8081pt too wide) in alignment at lines 517--548
+ [] [] [] [] [] [] [] 
+[66]
+[67]
+Overfull \hbox (87.307pt too wide) in alignment at lines 588--594
+ [] [] [] [] [] [] [] 
+
+Overfull \hbox (87.307pt too wide) in alignment at lines 594--598
+ [] [] [] [] [] [] [] 
+
+Overfull \hbox (87.307pt too wide) in alignment at lines 598--601
+ [] [] [] [] [] [] [] 
+
+Overfull \hbox (87.307pt too wide) in alignment at lines 601--603
+ [] [] [] [] [] [] [] 
+
+Overfull \hbox (87.307pt too wide) in alignment at lines 603--634
+ [] [] [] [] [] [] [] 
+[68])
+[69]
+[70] (./sections/09_discusion.tex
+[71]
+[72 <./figuras/09_discusion/c4_LightGBM_metrics.pdf> <./figuras/09_discusion/c4
+_LightGBM_density.pdf>]
+[73]
+[74 <./figuras/09_discusion/c4_Stack5_MLP_metrics.pdf> <./figuras/09_discusion/
+c4_Stack5_MLP_density.pdf>]
+[75 <./figuras/09_discusion/carbono_bruto4_CatBoost_metrics.pdf> <./figuras/09_
+discusion/carbono_bruto4_CatBoost_density.pdf>]
+[76 <./figuras/09_discusion/carbono_bruto4_Stack5_MLP_metrics.pdf> <./figuras/0
+9_discusion/carbono_bruto4_Stack5_MLP_density.pdf>]
+[77]
+[78 <./figuras/09_discusion/Consolidado_IFN2_c4_paper.pdf> <./figuras/09_discus
+ion/Consolidado_IFN3_c4_paper.pdf> <./figuras/09_discusion/Consolidado_IFN2_car
+bono_bruto4_paper.pdf> <./figuras/09_discusion/Consolidado_IFN3_carbono_bruto4_
+paper.pdf>]
+[79 <./figuras/09_discusion/sensibilidad_escenarios_c4_P10_P35_P65_P90.pdf> <./
+figuras/09_discusion/sensibilidad_escenarios_carbono_bruto4_P10_P35_P65_P90.pdf
+>]
+[80])
+[81 <./figuras/09_discusion/c4_base_models_SMAPE_RMSE_percentiles.pdf> <./figur
+as/09_discusion/carbono_bruto4_base_models_SMAPE_RMSE_percentiles.pdf>]
+[82] (./sections/10_conclusiones.tex)
+[83]
+[84] (./sections/11_recomendaciones.tex
+[85])
+[86]
+[87] (./sections/12_agradecimientos.tex)
+[88]
+[89]
+Overfull \hbox (4.97661pt too wide) in paragraph at lines 109--109
+[]\T1/cmr/m/n/12 United Na-tions Fra-me-work Con-ven-tion on Cli-ma-te Chan-ge.
+ \T1/cmr/m/it/12 Pa-ris Agree-
+
+Overfull \hbox (10.16698pt too wide) in paragraph at lines 109--109
+[]\T1/cmr/m/n/12 European Union. \T1/cmr/m/it/12 Re-gu-la-tion (EU) 2018/841 on
+ the in-clu-sion of greenhou-
+
+[90]
+Overfull \hbox (9.45724pt too wide) in paragraph at lines 109--109
+[]\T1/cmr/m/n/12 Justin Nya-ku-dan-ga. \T1/cmr/m/it/12 The Tree-mes story\T1/cm
+r/m/n/12 . SA Fo-restry On-li-ne. \T1/cmr/m/sc/12 url\T1/cmr/m/n/12 : [][]$\T1/
+cmtt/m/n/12 https :
+
+Overfull \hbox (6.0345pt too wide) in paragraph at lines 109--109
+\T1/cmr/m/it/12 eco-logy\T1/cmr/m/n/12 . Ro-yal So-ciety Blog. Feb. de 2018. \T
+1/cmr/m/sc/12 url\T1/cmr/m/n/12 : [][]$\T1/cmtt/m/n/12 https : / / royalsociety
+ .
+
+Overfull \hbox (6.75647pt too wide) in paragraph at lines 109--109
+\T1/cmtt/m/n/12 org / blog / 2018 / 02 / the -[] terrestrial -[] laser -[] scan
+ning -[] revolution -[]
+
+[91]
+[92]
+Overfull \hbox (10.65257pt too wide) in paragraph at lines 109--109
+\T1/cmr/m/n/12 An-ge-li-na Martínez-Yrízar, Wil-son A. Mu-gasha, He-le-ne C. Mu
+ller-Landau,
+
+[93] (./sections/13_anexos.tex
+[94]
+[95]
+[96]
+[97]
+[98]
+Overfull \hbox (6.3684pt too wide) in alignment at lines 223--229
+ [] [] [] 
+
+Overfull \hbox (6.3684pt too wide) in alignment at lines 229--233
+ [] [] [] 
+
+Overfull \hbox (6.3684pt too wide) in alignment at lines 233--236
+ [] [] [] 
+
+Overfull \hbox (6.3684pt too wide) in alignment at lines 236--238
+ [] [] [] 
+
+Underfull \hbox (badness 3088) in paragraph at lines 249--249
+[]|\T1/cmr/m/n/10 Hojarasca ba-jo
+
+Underfull \hbox (badness 2103) in paragraph at lines 253--253
+[]|\T1/cmr/m/n/10 Restos de cor-
+
+Overfull \hbox (6.3684pt too wide) in alignment at lines 238--256
+ [] [] [] 
+[99]
+[100]
+[101]
+[102]
+[103]
+Overfull \hbox (6.29132pt too wide) in alignment at lines 377--382
+ [] [] [] [] [] 
+
+Overfull \hbox (6.29132pt too wide) in alignment at lines 382--387
+ [] [] [] [] [] 
+
+Overfull \hbox (6.29132pt too wide) in alignment at lines 387--390
+ [] [] [] [] [] 
+
+Overfull \hbox (6.29132pt too wide) in alignment at lines 390--392
+ [] [] [] [] [] 
+
+Underfull \hbox (badness 10000) in paragraph at lines 452--452
+[]|\T1/cmr/m/n/10 Eucalyptus gompho-
+
+Underfull \hbox (badness 1590) in paragraph at lines 492--492
+[]|\T1/cmr/m/n/10 Mezcla de fron-do-sas de
+
+Underfull \hbox (badness 5908) in paragraph at lines 493--493
+[]|\T1/cmr/m/n/10 Frondosas de pe-que-ño por-te
+
+Underfull \hbox (badness 1092) in paragraph at lines 544--544
+[]|\T1/cmr/m/n/10 Chamaecyparis law-so-nia-
+
+Overfull \hbox (6.29132pt too wide) in alignment at lines 392--583
+ [] [] [] [] [] 
+[104] [105] [106] [107] [108] [109]
+[110]
+[111]
+[112]
+[113]
+[114]
+[115]
+[116])
+[117] (./main.aux)
+
+LaTeX Warning: There were undefined references.
+
+
+LaTeX Warning: There were multiply-defined labels.
+
+ )
+(see the transcript file for additional information)</usr/share/texlive/texmf-d
+ist/fonts/type1/public/amsfonts/cm/cmbx8.pfb></usr/share/texlive/texmf-dist/fon
+ts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dist/fonts/typ
+e1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/pub
+lic/amsfonts/cm/cmmi12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/am
+sfonts/cm/cmmi6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/
+cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi
+b10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb
+></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/
+share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/te
+xlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/te
+xmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-di
+st/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texlive/texmf-dist/font
+s/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texmf/fonts/type1/public/cm-su
+per/sfbi1200.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbx0800.pfb></u
+sr/share/texmf/fonts/type1/public/cm-super/sfbx1000.pfb></usr/share/texmf/fonts
+/type1/public/cm-super/sfbx1095.pfb></usr/share/texmf/fonts/type1/public/cm-sup
+er/sfbx1200.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfcc1200.pfb></us
+r/share/texmf/fonts/type1/public/cm-super/sfit1200.pfb></usr/share/texmf/fonts/
+type1/public/cm-super/sfrm0700.pfb></usr/share/texmf/fonts/type1/public/cm-supe
+r/sfrm0800.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1000.pfb></usr
+/share/texmf/fonts/type1/public/cm-super/sfrm1095.pfb></usr/share/texmf/fonts/t
+ype1/public/cm-super/sfrm1200.pfb></usr/share/texmf/fonts/type1/public/cm-super
+/sfrm1728.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfti0700.pfb></usr/
+share/texmf/fonts/type1/public/cm-super/sfti1000.pfb></usr/share/texmf/fonts/ty
+pe1/public/cm-super/sfti1095.pfb></usr/share/texmf/fonts/type1/public/cm-super/
+sfti1200.pfb></usr/share/texmf/fonts/type1/public/cm-super/sftt1000.pfb></usr/s
+hare/texmf/fonts/type1/public/cm-super/sftt1095.pfb></usr/share/texmf/fonts/typ
+e1/public/cm-super/sftt1200.pfb>
+Output written on main.pdf (117 pages, 2986052 bytes).
+SyncTeX written on main.synctex.gz.
+Transcript written on main.log.
+
+--- Proceso completado. ---
+

@@ -1,0 +1,21 @@
+\begin{table}[H]
+    \centering
+    \caption{Modelos Base Globales (c4)}
+    \label{tab:base_global_c4}
+    \begin{tabular}{lrrrrrr}
+        \toprule
+        Modelo & $R^2_{\text{test}}$ & RMSE$_{\text{test}}$ & MAE$_{\text{test}}$ & wMAPE & SMAPE & Bias \\
+        \midrule
+        \textbf{LightGBM$_{\text{global}}$} & \textbf{0.787} & \textbf{22.767} & \textbf{11.650} & \textbf{29.978} & \textbf{42.370} & \textbf{0.134} \\
+        XGBoost$_{\text{global}}$ & 0.784 & 22.952 & 11.590 & 29.824 & 42.204 & 0.055 \\
+        CatBoost$_{\text{global}}$ & 0.783 & 22.990 & 11.607 & 29.866 & 42.904 & -0.021 \\
+        GBDT$_{\text{global}}$ & 0.783 & 23.014 & 11.658 & 29.998 & 41.987 & 0.169 \\
+        MLP$_{\text{global}}$ & 0.771 & 23.606 & 12.287 & 31.617 & 46.726 & 0.177 \\
+        BaggedDT$_{\text{global}}$ & 0.740 & 25.142 & 13.021 & 33.506 & 47.116 & 0.678 \\
+        RandomForest$_{\text{global}}$ & 0.732 & 25.547 & 12.908 & 33.214 & 44.513 & 0.232 \\
+        BayesianNN$_{\text{global}}$ & 0.678 & 28.021 & 14.689 & 37.797 & 56.389 & 0.047 \\
+        SVR$_{\text{global}}$ & 0.551 & 33.065 & 13.708 & 35.272 & 45.693 & -6.204 \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+

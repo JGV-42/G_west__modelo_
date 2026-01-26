@@ -1,0 +1,32 @@
+\begin{table}[H]
+    \centering
+    \caption{Comparativa Modelos Base en IFN3 (carbono_bruto4)}
+    \label{tab:base_comp_ifn3_carbono_bruto4}
+    \begin{tabular}{lrrrrrr}
+        \toprule
+        Modelo & $R^2_{\text{test}}$ & RMSE$_{\text{test}}$ & MAE$_{\text{test}}$ & wMAPE & SMAPE & Bias \\
+        \midrule
+        \textbf{LightGBM} & \textbf{0.898} & \textbf{10.641} & \textbf{4.687} & \textbf{27.801} & \textbf{110.183} & \textbf{-0.007} \\
+        CatBoost & 0.896 & 10.737 & 4.789 & 28.405 & 110.952 & -0.059 \\
+        XGBoost & 0.895 & 10.761 & 4.713 & 27.957 & 109.669 & -0.008 \\
+        CatBoost$_{\text{global}}$ & 0.889 & 10.931 & 4.812 & 28.723 & 111.600 & -0.059 \\
+        GBDT & 0.888 & 11.134 & 5.044 & 29.920 & 111.422 & -0.042 \\
+        MLP & 0.885 & 11.287 & 4.803 & 28.488 & 111.603 & -0.544 \\
+        LightGBM$_{\text{global}}$ & 0.884 & 11.153 & 4.863 & 29.023 & 111.679 & -0.073 \\
+        XGBoost$_{\text{global}}$ & 0.883 & 11.230 & 4.859 & 28.999 & 111.190 & -0.036 \\
+        GBDT$_{\text{global}}$ & 0.881 & 11.327 & 4.937 & 29.463 & 111.656 & -0.002 \\
+        MLP$_{\text{global}}$ & 0.879 & 11.431 & 5.122 & 30.573 & 114.182 & -0.326 \\
+        BaggedDT & 0.873 & 11.830 & 5.183 & 30.745 & 99.986 & -0.135 \\
+        RandomForest & 0.870 & 11.965 & 5.217 & 30.944 & 109.139 & -0.239 \\
+        BaggedDT$_{\text{global}}$ & 0.866 & 11.997 & 5.410 & 32.287 & 110.035 & 0.589 \\
+        RandomForest$_{\text{global}}$ & 0.865 & 12.053 & 5.330 & 31.814 & 105.593 & 0.434 \\
+        BayesianNN & 0.836 & 13.455 & 6.773 & 40.173 & 120.931 & 0.010 \\
+        BayesianNN$_{\text{global}}$ & 0.824 & 13.774 & 7.040 & 42.020 & 121.650 & 0.265 \\
+        SVR & 0.810 & 14.504 & 5.269 & 31.256 & 112.607 & -2.176 \\
+        KNN & 0.793 & 15.128 & 6.251 & 37.078 & 102.871 & -2.897 \\
+        SVR$_{\text{global}}$ & 0.730 & 17.033 & 6.154 & 36.728 & 114.785 & -2.987 \\
+        AdaBoost & 0.349 & 26.829 & 23.857 & 141.512 & 139.341 & 20.684 \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+

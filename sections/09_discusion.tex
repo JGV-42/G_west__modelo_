@@ -44,7 +44,7 @@ El hecho de que los valores medianos se mantengan relativamente estables a lo la
 
 \paragraph{Modelos de stacking}
 
-La incorporación de esquemas de \textit{stacking} no produce incrementos sustanciales, aunque sí sistemáticos, en el coeficiente de determinación respecto a los mejores modelos individuales. Fijándonos en la Tabla \ref{tab:stack_ifn2_ifn3c_resultados} podemos observar que los modelos de stacking presentan mejores métricas en la gran mayoría de casos, siempre comparando con los modelos bases. Los mejores parámetros los obtiene el modelo de stacking con configuración 5, que mantiene todos los modelos con rendimiento competitivo, junto con el metamodelo de la red neuronal.
+La incorporación de esquemas de \textit{stacking} no produce incrementos sustanciales, aunque sí sistemáticos, en el coeficiente de determinación respecto a los mejores modelos individuales. Fijándonos en la Tabla \ref{tab:stack_global_c4} podemos observar que los modelos de stacking presentan mejores métricas en la gran mayoría de casos, siempre comparando con los modelos bases. Los mejores parámetros los obtiene el modelo de stacking con configuración 5, que mantiene todos los modelos con rendimiento competitivo, junto con el metamodelo de la red neuronal.
 
 El hecho de que todos los ensembles mejoren a los modelos base es un síntoma de que esta mejora no es una excepción estadística, sino una mejora real. Esto es, no se trata de que las métricas sean mejores por estocasticidad de los parámetros del metamodelo, sino porque el montaje realmente mejora el resultado final. Obviamente, reentrenar los metamodelos con otros parámetros haría variar las métricas, pero el hecho es que la función de mejorar las predicciones realmente se alcanza con los ensembles. No obstante, la mejora es pequeña, lo que puede hacer que según el caso se prefiera la simplicidad de emplear uno de los modelos base en comparación con uno de los ensembles. 
 
@@ -103,7 +103,7 @@ De igual forma que en los apartados anteriores, en la Figura \ref{fig:CatBoost_c
       \label{fig:CatBoost_analisis_combined}
 \end{figure}
 
-Atendiendo a la Figura \ref{fig:CatBoost_combined} observamos el mismo comportamiento cualitativo que en el caso de la variable \texttt{c4} (con la particularidad de que cambian las unidades y el rango de valores): el error entre los cuantiles $25$ y $75$ se mantiene en valores relativamente pequeños y constantes, si bien es verdad que empieza siendo menor y va aumentando ligeramente a medida que lo hace la variable periodo. Los errores extremos (cuantil $90$) siguen siendo altos. De hecho, si nos fijamos en los valores más altos del RMSE porcentual para el cuantil $90$, observamos que se alcanzan valores notablemente más altos que en el caso de la variable \texttt{c4}, llegando hasta el $130\%$ cuando para \texttt{c4} apenas se superó el $100\%$ para el peor de los casos. Esto es de destacar, ya que las métricas globales para las predicciones de la variable \texttt{carbono\_bruto4} (ver Tabla \ref{tab:resultados_modelos_base_tc_resultados}) son sistemáticamente mejores que las de la variable \texttt{c4} (ver Tabla \ref{tab:resultados_modelos_base_THA_resultados}). Esto es, la variable \texttt{carbono\_bruto4} (toneladas) es más fácil de predecir en general para los modelos que la variable \texttt{c4} (toneladas por hectárea), pero ocurre lo contrario en los casos particulares, donde los errores más altos se disparan de una manera más exagerada que en el mismo caso para la variable \texttt{c4}. También se observa el aumento del error al pasar del rango de años del IFN2 a IFN3, causado por el aumento de la variabilidad de los datos del segundo inventario (ver Figura \ref{fig:distribucion_variables_combinado}). 
+Atendiendo a la Figura \ref{fig:CatBoost_combined} observamos el mismo comportamiento cualitativo que en el caso de la variable \texttt{c4} (con la particularidad de que cambian las unidades y el rango de valores): el error entre los cuantiles $25$ y $75$ se mantiene en valores relativamente pequeños y constantes, si bien es verdad que empieza siendo menor y va aumentando ligeramente a medida que lo hace la variable periodo. Los errores extremos (cuantil $90$) siguen siendo altos. De hecho, si nos fijamos en los valores más altos del RMSE porcentual para el cuantil $90$, observamos que se alcanzan valores notablemente más altos que en el caso de la variable \texttt{c4}, llegando hasta el $130\%$ cuando para \texttt{c4} apenas se superó el $100\%$ para el peor de los casos. Esto es de destacar, ya que las métricas globales para las predicciones de la variable \texttt{carbono\_bruto4} (ver Tabla \ref{tab:base_global_carbono_bruto4}) son sistemáticamente mejores que las de la variable \texttt{c4} (ver Tabla \ref{tab:base_global_c4}). Esto es, la variable \texttt{carbono\_bruto4} (toneladas) es más fácil de predecir en general para los modelos que la variable \texttt{c4} (toneladas por hectárea), pero ocurre lo contrario en los casos particulares, donde los errores más altos se disparan de una manera más exagerada que en el mismo caso para la variable \texttt{c4}. También se observa el aumento del error al pasar del rango de años del IFN2 a IFN3, causado por el aumento de la variabilidad de los datos del segundo inventario (ver Figura \ref{fig:distribucion_variables_combinado}). 
 
 Al igual que en los apartados anteriores, en la Figura \ref{fig:CatBoost_density} podemos observar un scatter plot de las predicciones frente a los valores reales para el modelo CatBoost del caso que estamos considerando.
 
@@ -112,7 +112,7 @@ Al igual que en los apartados anteriores, en la Figura \ref{fig:CatBoost_density
 
 \paragraph{Modelos con stacking}
 
-Los resultados obtenidos en este apartado son muy similares a aquellos que se han obtenido con los modelos stacking para la variable \texttt{c4} (tC/ha). Esto es, encontramos una mejora sistemática en todos los modelos de stacking frente a los base, pero esa mejora es pequeña. Esto causa que los resultados sean estrictamente mejores, como se puede ver en la Tabla \ref{tab:stack_ifn2_ifn3_tc_resultados} comparando con las métricas de los modelos base de la Tabla \ref{tab:resultados_modelos_base_tc_resultados}. De nuevo, que la mejora de los modelos stacking respecto a los base sea sistemática indica que no nos encontramos frente a un incidente estadístico, sino que el formato del stacking es capaz de mejorar las predicciones de los modelos escogiendo las mejores decisiones de cada uno de ellos. No obstante, como ya se comentó anteriormente, la complejidad de entrenar cinco modelos además del metamodelo puede resultar incómoda frente a la posibilidad de usar, por ejemplo, el mejor de los modelos individuales.
+Los resultados obtenidos en este apartado son muy similares a aquellos que se han obtenido con los modelos stacking para la variable \texttt{c4} (tC/ha). Esto es, encontramos una mejora sistemática en todos los modelos de stacking frente a los base, pero esa mejora es pequeña. Esto causa que los resultados sean estrictamente mejores, como se puede ver en la Tabla \ref{tab:stack_global_carbono_bruto4} comparando con las métricas de los modelos base de la Tabla \ref{tab:base_global_carbono_bruto4}. De nuevo, que la mejora de los modelos stacking respecto a los base sea sistemática indica que no nos encontramos frente a un incidente estadístico, sino que el formato del stacking es capaz de mejorar las predicciones de los modelos escogiendo las mejores decisiones de cada uno de ellos. No obstante, como ya se comentó anteriormente, la complejidad de entrenar cinco modelos además del metamodelo puede resultar incómoda frente a la posibilidad de usar, por ejemplo, el mejor de los modelos individuales.
 
 El modelo ensemble que mejores métricas proporciona para la predicción de la variable \texttt{carbono\_bruto4} (tC) es la configuración 5 y metamodelo MLP, al igual que ocurrió con la variable \texttt{c4} (tC/ha). La evolución del RMSE y el RMSE porcentual en cuantiles en función de la variable \texttt{periodo} para este modelo se puede visualizar en la Figura \ref{fig:Stack5_MLP_combined_rmse_y_pct_rmse_cuantiles}.
 
@@ -148,14 +148,14 @@ Una posible explicación para este fenómeno radica en la calidad y cantidad de 
       \centering
       \begin{subfigure}[b]{0.48\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{figuras/09_discusion/Consolidado_IFN2_c4_paper.pdf}
+            \includegraphics[width=\textwidth]{figuras/09_discusion/Consolidado_IFN2_c4_clean.pdf}
             \caption{Resultados para \texttt{c4} en el IFN2.}
             \label{fig:sub1}
       \end{subfigure}
       \hfill
       \begin{subfigure}[b]{0.48\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{figuras/09_discusion/Consolidado_IFN3_c4_paper.pdf}
+            \includegraphics[width=\textwidth]{figuras/09_discusion/Consolidado_IFN3_c4_clean.pdf}
             \caption{Resultados para \texttt{c4} en el IFN3.}
             \label{fig:sub2}
       \end{subfigure}
@@ -164,18 +164,18 @@ Una posible explicación para este fenómeno radica en la calidad y cantidad de 
 
       \begin{subfigure}[b]{0.48\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{figuras/09_discusion/Consolidado_IFN2_carbono_bruto4_paper.pdf}
+            \includegraphics[width=\textwidth]{figuras/09_discusion/Consolidado_IFN2_carbono_bruto4_clean.pdf}
             \caption{Resultados para \texttt{carbono\_bruto4} en el IFN2.}
             \label{fig:sub3}
       \end{subfigure}
       \hfill
       \begin{subfigure}[b]{0.48\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{figuras/09_discusion/Consolidado_IFN3_carbono_bruto4_paper.pdf}
+            \includegraphics[width=\textwidth]{figuras/09_discusion/Consolidado_IFN3_carbono_bruto4_clean.pdf}
             \caption{Resultados para \texttt{carbono\_bruto4} en el IFN3.}
             \label{fig:sub4}
       \end{subfigure}
-      \caption{Comparación del error absoluto entre mejores modelos base globales vs. locales (arriba), mejores modelos de stacking globales vs. locales (medio) y mejor modelo base vs. mejor modelo de stacking (abajo).}
+      \caption{Comparación del error absoluto entre mejores modelos base globales vs. base locales (arriba), mejores modelos de stacking globales vs.  stacking locales (medio) y mejor modelo base vs. mejor modelo de stacking (abajo).}
       \label{fig:comparativa_mejores}
 \end{figure}
 
@@ -244,7 +244,7 @@ Si se analizan las métricas globales de las tablas de la sección \ref{sec:resu
 
 Rápidamente nos damos cuenta de lo siguiente: las predicciones para valores pequeños de carbono objetivo (primeros deciles) son malas (SMAPE grande) pese a ser aquellas con un error absoluto menor (RMSE pequeño). Luego, a medida que aumenta el carbono objetivo, el RMSE aumenta ligeramente mientras que el SMAPE disminuye mucho más rápido, llegando a valores cercanos al $25\%$. En ambos casos los mejores resultados se logran cuando el carbono objetivo es mayor, pese a que observamos un aumento significativo del RMSE entre el penúltimo y último decil. Como esto se produce para todos los modelos, sugiere que la dificultad de predicción no es homogénea para todas las situaciones o cantidades de carbono, y que pese a ser los percentiles de menor carbono aquellos con un RMSE menor, la precisión de los modelos no es la suficiente como para hacer una predicción decente en situaciones con poca biomasa. Esto era predecible, ya que un error absoluto mayor para una parcela de bosque mayor no implica necesariamente un peor error relativo.
 
-También es llamativo el hecho de que los deciles iniciales tienen unos rangos de carbono muy cercanos, sobre todo en el caso de la variable \texttt{carbono\_bruto4}, donde el primer decil abarca desde $0.0003$ tC hasta $0.002$ tC. Esta gran cantidad de valores no sirve a los modelos para obtener una buena predicción, por otra parte. Las densidades mayores para valores pequeños de carbono se ven claramente en las Figuras \ref{fig:density_LightGBM_0-300}, \ref{fig:Stack5_MLP_density}, \ref{fig:CatBoost_density} y \ref{fig:Stack5_MLP_density_carbono_bruto4}.
+También es llamativo el hecho de que los deciles iniciales tienen unos rangos de carbono muy cercanos, sobre todo en el caso de la variable \texttt{carbono\_bruto4}, donde el primer decil abarca desde $0.0003$ tC hasta $0.0020$ tC. Esta gran cantidad de valores no sirve a los modelos para obtener una buena predicción, por otra parte. Las densidades mayores para valores pequeños de carbono se ven claramente en las Figuras \ref{fig:density_LightGBM_0-300}, \ref{fig:Stack5_MLP_density}, \ref{fig:CatBoost_density} y \ref{fig:Stack5_MLP_density_carbono_bruto4}.
 
 \vspace{1cm}
 \hrule 

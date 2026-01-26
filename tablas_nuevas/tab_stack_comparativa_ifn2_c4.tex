@@ -1,0 +1,78 @@
+\begin{longtable}{lrrrrrr}
+    \caption{Comparativa Modelos Stacking en IFN2 (c4)}
+    \label{tab:stack_comp_ifn2_c4} \\
+    \toprule
+    Modelo & $R^2_{\text{test}}$ & RMSE$_{\text{test}}$ & MAE$_{\text{test}}$ & wMAPE & SMAPE & Bias \\
+    \midrule
+    \endfirsthead
+    \toprule
+    Modelo & $R^2_{\text{test}}$ & RMSE$_{\text{test}}$ & MAE$_{\text{test}}$ & wMAPE & SMAPE & Bias \\
+    \midrule
+    \endhead
+    \midrule
+    \multicolumn{7}{r}{{Continúa en la siguiente página...}} \\
+    \endfoot
+    \bottomrule
+    \endlastfoot
+    \textbf{Stack5 GradientBoosting} & \textbf{0.724} & \textbf{25.889} & \textbf{14.531} & \textbf{35.280} & \textbf{47.157} & \textbf{-0.579} \\
+    Stack1 MLP$_{\text{global}}$ & 0.722 & 26.683 & 14.582 & 35.106 & 46.515 & 0.117 \\
+    Stack2 MLP$_{\text{global}}$ & 0.721 & 26.726 & 14.475 & 34.848 & 46.320 & -0.131 \\
+    Stack5 MLP$_{\text{global}}$ & 0.721 & 26.742 & 14.502 & 34.913 & 46.347 & 0.077 \\
+    Stack3 GradientBoosting & 0.720 & 26.054 & 14.847 & 36.045 & 48.023 & -0.747 \\
+    Stack1 LinearRegression$_{\text{global}}$ & 0.719 & 26.827 & 14.609 & 35.173 & 46.712 & -0.140 \\
+    Stack1 Ridge$_{\text{global}}$ & 0.719 & 26.829 & 14.609 & 35.172 & 46.709 & -0.142 \\
+    Stack5 MLP & 0.718 & 26.127 & 14.452 & 35.088 & 46.430 & -0.607 \\
+    Stack4 MLP$_{\text{global}}$ & 0.718 & 26.852 & 14.479 & 34.859 & 46.260 & -0.328 \\
+    Stack2 LinearRegression$_{\text{global}}$ & 0.718 & 26.877 & 14.505 & 34.922 & 46.440 & -0.112 \\
+    Stack2 Ridge$_{\text{global}}$ & 0.718 & 26.883 & 14.507 & 34.927 & 46.440 & -0.114 \\
+    Stack4 MLP & 0.717 & 26.177 & 14.550 & 35.326 & 46.579 & -0.495 \\
+    Stack5 LinearRegression$_{\text{global}}$ & 0.717 & 26.905 & 14.552 & 35.034 & 46.852 & -0.053 \\
+    Stack5 Ridge$_{\text{global}}$ & 0.717 & 26.910 & 14.547 & 35.022 & 46.818 & -0.064 \\
+    Stack4 LinearRegression$_{\text{global}}$ & 0.717 & 26.912 & 14.590 & 35.127 & 46.948 & -0.056 \\
+    Stack4 Ridge$_{\text{global}}$ & 0.717 & 26.913 & 14.584 & 35.112 & 46.912 & -0.066 \\
+    Stack5 LinearRegression & 0.716 & 26.247 & 14.600 & 35.445 & 47.345 & -0.545 \\
+    Stack5 Ridge & 0.716 & 26.247 & 14.599 & 35.445 & 47.344 & -0.545 \\
+    Stack1 MLP & 0.716 & 26.257 & 14.669 & 35.614 & 47.371 & -0.555 \\
+    Stack4 LinearRegression & 0.715 & 26.271 & 14.621 & 35.498 & 47.385 & -0.553 \\
+    Stack4 Ridge & 0.715 & 26.271 & 14.621 & 35.498 & 47.385 & -0.553 \\
+    Stack2 GradientBoosting$_{\text{global}}$ & 0.715 & 27.001 & 14.536 & 34.996 & 46.544 & -0.181 \\
+    Stack1 Ridge & 0.714 & 26.339 & 14.689 & 35.663 & 47.140 & -0.500 \\
+    Stack1 LinearRegression & 0.714 & 26.339 & 14.689 & 35.663 & 47.140 & -0.500 \\
+    Stack4 GradientBoosting & 0.713 & 26.383 & 14.607 & 35.464 & 47.377 & -0.674 \\
+    Stack2 MLP & 0.712 & 26.401 & 14.587 & 35.414 & 46.924 & -0.528 \\
+    Stack3 LinearRegression$_{\text{global}}$ & 0.712 & 27.155 & 14.647 & 35.265 & 47.109 & -0.126 \\
+    Stack3 Ridge$_{\text{global}}$ & 0.712 & 27.157 & 14.640 & 35.248 & 47.066 & -0.138 \\
+    Stack2 LinearRegression & 0.712 & 26.429 & 14.632 & 35.523 & 47.316 & -0.535 \\
+    Stack2 Ridge & 0.712 & 26.429 & 14.632 & 35.523 & 47.316 & -0.535 \\
+    Stack3 MLP$_{\text{global}}$ & 0.711 & 27.212 & 14.529 & 34.979 & 46.365 & -0.705 \\
+    Stack2 SVR$_{\text{global}}$ & 0.711 & 27.212 & 14.225 & 34.247 & 45.732 & -2.514 \\
+    Stack4 SVR$_{\text{global}}$ & 0.711 & 27.225 & 14.249 & 34.305 & 46.002 & -2.559 \\
+    Stack5 SVR$_{\text{global}}$ & 0.710 & 27.237 & 14.218 & 34.232 & 45.909 & -2.549 \\
+    Stack1 SVR$_{\text{global}}$ & 0.710 & 27.240 & 14.307 & 34.445 & 45.502 & -2.747 \\
+    Stack3 MLP & 0.709 & 26.544 & 14.875 & 36.114 & 47.914 & -0.401 \\
+    Stack5 SVR & 0.709 & 26.550 & 14.241 & 34.575 & 47.201 & -4.012 \\
+    Stack5 RandomForest & 0.708 & 26.594 & 15.177 & 36.847 & 48.063 & 0.095 \\
+    Stack4 SVR & 0.708 & 26.599 & 14.320 & 34.766 & 47.387 & -4.112 \\
+    Stack3 SVR$_{\text{global}}$ & 0.706 & 27.453 & 14.305 & 34.441 & 46.147 & -2.626 \\
+    Stack1 SVR & 0.705 & 26.729 & 14.400 & 34.961 & 46.958 & -3.988 \\
+    Stack2 SVR & 0.704 & 26.784 & 14.279 & 34.667 & 47.082 & -4.027 \\
+    Stack3 LinearRegression & 0.703 & 26.832 & 14.942 & 36.276 & 48.431 & -0.664 \\
+    Stack3 Ridge & 0.703 & 26.832 & 14.942 & 36.276 & 48.431 & -0.664 \\
+    Stack4 RandomForest & 0.702 & 26.897 & 15.442 & 37.490 & 48.861 & -0.050 \\
+    Stack5 GradientBoosting$_{\text{global}}$ & 0.701 & 27.690 & 14.571 & 35.081 & 46.490 & -0.240 \\
+    Stack1 GradientBoosting$_{\text{global}}$ & 0.699 & 27.740 & 14.641 & 35.250 & 46.608 & -0.367 \\
+    Stack3 GradientBoosting$_{\text{global}}$ & 0.699 & 27.770 & 14.642 & 35.253 & 46.471 & -0.282 \\
+    Stack3 SVR & 0.696 & 27.146 & 14.613 & 35.477 & 48.257 & -4.409 \\
+    Stack1 GradientBoosting & 0.695 & 27.176 & 14.815 & 35.967 & 47.547 & -0.476 \\
+    Stack4 GradientBoosting$_{\text{global}}$ & 0.693 & 28.026 & 14.640 & 35.247 & 46.441 & -0.166 \\
+    Stack2 RandomForest$_{\text{global}}$ & 0.690 & 28.187 & 15.317 & 36.876 & 47.788 & 0.139 \\
+    Stack2 GradientBoosting & 0.690 & 27.429 & 14.710 & 35.714 & 47.413 & -0.599 \\
+    Stack2 RandomForest & 0.688 & 27.488 & 15.562 & 37.782 & 48.807 & -0.134 \\
+    Stack3 RandomForest & 0.685 & 27.622 & 15.914 & 38.636 & 49.763 & -0.395 \\
+    Stack1 RandomForest$_{\text{global}}$ & 0.681 & 28.578 & 15.738 & 37.891 & 48.764 & -0.085 \\
+    Stack5 RandomForest$_{\text{global}}$ & 0.679 & 28.674 & 15.225 & 36.656 & 47.660 & 0.534 \\
+    Stack4 RandomForest$_{\text{global}}$ & 0.673 & 28.956 & 15.339 & 36.929 & 47.706 & 0.394 \\
+    Stack1 RandomForest & 0.672 & 28.193 & 16.193 & 39.314 & 50.293 & -0.396 \\
+    Stack3 RandomForest$_{\text{global}}$ & 0.667 & 29.218 & 15.575 & 37.499 & 48.075 & 0.408 \\
+\end{longtable}
+

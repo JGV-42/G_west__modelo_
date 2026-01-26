@@ -1,0 +1,21 @@
+\begin{table}[H]
+    \centering
+    \caption{Modelos Base Globales (carbono_bruto4)}
+    \label{tab:base_global_carbono_bruto4}
+    \begin{tabular}{lrrrrrr}
+        \toprule
+        Modelo & $R^2_{\text{test}}$ & RMSE$_{\text{test}}$ & MAE$_{\text{test}}$ & wMAPE & SMAPE & Bias \\
+        \midrule
+        \textbf{CatBoost$_{\text{global}}$} & \textbf{0.845} & \textbf{13.846} & \textbf{6.615} & \textbf{31.789} & \textbf{98.044} & \textbf{-0.150} \\
+        LightGBM$_{\text{global}}$ & 0.841 & 14.006 & 6.654 & 31.977 & 98.088 & -0.150 \\
+        XGBoost$_{\text{global}}$ & 0.840 & 14.054 & 6.655 & 31.980 & 97.699 & -0.148 \\
+        GBDT$_{\text{global}}$ & 0.838 & 14.159 & 6.722 & 32.304 & 98.033 & -0.132 \\
+        MLP$_{\text{global}}$ & 0.832 & 14.410 & 6.931 & 33.311 & 100.379 & -0.643 \\
+        BaggedDT$_{\text{global}}$ & 0.821 & 14.858 & 7.282 & 34.995 & 97.651 & 0.158 \\
+        RandomForest$_{\text{global}}$ & 0.819 & 14.950 & 7.135 & 34.291 & 93.561 & -0.191 \\
+        BayesianNN$_{\text{global}}$ & 0.775 & 16.674 & 8.906 & 42.802 & 107.697 & -0.097 \\
+        SVR$_{\text{global}}$ & 0.679 & 19.897 & 8.137 & 39.106 & 102.061 & -4.376 \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+

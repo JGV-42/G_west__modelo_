@@ -55,3 +55,5 @@
 - [2026-01-21] [sections/13_anexos.tex:58] Error: "determinará" -> Corrección: "determinarán"
 - [2026-01-21] [sections/13_anexos.tex:105] Error: "fidromorfía" -> Corrección: "hidromorfía"
 - [2026-01-21] [sections/13_anexos.tex:130] Error: "Identificandose" -> Corrección: "Identificándose"
+- [2026-01-26] [sections/10_conclusiones.tex:12] Error: "Por ejemplo,hay" -> Corrección: "Por ejemplo, hay"
+- [2026-01-26] [sections/10_conclusiones.tex:15] Error: "los cuáles" -> Corrección: "los cuales"
