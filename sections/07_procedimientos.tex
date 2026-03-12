@@ -98,6 +98,7 @@ TODO: Esto igual debería ir en resultados?
     \caption{Comparación de configuraciones de selección de variables y rendimiento del modelo CatBoost sobre los datos del IFN 2-3 y 4 para predecir \texttt{c4}.}
     \label{tab:comparativa_modelos}
     \footnotesize
+    \resizebox{\columnwidth}{!}{
     \begin{tabular}{l l r r r r r}
         \toprule
         Configuración & Modelo   & $n_\text{vars}$ & $R^{2}$ & RMSE  & MAE   & Moda error (aprox.) \\
@@ -107,6 +108,7 @@ TODO: Esto igual debería ir en resultados?
         FeatureWiz    & CatBoost & 50              & 0.72    & 25.65 & 13.08 & 2                   \\
         \bottomrule
     \end{tabular}
+    }
 \end{table}
 
 
@@ -118,6 +120,7 @@ Con el objetivo de estudiar el compromiso entre diversidad del ensamble, coste c
     \centering
     \caption{Configuraciones de modelos base para \textit{stacking}.}
     \label{tab:stack_configs}
+    \resizebox{\columnwidth}{!}{
     \begin{tabular}{cl}
         \toprule
         \textbf{Config.} & \textbf{Modelos base} \\
@@ -129,6 +132,7 @@ Con el objetivo de estudiar el compromiso entre diversidad del ensamble, coste c
         5 & CatBoost, LightGBM, XGBoost, Random Forest, GBDT, BaggedDT \\
         \bottomrule
     \end{tabular}
+    }
 \end{table}
 
 \begin{itemize}
@@ -152,6 +156,7 @@ Sobre las predicciones apiladas de cada configuración se entrenan distintos met
     \caption{Meta-modelos utilizados en el \textit{stacking} junto con sus parámetros.}
     \label{tab:meta_modelos}
     \footnotesize
+    \resizebox{\columnwidth}{!}{
     \begin{tabular}{lp{8cm}}
         \toprule
         \textbf{Meta-modelo} & \textbf{Parámetros} \\
@@ -164,6 +169,7 @@ Sobre las predicciones apiladas de cada configuración se entrenan distintos met
         MLP                 & Una capa oculta con 50 neuronas, 500 iteraciones máximas \\
         \bottomrule
     \end{tabular}
+    }
 \end{table}
 
 Estos meta-modelos representan diferentes formas de combinar las predicciones de los modelos base:

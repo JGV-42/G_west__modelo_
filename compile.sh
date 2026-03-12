@@ -3,7 +3,6 @@
 
 echo
 echo "--- Limpiando archivos auxiliares... ---"
-# Usamos rm -f para forzar el borrado sin preguntar y ocultar errores si no existen
 rm -f *.aux *.bbl *.bcf *.blg *.log *.out *.synctex.gz > /dev/null 2>&1
 
 echo
@@ -11,8 +10,8 @@ echo "--- PASO 1: Ejecutando pdflatex (primera pasada)... ---"
 pdflatex -interaction=nonstopmode main.tex
 
 echo
-echo "--- PASO 2: Ejecutando biber para la bibliografia... ---"
-biber main
+echo "--- PASO 2: Ejecutando bibtex para la bibliografia... ---"
+bibtex main
 
 echo
 echo "--- PASO 3: Ejecutando pdflatex (para incluir bibliografia)... ---"

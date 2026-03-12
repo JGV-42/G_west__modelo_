@@ -19,16 +19,18 @@ La variable \texttt{periodo} (el número de años entre la medición y la predic
 
 \begin{figure}
       \centering
-      \begin{subfigure}[b]{0.43\textwidth}
+      \begin{subfigure}[b]{1.0\linewidth}
             \centering
-            \includegraphics[width=\textwidth]{figuras/09_discusion/c4_LightGBM_metrics.pdf}
+            \includegraphics[width=\linewidth]{figuras/09_discusion/c4_LightGBM_metrics.pdf}
             \caption{Evolución del error absoluto y el error absoluto porcentual en cuantiles}
             \label{fig:LightGBM_rmse_y_pct_rmse_cuantiles}
       \end{subfigure}
-      \hfill
-      \begin{subfigure}[b]{0.48\textwidth}
+      
+      \vspace{0.5cm}
+
+      \begin{subfigure}[b]{1.0\linewidth}
             \centering
-            \includegraphics[width=\textwidth]{figuras/09_discusion/c4_LightGBM_density.pdf}
+            \includegraphics[width=\linewidth]{figuras/09_discusion/c4_LightGBM_density.pdf}
             \caption{Densidad de predicciones frente a valores reales}
             \label{fig:density_LightGBM_0-300}
       \end{subfigure}
@@ -54,16 +56,18 @@ Por otro lado, en la Figura \ref{fig:Stack5_MLP_density} podemos observar el gr�
 
 \begin{figure}
       \centering
-      \begin{subfigure}[b]{0.43\textwidth}
+      \begin{subfigure}[b]{1.0\linewidth}
             \centering
-            \includegraphics[width=\textwidth]{figuras/09_discusion/c4_Stack5_MLP_metrics.pdf}
+            \includegraphics[width=\linewidth]{figuras/09_discusion/c4_Stack5_MLP_metrics.pdf}
             \caption{Evolución del error absoluto y el error absoluto porcentual en cuantiles}
             \label{fig:Stack5_MLP_rmse_y_pct_rmse_cuantiles}
       \end{subfigure}
-      \hfill
-      \begin{subfigure}[b]{0.48\textwidth}
+      
+      \vspace{0.5cm}
+
+      \begin{subfigure}[b]{1.0\linewidth}
             \centering
-            \includegraphics[width=\textwidth]{figuras/09_discusion/c4_Stack5_MLP_density.pdf}
+            \includegraphics[width=\linewidth]{figuras/09_discusion/c4_Stack5_MLP_density.pdf}
             \caption{Gráfico de puntos de las predicciones frente a los valores reales}
             \label{fig:Stack5_MLP_density}
       \end{subfigure}
@@ -86,16 +90,18 @@ De igual forma que en los apartados anteriores, en la Figura \ref{fig:CatBoost_c
 
 \begin{figure}
       \centering
-      \begin{subfigure}[b]{0.43\textwidth}
+      \begin{subfigure}[b]{1.0\linewidth}
             \centering
-            \includegraphics[width=\textwidth]{figuras/09_discusion/carbono_bruto4_CatBoost_metrics.pdf}
+            \includegraphics[width=\linewidth]{figuras/09_discusion/carbono_bruto4_CatBoost_metrics.pdf}
             \caption{Evolución del error absoluto y el error absoluto porcentual en cuantiles}
             \label{fig:CatBoost_combined}
       \end{subfigure}
-      \hfill
-      \begin{subfigure}[b]{0.48\textwidth}
+
+      \vspace{0.5cm}
+
+      \begin{subfigure}[b]{1.0\linewidth}
             \centering
-            \includegraphics[width=\textwidth]{figuras/09_discusion/carbono_bruto4_CatBoost_density.pdf}
+            \includegraphics[width=\linewidth]{figuras/09_discusion/carbono_bruto4_CatBoost_density.pdf}
             \caption{Gráfico de puntos de las predicciones frente a los valores reales}
             \label{fig:CatBoost_density}
       \end{subfigure}
@@ -118,16 +124,18 @@ El modelo ensemble que mejores métricas proporciona para la predicción de la v
 
 \begin{figure}
       \centering
-      \begin{subfigure}[b]{0.43\textwidth}
+      \begin{subfigure}[b]{1.0\linewidth}
             \centering
-            \includegraphics[width=\textwidth]{figuras/09_discusion/carbono_bruto4_Stack5_MLP_metrics.pdf}
+            \includegraphics[width=\linewidth]{figuras/09_discusion/carbono_bruto4_Stack5_MLP_metrics.pdf}
             \caption{Evolución del error absoluto y el error absoluto porcentual en cuantiles}
             \label{fig:Stack5_MLP_combined_rmse_y_pct_rmse_cuantiles}
       \end{subfigure}
-      \hfill
-      \begin{subfigure}[b]{0.48\textwidth}
+      
+      \vspace{0.5cm}
+
+      \begin{subfigure}[b]{1.0\linewidth}
             \centering
-            \includegraphics[width=\textwidth]{figuras/09_discusion/carbono_bruto4_Stack5_MLP_density.pdf}
+            \includegraphics[width=\linewidth]{figuras/09_discusion/carbono_bruto4_Stack5_MLP_density.pdf}
             \caption{Gráfico de puntos de las predicciones frente a los valores reales}
             \label{fig:Stack5_MLP_density_carbono_bruto4}
       \end{subfigure}
@@ -146,34 +154,38 @@ Una posible explicación para este fenómeno radica en la calidad y cantidad de 
 
 \begin{figure}[htbp]
       \centering
-      \begin{subfigure}[b]{0.48\textwidth}
+      \begin{subfigure}[b]{1.0\linewidth}
             \centering
-            \includegraphics[width=\textwidth]{figuras/09_discusion/Consolidado_IFN2_c4_clean.pdf}
+            \includegraphics[width=\linewidth]{figuras/09_discusion/Consolidado_IFN2_c4_clean.pdf}
             \caption{Resultados para \texttt{c4} en el IFN2.}
-            \label{fig:sub1}
-      \end{subfigure}
-      \hfill
-      \begin{subfigure}[b]{0.48\textwidth}
-            \centering
-            \includegraphics[width=\textwidth]{figuras/09_discusion/Consolidado_IFN3_c4_clean.pdf}
-            \caption{Resultados para \texttt{c4} en el IFN3.}
-            \label{fig:sub2}
+            \label{fig:disc_sub1}
       \end{subfigure}
 
       \vspace{0.5cm}
 
-      \begin{subfigure}[b]{0.48\textwidth}
+      \begin{subfigure}[b]{1.0\linewidth}
             \centering
-            \includegraphics[width=\textwidth]{figuras/09_discusion/Consolidado_IFN2_carbono_bruto4_clean.pdf}
-            \caption{Resultados para \texttt{carbono\_bruto4} en el IFN2.}
-            \label{fig:sub3}
+            \includegraphics[width=\linewidth]{figuras/09_discusion/Consolidado_IFN3_c4_clean.pdf}
+            \caption{Resultados para \texttt{c4} en el IFN3.}
+            \label{fig:disc_sub2}
       \end{subfigure}
-      \hfill
-      \begin{subfigure}[b]{0.48\textwidth}
+
+      \vspace{0.5cm}
+
+      \begin{subfigure}[b]{1.0\linewidth}
             \centering
-            \includegraphics[width=\textwidth]{figuras/09_discusion/Consolidado_IFN3_carbono_bruto4_clean.pdf}
+            \includegraphics[width=\linewidth]{figuras/09_discusion/Consolidado_IFN2_carbono_bruto4_clean.pdf}
+            \caption{Resultados para \texttt{carbono\_bruto4} en el IFN2.}
+            \label{fig:disc_sub3}
+      \end{subfigure}
+
+      \vspace{0.5cm}
+
+      \begin{subfigure}[b]{1.0\linewidth}
+            \centering
+            \includegraphics[width=\linewidth]{figuras/09_discusion/Consolidado_IFN3_carbono_bruto4_clean.pdf}
             \caption{Resultados para \texttt{carbono\_bruto4} en el IFN3.}
-            \label{fig:sub4}
+            \label{fig:disc_sub4}
       \end{subfigure}
       \caption{Comparación del error absoluto entre mejores modelos base globales vs. base locales (arriba), mejores modelos de stacking globales vs.  stacking locales (medio) y mejor modelo base vs. mejor modelo de stacking (abajo).}
       \label{fig:comparativa_mejores}
@@ -192,16 +204,18 @@ Esta figura muestra la evolución de varios casos particulares a medida que avan
 
 \begin{figure}
       \centering
-      \begin{subfigure}[b]{0.48\textwidth}
+      \begin{subfigure}[b]{1.0\linewidth}
             \centering
-            \includegraphics[width=\textwidth]{figuras/09_discusion/sensibilidad_escenarios_c4_P10_P35_P65_P90.pdf}
+            \includegraphics[width=\linewidth]{figuras/09_discusion/sensibilidad_escenarios_c4_P10_P35_P65_P90.pdf}
             \caption{Cantidad de carbono en toneladas por hectárea para varios escenarios.}
             \label{fig:sensibilidad_escenarios_c4}
       \end{subfigure}
-      \hfill
-      \begin{subfigure}[b]{0.48\textwidth}
+      
+      \vspace{0.5cm}
+
+      \begin{subfigure}[b]{1.0\linewidth}
             \centering
-            \includegraphics[width=\textwidth]{figuras/09_discusion/sensibilidad_escenarios_carbono_bruto4_P10_P35_P65_P90.pdf}
+            \includegraphics[width=\linewidth]{figuras/09_discusion/sensibilidad_escenarios_carbono_bruto4_P10_P35_P65_P90.pdf}
             \caption{Cantidad de carbono en toneladas para varios escenarios.}
             \label{fig:sensibilidad_escenarios_carbono_bruto4}
       \end{subfigure}
@@ -224,16 +238,18 @@ Si se analizan las métricas globales de las tablas de la sección \ref{sec:resu
 
 \begin{figure}
       \centering
-      \begin{subfigure}[b]{0.48\textwidth}
+      \begin{subfigure}[b]{1.0\linewidth}
             \centering
-            \includegraphics[width=\textwidth]{figuras/09_discusion/c4_base_models_SMAPE_RMSE_percentiles.pdf}
+            \includegraphics[width=\linewidth]{figuras/09_discusion/c4_base_models_SMAPE_RMSE_percentiles.pdf}
             \caption{Distribución de errores en función de la variable objetivo para \texttt{c4}.}
             \label{fig:distribucion_c4_combinado}
       \end{subfigure}
-      \hfill
-      \begin{subfigure}[b]{0.48\textwidth}
+      
+      \vspace{0.5cm}
+
+      \begin{subfigure}[b]{1.0\linewidth}
             \centering
-            \includegraphics[width=\textwidth]{figuras/09_discusion/carbono_bruto4_base_models_SMAPE_RMSE_percentiles.pdf}
+            \includegraphics[width=\linewidth]{figuras/09_discusion/carbono_bruto4_base_models_SMAPE_RMSE_percentiles.pdf}
             \caption{Distribución de errores en función de la variable objetivo para \texttt{carbono\_bruto4}.}
             \label{fig:distribucion_carbono_bruto4_combinado}
       \end{subfigure}

@@ -58,11 +58,12 @@ La Figura~\ref{fig:GWestBBDD} muestra el esquema general de las tablas troncales
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.9\textwidth]{figuras/05_metodologia/Estrctr_BBDD_GWest.png}
+    \includegraphics[width=\linewidth]{figuras/05_metodologia/Estrctr_BBDD_GWest.png}
     \caption{Esquema relacional de las tablas principales de la base de datos. Tabla extraída de \cite{greenwestdb}, donde se pueden consultar más detalles sobre las variables.}
     \label{fig:GWestBBDD}
 \end{figure}
 
+\onecolumn
 \subsubsection{Diccionario resumido de variables}
 \footnotesize
 \setlength{\LTcapwidth}{\textwidth}
@@ -162,6 +163,7 @@ La Figura~\ref{fig:GWestBBDD} muestra el esquema general de las tablas troncales
     \texttt{grupos.nombregrupo}                                            & Nombre del grupo.                                              & --                           & Texto                 \\
 \end{longtable}
 \normalsize
+\twocolumn
 
 \subsubsection{Cardinalidad y completitud}
 
@@ -228,7 +230,7 @@ Como ya se ha introducido, para que un proyecto forestal sea elegible en program
           TODO: indicar con colores cuántos elementos proceden de cada inventario. hacer la figura más pequeña
           \begin{figure}[H]
               \centering
-              \includegraphics[width=0.9\textwidth]{figuras/05_metodologia/periodo34.png}
+              \includegraphics[width=\linewidth]{figuras/05_metodologia/periodo34.png}
               \caption{Distribución de la diferencia de años entre los inventarios tercero y cuarto.}
               \label{fig:periodo34}
           \end{figure}
@@ -237,7 +239,7 @@ Como ya se ha introducido, para que un proyecto forestal sea elegible en program
 
           \begin{figure}[H]
               \centering
-              \includegraphics[width=0.9\textwidth]{figuras/05_metodologia/periodo234.png}
+              \includegraphics[width=\linewidth]{figuras/05_metodologia/periodo234.png}
               \caption{Distribución de la diferencia de años entre los inventarios IFN2--IFN3 e IFN3--IFN4.}
               \label{fig:periodo234}
           \end{figure}
@@ -280,6 +282,7 @@ La Tabla~\ref{tab:entradamodelo} resume las variables empleadas como entrada al 
     \setlength{\tabcolsep}{3pt}
     \centering
     \footnotesize
+    \resizebox{\columnwidth}{!}{
     \begin{tabular}{|p{3.2cm}|p{1.8cm}|p{6.5cm}|p{2.2cm}|}
         \hline
         \multicolumn{4}{|c|}{\textbf{Resumen de Datos de Entrada del Modelo}} \\
@@ -313,6 +316,7 @@ La Tabla~\ref{tab:entradamodelo} resume las variables empleadas como entrada al 
         \textcolor{ForestGreen}{\texttt{c4}, \texttt{carbono\_bruto4}} & float & Carbono IFN4 (t/ha y t). & -- \\
         \hline
     \end{tabular}
+    }
     \caption{Variables de entrada del modelo. Las variables en \textcolor{ForestGreen}{verde} están disponibles en IFN2 e IFN3; el resto solo en IFN3.}
     \label{tab:entradamodelo}
 \end{table}
@@ -517,9 +521,10 @@ Esta selección permite comparar desde combinadores lineales simples hasta integ
 La evaluación exhaustiva de múltiples algoritmos permite identificar no solo el modelo individual con mejor rendimiento, sino también combinaciones sinérgicas para el \textit{stacking}. La Tabla~\ref{tab:modelos} resume los modelos finalmente entrenados y evaluados.
 
 
-\begin{table}[htbp]
+\begin{table*}[t]
     \centering
     \footnotesize
+    \resizebox{0.75\textwidth}{!}{
     \begin{tabular}{|p{2.5cm}|p{2.2cm}|p{4.5cm}|p{4cm}|}
         \hline
         \textbf{Modelo} & \textbf{Tipo} & \textbf{Características} & \textbf{Observaciones} \\
@@ -547,9 +552,10 @@ La evaluación exhaustiva de múltiples algoritmos permite identificar no solo e
         BayesianNN & Probabilístico & Cuantifica incertidumbre & Reduce sobreajuste \\
         \hline
     \end{tabular}
+    }
     \caption{Resumen de los modelos de aprendizaje supervisado evaluados.}
     \label{tab:modelos}
-\end{table}
+\end{table*}
 
 
 
