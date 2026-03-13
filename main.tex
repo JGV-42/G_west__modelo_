@@ -48,16 +48,16 @@
 \begin{document}
 
 \shorttitle{GreenWest: IA para créditos de carbono}
-\shortauthors{Urbón Jiménez et al.}
+\shortauthors{Gabriel-Vegas et al.}
 
 \title [mode = title]{GreenWest: inteligencia artificial para la predicción de créditos de carbono en proyectos de (re)forestación en España}
 
-\author[1]{Maider Araceli Urbón Jiménez}[type=editor]
+\author[1]{Jaime Gabriel-Vegas}[type=editor]
 \cormark[1]
-\ead{murbon001@usal.es}
-
-\author[1]{Jaime Gabriel-Vegas}
 \ead{JaimeGabrielVegas@usal.es}
+
+\author[1]{Maider Araceli Urbón Jiménez}
+\ead{murbon001@usal.es}
 
 \author[1]{Ana de Luis Reboredo}
 \ead{adeluis@usal.es}
@@ -73,7 +73,7 @@
     city={Salamanca},
     country={España}}
 
-\cortext[cor1]{Autora de correspondencia}
+\cortext[cor1]{Autor de correspondencia}
 
 \begin{abstract}
 Este trabajo presenta \textbf{GreenWest}, un modelo de inteligencia artificial diseñado para predecir la cantidad de carbono capturado en proyectos de forestación y reforestación en España. El modelo se entrena con datos multifuente: registros del \textbf{Inventario Forestal Nacional} (\textbf{IFN3--IFN4}, MITECO), variables climáticas derivadas de \textbf{Copernicus/ERA5-Land} e índices espectrales procedentes de \textbf{imágenes Landsat} (Collection~2, Level~2, USGS). Estos datos se integran en una base de datos relacional jerárquica que organiza la información por parcela, especie y clase diamétrica, manteniendo trazabilidad y coherencia estructural entre inventarios.
@@ -88,6 +88,13 @@ créditos de carbono \sep inteligencia artificial \sep forestación \sep refores
 \end{keywords}
 
 \maketitle
+
+% Índice en página independiente y una sola columna (solo para navegación durante redacción)
+\newpage
+\onecolumn
+\tableofcontents
+\twocolumn
+\newpage
 
 \input{sections/01_introduccion}
 \input{sections/02_objetivos}

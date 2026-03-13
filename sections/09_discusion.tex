@@ -262,6 +262,70 @@ Rápidamente nos damos cuenta de lo siguiente: las predicciones para valores peq
 
 También es llamativo el hecho de que los deciles iniciales tienen unos rangos de carbono muy cercanos, sobre todo en el caso de la variable \texttt{carbono\_bruto4}, donde el primer decil abarca desde $0.0003$ tC hasta $0.0020$ tC. Esta gran cantidad de valores no sirve a los modelos para obtener una buena predicción, por otra parte. Las densidades mayores para valores pequeños de carbono se ven claramente en las Figuras \ref{fig:density_LightGBM_0-300}, \ref{fig:Stack5_MLP_density}, \ref{fig:CatBoost_density} y \ref{fig:Stack5_MLP_density_carbono_bruto4}.
 
+\subsection{Interpretabilidad de los modelos: análisis SHAP}
+
+[Texto de ejemplo. Las figuras enlazadas son reales. El resto están en el repositorio de los modelos. Daltaría comentar el resto de casos.]
+
+\begin{figure}
+      \centering
+      \includegraphics[width=\linewidth]{figuras/09_discusion/beeswarm_grouped_LightGBM.pdf}
+      \caption{Bee swarm plot de LightGBM para la variable \texttt{carbono\_bruto4}.}
+      \label{fig:beeswarm_grouped_LightGBM}
+\end{figure}
+
+\begin{figure}
+      \centering
+      \includegraphics[width=\linewidth]{figuras/09_discusion/beeswarm_grouped_CatBoost.pdf}
+      \caption{Bee swarm plot de CatBoost para la variable \texttt{carbono\_bruto4}.}
+      \label{fig:beeswarm_grouped_CatBoost}
+\end{figure}
+
+Los diagramas de dispersión SHAP (\textit{beeswarm plots}) de LightGBM
+(figura~\ref{fig:beeswarm_grouped_LightGBM}) y CatBoost
+(figura~\ref{fig:beeswarm_grouped_CatBoost}) revelan patrones
+coincidentes y divergentes en la interpretación del modelo para
+\texttt{c4}:
+
+\begin{itemize}
+
+\item \textbf{Dominancia de la densidad arbórea.}
+En ambos modelos, \texttt{npies* (Densidad)} es la variable más
+influyente con diferencia. Sin embargo, LightGBM
+(figura~\ref{fig:beeswarm_grouped_LightGBM}) produce valores SHAP
+extremos de hasta $\sim$260 tC/ha, frente a los $\sim$160 tC/ha de
+CatBoost (figura~\ref{fig:beeswarm_grouped_CatBoost}), lo que indica
+que LightGBM amplifica más el efecto de las parcelas de alta densidad.
+
+\item \textbf{Importancia de la especie.}
+\texttt{especie\_id*} ocupa la segunda posición en ambas figuras,
+con una cola derecha pronunciada que refleja el efecto diferencial
+de determinadas especies sobre la acumulación de carbono. La
+dispersión es comparable entre modelos.
+
+\item \textbf{Variables de estructura forestal frente a climáticas.}
+LightGBM (figura~\ref{fig:beeswarm_grouped_LightGBM}) otorga mayor
+peso relativo a \texttt{tipo\_especie*} y \texttt{periodo\_agrupado*},
+mientras que CatBoost (figura~\ref{fig:beeswarm_grouped_CatBoost})
+incorpora \texttt{pr\_sum\_otoño} entre las variables más relevantes,
+sugiriendo una mayor sensibilidad a señales climáticas.
+
+\item \textbf{Efecto del período.}
+\texttt{periodo\_agrupado*} aparece en quinta posición en
+LightGBM (figura~\ref{fig:beeswarm_grouped_LightGBM}), con valores
+rojos (IFN2) que empujan la predicción hasta $+50$ tC/ha. En CatBoost
+(figura~\ref{fig:beeswarm_grouped_CatBoost}) este efecto es menos
+pronunciado, lo que sugiere que LightGBM captura con mayor intensidad
+el crecimiento forestal acumulado entre inventarios.
+
+\item \textbf{Consistencia en variables secundarias.}
+Variables climáticas y edáficas como \texttt{gndvi\_mean\_verano},
+\texttt{skt\_mean\_verano} y \texttt{evi\_mean\_primavera} aparecen
+en ambas figuras con efectos SHAP pequeños y simétricos, lo que
+indica que su contribución marginal es robusta entre modelos pero
+de segundo orden respecto a los factores estructurales del arbolado.
+
+\end{itemize}
+
 \vspace{1cm}
 \hrule 
 \vspace{1cm}
