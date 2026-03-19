@@ -4,82 +4,82 @@
 \contentsline {subsection}{\numberline {2.1}Objetivos específicos}{5}{subsection.2.1}%
 \contentsline {subsection}{\numberline {2.2}Justificación}{5}{subsection.2.2}%
 \contentsline {section}{\numberline {3}Revisión de la Literatura}{5}{section.3}%
-\contentsline {section}{\numberline {4}Estado del Arte}{6}{section.4}%
+\contentsline {section}{\numberline {4}Estado del Arte}{7}{section.4}%
 \contentsline {section}{\numberline {5}Metodología}{7}{section.5}%
-\contentsline {subsection}{\numberline {5.1}Origen y estructura de los datos}{7}{subsection.5.1}%
-\contentsline {subsubsection}{\numberline {5.1.1}Estructura de la base de datos}{7}{subsubsection.5.1.1}%
+\contentsline {subsection}{\numberline {5.1}Origen y estructura de los datos}{8}{subsection.5.1}%
+\contentsline {subsubsection}{\numberline {5.1.1}Estructura de la base de datos}{8}{subsubsection.5.1.1}%
 \contentsline {subsubsection}{\numberline {5.1.2}Diccionario resumido de variables}{9}{subsubsection.5.1.2}%
 \contentsline {subsubsection}{\numberline {5.1.3}Cardinalidad y completitud}{11}{subsubsection.5.1.3}%
 \contentsline {subsection}{\numberline {5.2}Variables objetivo}{11}{subsection.5.2}%
 \contentsline {subsection}{\numberline {5.3}Supuestos de elegibilidad y verificación externa}{11}{subsection.5.3}%
 \contentsline {subsection}{\numberline {5.4}Preparación y tratamiento de los datos}{12}{subsection.5.4}%
 \contentsline {subsubsection}{\numberline {5.4.1}Filtrado de registros}{12}{subsubsection.5.4.1}%
-\contentsline {subsubsection}{\numberline {5.4.2}Cálculo y agregación de variables}{12}{subsubsection.5.4.2}%
+\contentsline {subsubsection}{\numberline {5.4.2}Cálculo y agregación de variables}{13}{subsubsection.5.4.2}%
 \contentsline {subsubsection}{\numberline {5.4.3}Reclasificación de las variables \texttt {pendiente} y \texttt {orientacion}}{13}{subsubsection.5.4.3}%
 \contentsline {subsubsection}{\numberline {5.4.4}Agrupación de la variable \texttt {periodo}}{13}{subsubsection.5.4.4}%
-\contentsline {subsection}{\numberline {5.5}Partición y validación}{13}{subsection.5.5}%
-\contentsline {subsubsection}{\numberline {5.5.1}Codificación y normalización}{14}{subsubsection.5.5.1}%
-\contentsline {subsection}{\numberline {5.6}Selección de variables explicativas}{14}{subsection.5.6}%
-\contentsline {subsubsection}{\numberline {5.6.1}Selección automática mediante Featurewiz}{14}{subsubsection.5.6.1}%
-\contentsline {subsubsection}{\numberline {5.6.2}Selección mediante mRMR}{14}{subsubsection.5.6.2}%
-\contentsline {subsubsection}{\numberline {5.6.3}Selección manual basada en criterios estadísticos y conceptuales}{14}{subsubsection.5.6.3}%
+\contentsline {subsection}{\numberline {5.5}Partición y validación}{14}{subsection.5.5}%
+\contentsline {subsubsection}{\numberline {5.5.1}Codificación y normalización}{15}{subsubsection.5.5.1}%
+\contentsline {subsection}{\numberline {5.6}Selección de variables explicativas}{15}{subsection.5.6}%
+\contentsline {subsubsection}{\numberline {5.6.1}Selección automática mediante Featurewiz}{15}{subsubsection.5.6.1}%
+\contentsline {subsubsection}{\numberline {5.6.2}Selección mediante mRMR}{15}{subsubsection.5.6.2}%
+\contentsline {subsubsection}{\numberline {5.6.3}Selección manual basada en criterios estadísticos y conceptuales}{15}{subsubsection.5.6.3}%
 \contentsline {subsubsection}{\numberline {5.6.4}Selección Secuencial Supervisada basada en Rendimiento Predictivo (SSSRP)}{15}{subsubsection.5.6.4}%
 \contentsline {subsection}{\numberline {5.7}Modelos evaluados}{15}{subsection.5.7}%
 \contentsline {subsubsection}{\numberline {5.7.1}Modelos ensemble}{15}{subsubsection.5.7.1}%
-\contentsline {paragraph}{Técnicas empleadas:}{15}{section*.10}%
-\contentsline {subsubsection}{\numberline {5.7.2}Boosting y aprendizaje secuencial}{15}{subsubsection.5.7.2}%
-\contentsline {subsubsection}{\numberline {5.7.3}Bagging}{15}{subsubsection.5.7.3}%
-\contentsline {subsubsection}{\numberline {5.7.4}Otros modelos evaluados}{15}{subsubsection.5.7.4}%
-\contentsline {subsubsection}{\numberline {5.7.5}Configuración del \textit {stacking}}{15}{subsubsection.5.7.5}%
+\contentsline {paragraph}{Técnicas empleadas:}{16}{section*.10}%
+\contentsline {subsubsection}{\numberline {5.7.2}Boosting y aprendizaje secuencial}{16}{subsubsection.5.7.2}%
+\contentsline {subsubsection}{\numberline {5.7.3}Bagging}{16}{subsubsection.5.7.3}%
+\contentsline {subsubsection}{\numberline {5.7.4}Otros modelos evaluados}{16}{subsubsection.5.7.4}%
+\contentsline {subsubsection}{\numberline {5.7.5}Configuración del \textit {stacking}}{16}{subsubsection.5.7.5}%
 \contentsline {subsubsection}{\numberline {5.7.6}Comparación y justificación de modelos}{16}{subsubsection.5.7.6}%
 \contentsline {section}{\numberline {6}Implementación del \textit {pipeline}}{16}{section.6}%
-\contentsline {subsection}{\numberline {6.1}Ingeniería práctica del entrenamiento y la validación}{16}{subsection.6.1}%
+\contentsline {subsection}{\numberline {6.1}Ingeniería práctica del entrenamiento y la validación}{17}{subsection.6.1}%
 \contentsline {subsection}{\numberline {6.2}Implementación del \textit {stacking}}{17}{subsection.6.2}%
-\contentsline {subsection}{\numberline {6.3}Datos finales de entrenamiento}{17}{subsection.6.3}%
-\contentsline {subsubsection}{\numberline {6.3.1}Efecto del periodo sobre el carbono}{17}{subsubsection.6.3.1}%
-\contentsline {section}{\numberline {7}Entrenamiento y validación}{17}{section.7}%
-\contentsline {subsection}{\numberline {7.1}Elección de variables}{18}{subsection.7.1}%
-\contentsline {subsubsection}{\numberline {7.1.1}Resultados de la selección de variables manual}{18}{subsubsection.7.1.1}%
-\contentsline {subsubsection}{\numberline {7.1.2}Selección de variables mediante \textit {Featurewiz}}{18}{subsubsection.7.1.2}%
-\contentsline {subsubsection}{\numberline {7.1.3}Selección de variables mediante \textit {mRMR}}{19}{subsubsection.7.1.3}%
-\contentsline {subsubsection}{\numberline {7.1.4}Discusión de la selección de variables}{19}{subsubsection.7.1.4}%
-\contentsline {subsection}{\numberline {7.2}Ensamblado tipo \textit {stacking} de modelos de regresión}{19}{subsection.7.2}%
-\contentsline {section}{\numberline {8}Resultados}{20}{section.8}%
-\contentsline {subsection}{\numberline {8.1}Resultados IFN2}{20}{subsection.8.1}%
-\contentsline {subsubsection}{\numberline {8.1.1}Toneladas de carbono por hectárea}{20}{subsubsection.8.1.1}%
-\contentsline {paragraph}{Modelos base}{20}{section*.18}%
-\contentsline {paragraph}{Modelos con stacking}{20}{section*.20}%
-\contentsline {subsubsection}{\numberline {8.1.2}Toneladas de carbono}{23}{subsubsection.8.1.2}%
-\contentsline {paragraph}{Modelos base}{23}{section*.21}%
-\contentsline {paragraph}{Modelos con stacking}{23}{section*.23}%
-\contentsline {subsection}{\numberline {8.2}Resultados IFN3}{25}{subsection.8.2}%
-\contentsline {subsubsection}{\numberline {8.2.1}Toneladas de carbono por hectárea}{25}{subsubsection.8.2.1}%
-\contentsline {paragraph}{Modelos base}{25}{section*.24}%
-\contentsline {paragraph}{Modelos con stacking}{25}{section*.26}%
-\contentsline {subsubsection}{\numberline {8.2.2}Toneladas de carbono}{27}{subsubsection.8.2.2}%
-\contentsline {paragraph}{Modelos base}{27}{section*.27}%
-\contentsline {paragraph}{Modelos con stacking}{27}{section*.29}%
-\contentsline {subsection}{\numberline {8.3}Resultados IFN2 e IFN3}{29}{subsection.8.3}%
-\contentsline {subsubsection}{\numberline {8.3.1}Toneladas de carbono por hectárea}{29}{subsubsection.8.3.1}%
-\contentsline {paragraph}{Modelos base}{29}{section*.30}%
-\contentsline {paragraph}{Modelos con stacking}{29}{section*.32}%
-\contentsline {subsubsection}{\numberline {8.3.2}Toneladas de carbono}{31}{subsubsection.8.3.2}%
-\contentsline {paragraph}{Modelos base}{31}{section*.33}%
-\contentsline {paragraph}{Modelos con stacking}{31}{section*.35}%
-\contentsline {section}{\numberline {9}Discusión}{33}{section.9}%
-\contentsline {subsection}{\numberline {9.1}Modelos globales}{33}{subsection.9.1}%
-\contentsline {subsubsection}{\numberline {9.1.1}Variable \texttt {c4} (en toneladas de carbono por hectárea)}{33}{subsubsection.9.1.1}%
-\contentsline {paragraph}{Modelos base}{33}{section*.36}%
-\contentsline {paragraph}{Modelos de stacking}{34}{section*.38}%
+\contentsline {subsection}{\numberline {6.3}Datos finales de entrenamiento}{18}{subsection.6.3}%
+\contentsline {subsubsection}{\numberline {6.3.1}Efecto del periodo sobre el carbono}{18}{subsubsection.6.3.1}%
+\contentsline {section}{\numberline {7}Entrenamiento y validación}{18}{section.7}%
+\contentsline {subsection}{\numberline {7.1}Elección de variables}{19}{subsection.7.1}%
+\contentsline {subsubsection}{\numberline {7.1.1}Resultados de la selección de variables manual}{19}{subsubsection.7.1.1}%
+\contentsline {subsubsection}{\numberline {7.1.2}Selección de variables mediante \textit {Featurewiz}}{20}{subsubsection.7.1.2}%
+\contentsline {subsubsection}{\numberline {7.1.3}Selección de variables mediante \textit {mRMR}}{20}{subsubsection.7.1.3}%
+\contentsline {subsubsection}{\numberline {7.1.4}Discusión de la selección de variables}{20}{subsubsection.7.1.4}%
+\contentsline {subsection}{\numberline {7.2}Ensamblado tipo \textit {stacking} de modelos de regresión}{20}{subsection.7.2}%
+\contentsline {section}{\numberline {8}Resultados}{21}{section.8}%
+\contentsline {subsection}{\numberline {8.1}Resultados IFN2}{21}{subsection.8.1}%
+\contentsline {subsubsection}{\numberline {8.1.1}Toneladas de carbono por hectárea}{21}{subsubsection.8.1.1}%
+\contentsline {paragraph}{Modelos base}{21}{section*.18}%
+\contentsline {paragraph}{Modelos con stacking}{21}{section*.20}%
+\contentsline {subsubsection}{\numberline {8.1.2}Toneladas de carbono}{21}{subsubsection.8.1.2}%
+\contentsline {paragraph}{Modelos base}{21}{section*.22}%
+\contentsline {paragraph}{Modelos con stacking}{21}{section*.24}%
+\contentsline {subsection}{\numberline {8.2}Resultados IFN3}{21}{subsection.8.2}%
+\contentsline {subsubsection}{\numberline {8.2.1}Toneladas de carbono por hectárea}{21}{subsubsection.8.2.1}%
+\contentsline {paragraph}{Modelos base}{21}{section*.26}%
+\contentsline {paragraph}{Modelos con stacking}{21}{section*.28}%
+\contentsline {subsubsection}{\numberline {8.2.2}Toneladas de carbono}{22}{subsubsection.8.2.2}%
+\contentsline {paragraph}{Modelos base}{22}{section*.30}%
+\contentsline {paragraph}{Modelos con stacking}{22}{section*.32}%
+\contentsline {subsection}{\numberline {8.3}Resultados IFN2 e IFN3}{22}{subsection.8.3}%
+\contentsline {subsubsection}{\numberline {8.3.1}Toneladas de carbono por hectárea}{22}{subsubsection.8.3.1}%
+\contentsline {paragraph}{Modelos base}{22}{section*.34}%
+\contentsline {paragraph}{Modelos con stacking}{22}{section*.36}%
+\contentsline {subsubsection}{\numberline {8.3.2}Toneladas de carbono}{22}{subsubsection.8.3.2}%
+\contentsline {paragraph}{Modelos base}{22}{section*.38}%
+\contentsline {paragraph}{Modelos con stacking}{22}{section*.40}%
+\contentsline {section}{\numberline {9}Discusión}{32}{section.9}%
+\contentsline {subsection}{\numberline {9.1}Modelos globales}{32}{subsection.9.1}%
+\contentsline {subsubsection}{\numberline {9.1.1}Variable \texttt {c4} (en toneladas de carbono por hectárea)}{32}{subsubsection.9.1.1}%
+\contentsline {paragraph}{Modelos base}{32}{section*.42}%
+\contentsline {paragraph}{Modelos de stacking}{33}{section*.45}%
 \contentsline {subsubsection}{\numberline {9.1.2}Variable \texttt {carbono\_bruto4} (en toneladas de carbono)}{34}{subsubsection.9.1.2}%
-\contentsline {paragraph}{Modelos base}{34}{section*.40}%
-\contentsline {paragraph}{Modelos con stacking}{35}{section*.42}%
+\contentsline {paragraph}{Modelos base}{34}{section*.48}%
+\contentsline {paragraph}{Modelos con stacking}{34}{section*.51}%
 \contentsline {subsection}{\numberline {9.2}Modelos individuales entrenados solo con el IFN2 o IFN3.}{35}{subsection.9.2}%
-\contentsline {subsubsection}{\numberline {9.2.1}Asimilación del comportamiento de las variables objetivo}{36}{subsubsection.9.2.1}%
+\contentsline {subsubsection}{\numberline {9.2.1}Asimilación del comportamiento de las variables objetivo}{35}{subsubsection.9.2.1}%
 \contentsline {subsubsection}{\numberline {9.2.2}Rendimiento de los modelos en función del valor de la variable objetivo}{37}{subsubsection.9.2.2}%
-\contentsline {subsection}{\numberline {9.3}Interpretabilidad de los modelos: análisis SHAP}{37}{subsection.9.3}%
-\contentsline {section}{\numberline {10}Conclusiones}{37}{section.10}%
-\contentsline {section}{\numberline {11}Recomendaciones para Futuras Investigaciones}{38}{section.11}%
+\contentsline {subsection}{\numberline {9.3}Interpretabilidad de los modelos: análisis SHAP}{38}{subsection.9.3}%
+\contentsline {section}{\numberline {10}Conclusiones}{39}{section.10}%
+\contentsline {section}{\numberline {11}Recomendaciones para Futuras Investigaciones}{39}{section.11}%
 \contentsline {section}{\numberline {A}Apéndices}{42}{appendix.Alph1}%
 \contentsline {subsection}{\numberline {A.1}Origen y cálculo de las variables \texttt {ca} y \texttt {cr}}{42}{subsection.Alph1.1}%
 \contentsline {subsection}{\numberline {A.2}Estado de las Poblaciones (\texttt {estado\_id})}{42}{subsection.Alph1.2}%

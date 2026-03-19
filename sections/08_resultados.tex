@@ -1,3 +1,4 @@
+% !TEX root = ../main.tex
 \section{Resultados}
 \label{sec:resultados}
 % Aquí es donde analizas lo que significan tus resultados.
@@ -24,8 +25,8 @@ Una vez entrenados los modelos, algunos parámetros globales como el $R^2$, RMSE
     \centering
     \caption{Comparativa Modelos Base en IFN2 (c4)}
     \label{tab:base_comp_ifn2_c4}
-    \resizebox{0.75\textwidth}{!}{
-    \begin{tabular}{lrrrrrr}
+    \resizebox{\textwidth}{!}{
+    \begin{tabular}{lcccccc}
         \toprule
         Modelo & $R^2_{\text{test}}$ & RMSE$_{\text{test}}$ (tC/ha) & MAE$_{\text{test}}$ (tC/ha) & wMAPE (\%) & SMAPE (\%) & Bias (tC/ha) \\
         \midrule
@@ -59,24 +60,18 @@ Una vez entrenados los modelos, algunos parámetros globales como el $R^2$, RMSE
 En la Tabla \ref{tab:stack_comp_ifn2_c4} se muestra el resumen del rendimiento de los modelos de stacking para la predicción de la variable de carbono en tC/ha con el conjunto de datos que emplea IFN2 como explicativo.
 
 
-\onecolumn
-{
-    \tiny
-    \renewcommand{\arraystretch}{0.75}
-    \setlength{\tabcolsep}{2pt}
-    \begin{longtable}{p{4.5cm}rrrrrr}
+\begin{table*}
+    \centering
     \caption{Comparativa Modelos Stacking en IFN2 (c4)}
-    \label{tab:stack_comp_ifn2_c4} \\
-    \toprule
-    Modelo & $R^2_{\text{test}}$ & RMSE$_{\text{test}}$ (tC/ha) & MAE$_{\text{test}}$ (tC/ha) & wMAPE (\%) & SMAPE (\%) & Bias (tC/ha) \\
-    \midrule
-    \endfirsthead
-    \toprule
-    Modelo & $R^2_{\text{test}}$ & RMSE$_{\text{test}}$ (tC/ha) & MAE$_{\text{test}}$ (tC/ha) & wMAPE (\%) & SMAPE (\%) & Bias (tC/ha) \\
-    \midrule
-    \endhead
-    \bottomrule
-    \endlastfoot
+    \label{tab:stack_comp_ifn2_c4}
+    \footnotesize
+    \renewcommand{\arraystretch}{1.0}
+    \setlength{\tabcolsep}{4pt}
+    \resizebox{\textwidth}{!}{
+    \begin{tabular}{p{4.5cm}cccccc}
+        \toprule
+        Modelo & $R^2_{\text{test}}$ & RMSE$_{\text{test}}$ (tC/ha) & MAE$_{\text{test}}$ (tC/ha) & wMAPE (\%) & SMAPE (\%) & Bias (tC/ha) \\
+        \midrule
         \textbf{Stack5 GradientBoosting} & \textbf{0.724} & \textbf{25.889} & \textbf{14.531} & \textbf{35.280} & \textbf{47.157} & \textbf{-0.579} \\
         Stack1 MLP$_{\text{global}}$ & 0.722 & 26.683 & 14.582 & 35.106 & 46.515 & 0.117 \\
         Stack2 MLP$_{\text{global}}$ & 0.721 & 26.726 & 14.475 & 34.848 & 46.320 & -0.131 \\
@@ -137,9 +132,10 @@ En la Tabla \ref{tab:stack_comp_ifn2_c4} se muestra el resumen del rendimiento d
         Stack4 RandomForest$_{\text{global}}$ & 0.673 & 28.956 & 15.339 & 36.929 & 47.706 & 0.394 \\
         Stack1 RandomForest & 0.672 & 28.193 & 16.193 & 39.314 & 50.293 & -0.396 \\
         Stack3 RandomForest$_{\text{global}}$ & 0.667 & 29.218 & 15.575 & 37.499 & 48.075 & 0.408 \\
-    \end{longtable}
+            \bottomrule
+    \end{tabular}
     }
-\twocolumn
+\end{table*}
 
 \subsubsection{Toneladas de carbono}
 
@@ -151,10 +147,10 @@ En la Tabla \ref{tab:base_comp_ifn2_carbono_bruto4} se muestra el resumen del re
     \centering
     \caption{Comparativa Modelos Base en IFN2 (carbono\_bruto4)}
     \label{tab:base_comp_ifn2_carbono_bruto4}
-    \resizebox{0.75\textwidth}{!}{
-    \begin{tabular}{lrrrrrr}
+    \resizebox{\textwidth}{!}{
+    \begin{tabular}{lcccccc}
         \toprule
-        Modelo & $R^2_{\text{test}}$ & RMSE$_{\text{test}}$ (tC) & MAE$_{\text{test}}$ (tC) & wMAPE (\%) & SMAPE (\%) & Bias (tC) \\
+        Modelo & $R^2_{\text{test}}$ & \phantom{/h}RMSE$_{\text{test}}$ (tC)\phantom{a} & \phantom{/h}MAE$_{\text{test}}$ (tC)\phantom{a} & wMAPE (\%) & SMAPE (\%) & \phantom{/h}Bias (tC)\phantom{a} \\
         \midrule
         \textbf{CatBoost$_{\text{global}}$} & \textbf{0.765} & \textbf{18.533} & \textbf{10.402} & \textbf{35.470} & \textbf{69.561} & \textbf{-0.342} \\
         LightGBM$_{\text{global}}$ & 0.762 & 18.627 & 10.417 & 35.522 & 69.531 & -0.313 \\
@@ -186,23 +182,18 @@ En la Tabla \ref{tab:base_comp_ifn2_carbono_bruto4} se muestra el resumen del re
 En la Tabla \ref{tab:stack_comp_ifn2_carbono_bruto4} se muestra el resumen del rendimiento de los modelos de stacking para la predicción de la variable de carbono en toneladas (carbono\_bruto4) con el conjunto de datos que emplea IFN2 como explicativo.
 
 
-\onecolumn
-{
-    \scriptsize
-    \setlength{\tabcolsep}{2pt}
-    \begin{longtable}{p{4.5cm}rrrrrr}
+\begin{table*}
+    \centering
     \caption{Comparativa Modelos Stacking en IFN2 (carbono\_bruto4)}
-    \label{tab:stack_comp_ifn2_carbono_bruto4} \\
-    \toprule
-    Modelo & $R^2_{\text{test}}$ & RMSE$_{\text{test}}$ (tC) & MAE$_{\text{test}}$ (tC) & wMAPE (\%) & SMAPE (\%) & Bias (tC) \\
-    \midrule
-    \endfirsthead
-    \toprule
-    Modelo & $R^2_{\text{test}}$ & RMSE$_{\text{test}}$ (tC) & MAE$_{\text{test}}$ (tC) & wMAPE (\%) & SMAPE (\%) & Bias (tC) \\
-    \midrule
-    \endhead
-    \bottomrule
-    \endlastfoot
+    \label{tab:stack_comp_ifn2_carbono_bruto4}
+    \footnotesize
+    \renewcommand{\arraystretch}{1.0}
+    \setlength{\tabcolsep}{4pt}
+    \resizebox{\textwidth}{!}{
+    \begin{tabular}{p{4.5cm}cccccc}
+        \toprule
+        Modelo & $R^2_{\text{test}}$ & \phantom{/h}RMSE$_{\text{test}}$ (tC)\phantom{a} & \phantom{/h}MAE$_{\text{test}}$ (tC)\phantom{a} & wMAPE (\%) & SMAPE (\%) & \phantom{/h}Bias (tC)\phantom{a} \\
+        \midrule
         \textbf{Stack5 MLP$_{\text{global}}$} & \textbf{0.768} & \textbf{18.405} & \textbf{10.210} & \textbf{34.817} & \textbf{68.129} & \textbf{-0.195} \\
         Stack5 LinearRegression$_{\text{global}}$ & 0.768 & 18.418 & 10.306 & 35.144 & 69.309 & -0.169 \\
         Stack5 Ridge$_{\text{global}}$ & 0.768 & 18.418 & 10.306 & 35.143 & 69.320 & -0.170 \\
@@ -236,6 +227,7 @@ En la Tabla \ref{tab:stack_comp_ifn2_carbono_bruto4} se muestra el resumen del r
         Stack5 GradientBoosting & 0.753 & 18.880 & 10.692 & 36.852 & 70.603 & -0.022 \\
         Stack5 MLP & 0.753 & 18.890 & 10.632 & 36.643 & 71.389 & 0.045 \\
         Stack5 Ridge & 0.753 & 18.893 & 10.746 & 37.038 & 71.326 & 0.016 \\
+        Stack5 LinearRegression & 0.753 & 18.893 & 10.747 & 37.039 & 71.327 & -0.016 \\
         Stack3 MLP & 0.753 & 18.896 & 10.746 & 37.036 & 71.008 & 0.081 \\
         Stack4 GradientBoosting & 0.752 & 18.921 & 10.654 & 36.720 & 70.494 & 0.029 \\
         Stack2 MLP & 0.751 & 18.954 & 10.765 & 37.102 & 70.755 & -0.001 \\
@@ -262,9 +254,10 @@ En la Tabla \ref{tab:stack_comp_ifn2_carbono_bruto4} se muestra el resumen del r
         Stack4 RandomForest & 0.727 & 19.848 & 11.194 & 38.580 & 68.556 & 0.550 \\
         Stack2 RandomForest & 0.720 & 20.098 & 11.538 & 39.768 & 71.966 & 0.196 \\
         Stack1 RandomForest & 0.713 & 20.375 & 11.767 & 40.555 & 70.731 & 0.068 \\
-    \end{longtable}
+            \bottomrule
+    \end{tabular}
     }
-\twocolumn
+\end{table*}
 
 \subsection{Resultados IFN3}
 
@@ -278,8 +271,8 @@ Una vez entrenados los modelos, algunos parámetros globales como el $R^2$, RMSE
     \centering
     \caption{Comparativa Modelos Base en IFN3 (c4)}
     \label{tab:base_comp_ifn3_c4}
-    \resizebox{0.75\textwidth}{!}{
-    \begin{tabular}{lrrrrrr}
+    \resizebox{\textwidth}{!}{
+    \begin{tabular}{lcccccc}
         \toprule
         Modelo & $R^2_{\text{test}}$ & RMSE$_{\text{test}}$ (tC/ha) & MAE$_{\text{test}}$ (tC/ha) & wMAPE (\%) & SMAPE (\%) & Bias (tC/ha) \\
         \midrule
@@ -313,23 +306,18 @@ Una vez entrenados los modelos, algunos parámetros globales como el $R^2$, RMSE
 En la Tabla \ref{tab:stack_comp_ifn3_c4} se muestra el resumen del rendimiento de los modelos de stacking para la predicción de la variable de carbono en tC/ha con el conjunto de datos que emplea IFN3 como explicativo.
 
 
-\onecolumn
-{
-    \scriptsize
-    \setlength{\tabcolsep}{2pt}
-    \begin{longtable}{p{4.5cm}rrrrrr}
+\begin{table*}
+    \centering
     \caption{Comparativa Modelos Stacking en IFN3 (c4)}
-    \label{tab:stack_comp_ifn3_c4} \\
-    \toprule
-    Modelo & $R^2_{\text{test}}$ & RMSE$_{\text{test}}$ (tC/ha) & MAE$_{\text{test}}$ (tC/ha) & wMAPE (\%) & SMAPE (\%) & Bias (tC/ha) \\
-    \midrule
-    \endfirsthead
-    \toprule
-    Modelo & $R^2_{\text{test}}$ & RMSE$_{\text{test}}$ (tC/ha) & MAE$_{\text{test}}$ (tC/ha) & wMAPE (\%) & SMAPE (\%) & Bias (tC/ha) \\
-    \midrule
-    \endhead
-    \bottomrule
-    \endlastfoot
+    \label{tab:stack_comp_ifn3_c4}
+    \footnotesize
+    \renewcommand{\arraystretch}{1.0}
+    \setlength{\tabcolsep}{4pt}
+    \resizebox{\textwidth}{!}{
+    \begin{tabular}{p{4.5cm}cccccc}
+        \toprule
+        Modelo & $R^2_{\text{test}}$ & RMSE$_{\text{test}}$ (tC/ha) & MAE$_{\text{test}}$ (tC/ha) & wMAPE (\%) & SMAPE (\%) & Bias (tC/ha) \\
+        \midrule
         \textbf{Stack4 GradientBoosting} & \textbf{0.866} & \textbf{17.303} & \textbf{9.134} & \textbf{24.310} & \textbf{37.215} & \textbf{-0.009} \\
         Stack5 GradientBoosting & 0.865 & 17.369 & 9.037 & 24.052 & 36.846 & -0.007 \\
         Stack2 GradientBoosting & 0.863 & 17.537 & 9.097 & 24.211 & 37.106 & 0.005 \\
@@ -390,9 +378,10 @@ En la Tabla \ref{tab:stack_comp_ifn3_c4} se muestra el resumen del rendimiento d
         Stack4 RandomForest$_{\text{global}}$ & 0.804 & 21.415 & 10.123 & 27.314 & 38.710 & 0.763 \\
         Stack2 RandomForest$_{\text{global}}$ & 0.802 & 21.562 & 10.342 & 27.905 & 39.864 & 0.540 \\
         Stack1 RandomForest$_{\text{global}}$ & 0.792 & 22.090 & 10.962 & 29.576 & 40.925 & 0.731 \\
-    \end{longtable}
+            \bottomrule
+    \end{tabular}
     }
-\twocolumn
+\end{table*}
 
 \subsubsection{Toneladas de carbono}
 
@@ -404,10 +393,10 @@ En la Tabla \ref{tab:base_comp_ifn3_carbono_bruto4} se muestra el resumen del re
     \centering
     \caption{Comparativa Modelos Base en IFN3 (carbono\_bruto4)}
     \label{tab:base_comp_ifn3_carbono_bruto4}
-    \resizebox{0.75\textwidth}{!}{
-    \begin{tabular}{lrrrrrr}
+    \resizebox{\textwidth}{!}{
+    \begin{tabular}{lcccccc}
         \toprule
-        Modelo & $R^2_{\text{test}}$ & RMSE$_{\text{test}}$ (tC) & MAE$_{\text{test}}$ (tC) & wMAPE (\%) & SMAPE (\%) & Bias (tC) \\
+        Modelo & $R^2_{\text{test}}$ & \phantom{/h}RMSE$_{\text{test}}$ (tC)\phantom{a} & \phantom{/h}MAE$_{\text{test}}$ (tC)\phantom{a} & wMAPE (\%) & SMAPE (\%) & \phantom{/h}Bias (tC)\phantom{a} \\
         \midrule
         \textbf{LightGBM} & \textbf{0.898} & \textbf{10.641} & \textbf{4.687} & \textbf{27.801} & \textbf{110.183} & \textbf{-0.007} \\
         CatBoost & 0.896 & 10.737 & 4.789 & 28.405 & 110.952 & -0.059 \\
@@ -439,23 +428,18 @@ En la Tabla \ref{tab:base_comp_ifn3_carbono_bruto4} se muestra el resumen del re
 En la Tabla \ref{tab:stack_comp_ifn3_carbono_bruto4} se muestra el resumen del rendimiento de los modelos con stacking para la predicción de la variable de carbono en toneladas (carbono\_bruto4) con el conjunto de datos que emplea IFN3 como explicativo.
 
 
-\onecolumn
-{
-    \scriptsize
-    \setlength{\tabcolsep}{2pt}
-    \begin{longtable}{p{4.5cm}rrrrrr}
+\begin{table*}
+    \centering
     \caption{Comparativa Modelos Stacking en IFN3 (carbono\_bruto4)}
-    \label{tab:stack_comp_ifn3_carbono_bruto4} \\
-    \toprule
-    Modelo & $R^2_{\text{test}}$ & RMSE$_{\text{test}}$ (tC) & MAE$_{\text{test}}$ (tC) & wMAPE (\%) & SMAPE (\%) & Bias (tC) \\
-    \midrule
-    \endfirsthead
-    \toprule
-    Modelo & $R^2_{\text{test}}$ & RMSE$_{\text{test}}$ (tC) & MAE$_{\text{test}}$ (tC) & wMAPE (\%) & SMAPE (\%) & Bias (tC) \\
-    \midrule
-    \endhead
-    \bottomrule
-    \endlastfoot
+    \label{tab:stack_comp_ifn3_carbono_bruto4}
+    \footnotesize
+    \renewcommand{\arraystretch}{1.0}
+    \setlength{\tabcolsep}{4pt}
+    \resizebox{\textwidth}{!}{
+    \begin{tabular}{p{4.5cm}cccccc}
+        \toprule
+        Modelo & $R^2_{\text{test}}$ & \phantom{/h}RMSE$_{\text{test}}$ (tC)\phantom{a} & \phantom{/h}MAE$_{\text{test}}$ (tC)\phantom{a} & wMAPE (\%) & SMAPE (\%) & \phantom{/h}Bias (tC)\phantom{a} \\
+        \midrule
         \textbf{Stack4 MLP} & \textbf{0.902} & \textbf{10.407} & \textbf{4.517} & \textbf{26.795} & \textbf{107.868} & \textbf{0.049} \\
         Stack5 GradientBoosting & 0.901 & 10.433 & 4.540 & 26.930 & 109.331 & 0.030 \\
         Stack5 MLP & 0.901 & 10.447 & 4.454 & 26.417 & 107.446 & -0.368 \\
@@ -516,9 +500,10 @@ En la Tabla \ref{tab:stack_comp_ifn3_carbono_bruto4} se muestra el resumen del r
         Stack3 RandomForest$_{\text{global}}$ & 0.875 & 11.586 & 5.023 & 29.976 & 95.997 & 0.204 \\
         Stack2 RandomForest$_{\text{global}}$ & 0.873 & 11.692 & 5.131 & 30.625 & 102.247 & 0.209 \\
         Stack1 RandomForest$_{\text{global}}$ & 0.858 & 12.368 & 5.383 & 32.129 & 94.456 & 0.154 \\
-    \end{longtable}
+            \bottomrule
+    \end{tabular}
     }
-\twocolumn
+\end{table*}
 
 \subsection{Resultados IFN2 e IFN3}
 
@@ -533,8 +518,8 @@ Una vez entrenados los modelos, algunos parámetros globales como el $R^2$, RMSE
     \centering
     \caption{Modelos Base Globales (c4)}
     \label{tab:base_global_c4}
-    \resizebox{0.75\textwidth}{!}{
-    \begin{tabular}{lrrrrrr}
+    \resizebox{\textwidth}{!}{
+    \begin{tabular}{lcccccc}
         \toprule
         Modelo & $R^2_{\text{test}}$ & RMSE$_{\text{test}}$ (tC/ha) & MAE$_{\text{test}}$ (tC/ha) & wMAPE (\%) & SMAPE (\%) & Bias (tC/ha) \\
         \midrule
@@ -558,26 +543,18 @@ Una vez entrenados los modelos, algunos parámetros globales como el $R^2$, RMSE
 En la Tabla \ref{tab:stack_global_c4} se muestra el resumen del rendimiento de los modelos de stacking para la predicción de la variable de carbono en tC/ha con el conjunto de datos que emplea IFN2 e IFN3 como explicativos.
 
 
-\onecolumn
-{
-    \scriptsize
-    \setlength{\tabcolsep}{2pt}
-    \begin{longtable}{p{4.5cm}rrrrrr}
+\begin{table*}
+    \centering
     \caption{Modelos Stacking Globales (c4)}
-    \label{tab:stack_global_c4} \\
-    \toprule
-    Modelo & $R^2_{\text{test}}$ & RMSE$_{\text{test}}$ (tC/ha) & MAE$_{\text{test}}$ (tC/ha) & wMAPE (\%) & SMAPE (\%) & Bias (tC/ha) \\
-    \midrule
-    \endfirsthead
-    \toprule
-    Modelo & $R^2_{\text{test}}$ & RMSE$_{\text{test}}$ (tC/ha) & MAE$_{\text{test}}$ (tC/ha) & wMAPE (\%) & SMAPE (\%) & Bias (tC/ha) \\
-    \midrule
-    \endhead
-    \midrule
-    \multicolumn{7}{r}{{Continúa en la siguiente página...}} \\
-    \endfoot
-    \bottomrule
-    \endlastfoot
+    \label{tab:stack_global_c4}
+    \footnotesize
+    \renewcommand{\arraystretch}{1.0}
+    \setlength{\tabcolsep}{4pt}
+    \resizebox{\textwidth}{!}{
+    \begin{tabular}{p{4.5cm}cccccc}
+        \toprule
+        Modelo & $R^2_{\text{test}}$ & RMSE$_{\text{test}}$ (tC/ha) & MAE$_{\text{test}}$ (tC/ha) & wMAPE (\%) & SMAPE (\%) & Bias (tC/ha) \\
+        \midrule
     \textbf{Stack5 MLP$_{\text{global}}$} & \textbf{0.794} & \textbf{22.387} & \textbf{11.321} & \textbf{29.132} & \textbf{40.529} & \textbf{0.238} \\
     Stack2 MLP$_{\text{global}}$ & 0.794 & 22.405 & 11.403 & 29.341 & 41.069 & 0.176 \\
     Stack4 MLP$_{\text{global}}$ & 0.792 & 22.527 & 11.314 & 29.112 & 40.574 & -0.045 \\
@@ -608,9 +585,10 @@ En la Tabla \ref{tab:stack_global_c4} se muestra el resumen del rendimiento de l
     Stack4 RandomForest$_{\text{global}}$ & 0.749 & 24.730 & 12.223 & 31.452 & 42.332 & 0.614 \\
     Stack3 RandomForest$_{\text{global}}$ & 0.748 & 24.777 & 12.407 & 31.924 & 42.760 & 0.507 \\
     Stack1 RandomForest$_{\text{global}}$ & 0.745 & 24.907 & 12.885 & 33.155 & 44.082 & 0.402 \\
-    \end{longtable}
+            \bottomrule
+    \end{tabular}
     }
-\twocolumn
+\end{table*}
 
 
 \subsubsection{Toneladas de carbono}
@@ -624,10 +602,10 @@ En la Tabla \ref{tab:base_global_carbono_bruto4} se muestra el resumen del rendi
     \centering
     \caption{Modelos Base Globales (carbono\_bruto4)}
     \label{tab:base_global_carbono_bruto4}
-    \resizebox{0.75\textwidth}{!}{
-    \begin{tabular}{lrrrrrr}
+    \resizebox{\textwidth}{!}{
+    \begin{tabular}{lcccccc}
         \toprule
-        Modelo & $R^2_{\text{test}}$ & RMSE$_{\text{test}}$ (tC) & MAE$_{\text{test}}$ (tC) & wMAPE (\%) & SMAPE (\%) & Bias (tC) \\
+        Modelo & $R^2_{\text{test}}$ & \phantom{/h}RMSE$_{\text{test}}$ (tC)\phantom{a} & \phantom{/h}MAE$_{\text{test}}$ (tC)\phantom{a} & wMAPE (\%) & SMAPE (\%) & \phantom{/h}Bias (tC)\phantom{a} \\
         \midrule
         \textbf{CatBoost$_{\text{global}}$} & \textbf{0.845} & \textbf{13.846} & \textbf{6.615} & \textbf{31.789} & \textbf{98.044} & \textbf{-0.150} \\
         LightGBM$_{\text{global}}$ & 0.841 & 14.006 & 6.654 & 31.977 & 98.088 & -0.150 \\
@@ -651,26 +629,18 @@ En la Tabla \ref{tab:stack_global_carbono_bruto4} se muestra el resumen del rend
 
 
 
-\onecolumn
-{
-    \scriptsize
-    \setlength{\tabcolsep}{2pt}
-    \begin{longtable}{p{4.5cm}rrrrrr}
+\begin{table*}
+    \centering
     \caption{Modelos Stacking Globales (carbono\_bruto4)}
-    \label{tab:stack_global_carbono_bruto4} \\
-    \toprule
-    Modelo & $R^2_{\text{test}}$ & RMSE$_{\text{test}}$ (tC) & MAE$_{\text{test}}$ (tC) & wMAPE (\%) & SMAPE (\%) & Bias (tC) \\
-    \midrule
-    \endfirsthead
-    \toprule
-    Modelo & $R^2_{\text{test}}$ & RMSE$_{\text{test}}$ (tC) & MAE$_{\text{test}}$ (tC) & wMAPE (\%) & SMAPE (\%) & Bias (tC) \\
-    \midrule
-    \endhead
-    \midrule
-    \multicolumn{7}{r}{{Continúa en la siguiente página...}} \\
-    \endfoot
-    \bottomrule
-    \endlastfoot
+    \label{tab:stack_global_carbono_bruto4}
+    \footnotesize
+    \renewcommand{\arraystretch}{1.0}
+    \setlength{\tabcolsep}{4pt}
+    \resizebox{\textwidth}{!}{
+    \begin{tabular}{p{4.5cm}cccccc}
+        \toprule
+        Modelo & $R^2_{\text{test}}$ & \phantom{/h}RMSE$_{\text{test}}$ (tC)\phantom{a} & \phantom{/h}MAE$_{\text{test}}$ (tC)\phantom{a} & wMAPE (\%) & SMAPE (\%) & \phantom{/h}Bias (tC)\phantom{a} \\
+        \midrule
     \textbf{Stack5 MLP$_{\text{global}}$} & \textbf{0.847} & \textbf{13.756} & \textbf{6.399} & \textbf{30.754} & \textbf{95.102} & \textbf{-0.035} \\
     Stack4 MLP$_{\text{global}}$ & 0.847 & 13.766 & 6.429 & 30.898 & 95.960 & 0.163 \\
     Stack4 LinearRegression$_{\text{global}}$ & 0.846 & 13.782 & 6.533 & 31.394 & 98.129 & -0.126 \\
@@ -701,9 +671,10 @@ En la Tabla \ref{tab:stack_global_carbono_bruto4} se muestra el resumen del rend
     Stack3 RandomForest$_{\text{global}}$ & 0.829 & 14.522 & 6.898 & 33.152 & 86.696 & 0.104 \\
     Stack2 RandomForest$_{\text{global}}$ & 0.826 & 14.652 & 7.017 & 33.722 & 91.605 & 0.106 \\
     Stack1 RandomForest$_{\text{global}}$ & 0.815 & 15.130 & 7.270 & 34.939 & 86.061 & 0.015 \\
-    \end{longtable}
+            \bottomrule
+    \end{tabular}
     }
-\twocolumn
+\end{table*}
 
 
 % Parte hecha por Maider
@@ -725,7 +696,7 @@ En la Tabla \ref{tab:stack_global_carbono_bruto4} se muestra el resumen del rend
 
 % En síntesis, los resultados confirman que los modelos individuales basados en árboles constituyen una solución sólida y eficiente, mientras que el \textit{stacking} aporta mejoras incrementales principalmente en términos de reducción del error medio.
 
-% \begin{table}[H]
+% \begin{table}
 % \centering
 % \scriptsize
 % \caption{Comparación sintética del rendimiento de los modelos según inventarios utilizados y variable objetivo.}

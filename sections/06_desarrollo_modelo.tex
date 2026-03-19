@@ -1,3 +1,4 @@
+% !TEX root = ../main.tex
 \section{Implementación del \textit{pipeline}}
 El desarrollo y la evaluación de los modelos predictivos se realizaron íntegramente en \textbf{Python}, utilizando librerías como \texttt{scikit-learn}, \texttt{cuML} y \texttt{PyTorch}, junto con implementaciones específicas de \textit{gradient boosting} como \texttt{XGBoost}, \texttt{LightGBM} y \texttt{CatBoost}. El proceso de entrenamiento se llevó a cabo en dos fases diferenciadas. 
 
@@ -15,7 +16,9 @@ La partición de los datos en conjuntos de entrenamiento y prueba se realizó me
 
 El preprocesado de las variables y el ajuste de los modelos se integraron en un único objeto \texttt{Pipeline}, combinando \texttt{ColumnTransformer}, \texttt{SimpleImputer}, \texttt{StandardScaler} y \texttt{OneHotEncoder}. Esta integración aseguró que todas las transformaciones se estimaran exclusivamente con los datos de entrenamiento de cada pliegue durante la validación cruzada. El ajuste de hiperparámetros se llevó a cabo mediante \texttt{GridSearchCV}, definiendo rejillas específicas para cada algoritmo y utilizando el coeficiente de determinación ($R^2$) como métrica de selección.
 
+\begin{sloppypar}
 Los modelos evaluados incluyen implementaciones de \textit{gradient boosting} (\texttt{XGBoost}, \texttt{LightGBM}, \texttt{CatBoost} y \texttt{GradientBoostingRegressor}), métodos basados en \textit{bagging} (\texttt{RandomForestRegressor}, \texttt{BaggingRegressor}), así como modelos de distinta naturaleza como \texttt{MLPRegressor}, \texttt{KNeighborsRegressor}, \texttt{LinearSVR}, \texttt{AdaBoostRegressor} y \texttt{BayesianRidge}. Para cada modelo se calcularon de forma sistemática las métricas de rendimiento sobre el conjunto de prueba: $R^2$, RMSE y MAE, junto con estadísticas adicionales del error absoluto (mediana y moda), almacenándose los resultados en estructuras tabulares para su análisis comparativo.
+\end{sloppypar}
 
 \subsection{Implementación del \textit{stacking}}
 
@@ -23,7 +26,7 @@ La agregación de modelos mediante \textit{stacking} se implementó de forma man
 
 Estas predicciones OOF se organizaron en matrices de meta-variables mediante \texttt{numpy} y se utilizaron como entrada para el entrenamiento de los metamodelos. En paralelo, cada modelo base se reentrenó sobre la totalidad del conjunto de entrenamiento para generar las correspondientes predicciones sobre el conjunto de test, que se emplearon posteriormente para la evaluación final del \textit{stack}.
 
-Los metamodelos considerados incluyen \texttt{LinearRegression}, \texttt{Ridge}, \\
+Los metamodelos considerados incluyen \texttt{LinearRegression}, \texttt{Ridge},
 \texttt{GradientBoostingRegressor}, \texttt{RandomForestRegressor}, \texttt{SVR} con kernel lineal y \texttt{MLPRegressor}. Antes de su ajuste, las meta-variables se estandarizaron mediante \texttt{StandardScaler}, integrando este paso en un \texttt{Pipeline} específico del segundo nivel. La evaluación del \textit{stacking} se realizó exclusivamente sobre el conjunto de test independiente, calculando las métricas habituales ($R^2$, RMSE y MAE) para cada combinación de modelos base y metamodelo.
 
 
@@ -52,7 +55,7 @@ para el ajuste de los modelos queda compuesto por:
 La Tabla~\ref{tab:resumen_variables} resume las principales estadísticas descriptivas de las variables objetivo utilizadas en el modelado.
 
 
-\begin{table}[htbp]
+\begin{table}
     \centering
     \caption{Estadísticos descriptivos del conjunto de datos depurado.}
     \label{tab:resumen_variables}
@@ -75,7 +78,7 @@ Se observa que la variable \texttt{carbono\_bruto4} presenta una media de 20.79 
 \texttt{c4} muestra valores notablemente superiores (media de 38.83 y desviación estándar de 47.27). Podemos encontrar un histograma de la distribución de las variables objetivo en la Figura \ref{fig:histograma_datos_combinado}. 
 
 
-\begin{figure}[htbp]
+\begin{figure}
     \centering
     \begin{subfigure}{0.48\textwidth}
         \centering
@@ -96,7 +99,7 @@ Se observa que la variable \texttt{carbono\_bruto4} presenta una media de 20.79 
 
 En la Figura \ref{fig:distribucion_variables_combinado} podemos ver las distribuciones de las variables objetivo separadas por inventarios, y podemos ver que la variable \texttt{c4} es más dispersa y heterogénea que \texttt{carbono\_bruto4}. En general, una mayor variabilidad en la variable objetivo se traduce en un problema de predicción más complejo, ya que el modelo debe capturar relaciones más inestables y sujetas a mayor ruido.
 
-\begin{figure}[htbp]
+\begin{figure}
     \centering
     \begin{subfigure}{0.48\textwidth}
         \centering

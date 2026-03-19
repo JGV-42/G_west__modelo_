@@ -1,9 +1,10 @@
+% !TEX root = ../main.tex
 \section{Discusión}
 \label{sec:discusion}
 
-\vspace{1cm}
+\vspace{0.2cm}
 \hrule
-\vspace{1cm}
+\vspace{0.2cm}
 
 
 En primer lugar se analizarán los modelos ``globales'', es decir, aquellos entrenados con todos los datos (IFN2 e IFN3) al mismo tiempo. Posteriormente se analizarán los modelos entrenador solo con un inventario y se comparán con los globales.
@@ -19,23 +20,16 @@ La variable \texttt{periodo} (el número de años entre la medición y la predic
 
 \begin{figure}
       \centering
-      \begin{subfigure}[b]{1.0\linewidth}
-            \centering
-            \includegraphics[width=\linewidth]{figuras/09_discusion/c4_LightGBM_metrics.pdf}
-            \caption{Evolución del error absoluto y el error absoluto porcentual en cuantiles}
-            \label{fig:LightGBM_rmse_y_pct_rmse_cuantiles}
-      \end{subfigure}
-      
-      \vspace{0.5cm}
+      \includegraphics[width=\linewidth]{figuras/09_discusion/c4_LightGBM_metrics.pdf}
+      \caption{Evolución del error absoluto y el error absoluto porcentual en cuantiles en función del periodo para el modelo LightGBM (\texttt{c4}).}
+      \label{fig:LightGBM_rmse_y_pct_rmse_cuantiles}
+\end{figure}
 
-      \begin{subfigure}[b]{1.0\linewidth}
-            \centering
-            \includegraphics[width=\linewidth]{figuras/09_discusion/c4_LightGBM_density.pdf}
-            \caption{Densidad de predicciones frente a valores reales}
-            \label{fig:density_LightGBM_0-300}
-      \end{subfigure}
-      \caption{Análisis del modelo LightGBM para la variable \texttt{c4}. (a) Evolución de métricas de error en función del periodo. (b) Densidad de predicciones frente a valores reales.}
-      \label{fig:LightGBM_analisis_combined}
+\begin{figure}
+      \centering
+      \includegraphics[width=\linewidth]{figuras/09_discusion/c4_LightGBM_density.pdf}
+      \caption{Densidad de predicciones frente a valores reales para el modelo LightGBM (\texttt{c4}).}
+      \label{fig:density_LightGBM_0-300}
 \end{figure}
   
 % Tanto en la Figura \ref{fig:LightGBM_rmse_cuantiles} como en la Figura \ref{fig:LightGBM_rmse_porcentual_cuantiles} se observa el mismo comportamiento: las mejores predicciones se obtienen en aquellos casos en los que los datos de entrenamiento provienen del IFN3. Esto se ve claramente en la forma en la que aumentan los errores (sobre todo los del cuantil $90$) cuando se intenta predecir valores para un periodo mayor a $17$ años, valor a partir del cuál los datos del IFN3 se acaban. Observamos que a partir de los $17$ años aumentan en gran medida los valores grandes de error (cuantil $90$) junto con los valores grandes - medios (cuantil $75$). No obstante, los valores medianos y los pequeños - medios (cuantil $25$) se mantienen relativamente estables, aumentando ligeramente con el periodo.
@@ -56,23 +50,16 @@ Por otro lado, en la Figura \ref{fig:Stack5_MLP_density} podemos observar el gr�
 
 \begin{figure}
       \centering
-      \begin{subfigure}[b]{1.0\linewidth}
-            \centering
-            \includegraphics[width=\linewidth]{figuras/09_discusion/c4_Stack5_MLP_metrics.pdf}
-            \caption{Evolución del error absoluto y el error absoluto porcentual en cuantiles}
-            \label{fig:Stack5_MLP_rmse_y_pct_rmse_cuantiles}
-      \end{subfigure}
-      
-      \vspace{0.5cm}
+      \includegraphics[width=\linewidth]{figuras/09_discusion/c4_Stack5_MLP_metrics.pdf}
+      \caption{Evolución del error absoluto y el error absoluto porcentual en cuantiles en función del periodo para el modelo Stacking (Conf. 5, MLP) (\texttt{c4}).}
+      \label{fig:Stack5_MLP_rmse_y_pct_rmse_cuantiles}
+\end{figure}
 
-      \begin{subfigure}[b]{1.0\linewidth}
-            \centering
-            \includegraphics[width=\linewidth]{figuras/09_discusion/c4_Stack5_MLP_density.pdf}
-            \caption{Gráfico de puntos de las predicciones frente a los valores reales}
-            \label{fig:Stack5_MLP_density}
-      \end{subfigure}
-      \caption{Análisis del modelo Stacking (Conf. 5, MLP) para la variable \texttt{c4}. (a) Evolución de métricas de error. (b) Densidad de predicciones frente a valores reales.}
-      \label{fig:Stack5_MLP_analisis_combined}
+\begin{figure}
+      \centering
+      \includegraphics[width=\linewidth]{figuras/09_discusion/c4_Stack5_MLP_density.pdf}
+      \caption{Gráfico de puntos de las predicciones frente a los valores reales para el modelo Stacking (Conf. 5, MLP) (\texttt{c4}).}
+      \label{fig:Stack5_MLP_density}
 \end{figure}
 
 
@@ -90,23 +77,16 @@ De igual forma que en los apartados anteriores, en la Figura \ref{fig:CatBoost_c
 
 \begin{figure}
       \centering
-      \begin{subfigure}[b]{1.0\linewidth}
-            \centering
-            \includegraphics[width=\linewidth]{figuras/09_discusion/carbono_bruto4_CatBoost_metrics.pdf}
-            \caption{Evolución del error absoluto y el error absoluto porcentual en cuantiles}
-            \label{fig:CatBoost_combined}
-      \end{subfigure}
+      \includegraphics[width=\linewidth]{figuras/09_discusion/carbono_bruto4_CatBoost_metrics.pdf}
+      \caption{Evolución del error absoluto y el error absoluto porcentual en cuantiles en función del periodo para el modelo CatBoost (\texttt{carbono\_bruto4}).}
+      \label{fig:CatBoost_combined}
+\end{figure}
 
-      \vspace{0.5cm}
-
-      \begin{subfigure}[b]{1.0\linewidth}
-            \centering
-            \includegraphics[width=\linewidth]{figuras/09_discusion/carbono_bruto4_CatBoost_density.pdf}
-            \caption{Gráfico de puntos de las predicciones frente a los valores reales}
-            \label{fig:CatBoost_density}
-      \end{subfigure}
-      \caption{Análisis del modelo CatBoost para la variable \texttt{carbono\_bruto4}. (a) Evolución de métricas de error. (b) Densidad de predicciones frente a valores reales.}
-      \label{fig:CatBoost_analisis_combined}
+\begin{figure}
+      \centering
+      \includegraphics[width=\linewidth]{figuras/09_discusion/carbono_bruto4_CatBoost_density.pdf}
+      \caption{Gráfico de puntos de las predicciones frente a los valores reales para el modelo CatBoost (\texttt{carbono\_bruto4}).}
+      \label{fig:CatBoost_density}
 \end{figure}
 
 Atendiendo a la Figura \ref{fig:CatBoost_combined} observamos el mismo comportamiento cualitativo que en el caso de la variable \texttt{c4} (con la particularidad de que cambian las unidades y el rango de valores): el error entre los cuantiles $25$ y $75$ se mantiene en valores relativamente pequeños y constantes, si bien es verdad que empieza siendo menor y va aumentando ligeramente a medida que lo hace la variable periodo. Los errores extremos (cuantil $90$) siguen siendo altos. De hecho, si nos fijamos en los valores más altos del RMSE porcentual para el cuantil $90$, observamos que se alcanzan valores notablemente más altos que en el caso de la variable \texttt{c4}, llegando hasta el $130\%$ cuando para \texttt{c4} apenas se superó el $100\%$ para el peor de los casos. Esto es de destacar, ya que las métricas globales para las predicciones de la variable \texttt{carbono\_bruto4} (ver Tabla \ref{tab:base_global_carbono_bruto4}) son sistemáticamente mejores que las de la variable \texttt{c4} (ver Tabla \ref{tab:base_global_c4}). Esto es, la variable \texttt{carbono\_bruto4} (toneladas) es más fácil de predecir en general para los modelos que la variable \texttt{c4} (toneladas por hectárea), pero ocurre lo contrario en los casos particulares, donde los errores más altos se disparan de una manera más exagerada que en el mismo caso para la variable \texttt{c4}. También se observa el aumento del error al pasar del rango de años del IFN2 a IFN3, causado por el aumento de la variabilidad de los datos del segundo inventario (ver Figura \ref{fig:distribucion_variables_combinado}). 
@@ -124,23 +104,16 @@ El modelo ensemble que mejores métricas proporciona para la predicción de la v
 
 \begin{figure}
       \centering
-      \begin{subfigure}[b]{1.0\linewidth}
-            \centering
-            \includegraphics[width=\linewidth]{figuras/09_discusion/carbono_bruto4_Stack5_MLP_metrics.pdf}
-            \caption{Evolución del error absoluto y el error absoluto porcentual en cuantiles}
-            \label{fig:Stack5_MLP_combined_rmse_y_pct_rmse_cuantiles}
-      \end{subfigure}
-      
-      \vspace{0.5cm}
+      \includegraphics[width=\linewidth]{figuras/09_discusion/carbono_bruto4_Stack5_MLP_metrics.pdf}
+      \caption{Evolución del error absoluto y el error absoluto porcentual en cuantiles en función del periodo para el modelo Stacking (Conf. 5, MLP) (\texttt{carbono\_bruto4}).}
+      \label{fig:Stack5_MLP_combined_rmse_y_pct_rmse_cuantiles}
+\end{figure}
 
-      \begin{subfigure}[b]{1.0\linewidth}
-            \centering
-            \includegraphics[width=\linewidth]{figuras/09_discusion/carbono_bruto4_Stack5_MLP_density.pdf}
-            \caption{Gráfico de puntos de las predicciones frente a los valores reales}
-            \label{fig:Stack5_MLP_density_carbono_bruto4}
-      \end{subfigure}
-      \caption{Análisis del modelo Stacking (Conf. 5, MLP) para la variable \texttt{carbono\_bruto4}. (a) Evolución de métricas de error. (b) Densidad de predicciones frente a valores reales.}
-      \label{fig:Stack5_MLP_carbono_bruto4_analisis_combined}
+\begin{figure}
+      \centering
+      \includegraphics[width=\linewidth]{figuras/09_discusion/carbono_bruto4_Stack5_MLP_density.pdf}
+      \caption{Gráfico de puntos de las predicciones frente a los valores reales para el modelo Stacking (Conf. 5, MLP) (\texttt{carbono\_bruto4}).}
+      \label{fig:Stack5_MLP_density_carbono_bruto4}
 \end{figure}
 
 
@@ -152,43 +125,32 @@ Al comparar el rendimiento de los modelos ``globales'' (entrenados con el conjun
 
 Una posible explicación para este fenómeno radica en la calidad y cantidad de información contenida en cada inventario. Los datos del IFN2, al ser menos informativos o presentar menos variables, parecen beneficiarse del aprendizaje conjunto con los del IFN3, lo que permite a los modelos capturar patrones adicionales y mejorar su capacidad de generalización sobre el segundo inventario. En cambio, para el IFN3, cuyos datos poseen una mayor calidad intrínseca, la inclusión de registros del IFN2 durante el entrenamiento podría estar introduciendo ruido o variabilidad no deseada, lo que acaba penalizando la precisión de las predicciones del modelo final sobre este conjunto.
 
-\begin{figure}[htbp]
+\begin{figure}
       \centering
-      \begin{subfigure}[b]{1.0\linewidth}
-            \centering
-            \includegraphics[width=\linewidth]{figuras/09_discusion/Consolidado_IFN2_c4_clean.pdf}
-            \caption{Resultados para \texttt{c4} en el IFN2.}
-            \label{fig:disc_sub1}
-      \end{subfigure}
-
-      \vspace{0.5cm}
-
-      \begin{subfigure}[b]{1.0\linewidth}
-            \centering
-            \includegraphics[width=\linewidth]{figuras/09_discusion/Consolidado_IFN3_c4_clean.pdf}
-            \caption{Resultados para \texttt{c4} en el IFN3.}
-            \label{fig:disc_sub2}
-      \end{subfigure}
-
-      \vspace{0.5cm}
-
-      \begin{subfigure}[b]{1.0\linewidth}
-            \centering
-            \includegraphics[width=\linewidth]{figuras/09_discusion/Consolidado_IFN2_carbono_bruto4_clean.pdf}
-            \caption{Resultados para \texttt{carbono\_bruto4} en el IFN2.}
-            \label{fig:disc_sub3}
-      \end{subfigure}
-
-      \vspace{0.5cm}
-
-      \begin{subfigure}[b]{1.0\linewidth}
-            \centering
-            \includegraphics[width=\linewidth]{figuras/09_discusion/Consolidado_IFN3_carbono_bruto4_clean.pdf}
-            \caption{Resultados para \texttt{carbono\_bruto4} en el IFN3.}
-            \label{fig:disc_sub4}
-      \end{subfigure}
-      \caption{Comparación del error absoluto entre mejores modelos base globales vs. base locales (arriba), mejores modelos de stacking globales vs.  stacking locales (medio) y mejor modelo base vs. mejor modelo de stacking (abajo).}
+      \includegraphics[width=\linewidth]{figuras/09_discusion/Consolidado_IFN2_c4_clean.pdf}
+      \caption{Comparación del error absoluto para \texttt{c4} en el IFN2: mejores modelos base globales vs. locales, stacking globales vs. locales, y mejor modelo base vs. mejor stacking.}
       \label{fig:comparativa_mejores}
+\end{figure}
+
+\begin{figure}
+      \centering
+      \includegraphics[width=\linewidth]{figuras/09_discusion/Consolidado_IFN3_c4_clean.pdf}
+      \caption{Comparación del error absoluto para \texttt{c4} en el IFN3: mejores modelos base globales vs. locales, stacking globales vs. locales, y mejor modelo base vs. mejor stacking.}
+      \label{fig:disc_sub2}
+\end{figure}
+
+\begin{figure}
+      \centering
+      \includegraphics[width=\linewidth]{figuras/09_discusion/Consolidado_IFN2_carbono_bruto4_clean.pdf}
+      \caption{Comparación del error absoluto para \texttt{carbono\_bruto4} en el IFN2: mejores modelos base globales vs. locales, stacking globales vs. locales, y mejor modelo base vs. mejor stacking.}
+      \label{fig:disc_sub3}
+\end{figure}
+
+\begin{figure}
+      \centering
+      \includegraphics[width=\linewidth]{figuras/09_discusion/Consolidado_IFN3_carbono_bruto4_clean.pdf}
+      \caption{Comparación del error absoluto para \texttt{carbono\_bruto4} en el IFN3: mejores modelos base globales vs. locales, stacking globales vs. locales, y mejor modelo base vs. mejor stacking.}
+      \label{fig:disc_sub4}
 \end{figure}
 
 En la Figura \ref{fig:comparativa_mejores} se muestra una comparativa entre los mejores modelos base globales vs. locales (arriba), mejores modelos de stacking globales vs. locales (medio) y mejor modelo base vs. mejor modelo de stacking (abajo). Observamos que en general los errores menores para el IFN2 los cometen los modelos globales, mientras que para el IFN3 son los locales los que realizan un mejor trabajo.
@@ -198,29 +160,22 @@ En la Figura \ref{fig:comparativa_mejores} se muestra una comparativa entre los 
 
 \subsubsection{Asimilación del comportamiento de las variables objetivo}
 
-Con las métricas que hemos planteado y el análisis que se ha hecho en esta sección parece claro que, si bien los resultados no son ni mucho menos perfectos, los modelos son capaces de entender la lógica y el significado de cada variable para obtener una predicción con un grado de acierto que depende de la naturaleza de la instancia que se trate. Otra prueba que podemos hacer para comprobar si los resultados de los modelos son lógicos es la que mostramos en la Figura \ref{fig:sensibilidad_escenarios}.
-Esta figura muestra la evolución de varios casos particulares a medida que avanza el tiempo entre medida y predicción. Los casos seleccionados son reales dentro de los datos disponibles. Se seleccionaron con la idea de mostrar cómo se comportan los modelos para configuraciones de carbono inicial más o menos comunes. Para ello se sumaron, para cada instancia de los datos, las variables \texttt{npies_x}, y luego se seleccionaron los valores más cercanos a los percentiles 10, 35, 65 y 90 para la variable resultante. Así evitamos posibles problemas fruto de seleccionar ejemplos poco realistas. 
+Con las métricas que hemos planteado y el análisis que se ha hecho en esta sección parece claro que, si bien los resultados no son ni mucho menos perfectos, los modelos son capaces de entender la lógica y el significado de cada variable para obtener una predicción con un grado de acierto que depende de la naturaleza de la instancia que se trate. Otra prueba que podemos hacer para comprobar si los resultados de los modelos son lógicos es la que mostramos en las Figuras \ref{fig:sensibilidad_escenarios} y \ref{fig:sensibilidad_escenarios_carbono_bruto4}.
+Estas figuras muestran la evolución de varios casos particulares a medida que avanza el tiempo entre medida y predicción. Los casos seleccionados son reales dentro de los datos disponibles. Se seleccionaron con la idea de mostrar cómo se comportan los modelos para configuraciones de carbono inicial más o menos comunes. Para ello se sumaron, para cada instancia de los datos, las variables \texttt{npies_x}, y luego se seleccionaron los valores más cercanos a los percentiles 10, 35, 65 y 90 para la variable resultante. Así evitamos posibles problemas fruto de seleccionar ejemplos poco realistas. 
 
 
 \begin{figure}
       \centering
-      \begin{subfigure}[b]{1.0\linewidth}
-            \centering
-            \includegraphics[width=\linewidth]{figuras/09_discusion/sensibilidad_escenarios_c4_P10_P35_P65_P90.pdf}
-            \caption{Cantidad de carbono en toneladas por hectárea para varios escenarios.}
-            \label{fig:sensibilidad_escenarios_c4}
-      \end{subfigure}
-      
-      \vspace{0.5cm}
-
-      \begin{subfigure}[b]{1.0\linewidth}
-            \centering
-            \includegraphics[width=\linewidth]{figuras/09_discusion/sensibilidad_escenarios_carbono_bruto4_P10_P35_P65_P90.pdf}
-            \caption{Cantidad de carbono en toneladas para varios escenarios.}
-            \label{fig:sensibilidad_escenarios_carbono_bruto4}
-      \end{subfigure}
-      \caption{Evolución de la cantidad de carbono en toneladas para varios escenarios.}
+      \includegraphics[width=\linewidth]{figuras/09_discusion/sensibilidad_escenarios_c4_P10_P35_P65_P90.pdf}
+      \caption{Evolución de la cantidad de carbono en toneladas por hectárea (\texttt{c4}) para varios escenarios.}
       \label{fig:sensibilidad_escenarios}
+\end{figure}
+
+\begin{figure}
+      \centering
+      \includegraphics[width=\linewidth]{figuras/09_discusion/sensibilidad_escenarios_carbono_bruto4_P10_P35_P65_P90.pdf}
+      \caption{Evolución de la cantidad de carbono en toneladas (\texttt{carbono\_bruto4}) para varios escenarios.}
+      \label{fig:sensibilidad_escenarios_carbono_bruto4}
 \end{figure}
 
 Podemos señalar las siguientes características:
@@ -234,27 +189,20 @@ Podemos señalar las siguientes características:
 
 \subsubsection{Rendimiento de los modelos en función del valor de la variable objetivo}
 
-Si se analizan las métricas globales de las tablas de la sección \ref{sec:resultados} nos damos cuenta de que los valores del RMSE son notablemente mayores que los valores de MAE, concretamente cerca del doble en la mayoría de casos. Debido a que el RMSE penaliza mucho más los errores grandes que el MAE, esto es indicativo de la presencia de outliers en el error. Ya hemos visto a lo largo de esta sección que los mayores errores ocurren en el rango de años en que el IFN2 es la principal fuente de datos como podemos ver en las Figuras \ref{fig:LightGBM_rmse_y_pct_rmse_cuantiles}, \ref{fig:Stack5_MLP_rmse_y_pct_rmse_cuantiles}, \ref{fig:CatBoost_combined} y \ref{fig:Stack5_MLP_combined_rmse_y_pct_rmse_cuantiles}, y la principal conclusión que podemos sacar es que la calidad o cantidad de información contenida en este inventario es peor. No obstante, esto no responde del todo a la pregunta de en qué casos el modelo predice mejor, salvo la obviedad de que la predicción será mejor cuanto más cerca esté en el tiempo y más datos haya de ese año. Es por esto que la Figura \ref{fig:SMAPE_RMSE_deciles_c4_carbono_bruto4} nos puede ser útil. Esta figura muestra la distribución de errores, concretamente el RMSE y el SMAPE, en función de la variable objetivo para \texttt{c4} y \texttt{carbono\_bruto4} en deciles para los modelos base.
+Si se analizan las métricas globales de las tablas de la sección \ref{sec:resultados} nos damos cuenta de que los valores del RMSE son notablemente mayores que los valores de MAE, concretamente cerca del doble en la mayoría de casos. Debido a que el RMSE penaliza mucho más los errores grandes que el MAE, esto es indicativo de la presencia de outliers en el error. Ya hemos visto a lo largo de esta sección que los mayores errores ocurren en el rango de años en que el IFN2 es la principal fuente de datos como podemos ver en las Figuras \ref{fig:LightGBM_rmse_y_pct_rmse_cuantiles}, \ref{fig:Stack5_MLP_rmse_y_pct_rmse_cuantiles}, \ref{fig:CatBoost_combined} y \ref{fig:Stack5_MLP_combined_rmse_y_pct_rmse_cuantiles}, y la principal conclusión que podemos sacar es que la calidad o cantidad de información contenida en este inventario es peor. No obstante, esto no responde del todo a la pregunta de en qué casos el modelo predice mejor, salvo la obviedad de que la predicción será mejor cuanto más cerca esté en el tiempo y más datos haya de ese año. Es por esto que las Figuras \ref{fig:SMAPE_RMSE_deciles_c4_carbono_bruto4} y \ref{fig:distribucion_carbono_bruto4_combinado} nos pueden ser útiles. Estas figuras muestran la distribución de errores, concretamente el RMSE y el SMAPE, en función de la variable objetivo para \texttt{c4} y \texttt{carbono\_bruto4} respectivamente, en deciles para los modelos base.
 
 \begin{figure}
       \centering
-      \begin{subfigure}[b]{1.0\linewidth}
-            \centering
-            \includegraphics[width=\linewidth]{figuras/09_discusion/c4_base_models_SMAPE_RMSE_percentiles.pdf}
-            \caption{Distribución de errores en función de la variable objetivo para \texttt{c4}.}
-            \label{fig:distribucion_c4_combinado}
-      \end{subfigure}
-      
-      \vspace{0.5cm}
-
-      \begin{subfigure}[b]{1.0\linewidth}
-            \centering
-            \includegraphics[width=\linewidth]{figuras/09_discusion/carbono_bruto4_base_models_SMAPE_RMSE_percentiles.pdf}
-            \caption{Distribución de errores en función de la variable objetivo para \texttt{carbono\_bruto4}.}
-            \label{fig:distribucion_carbono_bruto4_combinado}
-      \end{subfigure}
-      \caption{Distribución del SMAPE y RMSE en función de la variable objetivo para \texttt{c4} y \texttt{carbono\_bruto4} en deciles.}
+      \includegraphics[width=\linewidth]{figuras/09_discusion/c4_base_models_SMAPE_RMSE_percentiles.pdf}
+      \caption{Distribución del SMAPE y RMSE en función de la variable objetivo para \texttt{c4} en deciles.}
       \label{fig:SMAPE_RMSE_deciles_c4_carbono_bruto4}
+\end{figure}
+
+\begin{figure}
+      \centering
+      \includegraphics[width=\linewidth]{figuras/09_discusion/carbono_bruto4_base_models_SMAPE_RMSE_percentiles.pdf}
+      \caption{Distribución del SMAPE y RMSE en función de la variable objetivo para \texttt{carbono\_bruto4} en deciles.}
+      \label{fig:distribucion_carbono_bruto4_combinado}
 \end{figure}
 
 

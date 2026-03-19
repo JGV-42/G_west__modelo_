@@ -1,3 +1,4 @@
+% !TEX root = ../main.tex
 \section{Metodología}
 
 Esta sección describe el procedimiento seguido para el entrenamiento y validación de los modelos predictivos desarrollados.
@@ -56,7 +57,7 @@ Cada variable categórica posee una tabla de catálogo propia (\texttt{cat\_}), 
 
 La Figura~\ref{fig:GWestBBDD} muestra el esquema general de las tablas troncales y sus principales relaciones. Este diagrama resume la estructura interna de la base de datos y su jerarquía de dependencias.
 
-\begin{figure}[htbp]
+\begin{figure}
     \centering
     \includegraphics[width=\linewidth]{figuras/05_metodologia/Estrctr_BBDD_GWest.png}
     \caption{Esquema relacional de las tablas principales de la base de datos. Tabla extraída de \cite{greenwestdb}, donde se pueden consultar más detalles sobre las variables.}
@@ -228,7 +229,7 @@ Como ya se ha introducido, para que un proyecto forestal sea elegible en program
           El intervalo de tiempo entre los inventarios \textbf{IFN3} e \textbf{IFN4} es relativamente corto: la Figura~\ref{fig:periodo34} muestra la distribución de la diferencia de años entre las mediciones del IFN3 y el IFN4. Como puede observarse, la mayoría de las parcelas presentan intervalos comprendidos entre 6 y 17 años, un rango demasiado estrecho para evaluar la estabilidad del modelo en horizontes más amplios.
 
           TODO: indicar con colores cuántos elementos proceden de cada inventario. hacer la figura más pequeña
-          \begin{figure}[H]
+          \begin{figure}
               \centering
               \includegraphics[width=\linewidth]{figuras/05_metodologia/periodo34.png}
               \caption{Distribución de la diferencia de años entre los inventarios tercero y cuarto.}
@@ -237,7 +238,7 @@ Como ya se ha introducido, para que un proyecto forestal sea elegible en program
 
           Para ampliar la cobertura temporal y mejorar la capacidad de generalización del modelo, se optó por unificar la información de los inventarios \textbf{IFN2} e \textbf{IFN3} como base explicativa para la predicción del \textbf{IFN4}. Esta integración permite disponer de pares de mediciones de parcelas separadas por intervalos que oscilan entre 6 y 29 años, lo que constituye un rango mucho más representativo del horizonte de 20--30 años establecido como referencia.
 
-          \begin{figure}[H]
+          \begin{figure}
               \centering
               \includegraphics[width=\linewidth]{figuras/05_metodologia/periodo234.png}
               \caption{Distribución de la diferencia de años entre los inventarios IFN2--IFN3 e IFN3--IFN4.}
@@ -245,7 +246,7 @@ Como ya se ha introducido, para que un proyecto forestal sea elegible en program
           \end{figure}
 
 
-          De esta forma, el modelo se entrena y valida sobre un conjunto de datos más diverso y equilibrado, tanto en estructura como en amplitud temporal, manteniendo la coherencia metodológica y la trazabilidad de las estimaciones. 
+          De esta forma, el modelo se entrena y valida sobre un conjunto de datos más diverso y equilibrado, tanto en estructura como en amplitud temporal, manteniendo la coherencia metodológica y la trazabilidad de las estimaciones.
 
     \item \textbf{Superficie mínima de 1 ha.} Este criterio se considera externo al alcance del modelo predictivo, ya que el aprendizaje se realiza a nivel de parcela e inventario y no sobre polígonos de superficie total. En la práctica, la verificación de la superficie se realiza \emph{ex ante}, sobre la geometría declarada del proyecto forestal. En los terrenos forestales generados a partir de intervención humana directa, como plantaciones o repoblaciones, la extensión suele presentar una estructura homogénea, con una especie dominante, edades coetáneas y densidades estandarizadas. Bajo estas condiciones, el carbono total es proporcional a la superficie: duplicar el área de una masa forestal homogénea implica aproximadamente duplicar su carbono almacenado. Por tanto, la variable de superficie no afecta al ajuste interno del modelo y su cumplimiento puede evaluarse fácilmente a nivel de proyecto, sin comprometer la validez de las predicciones.
 
@@ -277,49 +278,49 @@ Cada registro de entrada se genera a nivel de combinación parcela--especie, inc
 
 La Tabla~\ref{tab:entradamodelo} resume las variables empleadas como entrada al modelo, integradas desde las distintas tablas que conforman la base de datos relacional.
 
-\begin{table}[htbp]
+\begin{table*}
     \renewcommand{\arraystretch}{1.2}
     \setlength{\tabcolsep}{3pt}
     \centering
     \footnotesize
-    \resizebox{\columnwidth}{!}{
-    \begin{tabular}{|p{3.2cm}|p{1.8cm}|p{6.5cm}|p{2.2cm}|}
-        \hline
-        \multicolumn{4}{|c|}{\textbf{Resumen de Datos de Entrada del Modelo}} \\
-        \hline
-        \textbf{Variable} & \textbf{Tipo} & \textbf{Descripción} & \textbf{Anexo} \\
-        \hline
-        \textcolor{ForestGreen}{\texttt{parcela\_id}} & varchar & Identificador único de parcela. & -- \\
-        \hline
-        \textcolor{ForestGreen}{\texttt{especie\_id}, \texttt{tipo\_especie}, \texttt{grupo\_id}} & int (CF) & Especie, tipo y grupo taxonómico. & \ref{sec:especies}, \ref{sec:gruposespecies} \\
-        \hline
-        \textcolor{ForestGreen}{\texttt{ocupa}} & int & Grado de ocupación (0--10). & -- \\
-        \hline
-        \textcolor{ForestGreen}{\texttt{estado\_id}}, \texttt{fpmasa\_id}, \texttt{tratmasa\_id}, \texttt{orgmasa\_1\_id} & int (CF) & Estado, forma de masa, tratamiento, organización. & \ref{sec:EstadoIFN34}, \ref{sec:FPMasa}, \ref{sec:tratmasa}, \ref{sec:OrgMasa} \\
-        \hline
-        \textcolor{ForestGreen}{\texttt{tipsuelo1-3\_id}} & int (CF) & Tipos de suelo. & Anexo \ref{sec:TipSuelo} \\
-        \hline
-        \textcolor{ForestGreen}{\texttt{rocosidad\_id}}, \texttt{textura\_id}, \texttt{matorg\_id}, \texttt{modcomb\_id}, \texttt{disesp\_id}, \texttt{comesp\_id}, \texttt{merosiva\_id} & int (CF) & Variables edáficas y estructurales. & Apéndices varios \\
-        \hline
-        \textcolor{ForestGreen}{\texttt{radio}, \texttt{orientacion}, \texttt{elevacion}, \texttt{pendiente}} & float & Topografía y geometría de parcela. & -- \\
-        \hline
-        \texttt{nivel1\_id}, \texttt{nivel2\_id}, \texttt{fccarb}, \texttt{fcctot} & int/float & Niveles jerárquicos y cabida cubierta. & \ref{sec:nivel1}, \ref{sec:nivel2} \\
-        \hline
-        \textcolor{ForestGreen}{\texttt{npies\_\{CD\}}} & float & N.º de pies por clase diamétrica. & -- \\
-        \hline
-        \textcolor{ForestGreen}{\texttt{periodo}} & int & Años entre inventarios. & -- \\
-        \hline
-        \textcolor{ForestGreen}{\texttt{evi, gndvi, ndii, ndvi\_\{stat\}\_\{est\}}} & float & Índices de vegetación por estación. & -- \\
-        \hline
-        \textcolor{ForestGreen}{\texttt{pr, skt, stl1-4, t2m\_\{stat\}\_\{est\}}} & float & Variables climáticas por estación. & -- \\
-        \hline
-        \textcolor{ForestGreen}{\texttt{c4}, \texttt{carbono\_bruto4}} & float & Carbono IFN4 (t/ha y t). & -- \\
-        \hline
-    \end{tabular}
+    \resizebox{\textwidth}{!}{
+        \begin{tabular}{|p{3.2cm}|p{1.8cm}|p{6.5cm}|p{2.2cm}|}
+            \hline
+            \multicolumn{4}{|c|}{\textbf{Resumen de Datos de Entrada del Modelo}}                                                                                                                                                                                                                                                                  \\
+            \hline
+            \textbf{Variable}                                                                                                                                                                 & \textbf{Tipo} & \textbf{Descripción}                              & \textbf{Anexo}                                                                 \\
+            \hline
+            \textcolor{ForestGreen}{\texttt{parcela\_id}}                                                                                                                                     & varchar       & Identificador único de parcela.                   & --                                                                             \\
+            \hline
+            \textcolor{ForestGreen}{\texttt{especie\_id}, \texttt{tipo\_especie}, \texttt{grupo\_id}}                                                                                         & int (CF)      & Especie, tipo y grupo taxonómico.                 & \ref{sec:especies}, \ref{sec:gruposespecies}                                   \\
+            \hline
+            \textcolor{ForestGreen}{\texttt{ocupa}}                                                                                                                                           & int           & Grado de ocupación (0--10).                       & --                                                                             \\
+            \hline
+            \textcolor{ForestGreen}{\texttt{estado\_id}}, \texttt{fpmasa\_id}, \texttt{tratmasa\_id}, \texttt{orgmasa\_1\_id}                                                                 & int (CF)      & Estado, forma de masa, tratamiento, organización. & \ref{sec:EstadoIFN34}, \ref{sec:FPMasa}, \ref{sec:tratmasa}, \ref{sec:OrgMasa} \\
+            \hline
+            \textcolor{ForestGreen}{\texttt{tipsuelo1-3\_id}}                                                                                                                                 & int (CF)      & Tipos de suelo.                                   & Anexo \ref{sec:TipSuelo}                                                       \\
+            \hline
+            \textcolor{ForestGreen}{\texttt{rocosidad\_id}}, \texttt{textura\_id}, \texttt{matorg\_id}, \texttt{modcomb\_id}, \texttt{disesp\_id}, \texttt{comesp\_id}, \texttt{merosiva\_id} & int (CF)      & Variables edáficas y estructurales.               & Apéndices varios                                                               \\
+            \hline
+            \textcolor{ForestGreen}{\texttt{radio}, \texttt{orientacion}, \texttt{elevacion}, \texttt{pendiente}}                                                                             & float         & Topografía y geometría de parcela.                & --                                                                             \\
+            \hline
+            \texttt{nivel1\_id}, \texttt{nivel2\_id}, \texttt{fccarb}, \texttt{fcctot}                                                                                                        & int/float     & Niveles jerárquicos y cabida cubierta.            & \ref{sec:nivel1}, \ref{sec:nivel2}                                             \\
+            \hline
+            \textcolor{ForestGreen}{\texttt{npies\_\{CD\}}}                                                                                                                                   & float         & N.º de pies por clase diamétrica.                 & --                                                                             \\
+            \hline
+            \textcolor{ForestGreen}{\texttt{periodo}}                                                                                                                                         & int           & Años entre inventarios.                           & --                                                                             \\
+            \hline
+            \textcolor{ForestGreen}{\texttt{evi, gndvi, ndii, ndvi\_\{stat\}\_\{est\}}}                                                                                                       & float         & Índices de vegetación por estación.               & --                                                                             \\
+            \hline
+            \textcolor{ForestGreen}{\texttt{pr, skt, stl1-4, t2m\_\{stat\}\_\{est\}}}                                                                                                         & float         & Variables climáticas por estación.                & --                                                                             \\
+            \hline
+            \textcolor{ForestGreen}{\texttt{c4}, \texttt{carbono\_bruto4}}                                                                                                                    & float         & Carbono IFN4 (t/ha y t).                          & --                                                                             \\
+            \hline
+        \end{tabular}
     }
     \caption{Variables de entrada del modelo. Las variables en \textcolor{ForestGreen}{verde} están disponibles en IFN2 e IFN3; el resto solo en IFN3.}
     \label{tab:entradamodelo}
-\end{table}
+\end{table*}
 
 \subsubsection{Reclasificación de las variables \texttt{pendiente} y \texttt{orientacion}}
 
@@ -357,7 +358,7 @@ Para obtener una estimación imparcial del rendimiento y evitar \emph{fugas de i
 
 \noindent\textbf{Partición entrenamiento/test.} Los datos, ya filtrados, se separan en un $80\%$ para entrenamiento y un $20\%$ para test. Dicha separación se hace de forma que todas las observaciones asociadas a una misma parcela queden asignadas íntegramente a uno de los subconjuntos.
 
-\noindent\textbf{Validación cruzada para selección de hiperparámetros.} La selección de hiperparámetros se lleva a cabo exclusivamente sobre el conjunto de entrenamiento mediante \texttt{GridSearchCV} con métrica de optimización $R^2$. Se utiliza \texttt{GroupKFold} con $k=5$ pliegues, imponiendo que no exista solape de parcelas entre pliegues (esto es, la agrupación se respeta tanto en el \emph{hold-out} como en la validación interna). 
+\noindent\textbf{Validación cruzada para selección de hiperparámetros.} La selección de hiperparámetros se lleva a cabo exclusivamente sobre el conjunto de entrenamiento mediante \texttt{GridSearchCV} con métrica de optimización $R^2$. Se utiliza \texttt{GroupKFold} con $k=5$ pliegues, imponiendo que no exista solape de parcelas entre pliegues (esto es, la agrupación se respeta tanto en el \emph{hold-out} como en la validación interna).
 
 \vspace{0.25em}
 \vspace{0.25em}
@@ -365,49 +366,49 @@ Para obtener una estimación imparcial del rendimiento y evitar \emph{fugas de i
 
 \begin{itemize}
     \item \textbf{RMSE (Root Mean Squared Error):} raíz del error cuadrático medio. Mide la magnitud promedio de los errores penalizando fuertemente las grandes desviaciones. Se expresa en las mismas unidades que la variable objetivo.
-    \begin{equation}
-        \text{RMSE} = \sqrt{\frac{1}{n} \sum_{i=1}^{n} (y_i - \hat{y}_i)^2}
-    \end{equation}
+          \begin{equation}
+              \text{RMSE} = \sqrt{\frac{1}{n} \sum_{i=1}^{n} (y_i - \hat{y}_i)^2}
+          \end{equation}
 
     \item \textbf{RMSE Porcentual (RMSE\%):} expresa el RMSE como porcentaje respecto a la media de los valores observados. Facilita la interpretación relativa del error independientemente de la escala.
-    \begin{equation}
-        \text{RMSE}_{\%} = \frac{\text{RMSE}}{\bar{y}} \times 100
-    \end{equation}
+          \begin{equation}
+              \text{RMSE}_{\%} = \frac{\text{RMSE}}{\bar{y}} \times 100
+          \end{equation}
 
     \item \boldmath\textbf{$R^2$}\unboldmath{} \textbf{(Coeficiente de determinación):} proporción de la varianza total de la variable objetivo que es explicada por el modelo. Valores cercanos a 1 indican un alto poder explicativo.
-    \begin{equation}
-        R^2 = 1 - \frac{\sum_{i=1}^{n} (y_i - \hat{y}_i)^2}{\sum_{i=1}^{n} (y_i - \bar{y})^2}
-    \end{equation}
+          \begin{equation}
+              R^2 = 1 - \frac{\sum_{i=1}^{n} (y_i - \hat{y}_i)^2}{\sum_{i=1}^{n} (y_i - \bar{y})^2}
+          \end{equation}
 
     \item \textbf{MAE (Mean Absolute Error):} media aritmética de las diferencias absolutas entre predicciones y observaciones. Es una métrica de error lineal, más robusta frente a valores atípicos que el RMSE y de fácil interpretación directa.
-    \begin{equation}
-        \text{MAE} = \frac{1}{n} \sum_{i=1}^{n} |y_i - \hat{y}_i|
-    \end{equation}
+          \begin{equation}
+              \text{MAE} = \frac{1}{n} \sum_{i=1}^{n} |y_i - \hat{y}_i|
+          \end{equation}
 
     \item \textbf{MAPE (Mean Absolute Percentage Error):} promedio del error absoluto relativo al valor real, expresado en porcentaje. Permite evaluar la calidad de la predicción en términos relativos.
-    \begin{equation}
-        \text{MAPE} = \frac{1}{n} \sum_{i=1}^{n} \left| \frac{y_i - \hat{y}_i}{y_i} \right| \times 100
-    \end{equation}
+          \begin{equation}
+              \text{MAPE} = \frac{1}{n} \sum_{i=1}^{n} \left| \frac{y_i - \hat{y}_i}{y_i} \right| \times 100
+          \end{equation}
 
     \item \textbf{wMAPE (Weighted Mean Absolute Percentage Error):} variante ponderada del MAPE donde el error se normaliza por el volumen total de la variable real. Evita problemas de inestabilidad cuando los valores observados son cercanos a cero.
-    \begin{equation}
-        \text{wMAPE} = \frac{\sum_{i=1}^{n} |y_i - \hat{y}_i|}{\sum_{i=1}^{n} |y_i|} \times 100
-    \end{equation}
+          \begin{equation}
+              \text{wMAPE} = \frac{\sum_{i=1}^{n} |y_i - \hat{y}_i|}{\sum_{i=1}^{n} |y_i|} \times 100
+          \end{equation}
 
     \item \textbf{SMAPE (Symmetric Mean Absolute Percentage Error):} error porcentual simétrico que normaliza la discrepancia por la magnitud media de los valores observados y predichos. Reduce la asimetría del MAPE y está acotado.
-    \begin{equation}
-        \text{SMAPE} = \frac{100}{n} \sum_{i=1}^{n} \frac{|y_i - \hat{y}_i|}{(|y_i| + |\hat{y}_i|)/2}
-    \end{equation}
+          \begin{equation}
+              \text{SMAPE} = \frac{100}{n} \sum_{i=1}^{n} \frac{|y_i - \hat{y}_i|}{(|y_i| + |\hat{y}_i|)/2}
+          \end{equation}
 
     \item \textbf{MedAE (Median Absolute Error):} mediana de los errores absolutos. Proporciona una medida de error robusta y resistente a la presencia de valores atípicos extremos (\textit{outliers}).
-    \begin{equation}
-        \text{MedAE} = \text{mediana}(|y_1 - \hat{y}_1|, \dots, |y_n - \hat{y}_n|)
-    \end{equation}
+          \begin{equation}
+              \text{MedAE} = \text{mediana}(|y_1 - \hat{y}_1|, \dots, |y_n - \hat{y}_n|)
+          \end{equation}
 
     \item \textbf{Bias (Sesgo Medio):} evalúa la tendencia sistemática del modelo a sobreestimar (valor positivo) o subestimar (valor negativo) las observaciones reales.
-    \begin{equation}
-        \text{Bias} = \frac{1}{n} \sum_{i=1}^{n} (\hat{y}_i - y_i)
-    \end{equation}
+          \begin{equation}
+              \text{Bias} = \frac{1}{n} \sum_{i=1}^{n} (\hat{y}_i - y_i)
+          \end{equation}
 \end{itemize}
 
 %\vspace{0.25em}
@@ -521,37 +522,37 @@ Esta selección permite comparar desde combinadores lineales simples hasta integ
 La evaluación exhaustiva de múltiples algoritmos permite identificar no solo el modelo individual con mejor rendimiento, sino también combinaciones sinérgicas para el \textit{stacking}. La Tabla~\ref{tab:modelos} resume los modelos finalmente entrenados y evaluados.
 
 
-\begin{table*}[t]
+\begin{table*}
     \centering
     \footnotesize
-    \resizebox{0.75\textwidth}{!}{
-    \begin{tabular}{|p{2.5cm}|p{2.2cm}|p{4.5cm}|p{4cm}|}
-        \hline
-        \textbf{Modelo} & \textbf{Tipo} & \textbf{Características} & \textbf{Observaciones} \\
-        \hline
-        Random Forest & Bagging & Bootstrap con selección aleatoria de atributos & Robusto y estable \\
-        \hline
-        BaggedDT & Bagging & Árboles sin poda sobre muestras bootstrap & Mejora por agregación \\
-        \hline
-        XGBoost & Boosting & Regularización L1/L2, segundo orden & Muy preciso; sensible a tuning \\
-        \hline
-        LightGBM & Boosting & Crecimiento leaf-wise, muy eficiente & Rápido; riesgo de sobreajuste \\
-        \hline
-        CatBoost & Boosting & Codificación ordenada; robusto al ruido & Excelente sin gran tuning \\
-        \hline
-        GBDT & Boosting & Árboles secuenciales ajustados a residuos & Buen rendimiento \\
-        \hline
-        AdaBoost & Boosting & Aumenta peso de obs. mal predichas & Menos robusto \\
-        \hline
-        KNN & Instancia & Predicción por proximidad & Sensible a escala y ruido \\
-        \hline
-        MLP & Red neuronal & Captura relaciones no lineales & Requiere normalización \\
-        \hline
-        SVR & Márgenes & Kernel lineal, gran margen & Robusto al sobreajuste \\
-        \hline
-        BayesianNN & Probabilístico & Cuantifica incertidumbre & Reduce sobreajuste \\
-        \hline
-    \end{tabular}
+    \resizebox{\textwidth}{!}{
+        \begin{tabular}{|p{2.5cm}|p{2.2cm}|p{4.5cm}|p{4cm}|}
+            \hline
+            \textbf{Modelo} & \textbf{Tipo}  & \textbf{Características}                       & \textbf{Observaciones}         \\
+            \hline
+            Random Forest   & Bagging        & Bootstrap con selección aleatoria de atributos & Robusto y estable              \\
+            \hline
+            BaggedDT        & Bagging        & Árboles sin poda sobre muestras bootstrap      & Mejora por agregación          \\
+            \hline
+            XGBoost         & Boosting       & Regularización L1/L2, segundo orden            & Muy preciso; sensible a tuning \\
+            \hline
+            LightGBM        & Boosting       & Crecimiento leaf-wise, muy eficiente           & Rápido; riesgo de sobreajuste  \\
+            \hline
+            CatBoost        & Boosting       & Codificación ordenada; robusto al ruido        & Excelente sin gran tuning      \\
+            \hline
+            GBDT            & Boosting       & Árboles secuenciales ajustados a residuos      & Buen rendimiento               \\
+            \hline
+            AdaBoost        & Boosting       & Aumenta peso de obs. mal predichas             & Menos robusto                  \\
+            \hline
+            KNN             & Instancia      & Predicción por proximidad                      & Sensible a escala y ruido      \\
+            \hline
+            MLP             & Red neuronal   & Captura relaciones no lineales                 & Requiere normalización         \\
+            \hline
+            SVR             & Márgenes       & Kernel lineal, gran margen                     & Robusto al sobreajuste         \\
+            \hline
+            BayesianNN      & Probabilístico & Cuantifica incertidumbre                       & Reduce sobreajuste             \\
+            \hline
+        \end{tabular}
     }
     \caption{Resumen de los modelos de aprendizaje supervisado evaluados.}
     \label{tab:modelos}

@@ -1,3 +1,4 @@
+% !TEX root = ../main.tex
 \section{Entrenamiento y validación}
 
 El proceso de entrenamiento se estructuró en varias fases orientadas a optimizar tanto la selección de variables predictoras como la robustez del modelo final. En primer lugar, se llevó a cabo una etapa de \textbf{selección de variables}, en la que se evaluaron distintos subconjuntos de características definidos por bloques temáticos con significado ecológico y funcional. Para esta tarea se adoptó un enfoque sistemático basado en la comparación del desempeño predictivo de las distintas combinaciones mediante el algoritmo \texttt{CatBoost}, seleccionado tras pruebas preliminares que mostraron su alta capacidad de ajuste y estabilidad frente a la heterogeneidad de los datos. En todas las configuraciones se mantuvo constante la variable objetivo (carbono capturado) y los parámetros del modelo, de modo que las variaciones en el coeficiente de determinación ($R^2$) y el error cuadrático medio (RMSE) reflejaran exclusivamente la contribución informativa de cada bloque. Los resultados de esta fase son preliminares ya que se emplearon entrenamientos más sencillos (sin validación cruzada para la selección de hiperparámetros).
@@ -93,15 +94,15 @@ De los tres conjuntos de variables seleccionados se mantuvo la selección manual
 
 TODO: Esto igual debería ir en resultados?
 
-\begin{table}[htbp]
+\begin{table}
     \centering
     \caption{Comparación de configuraciones de selección de variables y rendimiento del modelo CatBoost sobre los datos del IFN 2-3 y 4 para predecir \texttt{c4}.}
     \label{tab:comparativa_modelos}
     \footnotesize
     \resizebox{\columnwidth}{!}{
-    \begin{tabular}{l l r r r r r}
+    \begin{tabular}{l l r r r r c}
         \toprule
-        Configuración & Modelo   & $n_\text{vars}$ & $R^{2}$ & RMSE  & MAE   & Moda error (aprox.) \\
+        Configuración & Modelo & $n_\text{vars}$ & $R^{2}$ & RMSE & MAE & \makecell[c]{Moda error \\ (aprox.)} \\
         \midrule
         Manual        & CatBoost & 44              & 0.80    & 21.77 & 11.48 & 1                   \\
         mRMR          & CatBoost & 67              & 0.79    & 21.91 & 11.69 & 1                   \\
@@ -116,7 +117,7 @@ TODO: Esto igual debería ir en resultados?
 
 Con el objetivo de estudiar el compromiso entre diversidad del ensamble, coste computacional y rendimiento, se definieron cinco configuraciones de modelos base (Tabla~\ref{tab:stack_configs}). Los modelos AdaBoost, BayesianNN, SVR, MLP y KNN se descartaron como candidatos.
 
-\begin{table}[htbp]
+\begin{table}
     \centering
     \caption{Configuraciones de modelos base para \textit{stacking}.}
     \label{tab:stack_configs}
@@ -151,13 +152,13 @@ El objetivo es que el meta-modelo reciba como entradas predicciones de alta cali
 
 Sobre las predicciones apiladas de cada configuración se entrenan distintos meta-modelos $g(\cdot)$, definidos en la Tabla~\ref{tab:meta_modelos}.
 
-\begin{table}[htbp]
+\begin{table}
     \centering
     \caption{Meta-modelos utilizados en el \textit{stacking} junto con sus parámetros.}
     \label{tab:meta_modelos}
     \footnotesize
     \resizebox{\columnwidth}{!}{
-    \begin{tabular}{lp{8cm}}
+    \begin{tabular}{m{3.5cm}m{5cm}}
         \toprule
         \textbf{Meta-modelo} & \textbf{Parámetros} \\
         \midrule
