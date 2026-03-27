@@ -1,0 +1,130 @@
+% !TEX root = ../main.tex
+
+\section{Base de datos: diccionario de variables y cardinalidad}
+
+\subsection{Diccionario resumido de variables}
+
+\onecolumn
+\footnotesize
+\setlength{\LTcapwidth}{\textwidth}
+\begin{longtable}{@{}p{2.8cm} p{6.8cm} p{2.2cm} p{2.2cm}@{}}
+    \caption{Resumen de variables principales por entidad. Tabla extraída de \cite{greenwestdb}.}                                                                                                  \\
+    \toprule
+    \textbf{Variable}                                                      & \textbf{Descripción}                                           & \textbf{Unidad}              & \textbf{Tipo de dato} \\
+    \midrule
+    \endfirsthead
+    \toprule
+    \textbf{Variable}                                                      & \textbf{Descripción}                                           & \textbf{Unidad}              & \textbf{Tipo de dato} \\
+    \midrule
+    \endhead
+    \midrule
+    \multicolumn{4}{r}{\emph{Continúa en la siguiente página}}                                                                                                                                     \\
+    \midrule
+    \endfoot
+    \bottomrule
+    \endlastfoot
+
+    \multicolumn{4}{l}{\textbf{parcelas}}                                                                                                                                                          \\
+    \texttt{parcela\_id}                                                   & Identificador único de parcela (IFN).                          & --                           & Identificador         \\
+    \texttt{latitud}, \texttt{longitud}                                    & Coordenadas geográficas (WGS84).                               & °                            & Geográfico            \\
+    \texttt{coorx}, \texttt{coory}                                         & Coordenadas UTM; \texttt{huso} especifica zona.                & m (UTM)                      & Geográfico            \\
+    \texttt{elevacion}                                                     & Cota sobre el nivel del mar (NASADEM).                         & m                            & Numérico              \\
+    \texttt{pendiente}                                                     & Inclinación del terreno.                                       & °                            & Numérico              \\
+    \texttt{orientacion}                                                   & Orientación del terreno (0–360).                               & °                            & Numérico              \\
+    \texttt{presencia\_id}                                                 & Presencia en IFN $\rightarrow$ \texttt{cat\_presencia}.        & --                           & Categórico            \\
+    \texttt{tipsuelo1\_id}, \texttt{tipsuelo2\_id}, \texttt{tipsuelo3\_id} & Tipos de suelo $\rightarrow$ \texttt{cat\_tipsuelo*}.          & --                           & Categórico            \\
+    \texttt{rocosidad\_id}                                                 & Rocosidad $\rightarrow$ \texttt{cat\_rocosidad}.               & --                           & Categórico            \\
+    \texttt{martonneidx\_id}                                               & Índice de aridez de Martonne $\rightarrow$ \texttt{cat\_martonneidx}. & --                    & Categórico            \\
+    \texttt{radio}, \texttt{superficie}                                    & Radio de parcela y superficie derivada.                        & m; ha                        & Numérico              \\
+    \addlinespace
+
+    \multicolumn{4}{l}{\textbf{parcela\_inventario}}                                                                                                                                               \\
+    \texttt{parcela\_id}, \texttt{inventario\_id}                          & Clave compuesta (parcela-inventario).                          & --                           & Identificador         \\
+    \texttt{ano}                                                           & Año de apeo.                                                   & año                          & Numérico              \\
+    \texttt{nivel1\_id}, \texttt{nivel2\_id}                               & Morfoestructura. $\rightarrow$ \texttt{cat\_nivel*}.           & --                           & Categórico            \\
+    \texttt{textura\_id}                                                   & Textura de suelo $\rightarrow$ \texttt{cat\_textura}.          & --                           & Categórico            \\
+    \texttt{merosiva\_id}                                                  & Manifestaciones erosivas $\rightarrow$ \texttt{cat\_merosiva}. & --                           & Categórico            \\
+    \texttt{matorg\_id}                                                    & Materia orgánica $\rightarrow$ \texttt{cat\_matorg}.           & --                           & Categórico            \\
+    \texttt{modcomb\_id}                                                   & Modelo de combustible $\rightarrow$ \texttt{cat\_modcomb}.     & --                           & Categórico            \\
+    \texttt{disesp\_id}                                                    & Distribución espacial $\rightarrow$ \texttt{cat\_disesp}.      & --                           & Categórico            \\
+    \texttt{comesp\_id}                                                    & Composición específica $\rightarrow$ \texttt{cat\_comesp}.     & --                           & Categórico            \\
+    \texttt{fccarb}, \texttt{fcctot}                                       & Fracción de cabida cubierta (árboles).                         & \%                           & Numérico              \\
+    \addlinespace
+
+    \multicolumn{4}{l}{\textbf{parcela\_inventario\_especie}}                                                                                                                                      \\
+    \texttt{parcela\_id}, \texttt{inventario\_id}, \texttt{especie\_id}    & Clave compuesta (parcela-inventario-especie).                  & --                           & Identificador         \\
+    \texttt{ocupa}                                                         & Grado de ocupación de la especie.                              & (0--10)                      & Numérico              \\
+    \texttt{estado\_id}                                                    & Estado de desarrollo. $\rightarrow$ \texttt{cat\_estado}.      & --                           & Categórico            \\
+    \texttt{fpmasa\_id}                                                    & Forma principal de masa $\rightarrow$ \texttt{cat\_fpmasa}.    & --                           & Categórico            \\
+    \texttt{tratmasa\_id}                                                  & Tratamientos selvícolas $\rightarrow$ \texttt{cat\_tratmasa}.  & --                           & Categórico            \\
+    \texttt{orgmasa1\_id}                                                  & Origen de masa (IFN3/4)$\rightarrow$ \texttt{cat\_orgmasa1}.   & --                           & Categórico            \\
+    \texttt{masa\_id}                                                      & Clasificación de masa $\rightarrow$ \texttt{cat\_masa}.        & --                           & Categórico            \\
+    \texttt{origen\_id}                                                    & Origen de la masa (IFN2) $\rightarrow$ \texttt{cat\_origen}.   & --                           & Categórico            \\
+    \addlinespace
+
+    \multicolumn{4}{l}{\textbf{parcela\_inventario\_especie\_cd}}                                                                                                                                  \\
+    \texttt{parcela\_id}, \texttt{inventario\_id}, \texttt{especie\_id}    & Clave compuesta ( parcela-inventario-especie-cd).              & --                           & Identificador         \\
+    \texttt{cd\_id}                                                        & Clase diamétrica (CD) reglamento IFN.                          & cm                           & Numérico discreto     \\
+    \texttt{npies}                                                         & Número de pies.                                                & pies/ha                      & Numérico              \\
+    \texttt{abas}                                                          & Área basimétrica.                                              & m$^{2}$/ha                   & Numérico              \\
+    \texttt{vcc}, \texttt{vsc}, \texttt{vle}                               & Volúmenes (con/sin corteza; leñas).                            & m$^{3}$/ha                   & Numérico              \\
+    \texttt{iavc}                                                          & Incremento anual del volumen con corteza.                      & m$^{3}$/ha$\cdot$año         & Numérico              \\
+    \texttt{ca}, \texttt{cr}                                               & Carbono aéreo y radical.                                       & t/ha                         & Numérico              \\
+    \texttt{ht}                                                            & Altura media (modelo CatBoost).                                & m                            & Numérico              \\
+    \texttt{carbono\_bruto}                                                & Carbono total estimado (alometrías).                           & t                            & Numérico              \\
+    \addlinespace
+
+    \multicolumn{4}{l}{\textbf{parcela\_especie\_arbol}}                                                                                                                                           \\
+    \texttt{parcela\_id}, \texttt{especie\_id}                             & Clave compuesta (parcela–especie–árbol).                       & --                           & Identificador         \\
+    \texttt{arbol\_id}                                                     & Identificador del árbol dentro de parcela y especie.           & --                           & Entero                \\
+    \texttt{rumbo}                                                         & Rumbo desde el centro de la parcela al árbol.                  & grados centesimales          & Numérico              \\
+    \texttt{distancia}                                                     & Distancia desde el centro de la parcela al árbol.              & m                            & Numérico              \\
+    \texttt{cd}                                                            & Clase diamétrica (reglamento IFN).                             & cm                           & Numérico discreto     \\
+    \texttt{ht}                                                            & Altura total del árbol inventariado.                           & m                            & Numérico              \\
+    \texttt{dn1}, \texttt{dn2}                                             & Diámetros normales perpendiculares.                            & mm                           & Numérico              \\
+    \texttt{abas}                                                          & Área basimétrica del pie medido.                               & m$^{2}$                      & Numérico              \\
+    \texttt{iavc}                                                          & Incremento anual del volumen con corteza.                      & dm$^{3}$/año                 & Numérico              \\
+    \texttt{vcc}, \texttt{vsc}, \texttt{vle}                               & Volúmenes (con corteza, sin corteza, leñas).                   & dm$^{3}$                     & Numérico              \\
+    \texttt{ca}, \texttt{cr}                                               & Carbono aéreo y radical del árbol.                             & t                            & Numérico              \\
+    \addlinespace
+
+    \multicolumn{4}{l}{\textbf{parcela\_inventario\_estacion}}                                                                                                                                     \\
+    \texttt{parcela\_id}, \texttt{inventario\_id}, \texttt{estacion\_id}   & Clave compuesta (agregado estacional).                         & --                           & Identificador         \\
+    \texttt{PR\_*}                                                         & Estadísticos de precipitación (mean, max, min, std, sum).      & mm/(m$^2\cdot$día), mm/m$^2$ & Numérico              \\
+    \texttt{T2M\_*}, \texttt{SKT\_*}                                       & Aire 2\,m y temperatura superficial (mean, max, min, std).     & °C                           & Numérico              \\
+    \texttt{STL1\_*}--\texttt{STL4\_*}                                     & Temperatura del suelo por niveles (mean, max, min, std).       & °C                           & Numérico              \\
+    \texttt{NDVI\_*}, \texttt{EVI\_*}, \texttt{NDII\_*}, \texttt{GNDVI\_*} & Índices de vegetación (max, mean, median, min, std).           & adimensional                 & Numérico              \\
+    \addlinespace
+
+    \multicolumn{4}{l}{\textbf{especies} y \textbf{grupos}}                                                                                                                                        \\
+    \texttt{especie\_id}                                                   & Identificador de especie IFN.                                  & --                           & Identificador         \\
+    \texttt{nombre}, \texttt{sinonimia}                                    & Denominación IFN y sinónimos.                                  & --                           & Texto                 \\
+    \texttt{tipo\_especie}                                                 & 0\,= conífera; 1\,= frondosa.                                  & --                           & Categórico            \\
+    \texttt{grupo\_id}                                                     & Grupo funcional $\rightarrow$ \texttt{grupos}.                 & --                           & Identificador         \\
+    \texttt{grupos.nombregrupo}                                            & Nombre del grupo.                                              & --                           & Texto                 \\
+\end{longtable}
+\normalsize
+\twocolumn
+
+\subsection{Cardinalidad y completitud}
+
+El volumen de entradas por tabla es:
+\begin{table}[htbp]
+  \centering
+  \caption{Cardinalidad de las tablas de la base de datos.}
+  \label{tab:cardinalidad}
+  \begin{tabular}{lr}
+    \toprule
+    \textbf{Tabla} & \textbf{N\'{u}mero de registros} \\
+    \midrule
+    parcelas & 52\,298 \\
+    parcela\_inventario & 147\,995 \\
+    parcela\_inventario\_especie & 417\,106 \\
+    parcela\_inventario\_especie\_cd & 1\,191\,070 \\
+    parcela\_especie\_arbol & 855\,860 \\
+    parcela\_inventario\_estacion & 731\,172 \\
+    especies & 190 \\
+    grupos & 33 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
