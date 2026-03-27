@@ -55,23 +55,22 @@ para el ajuste de los modelos queda compuesto por:
 La Tabla~\ref{tab:resumen_variables} resume las principales estadísticas descriptivas de las variables objetivo utilizadas en el modelado.
 
 
-\begin{table}
-    \centering
-    \caption{Estadísticos descriptivos del conjunto de datos depurado.}
-    \label{tab:resumen_variables}
-    \resizebox{\columnwidth}{!}{
-    \begin{tabular}{lccccc}
-        \toprule
-        Variable        & N        & Media   & Desv.\ estándar & Mín.     & Máx.       \\
-        \midrule
-        carbono\_bruto4 & 133\,119 & 20.79 & 35.09 & 0.00 & 420.50 \\
-        carbono\_bruto  & 111\,923 & 12.27 & 24.80 & 0.00 & 359.81 \\
-        c4              & 103\,790 & 38.83 & 47.27 & 0.48 & 883.46 \\
-        c               & 90\,802  & 23.78 & 35.15 & 0.00 & 842.74 \\
-        periodo\_agrupado & 103\,785 & 18.47 & 6.47 & 5.00 & 30.00 \\
-        \bottomrule
-    \end{tabular}
-    }
+\begin{table}[htbp]
+  \centering
+  \caption{Estadísticos descriptivos del conjunto de datos depurado.}
+  \label{tab:descriptivos}
+  \resizebox{\columnwidth}{!}{%
+  \begin{tabular}{lrrrrr}
+    \toprule
+    \textbf{Variable} & \textbf{N} & \textbf{Media} & \textbf{Desv. estándar} & \textbf{Mín.} & \textbf{Máx.} \\\\
+    \midrule
+    carbono\_bruto4 & 133\,119 & 20.79 & 35.09 & 0.00 & 420.50 \\
+    carbono\_bruto & 123\,563 & 10.09 & 26.33 & 0.00 & 511.31 \\
+    c4 & 103\,790 & 38.83 & 47.27 & 0.48 & 883.46 \\
+    c & 131\,942 & 29.58 & 40.62 & 0.44 & 873.36 \\
+    periodo\_agrupado & 103\,785 & 18.47 & 6.47 & 5.00 & 30.00 \\
+    \bottomrule
+  \end{tabular}}
 \end{table}
 
 Se observa que la variable \texttt{carbono\_bruto4} presenta una media de 20.79 y una desviación estándar de 35.09, mientras que la variable

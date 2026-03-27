@@ -1,5 +1,6 @@
 % !TEX root = ../main.tex
 \section{Entrenamiento y validación}
+\label{sec:entrenamiento}
 
 El proceso de entrenamiento se estructuró en varias fases orientadas a optimizar tanto la selección de variables predictoras como la robustez del modelo final. En primer lugar, se llevó a cabo una etapa de \textbf{selección de variables}, en la que se evaluaron distintos subconjuntos de características definidos por bloques temáticos con significado ecológico y funcional. Para esta tarea se adoptó un enfoque sistemático basado en la comparación del desempeño predictivo de las distintas combinaciones mediante el algoritmo \texttt{CatBoost}, seleccionado tras pruebas preliminares que mostraron su alta capacidad de ajuste y estabilidad frente a la heterogeneidad de los datos. En todas las configuraciones se mantuvo constante la variable objetivo (carbono capturado) y los parámetros del modelo, de modo que las variaciones en el coeficiente de determinación ($R^2$) y el error cuadrático medio (RMSE) reflejaran exclusivamente la contribución informativa de cada bloque. Los resultados de esta fase son preliminares ya que se emplearon entrenamientos más sencillos (sin validación cruzada para la selección de hiperparámetros).
 
@@ -90,28 +91,7 @@ La presencia sistemática de valores medios, máximos y medianos de NDII, GNDVI 
 En conjunto, mRMR produjo un conjunto compacto y equilibrado, asegurando diversidad informativa y evitando redundancias, lo que lo convierte en un complemento eficaz a los métodos anteriores.
 
 \subsubsection{Discusión de la selección de variables}
-De los tres conjuntos de variables seleccionados se mantuvo la selección manual al demostrar un mejor rendimiento con mayor simplicidad como se aprecia en la tabla \ref{tab:comparativa_modelos}.
-
-TODO: Esto igual debería ir en resultados?
-
-\begin{table}
-    \centering
-    \caption{Comparación de configuraciones de selección de variables y rendimiento del modelo CatBoost sobre los datos del IFN 2-3 y 4 para predecir \texttt{c4}.}
-    \label{tab:comparativa_modelos}
-    \footnotesize
-    \resizebox{\columnwidth}{!}{
-    \begin{tabular}{l l r r r r c}
-        \toprule
-        Configuración & Modelo & $n_\text{vars}$ & $R^{2}$ & RMSE & MAE & \makecell[c]{Moda error \\ (aprox.)} \\
-        \midrule
-        Manual        & CatBoost & 44              & 0.80    & 21.77 & 11.48 & 1                   \\
-        mRMR          & CatBoost & 67              & 0.79    & 21.91 & 11.69 & 1                   \\
-        FeatureWiz    & CatBoost & 50              & 0.72    & 25.65 & 13.08 & 2                   \\
-        \bottomrule
-    \end{tabular}
-    }
-\end{table}
-
+De los tres conjuntos de variables seleccionados se mantuvo la selección manual al demostrar un mejor rendimiento con mayor simplicidad.
 
 \subsection{Ensamblado tipo \textit{stacking} de modelos de regresión}
 

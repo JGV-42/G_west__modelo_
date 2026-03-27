@@ -212,67 +212,163 @@ También es llamativo el hecho de que los deciles iniciales tienen unos rangos d
 
 \subsection{Interpretabilidad de los modelos: análisis SHAP}
 
-[Texto de ejemplo. Las figuras enlazadas son reales. El resto están en el repositorio de los modelos. Daltaría comentar el resto de casos.]
+Gracias al análisis de valores SHAP podemos añadir explicabilidad a los modelos, aveeriguando a qué variables da maś importancia el modelo y en qué casos estos valores hacen que la predicción del carbono sea mayor o menor. En la Tabla \ref{tab:shap_rank_abs} podemos observar el puesto medio de importancia de las variables con mayor valor SHAP en valor absoluto, tanto promediado en todos los cosos (primera columna ``Mean'') como por inventario fuente y variable objetivo. En esta tabla vemos que las variables más importante consistentemente son \texttt{npies}, \texttt{especie\_id}, \texttt{ocupa} y \texttt{radio}, es decir, variables púramente relacionadas con la estructura del bosque. El resto de variables de la tabla tiene más variabilidad a lo largo de las distintas configuraciones, donde se van intercalando variables meteorológicas (que parecen ser más importantes que la variable climática que hemos añadido, el índice de Martonne) y edáficas, principalmente. 
+
+% ============================================================
+% Tabla: Ranking medio de variables por |SHAP|
+% ============================================================
+\begin{table*}[htbp]
+  \centering
+  \footnotesize
+  \caption{Mean SHAP rank per variable across LightGBM, XGBoost, CatBoost, GBDT and MLP (n=2000 samples; rank 1 = most important).}
+  \label{tab:shap_rank_abs}
+  \begin{tabular}{lccccccc}
+    \toprule
+    Variable & \textbf{Mean} & \makecell{\textbf{IFN2} \\ \textbf{c4}} & \makecell{\textbf{IFN2} \\ \textbf{carbono\_b4}} & \makecell{\textbf{IFN3} \\ \textbf{c4}} & \makecell{\textbf{IFN3} \\ \textbf{carbono\_b4}} & \makecell{\textbf{IFN2+3} \\ \textbf{c4}} & \makecell{\textbf{IFN2+3} \\ \textbf{carbono\_b4}} \\
+    \midrule
+    npies* (Density) & \textbf{1} & \textbf{1} & \textbf{1} & \textbf{1} & \textbf{1} & \textbf{1} & \textbf{1} \\
+    especie\_id* & 2.2 & 2 & 2 & 2.2 & 2.8 & 2.2 & 2.2 \\
+    ocupa & 2.9 & 3.2 & 3 & 3 & 2.2 & 2.8 & 3 \\
+    radio & 4.2 & 4.2 & 4.2 & 4.2 & 4.2 & 4.2 & 4.4 \\
+    gndvi\_mean\_verano & 6.5 & 5.6 & 5 & 7 & 7 & 8 & 6.6 \\
+    tipo\_especie* & 7.1 & 11.6 & 8.8 & 4.6 & 5.8 & 6 & 6 \\
+    periodo\_agrupado & 8.4 & 13 & 8 & 10.6 & 8.6 & 5.2 & 5 \\
+    skt\_mean\_verano & 9.6 & 6.8 & --- & 10.4 & --- & 11.6 & --- \\
+    rocosidad\_id* & 11 & 9 & 7.6 & 17.2 & 12 & 10.2 & 9.8 \\
+    fccarb & 11.4 & --- & --- & 9 & 10 & 14 & 12.6 \\
+    evi\_mean\_primavera & 11.8 & 12 & 10.6 & 13.6 & 11.2 & 13.2 & 10.4 \\
+    elevacion & 12.6 & 12.6 & 7.4 & 15.8 & 12.8 & 14.4 & 12.4 \\
+    tratmasa\_id* & 13.2 & --- & --- & 8 & 7.2 & 18.8 & 18.8 \\
+    estado\_id* & 13.5 & 21.8 & 12.8 & 17.2 & 12.6 & 8.8 & 8 \\
+    ndii\_mean\_primavera & 14.5 & 17 & 11.6 & 14.2 & 15.6 & 15.4 & 13.4 \\
+    skt\_mean\_primavera & 15.1 & 17.4 & --- & 13.4 & --- & 14.6 & --- \\
+    pr\_sum\_otoño & 15.7 & 16.4 & --- & 14.4 & --- & 16.4 & --- \\
+    pr\_sum\_primavera & 15.7 & 10.6 & --- & 17.6 & --- & 19 & --- \\
+    pr\_sum\_invierno & 16 & 8.6 & --- & 21.8 & --- & 17.6 & --- \\
+    martonneidx\_id* & 16.4 & 18.2 & 10.2 & 24.2 & 13.4 & 20.6 & 11.8 \\
+    skt\_std\_verano & 18.4 & 13.2 & --- & 22.8 & --- & 19.2 & --- \\
+    skt\_std\_primavera & 18.4 & 15.8 & --- & 20 & --- & 19.4 & --- \\
+    orientacion\_cat* & 18.9 & 19.8 & 14.4 & 23 & 17 & 21.4 & 18 \\
+    modcomb\_id* & 18.9 & --- & --- & 18.8 & 14 & 26 & 16.8 \\
+    gndvi\_std\_primavera & 19.8 & 20.8 & 14.6 & 24 & 18 & 24.8 & 16.6 \\
+    pendiente\_cat* & 20 & 20.4 & 15.4 & 26.2 & 18 & 23.8 & 16.4 \\
+    pr\_sum\_verano & 20.3 & 19.4 & --- & 21.2 & --- & 20.4 & --- \\
+    nivel2\_id* & 20.6 & --- & --- & 20.6 & 17.2 & 27 & 17.6 \\
+    disesp\_id* & 23.3 & 24.6 & 16.4 & 29 & 20.4 & 29 & 20.2 \\
+    \bottomrule
+  \end{tabular}
+\end{table*}
+
+La variable meteorológica que consistentemente tiene más importancia según nuestro análisis es el valor medio del índice GNDVI en verano (\texttt{gndvi_mean_verano}), que destacada tanto por posición como por consistencia. Esto es esperado, ya que es en verano cuando la vegetación forestal tiene un mayor vigor, y el índice GNDVI es un indicador más útil en esta época comparado con otros con el NDVI, ya que no tiene problemas de saturación en doseles densos \cite{eos2025indices_vegetacion, ign_pnoa_lidar_tercera}. Además, este índice sirve para estimar la actividad fotosintética, variable directamente relacionada tanto con la cantidad de vegetación como con la salud de esta.
+
+En las Figuras \ref{fig:SHAP_LightGBM_IFN2_c4}, \ref{fig:SHAP_LightGBM_IFN3_c4} y \ref{fig:SHAP_LightGBM_IFN2_3_c4} podemos ver una comparación entre los variables SHAP de las distintas configuraciones para el modelo LightGBM y la variable objetivo \texttt{c4}. Hay que destacar que para las dos variables más importantes para el análisis (\texttt{npies}, \texttt{especie\_id} y \texttt{ocupa}) la escala del eje x es distinta que para el resto, ya que su valor SHAP es notablemente mayor. Se hizo así para facilitar la visualización. Las variables cuyo está coloreado son variables categóricas (señaladas también con un asteristo, *), y su color indica el tratamiento que se ha hecho para incluirla en la figura. En primer lugar, está \texttt{npies}. Esta variable son en realidad varias, una para cada clase diamétrica (\texttt{npies\_5}, \texttt{npies\_10}, \texttt{nppies\_15}, etc). El color del texto verde indica que para cada clase diamétrica se ha hecho el análisis individualmente y luego se han juntado todas en la misma fila del gráfica. Esto es, cuando el color del punto indica que el valor de la variable es ``alto'', esto está normalizado a cada clase diamétrica, ya que un valor alto de la variable \texttt{npies\_5} no es comparable con un valor alto de \texttt{npies\_70}. El color del texto morado indica que la variable categírica es solo nominal, es decir, no tiene ningún orden pese a que al modelo se le haya pasado codificada en formato numérico. Esto ocurre con la variable \texttt{especie\_id}, donde un valor numérico más alto no indica, por ejemplo, una absorción de carbono mayor. En este caso, el color de cada punto expresa la media de la variable objetivo para cada especie, de forma que todos los puntos de la misma especie tendrán el mismo color. Esto en muchos casos un resultado obvio: las especies que más carbono absorben serán las que tienen un mayor valor SHAP, y por tanto se localizarán en general a la derecha (como en efecto sucede). No obstante, es la única manera que se ha encontrado para incluir a esta variable en la figura, ya que tenía que estar presente por su elevada importancia para el modelo. Si el color del texto es naranja significa que la variable categórica es ordinar. Esto es, la categoría sigue un orden que tiene sentido representar por colores. Por ejemplo, la variable \texttt{rocosidad\_id} va del valor $1$, ``sin pedregosidad'', al $5$, ``roqueado'', teniendo relación el aumento de la variable con un aumento en la característica que indica. Por último, el color de texto negro indica que la variable es continua y se trata como se espera.
 
 \begin{figure}
       \centering
-      \includegraphics[width=\linewidth]{figuras/09_discusion/beeswarm_grouped_LightGBM.pdf}
-      \caption{Bee swarm plot de LightGBM para la variable \texttt{carbono\_bruto4}.}
-      \label{fig:beeswarm_grouped_LightGBM}
+      \includegraphics[width=\linewidth]{figuras/09_discusion/shap_summary_LightGBM_local_n2000_ifn2.pdf}
+      \caption{Análisis SHAP para el modelo LightGBM entrenado con datos del IFN2 y con variable objetivo \texttt{c4} (tC/ha).}
+      \label{fig:SHAP_LightGBM_IFN2_c4}
 \end{figure}
 
 \begin{figure}
       \centering
-      \includegraphics[width=\linewidth]{figuras/09_discusion/beeswarm_grouped_CatBoost.pdf}
-      \caption{Bee swarm plot de CatBoost para la variable \texttt{carbono\_bruto4}.}
-      \label{fig:beeswarm_grouped_CatBoost}
+      \includegraphics[width=\linewidth]{figuras/09_discusion/shap_summary_LightGBM_local_n2000_ifn3.pdf}
+      \caption{Análisis SHAP para el modelo LightGBM entrenado con datos del IFN3 y con variable objetivo \texttt{c4} (tC/ha).}
+      \label{fig:SHAP_LightGBM_IFN3_c4}
 \end{figure}
 
-Los diagramas de dispersión SHAP (\textit{beeswarm plots}) de LightGBM
-(figura~\ref{fig:beeswarm_grouped_LightGBM}) y CatBoost
-(figura~\ref{fig:beeswarm_grouped_CatBoost}) revelan patrones
-coincidentes y divergentes en la interpretación del modelo para
-\texttt{c4}:
+\begin{figure}
+      \centering
+      \includegraphics[width=\linewidth]{figuras/09_discusion/shap_summary_LightGBM_global_n2000_ifn23.pdf}
+      \caption{Análisis SHAP para el modelo LightGBM entrenado con datos del IFN2 y IFN3 y con variable objetivo \texttt{c4} (tC/ha).}
+      \label{fig:SHAP_LightGBM_IFN2_3_c4}
+\end{figure}
 
+
+En en las Figuras \ref{fig:SHAP_LightGBM_IFN2_c4}, \ref{fig:SHAP_LightGBM_IFN3_c4} y \ref{fig:SHAP_LightGBM_IFN2_3_c4} vemos que las dos variables más importantes siempre son \texttt{npies} y \texttt{especie\_id}, como habíamos visto en la Tabla \ref{tab:shap_rank_abs}. El resto de variables cambian de orden en función del caso, pero si hablamos del conjunto, las variables identificadas como importantes suelen ser comunes en los tres casos de las Figuras. Es de señalar que, aunque las posiciones de las variables no coinciden exactamente entre las casos del modelo entrenado únicamente con los datos del IFN2 (Figura \ref{fig:SHAP_LightGBM_IFN2_c4}) y el modelo entrenado con los datos del IFN2 e IFN3 (Figura \ref{fig:SHAP_LightGBM_IFN2_3_c4}), las variables presentes en el top $15$ expuesto son, en total, las prácticamente las mismas (a excepción de \texttt{tratmasa\_id}) y \texttt{estado\_id} que se intercambian. Aparecen además variables exclusivas del IFN3, como \texttt{tratmasa\_id}, lo que indica que estas nuevas variables que se han ido incorporando a los inventarios dan información útil para el estudio del bosque, y en concreto para estudiar la captura de carbono.
+
+Si atendemos a los valores de las Figuras \ref{fig:SHAP_LightGBM_IFN2_c4}, \ref{fig:SHAP_LightGBM_IFN3_c4} y \ref{fig:SHAP_LightGBM_IFN2_3_c4} podemos destacar algunos resultados interesantes que apoyan la idea de que el modelo ha incorporando correctamente la información:
 \begin{itemize}
-
-\item \textbf{Dominancia de la densidad arbórea.}
-En ambos modelos, \texttt{npies* (Densidad)} es la variable más
-influyente con diferencia. Sin embargo, LightGBM
-(figura~\ref{fig:beeswarm_grouped_LightGBM}) produce valores SHAP
-extremos de hasta $\sim$260 tC/ha, frente a los $\sim$160 tC/ha de
-CatBoost (figura~\ref{fig:beeswarm_grouped_CatBoost}), lo que indica
-que LightGBM amplifica más el efecto de las parcelas de alta densidad.
-
-\item \textbf{Importancia de la especie.}
-\texttt{especie\_id*} ocupa la segunda posición en ambas figuras,
-con una cola derecha pronunciada que refleja el efecto diferencial
-de determinadas especies sobre la acumulación de carbono. La
-dispersión es comparable entre modelos.
-
-\item \textbf{Variables de estructura forestal frente a climáticas.}
-LightGBM (figura~\ref{fig:beeswarm_grouped_LightGBM}) otorga mayor
-peso relativo a \texttt{tipo\_especie*} y \texttt{periodo\_agrupado*},
-mientras que CatBoost (figura~\ref{fig:beeswarm_grouped_CatBoost})
-incorpora \texttt{pr\_sum\_otoño} entre las variables más relevantes,
-sugiriendo una mayor sensibilidad a señales climáticas.
-
-\item \textbf{Efecto del período.}
-\texttt{periodo\_agrupado*} aparece en quinta posición en
-LightGBM (figura~\ref{fig:beeswarm_grouped_LightGBM}), con valores
-rojos (IFN2) que empujan la predicción hasta $+50$ tC/ha. En CatBoost
-(figura~\ref{fig:beeswarm_grouped_CatBoost}) este efecto es menos
-pronunciado, lo que sugiere que LightGBM captura con mayor intensidad
-el crecimiento forestal acumulado entre inventarios.
-
-\item \textbf{Consistencia en variables secundarias.}
-Variables climáticas y edáficas como \texttt{gndvi\_mean\_verano},
-\texttt{skt\_mean\_verano} y \texttt{evi\_mean\_primavera} aparecen
-en ambas figuras con efectos SHAP pequeños y simétricos, lo que
-indica que su contribución marginal es robusta entre modelos pero
-de segundo orden respecto a los factores estructurales del arbolado.
-
+      \item Si atendemos a la variable \texttt{npies}, observamos que un valor mayor de árboles iniciales se correcponde con un valor mayor valor SHAP, es decir, de carbono.
+      \item Como hemos dicho antes, para la variable \texttt{gndvi\_mean\_verano} obtiene un mayor índice SHAP para aquellos casos en los que su valor es también mayor. Esto es lógico, ya que el índice GNDVI mide la actividad fotosintética. Un valor mayor de este índice se corresponde con mayor presencia de vegetación activa, y por tanto mayor captura de carbono.
+      \item La variable \texttt{periodo\_agrupado} indica el número de años entre la medición y el momento en que queremos hacer la estiamación, por lo que es de esperar que un valor mayor se corresponda con un mayor valor SHAP, es decir, de carbono. Esto es lo que nos encontramos para el caso del IFN3 (Figura \ref{fig:SHAP_LightGBM_IFN3_c4}) e IFN2 y 3 (Figura \ref{fig:SHAP_LightGBM_IFN2_3_c4}). Curiosamente, para el caso de IFN2 (Figura \ref{fig:SHAP_LightGBM_IFN2_c4}) esta relación no queda tan clara, caso en que además coincide con que el modelo SHAP le da una menor importancia relativa.
+      \item La variable \texttt{tipo\_especie} tiene una distinción muy clara en todos los casos. Esta es una variable binaria en la que el valor $0$ corresponde a coníferas y el valor $1$ corresponde a frondosas. Según el análisis, las especies de tipo frondosa obtiene en promedio un mayor índice SHAP, es decir, mayor cantidad de carbono asociado. Esto está de acuerdo con la literatura, y en concreto con estudios realizados con el Inventario Forestal Nacional Español, que cuantifican el \textit{stock} de carbono medio en masas de frondosas en $48.5 \pm 0.3$ Mg/ha frente a $41.8 \pm 0.2$ Mg/ha en coníferas para la España peninsular \cite{vayreda2012carbon}. 
+      
+      Para mayor detalle, en la Figura \ref{fig:SHAP_species_LightGBM_global} se presenta un desglose del índice SHAP por especie para el modelo LightGBM entrenado con datos de ambos inventarios y con \texttt{c4} como variable objetivo. Se observa que las frondosas ocupan casi todos los puestos en los que el carbono aumenta, destacando como primera especie el \textit{Eucalyptus globulus}, especie que lleva años causando revuelo en el norte de España por su posible caracterización como especue invasora \cite{miteco2017eucalyptus,greenpeace2025eucalipto}. No obstante, cabe señalar que este resultado refleja la biomasa inventariada en el IFN, y no implica que el eucalipto sea la opción más adecuada desde una perspectiva de gestión forestal sostenible, dado su alto consumo hídrico, su asociación con un mayor riesgo de incendio, la pérdida de biodiversidad que puede traer asociada, la dificultad de erradicación o el peligro asociado de la introducción involuntaria de especies asociadas, como insectos u hongos, desplazando otras especies nativas \cite{miteco2017eucalyptus, cordero1999gonipterus, diez2005mycorrhizal}
 \end{itemize}
+
+\begin{figure}
+      \centering
+      \includegraphics[width=\linewidth]{figuras/09_discusion/species_LightGBM_global.pdf}
+      \caption{Análisis SHAP para el modelo LightGBM entrenado con datos del IFN2 e IFN3 y con variable objetivo \texttt{c4} (tC/ha) centrandonos en las especies. Se distingue entre conifera o frondosa.}
+      \label{fig:SHAP_species_LightGBM_global}
+\end{figure}
+
+En resumen, el análisis SHAP no solo permite identificar qué variables son más relevantes para la predicción del carbono y cuantificar su importancia relativa, sino que también constituye una herramienta de validación ecológica del modelo. Los resultados obtenidos son coherentes con el conocimiento disponible en la literatura: variables como la densidad de pies, la actividad fotosintética, el tipo de especie o el tiempo transcurrido entre inventarios presentan el sentido esperado en sus valores SHAP, lo que indica que el modelo ha incorporado correctamente la información de entrada y que sus predicciones responden a procesos ecológicos reales.
+
+
+
+% [Texto de ejemplo. Las figuras enlazadas son reales. El resto están en el repositorio de los modelos. Daltaría comentar el resto de casos.]
+
+% \begin{figure}
+%       \centering
+%       \includegraphics[width=\linewidth]{figuras/09_discusion/beeswarm_grouped_LightGBM.pdf}
+%       \caption{Bee swarm plot de LightGBM para la variable \texttt{carbono\_bruto4}.}
+%       \label{fig:beeswarm_grouped_LightGBM}
+% \end{figure}
+
+% \begin{figure}
+%       \centering
+%       \includegraphics[width=\linewidth]{figuras/09_discusion/beeswarm_grouped_CatBoost.pdf}
+%       \caption{Bee swarm plot de CatBoost para la variable \texttt{carbono\_bruto4}.}
+%       \label{fig:beeswarm_grouped_CatBoost}
+% \end{figure}
+
+% Los diagramas de dispersión SHAP (\textit{beeswarm plots}) de LightGBM
+% (figura~\ref{fig:beeswarm_grouped_LightGBM}) y CatBoost
+% (figura~\ref{fig:beeswarm_grouped_CatBoost}) revelan patrones
+% coincidentes y divergentes en la interpretación del modelo para
+% \texttt{c4}:
+
+% \begin{itemize}
+
+% \item \textbf{Dominancia de la densidad arbórea.}
+% En ambos modelos, \texttt{npies* (Densidad)} es la variable más
+% influyente con diferencia. Sin embargo, LightGBM
+% (figura~\ref{fig:beeswarm_grouped_LightGBM}) produce valores SHAP
+% extremos de hasta $\sim$260 tC/ha, frente a los $\sim$160 tC/ha de
+% CatBoost (figura~\ref{fig:beeswarm_grouped_CatBoost}), lo que indica
+% que LightGBM amplifica más el efecto de las parcelas de alta densidad.
+
+% \item \textbf{Importancia de la especie.}
+% \texttt{especie\_id*} ocupa la segunda posición en ambas figuras,
+% con una cola derecha pronunciada que refleja el efecto diferencial
+% de determinadas especies sobre la acumulación de carbono. La
+% dispersión es comparable entre modelos.
+
+% \item \textbf{Variables de estructura forestal frente a climáticas.}
+% LightGBM (figura~\ref{fig:beeswarm_grouped_LightGBM}) otorga mayor
+% peso relativo a \texttt{tipo\_especie*} y \texttt{periodo\_agrupado*},
+% mientras que CatBoost (figura~\ref{fig:beeswarm_grouped_CatBoost})
+% incorpora \texttt{pr\_sum\_otoño} entre las variables más relevantes,
+% sugiriendo una mayor sensibilidad a señales climáticas.
+
+% \item \textbf{Efecto del período.}
+% \texttt{periodo\_agrupado*} aparece en quinta posición en
+% LightGBM (figura~\ref{fig:beeswarm_grouped_LightGBM}), con valores
+% rojos (IFN2) que empujan la predicción hasta $+50$ tC/ha. En CatBoost
+% (figura~\ref{fig:beeswarm_grouped_CatBoost}) este efecto es menos
+% pronunciado, lo que sugiere que LightGBM captura con mayor intensidad
+% el crecimiento forestal acumulado entre inventarios.
+
+% \item \textbf{Consistencia en variables secundarias.}
+% Variables climáticas y edáficas como \texttt{gndvi\_mean\_verano},
+% \texttt{skt\_mean\_verano} y \texttt{evi\_mean\_primavera} aparecen
+% en ambas figuras con efectos SHAP pequeños y simétricos, lo que
+% indica que su contribución marginal es robusta entre modelos pero
+% de segundo orden respecto a los factores estructurales del arbolado.
+
+% \end{itemize}
 
 \vspace{1cm}
 \hrule 
