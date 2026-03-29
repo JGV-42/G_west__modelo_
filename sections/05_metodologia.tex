@@ -168,7 +168,7 @@ Para obtener una estimación imparcial del rendimiento y evitar \emph{fugas de i
 
 \vspace{0.25em}
 \vspace{0.25em}
-\noindent\textbf{Métricas de evaluación.} Las métricas principales empleadas son RMSE, RMSE\%, $R^2$ y SMAPE. En las siguientes expresiones, $y_i$ es el valor observado, $\hat{y}_i$ el predicho, $\bar{y}$ la media observada y $n$ el número de observaciones:
+\noindent\textbf{Métricas de evaluación.} Las métricas principales empleadas son RMSE, RMSE\%, $R^2$, MAE y SMAPE. En las siguientes expresiones, $y_i$ es el valor observado, $\hat{y}_i$ el predicho, $\bar{y}$ la media observada y $n$ el número de observaciones:
 
 \begin{itemize}
     \item \textbf{RMSE:} raíz del error cuadrático medio, en las mismas unidades que la variable objetivo.
@@ -179,6 +179,11 @@ Para obtener una estimación imparcial del rendimiento y evitar \emph{fugas de i
     \item \textbf{RMSE\%:} RMSE expresado como porcentaje de la media observada.
           \begin{equation}
               \text{RMSE}_{\%} = \frac{\text{RMSE}}{\bar{y}} \times 100
+          \end{equation}
+
+    \item \textbf{MAE} (error absoluto medio): promedio de los errores absolutos; más robusto que el RMSE frente a valores atípicos al penalizar por igual todos los residuos.
+          \begin{equation}
+              \text{MAE} = \frac{1}{n} \sum_{i=1}^{n} |y_i - \hat{y}_i|
           \end{equation}
 
     \item \boldmath\textbf{$R^2$}\unboldmath{} \textbf{(coeficiente de determinación):} proporción de varianza explicada por el modelo.
