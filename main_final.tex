@@ -44,11 +44,11 @@
 \let\WriteBookmarks\relax
 
 % Parámetros de colocación de floats (nombres correctos)
-\renewcommand{\floatpagefraction}{0.85}
-\renewcommand{\textfraction}{0.05}
-\renewcommand{\topfraction}{0.92}
-\renewcommand{\bottomfraction}{0.5}
-\renewcommand{\dbltopfraction}{0.92}
+\renewcommand{\floatpagefraction}{0.85}   % mín fracción de página de float
+\renewcommand{\textfraction}{0.05}        % mín fracción de texto en página mixta
+\renewcommand{\topfraction}{0.92}         % máx fracción para floats en parte superior
+\renewcommand{\bottomfraction}{0.5}       % máx fracción para floats en parte inferior
+\renewcommand{\dbltopfraction}{0.92}      % igual, para floats a doble columna
 \renewcommand{\dblfloatpagefraction}{0.85}
 \setcounter{topnumber}{4}
 \setcounter{bottomnumber}{2}
@@ -95,12 +95,6 @@ créditos de carbono \sep inteligencia artificial \sep forestación \sep refores
 
 \maketitle
 
-% Índice en página independiente y una sola columna (solo para navegación durante redacción)
-\newpage
-\onecolumn
-\tableofcontents
-\twocolumn
-\newpage
 
 \input{sections/01_introduccion}
 \input{sections/02_objetivos}
@@ -121,7 +115,6 @@ créditos de carbono \sep inteligencia artificial \sep forestación \sep refores
 
 \appendix
 \onecolumn
-\input{sections/12_anexos}
-\input{sections/13_sobrantes_limpieza_final}
+\input{sections/12_anexos_resultados_global}
 
 \end{document}

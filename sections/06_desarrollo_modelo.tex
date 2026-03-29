@@ -3,7 +3,7 @@
 
 El desarrollo y la evaluación de los modelos predictivos se realizaron íntegramente en \textbf{Python}, utilizando \texttt{scikit-learn}, \texttt{cuML}, \texttt{PyTorch} y las librerías de \textit{gradient boosting} \texttt{XGBoost}, \texttt{LightGBM} y \texttt{CatBoost}. Los modelos entrenados exclusivamente con datos del IFN3 se ejecutaron en un equipo local (Intel Core i7, 32~GB RAM), mientras que los que emplean conjuntamente IFN2 e IFN3 se entrenaron en el sistema de computación de alto rendimiento (HPC) de la Universidad de Salamanca, aprovechando tarjetas gráficas Nvidia H100 para acelerar el entrenamiento de los modelos compatibles con GPU.
 
-\subsection{Selección de variables}
+\subsection{Selección de variables}\label{sec:seleccion_variables}
 
 \subsubsection{Selección manual}
 
@@ -26,6 +26,8 @@ el proceso de reducción dimensional en torno a los siguientes bloques conceptua
 
 En total, la base de datos contenía inicialmente 445 variables candidatas distribuidas entre estos bloques temáticos. Tras aplicar el procedimiento de selección manual, apoyado en criterios estadísticos, ecológicos y en la comparación del rendimiento del modelo, el conjunto se redujo a 44 variables representativas. Las variables finalmente seleccionadas dentro de cada bloque fueron las siguientes:
 
+{%
+\renewcommand{\_}{\textunderscore\discretionary{}{}{}}%
 \begin{itemize}
     \item \textbf{Bloque de variables fijas}:
           \texttt{especie\_id}, \texttt{tipo\_especie}, \texttt{grupo\_id}, \texttt{periodo}, \texttt{radio}, \texttt{ocupa},
@@ -60,6 +62,7 @@ En total, la base de datos contenía inicialmente 445 variables candidatas distr
           \texttt{gndvi\_mean\_verano}, \texttt{ndii\_mean\_primavera},
           \texttt{gndvi\_std\_primavera}, \texttt{evi\_mean\_primavera}.
 \end{itemize}
+}%
 
 La comparación de modelos entrenados con combinaciones incrementales de bloques mostró que todos ellos aportan información relevante, siguiendo el orden de contribución aproximado: \textit{variables fijas} $>$ \textit{variables de especie} $>$ \textit{sustrato} $>$ \textit{terreno} $>$ \textit{índices de vegetación} $>$ \textit{Martonne} $>$ \textit{temperatura y precipitación}. Es decir, la mayor parte de la capacidad predictiva se explica por la estructura y composición de la masa forestal, mientras que las condiciones edáficas, topográficas y climáticas actúan como moduladores adicionales de la acumulación de carbono.
 
@@ -78,23 +81,22 @@ La agregación mediante \textit{stacking} se implementó con predicciones fuera 
 
 Con el objetivo de estudiar el compromiso entre diversidad del ensamble, coste computacional y rendimiento, se definieron cinco configuraciones de modelos base (Tabla~\ref{tab:stack_configs}). Los modelos BayesianNN, SVR y MLP se descartaron como candidatos por su menor rendimiento individual.
 
-\begin{table}
-    \centering
-    \caption{Configuraciones de modelos base para \textit{stacking}.}
-    \label{tab:stack_configs}
-    \resizebox{\columnwidth}{!}{
-    \begin{tabular}{cl}
-        \toprule
-        \textbf{Config.} & \textbf{Modelos base} \\
-        \midrule
-        1 & LightGBM, Random Forest \\
-        2 & CatBoost, Random Forest, GBDT \\
-        3 & LightGBM, XGBoost, GBDT \\
-        4 & CatBoost, LightGBM, Random Forest, GBDT \\
-        5 & CatBoost, LightGBM, XGBoost, Random Forest, GBDT, BaggedDT \\
-        \bottomrule
-    \end{tabular}
-    }
+\begin{table}[htbp]
+  \centering
+  \caption{Configuraciones de modelos base para \textit{stacking}.}
+  \label{tab:stack_configs}
+  \resizebox{\columnwidth}{!}{%
+  \begin{tabular}{cp{6cm}}
+    \toprule
+    \textbf{Config.} & \textbf{Modelos base} \\
+    \midrule
+    1 & LightGBM, Random Forest \\
+    2 & LightGBM, XGBoost, GBDT \\
+    3 & CatBoost, Random Forest, GBDT \\
+    4 & CatBoost, LightGBM, Random Forest,\newline GBDT \\
+    5 & CatBoost, LightGBM, XGBoost,\newline Random Forest, GBDT, BaggedDT \\
+    \bottomrule
+  \end{tabular}}
 \end{table}
 
 Las configuraciones van desde la más ligera (Config.~1, dos modelos con paradigmas distintos) hasta la más completa (Config.~5, todos los modelos con rendimiento competitivo), permitiendo analizar el efecto de la diversidad estructural y el coste computacional sobre el rendimiento del ensamble. Sobre las predicciones apiladas de cada configuración se entrenaron los meta-modelos recogidos en la Tabla~\ref{tab:meta_modelos}.
@@ -127,7 +129,7 @@ Al evaluar todas las combinaciones de configuraciones de modelos base con los di
 \label{subsec:datos_finales_entrenamiento}
 
 Tras aplicar los criterios de elegibilidad y filtrado descritos en la
-Sección~\ref{subsec:filtrado_registros}, el conjunto de datos final utilizado
+Sección~\ref{subsec:filtradoregistros}, el conjunto de datos final utilizado
 para el ajuste de los modelos queda compuesto por:
 
 \begin{itemize}
@@ -162,7 +164,6 @@ Se observa que la variable \texttt{carbono\_bruto4} presenta una media de 20.79 
     carbono\_bruto & 123\,563 & 10.09 & 26.33 & 0.00 & 511.31 \\
     c4 & 103\,790 & 38.83 & 47.27 & 0.48 & 883.46 \\
     c & 131\,942 & 29.58 & 40.62 & 0.44 & 873.36 \\
-    periodo\_agrupado & 103\,785 & 18.47 & 6.47 & 5.00 & 30.00 \\
     \bottomrule
   \end{tabular}}
 \end{table}
