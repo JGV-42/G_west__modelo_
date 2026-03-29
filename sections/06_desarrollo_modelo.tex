@@ -1,33 +1,126 @@
 % !TEX root = ../main.tex
 \section{Implementación del \textit{pipeline}}
-El desarrollo y la evaluación de los modelos predictivos se realizaron íntegramente en \textbf{Python}, utilizando librerías como \texttt{scikit-learn}, \texttt{cuML} y \texttt{PyTorch}, junto con implementaciones específicas de \textit{gradient boosting} como \texttt{XGBoost}, \texttt{LightGBM} y \texttt{CatBoost}. El proceso de entrenamiento se llevó a cabo en dos fases diferenciadas. 
 
-Para los modelos entrenados exclusivamente con datos del IFN3 se utilizó un equipo local equipado con un procesador Intel Core i7 y 32~GB de memoria RAM. En cambio, los modelos que empleaban conjuntamente datos del IFN2 e IFN3 se entrenaron en el sistema de computación de alto rendimiento (HPC) de la Universidad de Salamanca. Esta elección se debió a la disponibilidad de tarjetas gráficas Nvidia H100, que permiten acelerar de forma significativa el entrenamiento de aquellos modelos compatibles con ejecución en GPU gracias a su elevada capacidad de paralelización. 
+El desarrollo y la evaluación de los modelos predictivos se realizaron íntegramente en \textbf{Python}, utilizando \texttt{scikit-learn}, \texttt{cuML}, \texttt{PyTorch} y las librerías de \textit{gradient boosting} \texttt{XGBoost}, \texttt{LightGBM} y \texttt{CatBoost}. Los modelos entrenados exclusivamente con datos del IFN3 se ejecutaron en un equipo local (Intel Core i7, 32~GB RAM), mientras que los que emplean conjuntamente IFN2 e IFN3 se entrenaron en el sistema de computación de alto rendimiento (HPC) de la Universidad de Salamanca, aprovechando tarjetas gráficas Nvidia H100 para acelerar el entrenamiento de los modelos compatibles con GPU.
 
-No obstante, cabe señalar que el entrenamiento también podría haberse realizado en un equipo de escritorio convencional equipado con una tarjeta gráfica comercial, ya que los requisitos computacionales del problema no son especialmente elevados.
+\subsection{Selección de variables}
 
-\subsection{Ingeniería práctica del entrenamiento y la validación}
+\subsubsection{Selección manual}
 
-Desde el punto de vista de la implementación, el proceso de entrenamiento y validación se apoyó fundamentalmente en el ecosistema de \texttt{scikit-learn}, complementado con librerías especializadas para modelos de \textit{gradient boosting}. La gestión de los datos se realizó mediante \texttt{pandas} y \texttt{numpy}, mientras que el cálculo de métricas y estadísticas adicionales del error se apoyó en \texttt{scipy} y los módulos de evaluación de \texttt{sklearn.metrics}.
+La selección manual de variables partió de una organización temática del conjunto de
+predictores, agrupando las variables según el tipo de información ecológica,
+estructural o climática que representan. Esta clasificación permitió estructurar
+el proceso de reducción dimensional en torno a los siguientes bloques conceptuales:
 
-A partir del conjunto de datos original, se aplicaron filtros de calidad sobre la variable objetivo utilizando operaciones vectorizadas de \texttt{pandas}, eliminando observaciones con valores nulos, inconsistentes o que no cumplían los criterios definidos en la Sección~\ref{subsec:filtradoregistros}. 
+\begin{itemize}
+    \item \textbf{Bloque de variables fijas}: describe la estructura básica de la
+          masa forestal y los atributos esenciales de identificación y caracterización
+          general de cada parcela.
+    \item \textbf{Bloque de variables de especie}: recoge información relativa a la composición, estado y características específicas de las formaciones forestales.
+    \item \textbf{Bloque sustrato}: integra variables edáficas y de manejo susceptibles de variar en el tiempo.
+    \item \textbf{Bloque de terreno}: agrupa propiedades físicas del medio que permanecen estables a escala temporal de inventarios (pendiente, orientación, tipo de suelo, etc.).
+    \item \textbf{Bloque climático resumido}: representado por el índice de aridez de Martonne, que sintetiza la interacción entre temperatura y precipitación.
+    \item \textbf{Bloque climático detallado}: incluye métricas estacionales explícitas de temperatura y precipitación.
+    \item \textbf{Bloque de índices de vegetación}: recoge información espectral relacionada con el estado hídrico, vigor y actividad fotosintética de la vegetación.
+\end{itemize}
 
-La partición de los datos en conjuntos de entrenamiento y prueba se realizó mediante \texttt{GroupShuffleSplit} del módulo \texttt{sklearn.model\_selection}, con una proporción 80/20. Este esquema garantizó que todas las observaciones asociadas a una misma parcela se asignaran íntegramente a un único subconjunto, evitando fugas de información derivadas de la correlación espacial intra-parcela. Sobre el conjunto de entrenamiento se definió una validación cruzada de cinco pliegues utilizando \texttt{GroupKFold}.
+En total, la base de datos contenía inicialmente 445 variables candidatas distribuidas entre estos bloques temáticos. Tras aplicar el procedimiento de selección manual, apoyado en criterios estadísticos, ecológicos y en la comparación del rendimiento del modelo, el conjunto se redujo a 44 variables representativas. Las variables finalmente seleccionadas dentro de cada bloque fueron las siguientes:
 
-El preprocesado de las variables y el ajuste de los modelos se integraron en un único objeto \texttt{Pipeline}, combinando \texttt{ColumnTransformer}, \texttt{SimpleImputer}, \texttt{StandardScaler} y \texttt{OneHotEncoder}. Esta integración aseguró que todas las transformaciones se estimaran exclusivamente con los datos de entrenamiento de cada pliegue durante la validación cruzada. El ajuste de hiperparámetros se llevó a cabo mediante \texttt{GridSearchCV}, definiendo rejillas específicas para cada algoritmo y utilizando el coeficiente de determinación ($R^2$) como métrica de selección.
+\begin{itemize}
+    \item \textbf{Bloque de variables fijas}:
+          \texttt{especie\_id}, \texttt{tipo\_especie}, \texttt{grupo\_id}, \texttt{periodo}, \texttt{radio}, \texttt{ocupa},
+          \texttt{npies\_1}, \texttt{npies\_2}, \texttt{npies\_5},
+          \texttt{npies\_10}, \texttt{npies\_15}, \texttt{npies\_20},
+          \texttt{npies\_25}, \texttt{npies\_30}, \texttt{npies\_35},
+          \texttt{npies\_40}, \texttt{npies\_45}, \texttt{npies\_50},
+          \texttt{npies\_55}, \texttt{npies\_60}, \texttt{npies\_65},
+          \texttt{npies\_70}.
 
-\begin{sloppypar}
-Los modelos evaluados incluyen implementaciones de \textit{gradient boosting} (\texttt{XGBoost}, \texttt{LightGBM}, \texttt{CatBoost} y \texttt{GradientBoostingRegressor}), métodos basados en \textit{bagging} (\texttt{RandomForestRegressor}, \texttt{BaggingRegressor}), así como modelos de distinta naturaleza como \texttt{MLPRegressor}, \texttt{KNeighborsRegressor}, \texttt{LinearSVR}, \texttt{AdaBoostRegressor} y \texttt{BayesianRidge}. Para cada modelo se calcularon de forma sistemática las métricas de rendimiento sobre el conjunto de prueba: $R^2$, RMSE y MAE, junto con estadísticas adicionales del error absoluto (mediana y moda), almacenándose los resultados en estructuras tabulares para su análisis comparativo.
-\end{sloppypar}
+    \item \textbf{Bloque de variables de especie}:
+          \texttt{estado\_id}, \texttt{fccarb}, \texttt{disesp\_id}.
 
-\subsection{Implementación del \textit{stacking}}
+    \item \textbf{Bloque sustrato (dinámico)}:
+          \texttt{modcomb\_id}, \texttt{nivel2\_id},
+          \texttt{tratmasa\_id}.
 
-La agregación de modelos mediante \textit{stacking} se implementó de forma manual utilizando utilidades básicas de \texttt{scikit-learn}, con el objetivo de mantener un control estricto sobre el flujo de entrenamiento y validación. A partir de los mejores modelos individuales se generaron predicciones fuera de pliegue (\textit{out-of-fold}, OOF) sobre el conjunto de entrenamiento, empleando el mismo esquema de validación cruzada (\texttt{GroupKFold}).
+    \item \textbf{Bloque de terreno}:
+          \texttt{rocosidad\_id},
+          \texttt{orientacion\_cat}, \texttt{elevacion}, \texttt{pendiente\_cat}.
 
-Estas predicciones OOF se organizaron en matrices de meta-variables mediante \texttt{numpy} y se utilizaron como entrada para el entrenamiento de los metamodelos. En paralelo, cada modelo base se reentrenó sobre la totalidad del conjunto de entrenamiento para generar las correspondientes predicciones sobre el conjunto de test, que se emplearon posteriormente para la evaluación final del \textit{stack}.
+    \item \textbf{Bloque climático resumido (Martonne)}:
+          \texttt{martonneidx\_id}.
 
-Los metamodelos considerados incluyen \texttt{LinearRegression}, \texttt{Ridge},
-\texttt{GradientBoostingRegressor}, \texttt{RandomForestRegressor}, \texttt{SVR} con kernel lineal y \texttt{MLPRegressor}. Antes de su ajuste, las meta-variables se estandarizaron mediante \texttt{StandardScaler}, integrando este paso en un \texttt{Pipeline} específico del segundo nivel. La evaluación del \textit{stacking} se realizó exclusivamente sobre el conjunto de test independiente, calculando las métricas habituales ($R^2$, RMSE y MAE) para cada combinación de modelos base y metamodelo.
+    \item \textbf{Bloque climático detallado (temperatura y precipitación)}:
+          \texttt{skt\_mean\_primavera}, \texttt{skt\_mean\_verano},
+          \texttt{skt\_std\_primavera}, \texttt{skt\_std\_verano},
+          \texttt{pr\_sum\_invierno}, \texttt{pr\_sum\_otoño},
+          \texttt{pr\_sum\_primavera}, \texttt{pr\_sum\_verano}.
+
+    \item \textbf{Bloque de índices de vegetación}:
+          \texttt{gndvi\_mean\_verano}, \texttt{ndii\_mean\_primavera},
+          \texttt{gndvi\_std\_primavera}, \texttt{evi\_mean\_primavera}.
+\end{itemize}
+
+La comparación de modelos entrenados con combinaciones incrementales de bloques mostró que todos ellos aportan información relevante, siguiendo el orden de contribución aproximado: \textit{variables fijas} $>$ \textit{variables de especie} $>$ \textit{sustrato} $>$ \textit{terreno} $>$ \textit{índices de vegetación} $>$ \textit{Martonne} $>$ \textit{temperatura y precipitación}. Es decir, la mayor parte de la capacidad predictiva se explica por la estructura y composición de la masa forestal, mientras que las condiciones edáficas, topográficas y climáticas actúan como moduladores adicionales de la acumulación de carbono.
+
+\subsubsection{Selección automática}
+
+\textit{Featurewiz} seleccionó \textbf{67 variables}, con preferencia por índices de vegetación derivados de Sentinel-2 (NDII, EVI, GNDVI y NDVI, con estadísticos de media, máximo, mínimo, mediana y desviación estándar, especialmente en primavera y verano) y variables térmicas y de precipitación estacionales (\texttt{t2m\_*}, \texttt{skt\_*}, \texttt{stl\_*}, \texttt{pr\_sum\_*}, \texttt{pr\_max\_*}, \texttt{pr\_min\_*}). El índice de aridez de Martonne y un conjunto representativo de variables estructurales (pies por clase diamétrica), de especie y de terreno completaron la selección.
+
+\textit{mRMR} seleccionó \textbf{50 variables} priorizando alta información mutua con el carbono y baja redundancia interna. El conjunto integra predictores estructurales (especie, radio, clases diamétricas, orientación y pendiente), variables edáficas (rocosidad, tipos de suelo), métricas climáticas estacionales y medias estacionales de NDII, GNDVI y EVI, confirmando que la actividad fotosintética y el estado hídrico actúan como predictores directos del carbono almacenado.
+
+\subsubsection{Resultado de la selección}
+De los tres conjuntos de variables seleccionados se mantuvo la selección manual al demostrar un mejor rendimiento con mayor simplicidad.
+
+\subsection{Configuración del \textit{stacking}}
+
+La agregación mediante \textit{stacking} se implementó con predicciones fuera de pliegue (\textit{out-of-fold}, OOF) generadas sobre el conjunto de entrenamiento con el mismo esquema \texttt{GroupKFold}; cada modelo base se reentrenó sobre la totalidad del conjunto de entrenamiento para producir las predicciones finales sobre test. Las meta-variables se estandarizaron mediante \texttt{StandardScaler} antes de ajustar el meta-modelo.
+
+Con el objetivo de estudiar el compromiso entre diversidad del ensamble, coste computacional y rendimiento, se definieron cinco configuraciones de modelos base (Tabla~\ref{tab:stack_configs}). Los modelos BayesianNN, SVR y MLP se descartaron como candidatos por su menor rendimiento individual.
+
+\begin{table}
+    \centering
+    \caption{Configuraciones de modelos base para \textit{stacking}.}
+    \label{tab:stack_configs}
+    \resizebox{\columnwidth}{!}{
+    \begin{tabular}{cl}
+        \toprule
+        \textbf{Config.} & \textbf{Modelos base} \\
+        \midrule
+        1 & LightGBM, Random Forest \\
+        2 & CatBoost, Random Forest, GBDT \\
+        3 & LightGBM, XGBoost, GBDT \\
+        4 & CatBoost, LightGBM, Random Forest, GBDT \\
+        5 & CatBoost, LightGBM, XGBoost, Random Forest, GBDT, BaggedDT \\
+        \bottomrule
+    \end{tabular}
+    }
+\end{table}
+
+Las configuraciones van desde la más ligera (Config.~1, dos modelos con paradigmas distintos) hasta la más completa (Config.~5, todos los modelos con rendimiento competitivo), permitiendo analizar el efecto de la diversidad estructural y el coste computacional sobre el rendimiento del ensamble. Sobre las predicciones apiladas de cada configuración se entrenaron los meta-modelos recogidos en la Tabla~\ref{tab:meta_modelos}.
+
+\begin{table}
+    \centering
+    \caption{Meta-modelos utilizados en el \textit{stacking} junto con sus parámetros.}
+    \label{tab:meta_modelos}
+    \footnotesize
+    \resizebox{\columnwidth}{!}{
+    \begin{tabular}{m{3.5cm}m{5cm}}
+        \toprule
+        \textbf{Meta-modelo} & \textbf{Parámetros} \\
+        \midrule
+        Gradient Boosting   & Configuración por defecto \\
+        Regresión Lineal    & Sin regularización \\
+        Ridge               & Regularización L2 con validación cruzada ($\alpha \in \{0.01, 0.1, 1, 10, 100\}$) \\
+        Random Forest       & 50 árboles \\
+        SVR                 & Kernel lineal \\
+        MLP                 & Una capa oculta con 50 neuronas, 500 iteraciones máximas \\
+        \bottomrule
+    \end{tabular}
+    }
+\end{table}
+
+Al evaluar todas las combinaciones de configuraciones de modelos base con los diferentes meta-modelos se obtiene un conjunto de ensambles que permiten estudiar de forma sistemática qué subconjuntos de modelos base son más complementarios y qué tipo de meta-modelo aprovecha mejor la información contenida en sus predicciones.
 
 
 \subsection{Datos finales de entrenamiento}
@@ -40,19 +133,20 @@ para el ajuste de los modelos queda compuesto por:
 \begin{itemize}
     \item \textbf{IFN2:} Total de parcelas = \textbf{88.696}
           \begin{itemize}
-              \item Casos con $c4 > c$: \textbf{31.428}
-              \item Casos con $carbono\_bruto4 > carbono\_bruto$: \textbf{32.403}
+              \item Casos con $c4 > c$: \textbf{41.761}
+              \item Casos con $carbono\_bruto4 > carbono\_bruto$: \textbf{43.539}
           \end{itemize}
 
     \item \textbf{IFN3:} Total de parcelas = \textbf{171.157}
           \begin{itemize}
-              \item Casos con $fccarb > 20$: \textbf{158.434}
-              \item Casos con $fccarb > 20$ y $c4 > c$: \textbf{57.401}
-              \item Casos con $fccarb > 20$ y $carbono\_bruto4 > carbono\_bruto$: \textbf{76.617}
+              \item Casos con $fccarb \geq 20$: \textbf{164.364}
+              \item Casos con $fccarb \geq 20$ y $c4 > c$: \textbf{62.029}
+              \item Casos con $fccarb \geq 20$ y $carbono\_bruto4 > carbono\_bruto$: \textbf{89.580}
           \end{itemize}
 \end{itemize}
 
-La Tabla~\ref{tab:resumen_variables} resume las principales estadísticas descriptivas de las variables objetivo utilizadas en el modelado.
+La Tabla~\ref{tab:descriptivos} resume las principales estadísticas descriptivas de las variables objetivo utilizadas en el modelado.
+Se observa que la variable \texttt{carbono\_bruto4} presenta una media de 20.79 y una desviación estándar de 35.09, mientras que la variable \texttt{c4} muestra valores notablemente superiores (media de 38.83 y desviación estándar de 47.27). Podemos encontrar un histograma de la distribución de las variables objetivo en la Figura \ref{fig:histograma_datos_combinado}.
 
 
 \begin{table}[htbp]
@@ -73,8 +167,7 @@ La Tabla~\ref{tab:resumen_variables} resume las principales estadísticas descri
   \end{tabular}}
 \end{table}
 
-Se observa que la variable \texttt{carbono\_bruto4} presenta una media de 20.79 y una desviación estándar de 35.09, mientras que la variable
-\texttt{c4} muestra valores notablemente superiores (media de 38.83 y desviación estándar de 47.27). Podemos encontrar un histograma de la distribución de las variables objetivo en la Figura \ref{fig:histograma_datos_combinado}. 
+
 
 
 \begin{figure}
@@ -96,37 +189,33 @@ Se observa que la variable \texttt{carbono\_bruto4} presenta una media de 20.79 
     \label{fig:histograma_datos_combinado}
 \end{figure}
 
-En la Figura \ref{fig:distribucion_variables_combinado} podemos ver las distribuciones de las variables objetivo separadas por inventarios, y podemos ver que la variable \texttt{c4} es más dispersa y heterogénea que \texttt{carbono\_bruto4}. En general, una mayor variabilidad en la variable objetivo se traduce en un problema de predicción más complejo, ya que el modelo debe capturar relaciones más inestables y sujetas a mayor ruido.
+Por otro lado, en la Figura \ref{fig:distribucion_variables_combinado} podemos ver las distribuciones de las variables objetivo separadas por inventarios. Podemos observar que el histograma de la variable \texttt{carbono\_bruto4} está notablemente más concetrado en valores bajos que aquella correspondiente a \texttt{c4}, para la que se ha estandarizado en una cantidad de carbono por superficie
 
 \begin{figure}
     \centering
     \begin{subfigure}{0.48\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{figuras/06_desarrollo_modelo/distribucion_c4_combinado.pdf}
-        \caption{Distribución de la variable \texttt{c4} en escala logarítmica.}
+        \includegraphics[width=\textwidth]{figuras/06_desarrollo_modelo/ribbon_c4.pdf}
+        \caption{Distribución de la variable \texttt{c4} a lo largo de los valores de la variable \texttt{periodo\_agrupado}.}
         \label{fig:distribucion_c4_sub}
     \end{subfigure}
     \hfill
     \begin{subfigure}{0.48\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{figuras/06_desarrollo_modelo/distribucion_carbono_bruto4_combinado.pdf}
-        \caption{Distribución de la variable \texttt{carbono\_bruto4} en escala logarítmica.}
+        \includegraphics[width=\textwidth]{figuras/06_desarrollo_modelo/ribbon_carbono_bruto4.pdf}
+        \caption{Distribución de la variable \texttt{carbono\_bruto4} a lo largo de los valores de la variable \texttt{periodo\_agrupado}.}
         \label{fig:distribucion_carbono_bruto4_sub}
     \end{subfigure}
-    \caption{Distribución de las variables \texttt{c4} y \texttt{carbono\_bruto4} en el conjunto depurado separadas por inventario.}
+    \caption{Distribución de las variables \texttt{c4} y \texttt{carbono\_bruto4} en el conjunto depurado (tras aplicar los filtros) separadas por inventario.}
     \label{fig:distribucion_variables_combinado}
 \end{figure}
-
-Por tanto, incluso antes de evaluar los modelos, es razonable esperar que una misma familia de algoritmos obtenga valores de $R^2$ más elevados y errores más bajos (RMSE, MAE) al predecir \texttt{carbono\_bruto4}, cuya estructura estadística es menos dispersa, que al predecir \texttt{c4}.
-
-
 
 
 \subsubsection{Efecto del periodo sobre el carbono}
 \label{subsec:resultados_periodo_anova}
 
 La influencia del \textit{periodo} sobre las variables de carbono se evaluó
-mediante ANOVA de un factor. Los análisis realizados \
+mediante ANOVA de un factor. Los análisis realizados
 muestran que el \textit{periodo} ejerce un efecto significativo sobre ambas
 variables. En \texttt{c4} se obtuvo un estadístico
 \(F = 143.49\) \((p < 0.001)\), mientras que en \texttt{carbono\_bruto4}
