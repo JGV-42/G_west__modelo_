@@ -1,0 +1,79 @@
+% !TEX root = ../main_final_en.tex
+\section{Results}
+\label{sec:resultados}
+
+The following presents the results obtained on the test dataset, organised by source inventory (IFN2, IFN3 or IFN2$+$IFN3) and target variable (carbon in tC/ha or total tC). For each combination, the three best base models and the three best stacking ensemble models are shown, ordered by descending $R^2$. The left column indicates the evaluation inventory, i.e., the inventory on which the predictions were made. When a model carries the subscript \textit{global}, it indicates that it was trained with the combined IFN2$+$IFN3 data, even if it was evaluated on a single inventory. Models without a subscript were trained exclusively on the inventory on which they were evaluated.
+
+
+The complete tables with all evaluated models are included in Appendix~\ref{anexo:resultados}.
+
+\begin{table*}[htbp]
+    \centering
+    \caption{Top-3 base and \textit{stacking} models by source inventory and target variable, ordered by descending $R^2$. Models with the subscript \textit{global} were trained with combined IFN2$+$IFN3 data.}
+    \label{tab:top3_modelos}
+    \small
+    \renewcommand{\arraystretch}{1.1}
+    \begin{tabular}{cclcrrr}
+        \toprule
+        \textbf{Evaluation inventory} & \textbf{\#} & \textbf{Model} & \textbf{Type} & $\boldsymbol{R^2}$ & \textbf{RMSE} & \textbf{MAE} \\
+        \midrule
+        \multicolumn{7}{l}{\textit{Target variable: \texttt{c4} (tC/ha)}} \\
+        \midrule
+        \multirow{6}{*}{IFN2}
+            & 1 & LightGBM$_{\text{global}}$             & Base     & 0.719 & 26.806 & 14.689 \\
+            & 2 & LightGBM                               & Base     & 0.712 & 26.435 & 14.755 \\
+            & 3 & CatBoost$_{\text{global}}$             & Base     & 0.708 & 27.359 & 14.832 \\
+        \cmidrule{2-7}
+            & 1 & Stack5 GradientBoosting                & Stacking & 0.724 & 25.889 & 14.531 \\
+            & 2 & Stack1 MLP$_{\text{global}}$           & Stacking & 0.722 & 26.683 & 14.582 \\
+            & 3 & Stack2 MLP$_{\text{global}}$           & Stacking & 0.721 & 26.726 & 14.475 \\
+        \cmidrule{1-7}
+        \multirow{6}{*}{IFN3}
+            & 1 & LightGBM                               & Base     & 0.858 & 17.816 &  9.246 \\
+            & 2 & XGBoost                                & Base     & 0.851 & 18.232 &  9.203 \\
+            & 3 & CatBoost                               & Base     & 0.849 & 18.385 &  9.746 \\
+        \cmidrule{2-7}
+            & 1 & Stack4 GradientBoosting                & Stacking & 0.866 & 17.303 &  9.134 \\
+            & 2 & Stack5 GradientBoosting                & Stacking & 0.865 & 17.369 &  9.037 \\
+            & 3 & Stack2 GradientBoosting                & Stacking & 0.863 & 17.537 &  9.097 \\
+        \cmidrule{1-7}
+        \multirow{6}{*}{IFN2$+$IFN3}
+            & 1 & LightGBM$_{\text{global}}$             & Base     & 0.787 & 22.767 & 11.650 \\
+            & 2 & XGBoost$_{\text{global}}$              & Base     & 0.784 & 22.952 & 11.590 \\
+            & 3 & CatBoost$_{\text{global}}$             & Base     & 0.783 & 22.990 & 11.607 \\
+        \cmidrule{2-7}
+            & 1 & Stack5 MLP$_{\text{global}}$           & Stacking & 0.794 & 22.387 & 11.321 \\
+            & 2 & Stack2 MLP$_{\text{global}}$           & Stacking & 0.794 & 22.405 & 11.403 \\
+            & 3 & Stack4 MLP$_{\text{global}}$           & Stacking & 0.792 & 22.527 & 11.314 \\
+        \midrule
+        \multicolumn{7}{l}{\textit{Target variable: \texttt{carbono\_bruto4} (tC)}} \\
+        \midrule
+        \multirow{6}{*}{IFN2}
+            & 1 & CatBoost$_{\text{global}}$             & Base     & 0.765 & 18.533 & 10.402 \\
+            & 2 & LightGBM$_{\text{global}}$             & Base     & 0.762 & 18.627 & 10.417 \\
+            & 3 & XGBoost$_{\text{global}}$              & Base     & 0.762 & 18.644 & 10.428 \\
+        \cmidrule{2-7}
+            & 1 & Stack5 MLP$_{\text{global}}$           & Stacking & 0.768 & 18.405 & 10.210 \\
+            & 2 & Stack5 LinearReg.$_{\text{global}}$      & Stacking & 0.768 & 18.418 & 10.306 \\
+            & 3 & Stack4 MLP$_{\text{global}}$           & Stacking & 0.767 & 18.433 & 10.229 \\
+        \cmidrule{1-7}
+        \multirow{6}{*}{IFN3}
+            & 1 & LightGBM                               & Base     & 0.898 & 10.641 &  4.687 \\
+            & 2 & CatBoost                               & Base     & 0.896 & 10.737 &  4.789 \\
+            & 3 & XGBoost                                & Base     & 0.895 & 10.761 &  4.713 \\
+        \cmidrule{2-7}
+            & 1 & Stack4 MLP                             & Stacking & 0.902 & 10.407 &  4.517 \\
+            & 2 & Stack5 GradientBoosting                & Stacking & 0.901 & 10.433 &  4.540 \\
+            & 3 & Stack5 MLP                             & Stacking & 0.901 & 10.447 &  4.454 \\
+        \cmidrule{1-7}
+        \multirow{6}{*}{IFN2$+$IFN3}
+            & 1 & CatBoost$_{\text{global}}$             & Base     & 0.845 & 13.846 &  6.615 \\
+            & 2 & LightGBM$_{\text{global}}$             & Base     & 0.841 & 14.006 &  6.654 \\
+            & 3 & XGBoost$_{\text{global}}$              & Base     & 0.840 & 14.054 &  6.655 \\
+        \cmidrule{2-7}
+            & 1 & Stack5 MLP$_{\text{global}}$           & Stacking & 0.847 & 13.756 &  6.399 \\
+            & 2 & Stack4 MLP$_{\text{global}}$           & Stacking & 0.847 & 13.766 &  6.429 \\
+            & 3 & Stack4 Lin.Reg.$_{\text{global}}$      & Stacking & 0.846 & 13.782 &  6.533 \\
+        \bottomrule
+    \end{tabular}
+\end{table*}

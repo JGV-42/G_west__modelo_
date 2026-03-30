@@ -1,0 +1,26 @@
+% !TEX root = ../main_final_en.tex
+\section{State of the Art}
+\label{sec:estado-del-arte}
+
+Carbon sequestration in forest ecosystems has gained growing importance in the scientific literature, driven both by international commitments on climate change and by the rise of carbon credit markets. This has motivated the development of models aimed at quantifying forest biomass and estimating carbon content, taking advantage of recent advances in remote sensors and artificial intelligence techniques.
+
+
+One of the most established strategies for quantifying forest carbon is the estimation of stored carbon at a given moment from remote sensing data. Goetz et al. (2009) \cite{goetz2009remote} review the use of satellite observations, including optical sensors such as MODIS and Landsat, in empirical models of aboveground biomass, highlighting their applicability at regional scale, especially in boreal ecosystems. These types of estimates are usually based on linear regressions or generalised least squares models, with coefficients of determination typically between 0.6 and 0.8, depending on spatial resolution and ecosystem heterogeneity.
+
+The application of deep learning has substantially improved the accuracy and spatial resolution of these estimates. For example, Zhang et al. (2022) \cite{zhang2022carbon} integrate Sentinel-2 imagery with convolutional neural networks, achieving an \(R^2\) of 0.84 for estimating carbon in subtropical forests. Similarly, Jiang et al. (2022) \cite{jiang2022integrating} develop the \textit{ForestCarbonAI} model, trained with multispectral and LiDAR data, generating high-resolution (10~m) forest carbon maps and reporting mean absolute errors (MAE) below 3.5 tC/ha in temperate zones. Other recent works, such as Reiersen et al. (2022) \cite{reiersen2022reforestree} or Dong et al. (2023) \cite{dong2023forest}, also demonstrate the effectiveness of \textit{deep learning} for static estimates, although they focus on tropical contexts and do not consider the temporal component.
+
+
+In contrast to these descriptive approaches, some initiatives have attempted to project the evolution of carbon into the future. At the national level, the Ministry for Ecological Transition (MITECO) has implemented tools such as the \textit{ex ante} carbon absorption calculator \cite{miteco_abexante_2025}, which provides simplified estimates of the carbon that can be fixed in a forest plantation depending on species and agroclimatic zone. However, this instrument is based on tabulated coefficients and does not incorporate real edaphoclimatic variables or data-based modelling techniques, which limits its accuracy and ability to adapt to specific contexts.
+
+At the European level, the work of Fasihi et al. (2024) \cite{fasihi2024assessing} stands out, applying an approach similar to that proposed in this study in the Friuli-Venezia Giulia region (Italy). Their objective is to estimate both the current carbon \textit{stock} and its annual absorption rate (sequestration), based on dendrochronology data from the Italian National Forest Inventory. These measurements, carried out between 2017 and 2019, quantify the radial growth of the last five years to estimate biomass through allometric equations and its conversion to carbon according to IPCC guidelines. They then train predictive models using meteorological, geomorphological variables, vegetation indices and a LiDAR canopy height model (CHM), attempting to predict the values obtained from field data.
+
+The authors evaluate various ensemble models, reporting that combinations of algorithms such as Random Forest, AdaBoost and CatBoost offer the best performance. In predicting carbon \textit{stock}, they achieve an $R^2$ of $0.73 \pm 0.07$ and an RMSE of $31.55 \pm 9.35$ tC/ha. For the sequestration rate, results are more modest, with an $R^2$ of $0.42 \pm 0.08$ and an RMSE of $0.90 \pm 0.08$ tC/ha/year. A key finding of the study is that the inclusion of LiDAR data dramatically improves the accuracy of estimates.
+
+
+
+
+In this scenario, the present work proposes an innovative methodology focused on dynamic long-term carbon prediction. Unlike previous models, which estimate already-stored carbon, this study focuses on anticipating how much carbon a forest plantation will capture over a specific time horizon. To this end, various supervised learning models are studied, trained with historical data from the National Forest Inventory (IFN2, IFN3 and IFN4) \cite{ifn} including edaphic characteristics, climatic variables from Copernicus \cite{copernicus_temps,copernicus_pr} and spectral metrics derived from Landsat images \cite{landsat5_data}. Details on the model architecture, variables used, algorithms implemented and evaluation metrics are developed in the following sections.
+
+
+
+

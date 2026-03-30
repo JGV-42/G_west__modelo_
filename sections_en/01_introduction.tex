@@ -1,0 +1,35 @@
+% !TEX root = ../main_final_en.tex
+\section{Introduction}
+
+Climate change is one of the greatest global challenges and its most direct manifestation is the increase in atmospheric concentrations of carbon dioxide (\(CO_2\)), with impacts on the cryosphere, climate extremes and ecosystems \cite{IPCC2007}. Forests act as natural sinks by fixing \(CO_2\) in biomass via photosynthesis, making their management key for mitigation.
+
+
+Over recent decades, international instruments such as the \textit{United Nations Framework Convention on Climate Change (UNFCCC)} and the \textit{Kyoto Protocol} \cite{UNFCCC1997,UNFCCC2015} have established regulatory frameworks for reducing greenhouse gas emissions through market-based mechanisms. In this context, \emph{carbon credits} arise: units representing the amount of carbon dioxide (\(CO_2\)), usually one tonne, that has been captured or whose emission has been avoided through certified mitigation projects.
+
+
+Among eligible activities, afforestation and reforestation stand out for their capacity to act as natural carbon sinks, fixing \(CO_2\) in biomass and soil. However, for these actions to generate valid carbon credits they must meet a series of technical and legal criteria established in international climate change regulations and in their national application. In particular, these requirements derive from the forest sink accounting rules adopted under the United Nations Framework Convention on Climate Change (UNFCCC) and the Kyoto Protocol, as specified in the Marrakech Accords, as well as from the national forest definition communicated by Spain for these purposes \cite{UNFCCCMarrakech,UNFCCCSpainReview}. These criteria include:
+
+\begin{itemize}
+\item \textbf{Direct human intervention:}
+The trees must result from direct human intervention activities such as planting, seeding or the deliberate promotion of natural regeneration. This requirement derives from the definition of \emph{afforestation} and \emph{reforestation} established in the Kyoto Protocol, which expressly excludes natural regeneration not induced by human action \cite{UNFCCCMarrakech}.
+
+\item \textbf{Minimum permanence period:}
+The project must ensure the permanence of the carbon sink for a prolonged period (usually on the order of 20--30 years), in order to guarantee that the captured carbon is not prematurely released into the atmosphere. This criterion responds to the permanence principle required in the LULUCF forest sink accounting regime and in national and European implementation frameworks, which excludes short-rotation crops whose carbon is released after harvest \cite{UNFCCCMarrakech,EULULUCF2018}.
+
+\item \textbf{Minimum area of 1 hectare:}
+The project area must have a minimum extent of 1 hectare. This threshold comes from Spain's national forest definition adopted within the ranges permitted by the Marrakech Accords (0.05--1 ha), officially communicated to the UNFCCC \cite{UNFCCCSpainReview}.
+
+\item \textbf{Minimum canopy cover fraction of 20\%:}
+For land to be considered forest, the crown cover of tree species must reach at least 20\% of the surface area. This value corresponds to Spain's national choice for the forest definition for climate accounting purposes \cite{UNFCCCSpainReview}.
+
+\item \textbf{Minimum height of mature trees of 3 metres:}
+Tree species must be capable of reaching a minimum height of 3 metres at maturity. It is not necessary for this height to be reached at the start of the project, but it must be attainable under normal growth conditions. This criterion is also part of Spain's national forest definition communicated in accordance with decisions adopted under the UNFCCC \cite{UNFCCCSpainReview}.
+\end{itemize}
+
+This work aims to obtain an artificial intelligence model to estimate the amount of carbon that a forest plantation in Spain will capture from vegetation, climate and terrain variables over a period of 20 to 30 years. This innovative approach has the potential to transform the management of afforestation and reforestation projects, optimising planting practices and maximising the amount of carbon that can be captured in these ecosystems.
+
+The operational question is: \emph{given the initial characteristics of a plantation, how much \(CO_2\) will it contain after \(t\) years?, where \(t\) is a natural number.} To answer it, data from the \textbf{National Forest Inventory} (IFN2--IFN4, MITECO) \cite{ifn}, \textbf{ERA5-Land} reanalysis \cite{era5land} and \textbf{Landsat spectral indices} (Collection~2, L2) \cite{landsatc2} are integrated into a hierarchical relational database described in a companion work \cite{greenwestdb}.
+
+This model will not only improve understanding of the behaviour of carbon sinks, but will also provide useful tools for strategic decision-making in both business and environmental spheres. In this way, the \textit{GreenWest} project contributes to the transition towards a low-carbon economy, aligning with the global sustainability objectives established within the framework of the UNFCCC and the \textit{Kyoto Protocol}, and promoting the creation of a more efficient and accessible carbon credit market for the economic actors involved in the management of natural resources.
+
+

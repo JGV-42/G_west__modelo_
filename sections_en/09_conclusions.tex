@@ -1,0 +1,43 @@
+% !TEX root = ../main_final_en.tex
+\section{Conclusions}
+\label{sec:conclusiones}
+
+The main objective of this work is the development of artificial intelligence models capable of predicting the carbon that a forest plot will capture over a given time horizon, based on structural, edaphic, climatic and spectral information collected in the National Forest Inventories and auxiliary data sources. The results obtained allow us to affirm that this objective has been satisfactorily achieved.
+
+\subsection*{Feature selection and preprocessing}
+
+The manual feature selection process (Section~\ref{sec:seleccion_variables}) allowed reducing an initial set of 445 candidate predictors to a compact subset of 44 variables, maintaining a balanced representation of all relevant ecological domains: stand structure, species composition, edaphic properties, terrain, climatology and spectral vegetation indices. This reduction not only facilitated the training of more efficient models, but also guaranteed the ecological interpretability of the selected predictors.
+
+\subsection*{Model performance}
+
+Models trained with IFN3 data as explanatory variables generally achieve the best metrics (see Table \ref{tab:top3_modelos}). This is explained by the higher quality, methodological homogeneity and richness of variables collected in this inventory compared to the IFN2.
+
+Regarding the target variable, the prediction of carbon in absolute tonnes (\texttt{carbono\_bruto4}) is systematically more accurate in terms of global metrics than the prediction of carbon per unit area (\texttt{c4}, tC/ha), as can be seen by comparing Table \ref{tab:top3_modelos}. However, the decile analysis (Figures~\ref{fig:SMAPE_RMSE_deciles_c4_carbono_bruto4} and~\ref{fig:distribucion_carbono_bruto4_combinado}) reveals that for instances with very low carbon values (early biomass), relative errors (SMAPE) are high for both variables regardless of the model used. Models offer their best results in the intermediate-to-high biomass range, where the balance between data quantity, intrinsic variability and the magnitude of the target variable is most favourable.
+
+The analysis of the \texttt{periodo} variable (Figures~\ref{fig:LightGBM_rmse_y_pct_rmse_cuantiles}, \ref{fig:Stack5_MLP_rmse_y_pct_rmse_cuantiles}, \ref{fig:CatBoost_combined} and~\ref{fig:Stack5_MLP_combined_rmse_y_pct_rmse_cuantiles}) shows that error grows with the prediction time horizon, especially when training data come from the IFN2 (periods exceeding 17 years). Nevertheless, median errors (quantile 50) remain relatively stable across all periods, indicating that the models correctly assimilate the average behaviour of forest growth even for long horizons. Extreme errors (quantile 90) are the most sensitive to data quality and temporal distance.
+
+The sensitivity analysis on representative scenarios (Figures~\ref{fig:sensibilidad_escenarios} and~\ref{fig:sensibilidad_escenarios_carbono_bruto4}) confirms that the models qualitatively correctly capture the growth dynamics: the general trend is upward with the period, and the models reproduce the effects of the inventory changes (from IFN2 to IFN3) observed in the real data.
+
+\subsection*{Global versus local models}
+
+The comparison between ``global'' models (trained on IFN2 and IFN3 jointly) and ``local'' models (trained on a single inventory), shown in Figures~\ref{fig:comparativa_mejores}--\ref{fig:disc_sub4} and in Table~\ref{tab:top3_modelos}, reveals differentiated behaviour depending on the validation inventory. For IFN3, local models outperform global ones, since the inclusion of IFN2 data introduces heterogeneity that penalises prediction on higher-quality data. For IFN2, in contrast, global models are superior, as they benefit from the additional patterns learned with the IFN3 data. This result underscores that the choice of training set must be adapted to the time horizon and the target inventory.
+
+\subsection*{\textit{Stacking} models}
+
+The incorporation of stacking schemes produces systematic but modest improvements over the best base models (see Table~\ref{tab:top3_modelos}). The stacking ensemble with configuration 5 and MLP meta-model is consistently the one that achieves the best metrics for both \texttt{c4} and \texttt{carbono\_bruto4}. The fact that the improvement is systematic in all cases rules out it being a statistical artefact, but its limited magnitude raises the question of whether the additional complexity of stacking is justified compared to using the best individual model in a hypothetical production system. Gradient boosting-based algorithms, especially CatBoost and LightGBM, offer the best performance as base models in all evaluated scenarios.
+
+\subsection*{Interpretability}
+
+The SHAP value analysis (Section~\ref{sec:interpretabilidad_shap}, Table~\ref{tab:shap_rank_abs}) confirms that structural stand variables ---tree density (\texttt{npies}), species (\texttt{especie_id}), canopy cover fraction (\texttt{ocupa}) and plot radius (\texttt{radio})--- are the dominant predictors regardless of the source inventory or target variable considered. Among the auxiliary variables, the summer GNDVI index (\texttt{gndvi_mean_verano}) emerges as the most informative spectral predictor, consistent with its capacity to estimate photosynthetic activity without saturation in dense canopies. The direction of SHAP values is in all cases consistent with available ecological knowledge: higher tree density, greater photosynthetic activity and longer time horizons lead to higher predicted carbon; broadleaves systematically outperform conifers, in line with the mean \textit{stocks} reported in the literature for mainland Spain \citep{vayreda2012carbon}. This indicates that the models are not only numerically accurate, but have learned relationships with genuine ecological meaning, which reinforces their interpretability and confidence for a possible practical application.
+
+\subsection*{Comparison with the literature}
+
+In similar works, such as that of \citet{fasihi2024assessing} for northern Italy, forest carbon values are predicted from remote sensing observations without the use of field-measured in situ data. Although the context is different ---they predict the carbon present at the time of measurement, without temporal projection--- the errors they report are notably higher than those obtained in this work, especially in the shortest prediction range (around 5 years), which is the most comparable. This highlights the added value of incorporating structural field information (IFN) compared to approaches based exclusively on remote sensing.
+
+\subsection*{Limitations}
+
+The main limitation of the study lies in the heterogeneity and irregularity of the available data. The distribution of instances as a function of the \texttt{periodo} variable is very unequal: some years have thousands of samples while others have barely a few dozen. This irregularity, inherent to the nature of the Forest Inventories (conducted over different time periods and with methodologies that evolve between iterations), limits the model's capacity for certain time horizons, particularly in the range of years with fewer data and where the main source is the IFN2. Despite this, the models demonstrate reasonable generalisation capacity even under these conditions.
+
+\subsection*{Future work and applicability}
+
+For a possible production application as a decision-support system for carbon project recommendations, it would be necessary to evaluate the extent to which IFN plots are representative of forest plantations intended for carbon credits, which may differ in density, management and composition. A natural extension of the model would be to incorporate LiDAR data, whose capacity to characterise the three-dimensional structure of the forest canopy has been shown in other studies to significantly improve biomass and carbon predictions \citep{nyakudanga_treemes}. Likewise, adapting the model to other geographical contexts or integrating it with IFN4 data as the target variable constitute promising lines of future work.

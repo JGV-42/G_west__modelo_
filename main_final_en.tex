@@ -1,0 +1,119 @@
+\documentclass[a4paper,fleqn]{cas-dc}
+\usepackage[numbers]{natbib}
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amsfonts,amssymb,amsthm}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{longtable}
+\usepackage{multirow}
+\usepackage{float}
+\usepackage{subcaption}
+\usepackage[table,xcdraw,dvipsnames]{xcolor}
+\usepackage{enumitem}
+\setlist{noitemsep,topsep=3pt}
+
+\usepackage{listings}
+\lstset{basicstyle=\ttfamily\small, breaklines=true, frame=single, backgroundcolor=\color{gray!10}}
+\usepackage{underscore}
+\usepackage{siunitx}
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric,arrows}
+\usepackage{pdflscape}
+\usepackage{etoolbox}
+\usepackage{makecell}
+
+\numberwithin{equation}{section}
+\numberwithin{figure}{section}
+\numberwithin{table}{section}
+
+\newcommand{\code}[1]{\texttt{#1}}
+
+% Redefine paragraph so it is not run-in (add line break after title)
+\makeatletter
+\renewcommand\paragraph{\@startsection{paragraph}{4}{\z@}%
+  {3.25ex \@plus1ex \@minus.2ex}%
+  {0.5em}%
+  {\normalfont\normalsize\bfseries}}
+\newcommand{\subsubsubsection}[1]{\paragraph{#1}}
+\makeatother
+
+\let\WriteBookmarks\relax
+
+% Float placement parameters
+\renewcommand{\floatpagefraction}{0.85}   % min fraction of float page
+\renewcommand{\textfraction}{0.05}        % min fraction of text in mixed page
+\renewcommand{\topfraction}{0.92}         % max fraction for floats at top
+\renewcommand{\bottomfraction}{0.5}       % max fraction for floats at bottom
+\renewcommand{\dbltopfraction}{0.92}      % same, for two-column floats
+\renewcommand{\dblfloatpagefraction}{0.85}
+\setcounter{topnumber}{4}
+\setcounter{bottomnumber}{2}
+\setcounter{totalnumber}{6}
+\setcounter{dbltopnumber}{4}
+
+\begin{document}
+
+\shorttitle{Forest carbon stock estimation in Spain}
+\shortauthors{Gabriel-Vegas et al.}
+
+\title [mode = title]{Data-driven estimation of forest carbon stocks in Spain: a machine learning approach using National Forest Inventory data}
+
+\author[1]{Jaime Gabriel-Vegas}[type=editor]
+\cormark[1]
+\ead{JaimeGabrielVegas@usal.es}
+
+\author[1]{Maider Araceli Urbón Jiménez}
+\ead{murbon001@usal.es}
+
+\author[1]{Ana de Luis Reboredo}
+\ead{adeluis@usal.es}
+
+\author[1]{Belén Pérez Lancho}
+\ead{lancho@usal.es}
+
+\author[1]{Ana-Belén Gil-González}
+\ead{abg@usal.es}
+
+\affiliation[1]{organization={Group B1, BISITE Research Team, University of Salamanca},
+    addressline={Faculty of Sciences},
+    city={Salamanca},
+    country={Spain}}
+
+\cortext[cor1]{Corresponding author}
+
+\begin{abstract}
+Forests are natural sinks of \(CO_2\) and their management is acquiring a central role in emission compensation regulatory frameworks and in voluntary carbon credit markets. However, the reliable estimation of the carbon that a forest plot will accumulate over a given time horizon remains a methodological challenge, especially when temporal projection from initial conditions is required. This work presents \textit{GreenWest}, a machine learning system to predict future forest carbon in Spain from stand structure, soil, climate and remote sensing data. Data come from the National Forest Inventory (IFN2 and IFN3), ERA5-Land climatic reanalysis, Landsat spectral indices and edaphic and topographic variables, integrated in a multi-source relational database. Through manual feature selection, an initial set of 445 predictors was reduced to 44 ecologically relevant variables, modelling two target variables: carbon density (\texttt{c4}, tC\,ha$^{-1}$) and total plot carbon (\texttt{carbono\_bruto4}, tC). \textit{Gradient boosting} models (LightGBM, XGBoost, CatBoost) and neural networks were trained and compared as base models, as well as stacking ensembles with different meta-model configurations. The best results are obtained with LightGBM and CatBoost ($R^2$ between 0.72 for IFN2/\texttt{c4} and 0.90 for IFN3/\texttt{carbono\_bruto4}), with systematic but modest improvements when incorporating stacking. Models trained on the combined IFN2$+$IFN3 set outperform local models on IFN2, while for IFN3 the opposite occurs. SHAP analysis reveals that tree density, species and canopy cover fraction are the dominant predictors, with the summer GNDVI index as the main spectral predictor; SHAP values are consistent with ecological knowledge, validating the model's capacity to learn relationships with genuine meaning.
+\end{abstract}
+
+\begin{keywords}
+carbon credits \sep artificial intelligence \sep afforestation \sep reforestation \sep predictive modelling \sep climate change
+\end{keywords}
+
+\maketitle
+
+
+\input{sections_en/01_introduction}
+\input{sections_en/02_objectives}
+\input{sections_en/03_literature_review}
+\input{sections_en/04_state_of_the_art}
+\input{sections_en/05_methodology}
+\input{sections_en/06_pipeline_implementation}
+\input{sections_en/07_results}
+\clearpage
+\input{sections_en/08_discussion}
+\input{sections_en/09_conclusions}
+\input{sections_en/11_acknowledgements}
+
+\clearpage
+\bibliographystyle{model1-num-names}
+\bibliography{referencias}
+
+\appendix
+\onecolumn
+\input{sections_en/12_annex_results_global}
+
+\end{document}
